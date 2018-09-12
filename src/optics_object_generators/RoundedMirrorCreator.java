@@ -1,0 +1,24 @@
+package optics_object_generators;
+
+import optics_objects.OpticsObject;
+import optics_objects.RoundedMirror;
+import util.Vector2d;
+
+public class RoundedMirrorCreator extends ObjectCreator {
+	
+	public RoundedMirrorCreator() {
+		String[] names = new String[] { "Diameter", "Depth"};
+		double[] values = new double[] { 200, 30 };
+		Vector2d[] bounds = new Vector2d[values.length];
+		bounds[0] = new Vector2d(103, 800);
+		bounds[1] = new Vector2d(11, 500);
+		
+		super.setSliders(names, bounds, values);
+	}
+
+	@Override
+	public OpticsObject getOpticsObject(Vector2d origin) {
+		return new RoundedMirror(origin, super.getSliderValue(0),
+				super.getSliderValue(1));
+	}
+}
