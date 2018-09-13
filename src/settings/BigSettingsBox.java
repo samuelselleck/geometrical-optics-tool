@@ -11,9 +11,12 @@ public class BigSettingsBox extends HBox {
 	TabPane typeTab;
 
 	public BigSettingsBox(OpticsHandler opticsHandler) {
+		
 		HBox.setHgrow(this, Priority.ALWAYS);
+		
 		typeTab = new TabPane();
 		typeTab.setPrefWidth(Main.WIDTH / 5);
+		
 		SettingsTab[] tabs = new SettingsTab[4];
 		tabs[0] = new LensSettingsTab();
 		tabs[1] = new LightSettingsTab();

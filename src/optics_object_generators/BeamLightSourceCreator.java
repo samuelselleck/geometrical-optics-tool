@@ -11,7 +11,7 @@ public class BeamLightSourceCreator extends ObjectCreator {
 		double[] values = new double[] { 80, 20};
 		Vector2d[] bounds = new Vector2d[values.length];
 		bounds[0] = new Vector2d(23, 400);
-		bounds[1] = new Vector2d(11, 300);
+		bounds[1] = new Vector2d(1, 300);
 		super.setSliders(names, bounds, values);
 	}
 

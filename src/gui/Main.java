@@ -3,12 +3,8 @@ package gui;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
@@ -28,6 +24,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		BorderPane root = new BorderPane();
+		
+		//Set window size and resolution to full screen size.
 		Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 		stage.setX(primaryScreenBounds.getMinX());
 		stage.setY(primaryScreenBounds.getMinY());
@@ -36,19 +34,19 @@ public class Main extends Application {
 		WIDTH = stage.getWidth();
 		HEIGHT = stage.getHeight();
 
+		root.setStyle("-fx-base: black; -fx-fill: white;" +
+				" -fx-focus-color: white; -fx-faint-focus-color: white;");
+		
 		Canvas canvas = new Canvas(WIDTH * 4 / 5, HEIGHT * 60 / 61);
-		canvas.getGraphicsContext2D().setGlobalBlendMode(BlendMode.ADD);
+		root.setLeft(canvas);
+		
 		OpticsHandler opticsHandler = new OpticsHandler(canvas);
 
 		HBox settingsBox = new BigSettingsBox(opticsHandler);
-		root.setRight(new Group(settingsBox));
+		root.setRight(settingsBox);
+		
 		HBox toolBox = new OpticsToolBox(opticsHandler);
 		root.setBottom(toolBox);
-
-		root.setLeft(canvas);
-		
-		root.setStyle("-fx-base: black; -fx-fill: white;" +
-		" -fx-focus-color: white; -fx-faint-focus-color: white;");
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		stage.setTitle("Geometrical Optics Tool");
@@ -56,12 +54,6 @@ public class Main extends Application {
 		stage.setResizable(false);
 		stage.setFullScreen(true);
 		stage.show();
-
-		stage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-			if (KeyCode.ESCAPE == event.getCode()) {
-				stage.close();
-			}
-		});
 	}
 
 }
