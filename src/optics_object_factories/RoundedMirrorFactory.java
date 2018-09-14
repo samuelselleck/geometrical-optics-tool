@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.OpticsObject;
 import optics_objects.RoundedMirror;
 import util.Vector2d;
 
-public class RoundedMirrorCreator extends ObjectCreator {
+public class RoundedMirrorFactory extends OpticsObjectFactory {
 	
-	public RoundedMirrorCreator() {
+	public RoundedMirrorFactory() {
 		String[] names = new String[] { "Diameter", "Depth"};
 		double[] values = new double[] { 200, 30 };
 		Vector2d[] bounds = new Vector2d[values.length];

@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
 import util.Vector2d;
 
-public abstract class Material implements OpticsObject {
+public abstract class Material extends OpticsObject {
 	private Vector2d botRig, topLef;
 	protected ArrayList<Vector2d> points;
-	protected Vector2d origin;
 
 	public Material() {
 		points = new ArrayList<>();
@@ -45,14 +44,6 @@ public abstract class Material implements OpticsObject {
 	
 	public Vector2d getSegment(int index) {
 		return points.get((index + 1) % points.size()).copy().sub(points.get(index));
-	}
-
-	public Vector2d getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(Vector2d vec) {
-		this.origin.setTo(vec);
 	}
 	
 	public void rotate(double angle) {

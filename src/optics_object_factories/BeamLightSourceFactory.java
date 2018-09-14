@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.BeamLightSource;
 import optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class BeamLightSourceCreator extends ObjectCreator {
+public class BeamLightSourceFactory extends OpticsObjectFactory {
 
-	public BeamLightSourceCreator() {
+	public BeamLightSourceFactory() {
 		String[] names = new String[] { "Diameter", "Lightrays"};
 		double[] values = new double[] { 80, 20};
 		Vector2d[] bounds = new Vector2d[values.length];

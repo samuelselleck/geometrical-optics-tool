@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import optics_object_generators.ObjectCreator;
+import optics_object_factories.OpticsObjectFactory;
 
 public abstract class SettingsTab extends Tab {
 	private TabPane tabPane;
-	private ArrayList<ObjectCreator> creators;
+	private ArrayList<OpticsObjectFactory> creators;
 
 	public SettingsTab() {
 		tabPane = new TabPane();
@@ -17,14 +17,14 @@ public abstract class SettingsTab extends Tab {
 		this.setContent(tabPane);
 	}
 
-	protected void addTab(String name, ObjectCreator creator) {
+	protected void addTab(String name, OpticsObjectFactory creator) {
 		Tab newTab = new Tab(name);
 		newTab.setContent(creator);
 		creators.add(creator);
 		tabPane.getTabs().add(newTab);
 	}
 
-	public ObjectCreator getCurrentOpticsObjectCreator() {
+	public OpticsObjectFactory getCurrentOpticsObjectCreator() {
 		int index = tabPane.getSelectionModel().getSelectedIndex();
 		if (index >= 0) {
 			return creators.get(index);

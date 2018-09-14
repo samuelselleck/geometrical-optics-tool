@@ -1,13 +1,13 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.Lens;
 import optics_objects.OpticsObject;
 import optics_objects.Prism;
 import util.Vector2d;
 
-public class CrystallBallCreator extends ObjectCreator {
+public class CrystallBallFactory extends OpticsObjectFactory {
 	
-	public CrystallBallCreator() {
+	public CrystallBallFactory() {
 		String[] names = new String[] {"Radius", "Refractionindex" };
 		double[] values = new double[] { 80, 1.5 };
 		Vector2d[] bounds = new Vector2d[values.length];

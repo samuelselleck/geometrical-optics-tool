@@ -3,11 +3,19 @@ package optics_objects;
 import javafx.scene.canvas.GraphicsContext;
 import util.Vector2d;
 
-public interface OpticsObject {
-	void draw(GraphicsContext gc);
+abstract class OpticsObject {
+	Vector2d origin;
+	
+	public abstract void draw(GraphicsContext gc);
 
-	Vector2d getOrigin();
+	public Vector2d getOrigin() {
+		return origin;
+	}
 
-	void setOrigin(Vector2d vec);
-	void rotate(double angle);
+	public void setOrigin(Vector2d vec) {
+		this.origin.setTo(vec);
+	}
+	
+	public abstract void rotate(double angle);
+	//TODO LightRay getResultingRay(LightRay ray);
 }

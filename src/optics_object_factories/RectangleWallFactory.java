@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.OpticsObject;
 import optics_objects.RectangleWall;
 import util.Vector2d;
 
-public class RectangleWallCreator extends ObjectCreator {
+public class RectangleWallFactory extends OpticsObjectFactory {
 	
-	public RectangleWallCreator() {
+	public RectangleWallFactory() {
 		String[] names = new String[] { "Width", "Height" };
 		double[] values = new double[] { 30, 200};
 		Vector2d[] bounds = new Vector2d[values.length];

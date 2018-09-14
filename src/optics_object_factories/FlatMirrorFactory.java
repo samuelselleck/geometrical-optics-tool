@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.FlatMirror;
 import optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class FlatMirrorCreator extends ObjectCreator {
+public class FlatMirrorFactory extends OpticsObjectFactory {
 
-	public FlatMirrorCreator() {
+	public FlatMirrorFactory() {
 		String[] names = new String[] { "Diameter" };
 		double[] values = new double[] { 200 };
 		Vector2d[] bounds = new Vector2d[values.length];

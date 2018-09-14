@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.OpticsObject;
 import optics_objects.Prism;
 import util.Vector2d;
 
-public class PrismCreator extends ObjectCreator {
+public class PrismFactory extends OpticsObjectFactory {
 
-	public PrismCreator() {
+	public PrismFactory() {
 		double[] values = new double[] { 3, 80, 1.5 };
 		Vector2d[] bounds = new Vector2d[values.length];
 		String[] names = new String[] { "Edges", "Radius", "Refractionindex" };

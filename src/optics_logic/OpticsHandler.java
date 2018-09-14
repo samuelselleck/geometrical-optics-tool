@@ -9,16 +9,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.paint.Paint;
-import optics_object_generators.ObjectCreator;
+import optics_object_factories.OpticsObjectFactory;
 import optics_objects.Material;
 import optics_objects.LightSource;
-import optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class OpticsHandler {
 	public static final int EDGE_LEASE = 10;
 	
-	ObjectCreator opticsObjectCreator;
+	OpticsObjectFactory opticsObjectCreator;
 	Canvas canvas;
 	ArrayList<Material> materials;
 	ArrayList<LightSource> lights;
@@ -125,7 +124,7 @@ public class OpticsHandler {
 		});
 	}
 
-	public void setOpticsObjectCreator(ObjectCreator objCreator) {
+	public void setOpticsObjectCreator(OpticsObjectFactory objCreator) {
 		this.opticsObjectCreator = objCreator;
 	}
 

@@ -1,22 +1,22 @@
 package settings;
 
-import optics_object_generators.BeamLightSourceCreator;
-import optics_object_generators.ConeLightSourceCreator;
-import optics_object_generators.ObjectCreator;
-import optics_object_generators.PointLightSourceCreator;
+import optics_object_factories.BeamLightSourceFactory;
+import optics_object_factories.ConeLightSourceFactory;
+import optics_object_factories.OpticsObjectFactory;
+import optics_object_factories.PointLightSourceFactory;
 
 public class LightSettingsTab extends SettingsTab {
 
 	public LightSettingsTab() {
 		super();
 		this.setText("Lights");
-		ObjectCreator pointLightSource = new PointLightSourceCreator();
+		OpticsObjectFactory pointLightSource = new PointLightSourceFactory();
 		super.addTab("Point", pointLightSource);
 		
-		ObjectCreator coneLightSource = new ConeLightSourceCreator();
+		OpticsObjectFactory coneLightSource = new ConeLightSourceFactory();
 		super.addTab("Cone", coneLightSource);
 		 
-		ObjectCreator beamLightSource = new BeamLightSourceCreator();
+		OpticsObjectFactory beamLightSource = new BeamLightSourceFactory();
 		super.addTab("Beam", beamLightSource);
 	}
 }

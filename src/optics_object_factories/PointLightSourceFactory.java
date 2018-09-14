@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.OpticsObject;
 import optics_objects.PointLightSource;
 import util.Vector2d;
 
-public class PointLightSourceCreator extends ObjectCreator {
+public class PointLightSourceFactory extends OpticsObjectFactory {
 
-	public PointLightSourceCreator() {
+	public PointLightSourceFactory() {
 		String[] names = new String[] { "LightRays"};
 		double[] values = new double[] { 30};
 		Vector2d[] bounds = new Vector2d[values.length];

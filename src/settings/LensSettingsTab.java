@@ -1,23 +1,23 @@
 package settings;
 
-import optics_object_generators.ConcaveLensCreator;
-import optics_object_generators.ConvexLensCreator;
-import optics_object_generators.CrystallBallCreator;
-import optics_object_generators.ObjectCreator;
-import optics_object_generators.PrismCreator;
+import optics_object_factories.ConcaveLensFactory;
+import optics_object_factories.ConvexLensFactory;
+import optics_object_factories.CrystallBallFactory;
+import optics_object_factories.OpticsObjectFactory;
+import optics_object_factories.PrismFactory;
 
 public class LensSettingsTab extends SettingsTab {
 
 	public LensSettingsTab() {
 		this.setText("Lenses");
 		
-		ObjectCreator prism = new PrismCreator();
+		OpticsObjectFactory prism = new PrismFactory();
 		super.addTab("Prism", prism);
-		ObjectCreator lensVex = new ConvexLensCreator();
+		OpticsObjectFactory lensVex = new ConvexLensFactory();
 		super.addTab("Convex", lensVex);
-		ObjectCreator lensAve = new ConcaveLensCreator();
+		OpticsObjectFactory lensAve = new ConcaveLensFactory();
 		super.addTab("Concave", lensAve);
-		ObjectCreator ball = new CrystallBallCreator();
+		OpticsObjectFactory ball = new CrystallBallFactory();
 		super.addTab("Ball", ball);
 	}
 }

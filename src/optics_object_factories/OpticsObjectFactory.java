@@ -1,4 +1,4 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Slider;
@@ -9,10 +9,10 @@ import javafx.scene.text.Text;
 import optics_objects.OpticsObject;
 import util.Vector2d;
 
-public abstract class ObjectCreator extends VBox {
+public abstract class OpticsObjectFactory extends VBox {
 	private Slider[] sliders;
 
-	public ObjectCreator() {
+	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
 	}
 

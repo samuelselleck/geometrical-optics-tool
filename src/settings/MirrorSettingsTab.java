@@ -1,8 +1,8 @@
 package settings;
 
-import optics_object_generators.FlatMirrorCreator;
-import optics_object_generators.ObjectCreator;
-import optics_object_generators.RoundedMirrorCreator;
+import optics_object_factories.FlatMirrorFactory;
+import optics_object_factories.OpticsObjectFactory;
+import optics_object_factories.RoundedMirrorFactory;
 
 public class MirrorSettingsTab extends SettingsTab {
 
@@ -10,9 +10,9 @@ public class MirrorSettingsTab extends SettingsTab {
 		super();
 		this.setText("Mirrors");
 		
-		ObjectCreator flat = new FlatMirrorCreator();
+		OpticsObjectFactory flat = new FlatMirrorFactory();
 		super.addTab("Flat", flat);
-		ObjectCreator rounded = new RoundedMirrorCreator();
+		OpticsObjectFactory rounded = new RoundedMirrorFactory();
 		super.addTab("Rounded", rounded);
 	}
 }

@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.ConcaveLens;
 import optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class ConcaveLensCreator extends ObjectCreator {
+public class ConcaveLensFactory extends OpticsObjectFactory {
 
-	public ConcaveLensCreator() {
+	public ConcaveLensFactory() {
 		String[] names = new String[] { "Diameter", "Width", "Radius 1", "Radius 2", "Refractionindex" };
 		double[] values = new double[] { 180, 10, 300, 300, 1.5};
 		Vector2d[] bounds = new Vector2d[values.length];

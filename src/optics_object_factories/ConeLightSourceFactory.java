@@ -1,12 +1,12 @@
-package optics_object_generators;
+package optics_object_factories;
 
 import optics_objects.ConeLightSource;
 import optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class ConeLightSourceCreator extends ObjectCreator{
+public class ConeLightSourceFactory extends OpticsObjectFactory{
 
-	public ConeLightSourceCreator() {
+	public ConeLightSourceFactory() {
 		String names[] = new String[]{ "Cone Angle", "LightRays"};
 		double values[] = new double[] {30, 20};
 		Vector2d[] bounds = new Vector2d[values.length];

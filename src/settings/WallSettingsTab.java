@@ -1,7 +1,7 @@
 package settings;
 
-import optics_object_generators.ObjectCreator;
-import optics_object_generators.RectangleWallCreator;
+import optics_object_factories.OpticsObjectFactory;
+import optics_object_factories.RectangleWallFactory;
 
 public class WallSettingsTab extends SettingsTab {
 
@@ -9,7 +9,7 @@ public class WallSettingsTab extends SettingsTab {
 		super();
 		this.setText("Walls");
 		
-		ObjectCreator rect = new RectangleWallCreator();
+		OpticsObjectFactory rect = new RectangleWallFactory();
 		super.addTab("Rectangle", rect);
 	}
 }
