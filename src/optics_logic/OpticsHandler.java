@@ -11,6 +11,7 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.paint.Paint;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.Material;
+import optics_objects.OpticsObject;
 import optics_objects.LightSource;
 import util.Vector2d;
 
@@ -71,26 +72,8 @@ public class OpticsHandler {
 					deltaPos = l.getOrigin().copy().sub(pos);
 				}
 			}
-			for (Material l : materials) {
-				
-				Vector2d botRight = l.getBottomRightBound();
-				Vector2d topLeft = l.getTopLeftBound();
-				double diffX = botRight.x - topLeft.x;
-				double diffY = botRight.y - topLeft.y;
-				if( diffX < Main.HEIGHT/10) {
-					botRight.x += -diffX/2 + Main.HEIGHT/20;
-					topLeft.x -= -diffX/2 + Main.HEIGHT/20;
-				}
-				if( diffY < Main.HEIGHT/10) {
-					botRight.y += -diffY/2 + Main.HEIGHT/20;
-					topLeft.y -= -diffY/2 + Main.HEIGHT/20;
-				}
-				boolean left = topLeft.x >= pos.x;
-				boolean right = pos.x >= botRight.x;
-				boolean top = topLeft.y >= pos.y;
-				boolean bot = pos.y >= botRight.y;
-				
-				if(!(left || top || right || bot)) {
+			for (Material l : materials) {		
+				if(l.withinTouchHitBox(pos)) {
 					double dist = l.getOrigin().dist(pos);
 					if (closest > dist) {
 						closest = dist;

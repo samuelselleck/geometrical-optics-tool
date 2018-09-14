@@ -3,7 +3,7 @@ package optics_objects;
 import javafx.scene.canvas.GraphicsContext;
 import util.Vector2d;
 
-abstract class OpticsObject {
+public abstract class OpticsObject {
 	Vector2d origin;
 	
 	public abstract void draw(GraphicsContext gc);

@@ -2,7 +2,7 @@ package optics_objects;
 
 import java.util.ArrayList;
 
-import javafx.scene.canvas.GraphicsContext;
+import gui.Main;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -34,31 +34,50 @@ public abstract class Material extends OpticsObject {
 
 	public abstract double getAngle(double angleIn, double wavelength, boolean dir);
 
-	public void draw(GraphicsContext gc) {
-		
-	}
-
-	public Vector2d getPoint(int index) {
-		return origin.copy().add(points.get(index % points.size()));
-	}
-	
-	public Vector2d getSegment(int index) {
-		return points.get((index + 1) % points.size()).copy().sub(points.get(index));
-	}
-	
 	public void rotate(double angle) {
 		for(Vector2d p : points) {
 			p.rotate(angle);
 		}
 		this.createBounds();
 	}
-
+	
 	public Vector2d getBottomRightBound() {
 		return origin.copy().add(botRig);
 	}
 
 	public Vector2d getTopLeftBound() {
 		return origin.copy().add(topLef);
+	}
+	
+	public boolean withinTouchHitBox(Vector2d pos) {
+		
+		Vector2d botRight = getBottomRightBound();
+		Vector2d topLeft = getTopLeftBound();
+		double diffX = botRight.x - topLeft.x;
+		double diffY = botRight.y - topLeft.y;
+		
+		//To make sure that mirrors really thin objects can be grabbed:
+		if( diffX < Main.HEIGHT/10) {
+			botRight.x += -diffX/2 + Main.HEIGHT/20;
+			topLeft.x -= -diffX/2 + Main.HEIGHT/20;
+		}
+		if( diffY < Main.HEIGHT/10) {
+			botRight.y += -diffY/2 + Main.HEIGHT/20;
+			topLeft.y -= -diffY/2 + Main.HEIGHT/20;
+		}
+		boolean left = topLeft.x >= pos.x;
+		boolean right = pos.x >= botRight.x;
+		boolean top = topLeft.y >= pos.y;
+		boolean bot = pos.y >= botRight.y;
+		return !(left || top || right || bot);
+	}
+	
+	public Vector2d getPoint(int index) {
+		return origin.copy().add(points.get(index % points.size()));
+	}
+	
+	public Vector2d getSegment(int index) {
+		return points.get((index + 1) % points.size()).copy().sub(points.get(index));
 	}
 
 	public int getPointCount() {
