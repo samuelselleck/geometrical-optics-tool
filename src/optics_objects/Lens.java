@@ -7,7 +7,7 @@ import util.Vector2d;
 public abstract class Lens extends Material {
 	public static final int LENSRESOLUTION = 500;
 	protected double refractionindex;
-
+	
 	public double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
@@ -31,11 +31,16 @@ public abstract class Lens extends Material {
 		return angleOut;
 	}
 	
+	public void createBounds() {
+		points.add(points.get(0).copy()); //Close loop
+		super.createBounds();
+	}
+	
 	public void draw(GraphicsContext gc) {
 		gc.setStroke(Paint.valueOf("WHITE"));
 		Vector2d p1;
 		Vector2d p2 = getPoint(0);
-		for (int i = 0; i <= getPointCount(); i++) {
+		for (int i = 0; i < getPointCount(); i++) {
 			p1 = p2;
 			p2 = getPoint(i);
 			gc.strokeLine(p1.x, p1.y, p2.x, p2.y);

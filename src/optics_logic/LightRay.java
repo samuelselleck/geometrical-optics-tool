@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import optics_objects.LightSource;
 import optics_objects.Material;
-import optics_objects.Mirror;
 import optics_objects.Wall;
 import util.Utils;
 import util.Vector2d;
@@ -88,7 +87,7 @@ public class LightRay {
 	}
 
 	// Calculates and returns a list of lens indexes and their distances,
-	// ordered by which hitboxes where intersected first together with their distance from ray source.
+	// ordered by which hit boxes where intersected first together with their distance from ray source.
 	private ArrayList<Vector2d> getDistanceIndexList(ArrayList<Material> materials, LightRay currRay) {
 		ArrayList<Vector2d> distanceList = new ArrayList<>();
 		
@@ -162,7 +161,7 @@ public class LightRay {
 		Vector2d posHit = null;
 	    Vector2d lineVec = null;
 	    
-		for (int i = 0; i < material.getPointCount() - (material instanceof Mirror ? 1 : 0); i++) {
+		for (int i = 0; i < material.getPointCount(); i++) {
 			Vector2d lineStartTemp = material.getPoint(i);
 			Vector2d lineVecTemp = material.getSegment(i);
 			Vector2d res = Vector2d.getIntersectionParameters(currRay.getPos(), currRay.ray, lineStartTemp, lineVecTemp);
