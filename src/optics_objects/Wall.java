@@ -5,6 +5,7 @@ import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public class Wall extends Material {
+	private static final long serialVersionUID = 1L;
 
 	public double getAngle(double angleIn, double wavelength, boolean dir) {
 		return 0;

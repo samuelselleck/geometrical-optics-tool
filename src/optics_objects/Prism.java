@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class Prism extends Lens {
+	private static final long serialVersionUID = 1L;
 
 	public Prism(Vector2d origin, int edges, double r, double refractionindex) {
 		super();

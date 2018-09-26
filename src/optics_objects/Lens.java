@@ -5,6 +5,7 @@ import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class Lens extends Material {
+	private static final long serialVersionUID = 1L;
 	public static final int LENSRESOLUTION = 500;
 	protected double refractionindex;
 	

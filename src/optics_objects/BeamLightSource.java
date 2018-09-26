@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class BeamLightSource extends LightSource {
+	private static final long serialVersionUID = 1L;
 
 	public BeamLightSource(Vector2d origin, double diameter, int rayCount) {
 		super(origin);

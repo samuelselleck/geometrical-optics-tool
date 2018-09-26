@@ -1,9 +1,12 @@
 package optics_objects;
 
+import java.io.Serializable;
+
 import javafx.scene.canvas.GraphicsContext;
 import util.Vector2d;
 
-public abstract class OpticsObject {
+public abstract class OpticsObject implements Serializable {
+	private static final long serialVersionUID = 1L;
 	Vector2d origin;
 	
 	public abstract void draw(GraphicsContext gc);

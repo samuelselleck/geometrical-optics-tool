@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class RectangleWall extends Wall {
+	private static final long serialVersionUID = 1L;
 
 	public RectangleWall(Vector2d origin, double width, double height) {
 		this.origin = origin;

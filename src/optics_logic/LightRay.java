@@ -1,6 +1,8 @@
 package optics_logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,7 +13,8 @@ import optics_objects.Wall;
 import util.Utils;
 import util.Vector2d;
 
-public class LightRay {
+public class LightRay implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public static boolean DRAW_ONLY_HITTING = false;
 	public static final int MAX_ITERATIONS = 20;
 	
@@ -38,7 +41,7 @@ public class LightRay {
 
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
-	public void calculatePath(ArrayList<Material> materials) {
+	public void calculatePath(List<Material> materials) {
 		path.clear();
 		LightRay currRay = this;
 		path.add(getPos());
@@ -88,7 +91,7 @@ public class LightRay {
 
 	// Calculates and returns a list of lens indexes and their distances,
 	// ordered by which hit boxes where intersected first together with their distance from ray source.
-	private ArrayList<Vector2d> getDistanceIndexList(ArrayList<Material> materials, LightRay currRay) {
+	private ArrayList<Vector2d> getDistanceIndexList(List<Material> materials, LightRay currRay) {
 		ArrayList<Vector2d> distanceList = new ArrayList<>();
 		
 		for (int i = 0; i < materials.size(); i++) {

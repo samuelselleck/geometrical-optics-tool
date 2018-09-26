@@ -75,6 +75,9 @@ public class OpticsToolBox extends HBox {
 			}
 		});
 		rayModeButton.setPrefWidth(Main.WIDTH/8);
+		
+		ExampleBox examples = new ExampleBox(opticsHandler);
+		
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefHeight(buttonHeight);
 		exitButton.setPrefWidth(Main.WIDTH*0.193);
@@ -84,7 +87,7 @@ public class OpticsToolBox extends HBox {
 		
 		tools.getChildren().addAll(toggleRaysButton, clearButton,
 				clearLightsButton, clearMaterialsButton, rotationFactorButton,
-				rayModeButton, exitButton);
+				rayModeButton, examples, exitButton);
 		exit.getChildren().addAll(exitButton);
 		exit.setAlignment(Pos.BASELINE_RIGHT);
 		this.getChildren().addAll(tools, exit);

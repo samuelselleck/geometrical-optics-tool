@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class FlatMirror extends Mirror {
+	private static final long serialVersionUID = 1L;
 
 	public FlatMirror(Vector2d origin, double diameter) {
 		super();

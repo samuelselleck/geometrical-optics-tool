@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class ConeLightSource extends LightSource {
+	private static final long serialVersionUID = 1L;
 
 	public ConeLightSource(Vector2d origin, double coneAngle, int density) {
 		super(origin);

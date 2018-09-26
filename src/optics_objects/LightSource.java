@@ -1,12 +1,14 @@
 package optics_objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.LightRay;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
+	private static final long serialVersionUID = 1L;
 	public static final int LIGHTWAVEMAX = 700;
 	public static final int LIGHTWAVEMIN = 380;
 	public static final int DEFAULTWAVE = 700;
@@ -19,9 +21,9 @@ public abstract class LightSource extends OpticsObject {
 		this.origin = origin;
 	}
 
-	public void calculateRayPaths(ArrayList<Material> lenses) {
+	public void calculateRayPaths(List<Material> materials) {
 		light.parallelStream().forEach(l -> {
-			l.calculatePath(lenses);
+			l.calculatePath(materials);
 		});
 	}
 

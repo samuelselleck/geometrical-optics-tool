@@ -3,7 +3,8 @@ package optics_objects;
 import util.Vector2d;
 
 public class RoundedMirror extends Mirror {
-	
+	private static final long serialVersionUID = 1L;
+
 	public RoundedMirror(Vector2d origin, double diameter, double depth) {
 		super();
 		this.origin = origin;

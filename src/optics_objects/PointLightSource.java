@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class PointLightSource extends LightSource {
+	private static final long serialVersionUID = 1L;
 
 	public PointLightSource(Vector2d origin, int density) {
 		super(origin);

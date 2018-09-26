@@ -1,6 +1,7 @@
 package optics_logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.Main;
 import javafx.event.EventHandler;
@@ -20,8 +21,8 @@ public class OpticsHandler {
 	
 	OpticsObjectFactory opticsObjectCreator;
 	Canvas canvas;
-	ArrayList<Material> materials;
-	ArrayList<LightSource> lights;
+	List<Material> materials;
+	List<LightSource> lights;
 	OpticsObject draging;
 	Vector2d deltaPos;
 	double rotationFactor;
@@ -161,22 +162,40 @@ public class OpticsHandler {
 	}
 
 	public void clear() {
-		lights = new ArrayList<>();
+		lights.clear();
 		clearMaterials();
 	}
 
 	public void clearLights() {
-		lights = new ArrayList<>();
+		lights.clear();
 		redraw();
 	}
 
 	public void clearMaterials() {
-		materials = new ArrayList<>();
+		materials.clear();
 		calculateRayPaths();
 		redraw();
 	}
 	
 	public void setRotationFactor(double fac) {
 		this.rotationFactor = fac;
+	}
+
+	public Object getOpticsObjectList() {
+		return new ArrayList<OpticsObject>(materials).addAll(lights);
+	}
+
+	public void setOpticsObjects(List<OpticsObject> opticsObjects) {
+		materials.clear();
+		lights.clear();
+		for(OpticsObject o : opticsObjects) {
+			if(o instanceof Material) {
+				materials.add((Material)o);
+			} else {
+				lights.add((LightSource)o);
+			}
+		}
+		calculateRayPaths();
+		redraw();
 	}
 }

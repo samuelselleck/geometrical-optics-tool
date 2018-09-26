@@ -3,6 +3,7 @@ package optics_objects;
 import util.Vector2d;
 
 public class ConcaveLens extends Lens {
+	private static final long serialVersionUID = 1L;
 
 	public ConcaveLens(Vector2d origin, double d, double w, double r1, double r2, double refractionindex) {
 		this.refractionindex = refractionindex;

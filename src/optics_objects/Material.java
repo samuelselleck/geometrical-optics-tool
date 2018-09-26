@@ -6,6 +6,7 @@ import gui.Main;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
+	private static final long serialVersionUID = 1L;
 	private Vector2d botRig, topLef;
 	protected ArrayList<Vector2d> points;
 

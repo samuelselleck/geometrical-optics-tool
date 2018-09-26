@@ -1,6 +1,9 @@
 package util;
 
-public class Vector2d {
+import java.io.Serializable;
+
+public class Vector2d implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public double x, y;
 	
 	public Vector2d(double x, double y) {
