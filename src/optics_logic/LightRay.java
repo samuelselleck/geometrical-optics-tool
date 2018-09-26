@@ -164,7 +164,7 @@ public class LightRay implements Serializable {
 		Vector2d posHit = null;
 	    Vector2d lineVec = null;
 	    
-		for (int i = 0; i < material.getPointCount(); i++) {
+		for (int i = 0; i < material.getPointCount() - 1; i++) {
 			Vector2d lineStartTemp = material.getPoint(i);
 			Vector2d lineVecTemp = material.getSegment(i);
 			Vector2d res = Vector2d.getIntersectionParameters(currRay.getPos(), currRay.ray, lineStartTemp, lineVecTemp);
