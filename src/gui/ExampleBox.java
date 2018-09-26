@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -25,7 +26,7 @@ public class ExampleBox extends ChoiceBox<String> {
 	public void saveCurrentWorkspaceAs(String s) {
 		try {
 			
-			FileOutputStream fileOut = new FileOutputStream("/tmp/" + s + ".ser");
+			FileOutputStream fileOut = new FileOutputStream(Paths.get(System.getProperty("user.home") + "/" + s + ".ser").toFile());
 			ObjectOutputStream out = new  ObjectOutputStream(fileOut);
 			out.writeObject(opticsHandler.getOpticsObjectList());
 			out.close();
@@ -41,7 +42,7 @@ public class ExampleBox extends ChoiceBox<String> {
 	public void loadExample(String s) {
 		FileInputStream fileIn;
 		try {
-			fileIn = new FileInputStream("/tmp/" + s + ".ser");
+			fileIn = new FileInputStream(Paths.get(System.getProperty("user.home") + "/" + s + ".ser").toFile());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			opticsHandler.setOpticsObjects((List<OpticsObject>)in.readObject());
 			in.close();

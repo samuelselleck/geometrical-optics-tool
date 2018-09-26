@@ -31,7 +31,9 @@ public class OpticsHandler {
 		rotationFactor = 1;
 		draging = null;
 		this.canvas = canvas;
-		clear();
+		materials = new ArrayList<>();
+		lights = new ArrayList<>();
+		redraw();
 		// Place objects/move an object that was picked up.
 		canvas.setOnMouseReleased(e -> {
 			double x = e.getX();
@@ -181,8 +183,10 @@ public class OpticsHandler {
 		this.rotationFactor = fac;
 	}
 
-	public Object getOpticsObjectList() {
-		return new ArrayList<OpticsObject>(materials).addAll(lights);
+	public List<OpticsObject> getOpticsObjectList() {
+		List<OpticsObject> combinedOpticsObjectList = new ArrayList<OpticsObject>(materials);
+		combinedOpticsObjectList.addAll(lights);
+		return combinedOpticsObjectList;
 	}
 
 	public void setOpticsObjects(List<OpticsObject> opticsObjects) {
