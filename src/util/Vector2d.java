@@ -3,12 +3,12 @@ package util;
 import java.io.Serializable;
 
 public class Vector2d implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	public double x, y;
 	
 	public Vector2d(double x, double y) {
-		this.x = x;
-		this.y = y;
+		setTo(x, y);
 	}
 	
 	public double distSquared(Vector2d vec) {
@@ -31,15 +31,15 @@ public class Vector2d implements Serializable {
 		return this;
 	}
 	
-	public Vector2d mult(double sc) {
-		this.x *= sc;
-		this.y *= sc;
+	public Vector2d mult(double a) {
+		this.x *= a;
+		this.y *= a;
 		return this;
 	}
 	
-	public Vector2d div(double dn) {
-		this.x /= dn;
-		this.y /= dn;
+	public Vector2d div(double a) {
+		this.x /= a;
+		this.y /= a;
 		return this;
 	}
 	
@@ -76,9 +76,14 @@ public class Vector2d implements Serializable {
 	}
 	
 	public Vector2d rotate(double angle) {
+		
 		double oldX = x;
-	    x = x * Math.cos(angle) - y * Math.sin(angle);
-	    y = oldX * Math.sin(angle) + y * Math.cos(angle);
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+		
+	    x = x * cos - y * sin;
+	    y = oldX * sin + y * cos;
+	    
 		return this;
 	}
 	
@@ -87,8 +92,12 @@ public class Vector2d implements Serializable {
 	}
 	
 	public void setTo(Vector2d vec) {
-		this.x = vec.x;
-		this.y = vec.y;
+		setTo(vec.x, vec.y);
+	}
+	
+	public void setTo(double x, double y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	public static Vector2d getIntersectionParameters(
@@ -99,6 +108,21 @@ public class Vector2d implements Serializable {
 		double s = (vec1.y*yTerm - vec1.x*xTerm)/den;
 		double t = (vec2.y*yTerm - vec2.x*xTerm)/den;
 		return new Vector2d(s, t);
+	}
+	
+	public static Vector2d getIntersectionParameters(
+			double p1x, double p1y,
+			double v1x, double v1y,
+			double p2x, double p2y,
+			double v2x, double v2y,
+			Vector2d params) {
+		double den = v1x*v2y - v1y*v2x;
+		double yTerm = p2x - p1x;
+		double xTerm = p2y - p1y;
+		double s = (v1y*yTerm - v1x*xTerm)/den;
+		double t = (v2y*yTerm - v2x*xTerm)/den;
+		params.setTo(s, t);
+		return params;
 	}
 
 	public static Vector2d zero() {

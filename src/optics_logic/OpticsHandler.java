@@ -148,14 +148,14 @@ public class OpticsHandler {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Paint.valueOf("BLACK"));
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		for(Material m : materials) {
+			m.draw(gc);
+		}
 		if(LightSource.WHITE) gc.setGlobalBlendMode(BlendMode.SCREEN);
 		for(LightSource l : lights) {
 			l.draw(gc);
-		}
-		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-		for(Material m : materials) {
-			m.draw(gc);
 		}
 	}
 	
@@ -201,5 +201,15 @@ public class OpticsHandler {
 		}
 		calculateRayPaths();
 		redraw();
+	}
+
+	public void createRays() {
+		lights.parallelStream().forEach(e -> e.createRays());
+		calculateRayPaths();
+		redraw();
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
 	}
 }

@@ -10,7 +10,7 @@ public class PointLightSourceFactory extends OpticsObjectFactory {
 		String[] names = new String[] { "LightRays"};
 		double[] values = new double[] { 30};
 		Vector2d[] bounds = new Vector2d[values.length];
-		bounds[0] = new Vector2d(11, 300);
+		bounds[0] = new Vector2d(11, 700);
 
 		super.setSliders(names, bounds, values);
 	}

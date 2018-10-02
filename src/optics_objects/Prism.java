@@ -6,9 +6,7 @@ public class Prism extends Lens {
 	private static final long serialVersionUID = 1L;
 
 	public Prism(Vector2d origin, int edges, double r, double refractionindex) {
-		super();
-		this.origin = origin.copy();
-		this.refractionindex = refractionindex;
+		super(origin, refractionindex);
 
 		for (int i = 0; i < edges; i++) {
 			double angle = 2 * Math.PI / edges * i;

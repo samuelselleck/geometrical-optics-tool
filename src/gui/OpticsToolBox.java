@@ -64,7 +64,6 @@ public class OpticsToolBox extends HBox {
 		Button rayModeButton = new Button("Mode: Ray");
 		rayModeButton.setPrefHeight(buttonHeight);
 		rayModeButton.setOnAction(e -> {
-			clearLightsButton.fire();
 			if(rayModeButton.getText().equals("Mode: Ray")) {
 				LightSource.WHITE = true;
 				
@@ -73,6 +72,7 @@ public class OpticsToolBox extends HBox {
 				LightSource.WHITE = false;
 				rayModeButton.setText("Mode: Ray");
 			}
+			opticsHandler.createRays();
 		});
 		rayModeButton.setPrefWidth(Main.WIDTH/8);
 		

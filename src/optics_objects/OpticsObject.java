@@ -7,8 +7,13 @@ import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
-	Vector2d origin;
+	protected Vector2d origin;
+	protected double totalRotation;
 	
+	public OpticsObject(Vector2d origin) {
+		this.origin = origin;
+	}
+
 	public abstract void draw(GraphicsContext gc);
 
 	public Vector2d getOrigin() {
@@ -19,6 +24,10 @@ public abstract class OpticsObject implements Serializable {
 		this.origin.setTo(vec);
 	}
 	
-	public abstract void rotate(double angle);
-	//TODO LightRay getResultingRay(LightRay ray);
+	protected abstract void rotateOp(double angle);
+	
+	public void rotate(double angle) {
+		totalRotation += angle;
+		rotateOp(angle);
+	}
 }

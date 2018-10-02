@@ -6,9 +6,9 @@ public class ConvexLens extends Lens {
 	private static final long serialVersionUID = 1L;
 
 	public ConvexLens(Vector2d origin, double d, double r1, double r2, double refractionindex) {
-		this.refractionindex = refractionindex;
-		this.origin = origin;
+		super(origin, refractionindex);
 		int quarterResolution = Lens.LENSRESOLUTION /4;
+		
 		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
 		double rightAngle = Math.acos(1 - d * d / (2 * r2 * r2)) / 2;
 		double leftStep = leftAngle / quarterResolution;

@@ -14,11 +14,13 @@ public abstract class LightSource extends OpticsObject {
 	public static final int DEFAULTWAVE = 700;
 	public static boolean WHITE = false;
 	ArrayList<LightRay> light;
+	protected int rayCount;
 	
 
-	public LightSource(Vector2d origin) {
+	public LightSource(Vector2d origin, int rayCount) {
+		super(origin);
 		light = new ArrayList<>();
-		this.origin = origin;
+		this.rayCount = rayCount;
 	}
 
 	public void calculateRayPaths(List<Material> materials) {
@@ -30,6 +32,7 @@ public abstract class LightSource extends OpticsObject {
 	public void draw(GraphicsContext gc) {
 		for(LightRay l : light) {
 			l.draw(gc);
+			//Fix: make every color one path (somehow)
 		}
 	}
 
@@ -37,11 +40,19 @@ public abstract class LightSource extends OpticsObject {
 		return light;
 	}
 	
-	public void rotate(double angle) {
+	public void rotateOp(double angle) {
 		for(LightRay l : light) {
 			l.rotate(angle);
 		}
 	}
+	
+	public void createRays() {
+		light.clear();
+		create();
+		rotateOp(totalRotation);
+	}
+	
+	protected abstract void create();
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {
 		if(WHITE) {

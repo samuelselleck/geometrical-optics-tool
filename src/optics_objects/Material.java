@@ -1,6 +1,7 @@
 package optics_objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.Main;
 import util.Vector2d;
@@ -8,9 +9,10 @@ import util.Vector2d;
 public abstract class Material extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	private Vector2d botRig, topLef;
-	protected ArrayList<Vector2d> points;
+	protected List<Vector2d> points;
 
-	public Material() {
+	public Material(Vector2d origin) {
+		super(origin);
 		points = new ArrayList<>();
 	}
 
@@ -35,7 +37,7 @@ public abstract class Material extends OpticsObject {
 
 	public abstract double getAngle(double angleIn, double wavelength, boolean dir);
 
-	public void rotate(double angle) {
+	public void rotateOp(double angle) {
 		for(Vector2d p : points) {
 			p.rotate(angle);
 		}
@@ -57,7 +59,7 @@ public abstract class Material extends OpticsObject {
 		double diffX = botRight.x - topLeft.x;
 		double diffY = botRight.y - topLeft.y;
 		
-		//To make sure that mirrors really thin objects can be grabbed:
+		//To make sure that mirrors and other really thin objects can be grabbed:
 		if( diffX < Main.HEIGHT/10) {
 			botRight.x += -diffX/2 + Main.HEIGHT/20;
 			topLeft.x -= -diffX/2 + Main.HEIGHT/20;

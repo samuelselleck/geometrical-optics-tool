@@ -14,19 +14,21 @@ import optics_logic.OpticsHandler;
 import optics_objects.OpticsObject;
 
 public class ExampleBox extends ChoiceBox<String> {
+	private static final String SAVE_PATH = "/Geometrical Optics Tool";
 	OpticsHandler opticsHandler;
 	
 	public ExampleBox(OpticsHandler opticsHandler) {
 		super(FXCollections.observableArrayList(
 			    "Test num 1", "Test2", "Stuffff")
 				);
+		Paths.get(System.getProperty("user.home") + SAVE_PATH).toFile().mkdir();
 		this.opticsHandler = opticsHandler;
 	}
 	
 	public void saveCurrentWorkspaceAs(String s) {
 		try {
 			
-			FileOutputStream fileOut = new FileOutputStream(Paths.get(System.getProperty("user.home") + "/" + s + ".ser").toFile());
+			FileOutputStream fileOut = new FileOutputStream(Paths.get(System.getProperty("user.home") + SAVE_PATH + "/" + s + ".ser").toFile());
 			ObjectOutputStream out = new  ObjectOutputStream(fileOut);
 			out.writeObject(opticsHandler.getOpticsObjectList());
 			out.close();
@@ -42,7 +44,7 @@ public class ExampleBox extends ChoiceBox<String> {
 	public void loadExample(String s) {
 		FileInputStream fileIn;
 		try {
-			fileIn = new FileInputStream(Paths.get(System.getProperty("user.home") + "/" + s + ".ser").toFile());
+			fileIn = new FileInputStream(Paths.get(System.getProperty("user.home") + SAVE_PATH + "/" + s + ".ser").toFile());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			opticsHandler.setOpticsObjects((List<OpticsObject>)in.readObject());
 			in.close();

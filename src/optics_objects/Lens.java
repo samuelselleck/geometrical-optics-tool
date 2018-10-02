@@ -5,9 +5,15 @@ import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class Lens extends Material {
+	
 	private static final long serialVersionUID = 1L;
 	public static final int LENSRESOLUTION = 500;
-	protected double refractionindex;
+	private double refractionindex;
+	
+	public Lens(Vector2d origin, double refractionindex) {
+		super(origin);
+		this.refractionindex = refractionindex;
+	}
 	
 	public double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
@@ -38,13 +44,15 @@ public abstract class Lens extends Material {
 	}
 	
 	public void draw(GraphicsContext gc) {
-		gc.setStroke(Paint.valueOf("WHITE"));
-		Vector2d p1;
-		Vector2d p2 = getPoint(0);
-		for (int i = 0; i < getPointCount(); i++) {
-			p1 = p2;
-			p2 = getPoint(i);
-			gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+		gc.beginPath();
+		Vector2d p = getPoint(0);
+		gc.moveTo(p.x, p.y);
+		for (int i = 1; i < getPointCount(); i++) {
+			p = getPoint(i);
+			gc.lineTo(p.x, p.y);
 		}
+		gc.closePath();
+		gc.setStroke(Paint.valueOf("WHITE"));
+		gc.stroke();
 	}
 }
