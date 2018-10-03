@@ -1,7 +1,7 @@
 package optics_object_factories;
 
-import optics_objects.ConeLightSource;
-import optics_objects.OpticsObject;
+import optics_objects.materials.ConeLightSource;
+import optics_objects.materials.OpticsObject;
 import util.Vector2d;
 
 public class ConeLightSourceFactory extends OpticsObjectFactory{

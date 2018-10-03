@@ -11,7 +11,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import optics_logic.OpticsHandler;
-import optics_objects.OpticsObject;
+import optics_objects.materials.OpticsObject;
 
 public class ExampleBox extends ChoiceBox<String> {
 	private static final String SAVE_PATH = "/Geometrical Optics Tool";
@@ -19,13 +19,14 @@ public class ExampleBox extends ChoiceBox<String> {
 	
 	public ExampleBox(OpticsHandler opticsHandler) {
 		super(FXCollections.observableArrayList(
-			    "Test num 1", "Test2", "Stuffff")
+			    "Plano-convex Lenses", "Prism Angle", "Optical Fiber")
 				);
 		Paths.get(System.getProperty("user.home") + SAVE_PATH).toFile().mkdir();
 		this.opticsHandler = opticsHandler;
 	}
 	
-	public void saveCurrentWorkspaceAs(String s) {
+	public void saveCurrentWorkspace() {
+		String s = this.getSelectionModel().getSelectedItem();
 		try {
 			
 			FileOutputStream fileOut = new FileOutputStream(Paths.get(System.getProperty("user.home") + SAVE_PATH + "/" + s + ".ser").toFile());
@@ -41,7 +42,8 @@ public class ExampleBox extends ChoiceBox<String> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void loadExample(String s) {
+	public void loadExample() {
+		String s = this.getSelectionModel().getSelectedItem();
 		FileInputStream fileIn;
 		try {
 			fileIn = new FileInputStream(Paths.get(System.getProperty("user.home") + SAVE_PATH + "/" + s + ".ser").toFile());

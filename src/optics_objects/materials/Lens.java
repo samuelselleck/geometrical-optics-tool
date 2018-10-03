@@ -1,4 +1,4 @@
-package optics_objects;
+package optics_objects.materials;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;

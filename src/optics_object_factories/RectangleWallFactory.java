@@ -1,7 +1,7 @@
 package optics_object_factories;
 
-import optics_objects.OpticsObject;
-import optics_objects.RectangleWall;
+import optics_objects.materials.OpticsObject;
+import optics_objects.materials.RectangleWall;
 import util.Vector2d;
 
 public class RectangleWallFactory extends OpticsObjectFactory {

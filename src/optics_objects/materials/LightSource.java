@@ -1,4 +1,4 @@
-package optics_objects;
+package optics_objects.materials;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,11 @@ public abstract class LightSource extends OpticsObject {
 	public static final int DEFAULTWAVE = 700;
 	public static boolean WHITE = false;
 	ArrayList<LightRay> light;
-	protected int rayCount;
 	
 
 	public LightSource(Vector2d origin, int rayCount) {
 		super(origin);
 		light = new ArrayList<>();
-		this.rayCount = rayCount;
 	}
 
 	public void calculateRayPaths(List<Material> materials, int wavelength) {
@@ -32,7 +30,6 @@ public abstract class LightSource extends OpticsObject {
 	public void draw(GraphicsContext gc) {
 		for(LightRay l : light) {
 			l.draw(gc);
-			//Fix: make every color one path (somehow)
 		}
 	}
 
@@ -45,14 +42,6 @@ public abstract class LightSource extends OpticsObject {
 			l.rotate(angle);
 		}
 	}
-	
-	public void createRays() {
-		light.clear();
-		create();
-		rotateOp(totalRotation);
-	}
-	
-	protected abstract void create();
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {
 			light.add(new LightRay(origin, offset, ray, DEFAULTWAVE));

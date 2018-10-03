@@ -10,7 +10,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import optics_logic.LightRay;
 import optics_logic.OpticsHandler;
-import optics_objects.LightSource;
+import optics_objects.materials.LightSource;
 
 public class OpticsToolBox extends HBox {
 	public OpticsToolBox(OpticsHandler opticsHandler) {
@@ -65,14 +65,13 @@ public class OpticsToolBox extends HBox {
 		rayModeButton.setPrefHeight(buttonHeight);
 		rayModeButton.setOnAction(e -> {
 			if(rayModeButton.getText().equals("Mode: Ray")) {
-				LightSource.WHITE = true;
-				
+				LightSource.WHITE = true;	
 				rayModeButton.setText("Mode: Color");
 			} else {
 				LightSource.WHITE = false;
 				rayModeButton.setText("Mode: Ray");
 			}
-			opticsHandler.createRays();
+			opticsHandler.calculateAndDrawRays();
 		});
 		rayModeButton.setPrefWidth(Main.WIDTH/8);
 		
@@ -81,13 +80,13 @@ public class OpticsToolBox extends HBox {
 		Button saveButton = new Button("Save");
 		saveButton.setPrefHeight(buttonHeight);
 		saveButton.setOnAction(e -> {
-			examples.saveCurrentWorkspaceAs("test");
+			examples.saveCurrentWorkspace();
 		});
 		
 		Button loadButton = new Button("Load");
 		loadButton.setPrefHeight(buttonHeight);
 		loadButton.setOnAction(e -> {
-			examples.loadExample("test");
+			examples.loadExample();
 		});
 		
 		Button exitButton = new Button("Exit");

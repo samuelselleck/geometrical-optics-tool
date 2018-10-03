@@ -1,4 +1,4 @@
-package optics_objects;
+package optics_objects.materials;
 
 import util.Vector2d;
 
@@ -7,11 +7,6 @@ public class PointLightSource extends LightSource {
 
 	public PointLightSource(Vector2d origin, int rayCount) {
 		super(origin, rayCount);
-		create();
-	}
-
-	@Override
-	protected void create() {
 		for (int i = 0; i < rayCount; i++) {
 			double ang = (2 * Math.PI / rayCount) * i;
 			double x = Math.cos(ang);

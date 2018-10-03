@@ -12,9 +12,9 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_object_factories.OpticsObjectFactory;
-import optics_objects.Material;
-import optics_objects.OpticsObject;
-import optics_objects.LightSource;
+import optics_objects.materials.LightSource;
+import optics_objects.materials.Material;
+import optics_objects.materials.OpticsObject;
 import util.Utils;
 import util.Vector2d;
 
@@ -137,25 +137,24 @@ public class OpticsHandler {
 		for(Material m : materials) {
 			m.draw(gc);
 		}
-		if(LightSource.WHITE) gc.setGlobalBlendMode(BlendMode.SCREEN);
-		
 		if(LightSource.WHITE) {
+			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
 			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/10) {
-				calculateAndDrawRays(gc, wavelength);
+				calculateAndDrawRays(lights, gc, wavelength);
 			}
 		} else {
-			calculateAndDrawRays(gc, LightSource.DEFAULTWAVE);
+			calculateAndDrawRays(lights, gc, LightSource.DEFAULTWAVE);
 		}
 	}
 	
-	private void calculateAndDrawRays(GraphicsContext gc, int wavelength) {
+	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength) {
 		
 		for(LightSource l : lights) {
 			l.calculateRayPaths(materials, wavelength);
 		}
 		int rgb[] = Utils.waveLengthToRGB(wavelength);
-		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], 0.8));
+		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], 1));
 		gc.beginPath();
 		for(LightSource l : lights) {
 			l.draw(gc);
@@ -202,11 +201,6 @@ public class OpticsHandler {
 				lights.add((LightSource)o);
 			}
 		}
-		calculateAndDrawRays();
-	}
-
-	public void createRays() {
-		lights.parallelStream().forEach(e -> e.createRays());
 		calculateAndDrawRays();
 	}
 

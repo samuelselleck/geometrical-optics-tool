@@ -6,14 +6,14 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import optics_objects.Material;
-import optics_objects.Wall;
+import optics_objects.materials.Material;
+import optics_objects.materials.Wall;
 import util.Vector2d;
 
 public class LightRay implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static boolean DRAW_ONLY_HITTING = false;
-	public static final int MAX_ITERATIONS = 20;
+	public static final int MAX_ITERATIONS = 10;
 	
 	ArrayList<Vector2d> path;
 	Vector2d origin;
@@ -164,7 +164,7 @@ public class LightRay implements Serializable {
 			Vector2d lineVecTemp = material.getSegment(i);
 			Vector2d res = Vector2d.getIntersectionParameters(currRay.getPos(), currRay.ray, lineStartTemp, lineVecTemp);
 
-			if (res.x > 0 && res.x <= 1) {
+			if (res.x >= 0 && res.x <= 1) {
 				if (res.y > 1e-9 && res.y < closest) {
 					closest = res.y;
 					lineVec = lineVecTemp;

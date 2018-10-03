@@ -1,7 +1,7 @@
 package optics_object_factories;
 
-import optics_objects.OpticsObject;
-import optics_objects.RoundedMirror;
+import optics_objects.materials.OpticsObject;
+import optics_objects.materials.RoundedMirror;
 import util.Vector2d;
 
 public class RoundedMirrorFactory extends OpticsObjectFactory {

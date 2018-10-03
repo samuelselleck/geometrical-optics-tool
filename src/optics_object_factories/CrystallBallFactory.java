@@ -1,8 +1,8 @@
 package optics_object_factories;
 
-import optics_objects.Lens;
-import optics_objects.OpticsObject;
-import optics_objects.Prism;
+import optics_objects.materials.Lens;
+import optics_objects.materials.OpticsObject;
+import optics_objects.materials.Prism;
 import util.Vector2d;
 
 public class CrystallBallFactory extends OpticsObjectFactory {
