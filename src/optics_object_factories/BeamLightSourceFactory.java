@@ -11,7 +11,7 @@ public class BeamLightSourceFactory extends OpticsObjectFactory {
 		double[] values = new double[] { 80, 20};
 		Vector2d[] bounds = new Vector2d[values.length];
 		bounds[0] = new Vector2d(23, 400);
-		bounds[1] = new Vector2d(1, 300);
+		bounds[1] = new Vector2d(1, 100);
 		super.setSliders(names, bounds, values);
 	}
 

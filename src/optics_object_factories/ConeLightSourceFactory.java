@@ -11,7 +11,7 @@ public class ConeLightSourceFactory extends OpticsObjectFactory{
 		double values[] = new double[] {30, 20};
 		Vector2d[] bounds = new Vector2d[values.length];
 		bounds[0] = new Vector2d(11, 180);
-		bounds[1] = new Vector2d(11, 300);
+		bounds[1] = new Vector2d(11, 100);
 		super.setSliders(names, bounds, values);
 	}
 	

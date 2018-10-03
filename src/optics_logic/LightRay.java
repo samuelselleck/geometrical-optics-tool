@@ -6,11 +6,8 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import optics_objects.LightSource;
 import optics_objects.Material;
 import optics_objects.Wall;
-import util.Utils;
 import util.Vector2d;
 
 public class LightRay implements Serializable {
@@ -22,14 +19,12 @@ public class LightRay implements Serializable {
 	Vector2d origin;
 	Vector2d offset;
 	Vector2d ray;
-	double wavelength;
 
 	public LightRay(Vector2d origin, Vector2d offset, Vector2d ray, double wavelength) {
 		path = new ArrayList<>();
 		this.origin = origin;
 		this.offset = offset;
 		this.ray = ray;
-		this.wavelength = wavelength;
 	}
 
 	public LightRay(Vector2d origin, Vector2d ray, double wavelength) {
@@ -41,7 +36,7 @@ public class LightRay implements Serializable {
 
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
-	public void calculatePath(List<Material> materials) {
+	public void calculatePath(List<Material> materials, int wavelength) {
 		path.clear();
 		LightRay currRay = this;
 		path.add(getPos());
@@ -57,7 +52,7 @@ public class LightRay implements Serializable {
 			for(int i = 0; i < distanceList.size(); i++) {
 				Material currentMaterial = materials.get((int)distanceList.get(i).x);
 				
-				LightRay candidateRay = getRayIntersection(currentMaterial, currRay);
+				LightRay candidateRay = getRayIntersection(currentMaterial, currRay, wavelength);
 				if(candidateRay != null) {
 					if(candidateRay.ray.length() < closestIntersection) {
 						closestIntersection = candidateRay.ray.length();
@@ -159,7 +154,7 @@ public class LightRay implements Serializable {
 
 	// Calculates the first intersection with the material, returns null
 	// if there was none and the new ray if there was a hit, where the ray length represents the distance to the hit point.
-	private LightRay getRayIntersection(Material material, LightRay currRay) {
+	private LightRay getRayIntersection(Material material, LightRay currRay, int wavelength) {
 		double closest = Double.MAX_VALUE;
 		Vector2d posHit = null;
 	    Vector2d lineVec = null;
@@ -179,14 +174,14 @@ public class LightRay implements Serializable {
 		}
 		// If an intersection was found:
 		if (closest != Double.MAX_VALUE) {
-			Vector2d newRay = getRay(currRay.ray, lineVec, material, closest);
+			Vector2d newRay = getRay(currRay.ray, lineVec, material, closest, wavelength);
 			return new LightRay(posHit, newRay);
 		}
 		return null;
 	}
 
 	// Gets the new ray.
-	private Vector2d getRay(Vector2d ray, Vector2d line, Material material, double distance) {
+	private Vector2d getRay(Vector2d ray, Vector2d line, Material material, double distance, int wavelength) {
 		double cross = line.crossSign(ray);
 		//convert the line to a normal:
 		line.rotate(cross*Math.PI / 2).normalize();
@@ -197,13 +192,11 @@ public class LightRay implements Serializable {
 
 	public void draw(GraphicsContext gc) {
 		if (!DRAW_ONLY_HITTING || path.size() > 2) {
-			int[] c = Utils.waveLengthToRGB(wavelength);
-			double alpha = LightSource.WHITE ? 0.4 : 1;
-			gc.setStroke(Color.rgb(c[0], c[1], c[2], alpha));
-			for(int i = 0; i < path.size() - 1; i++) {
-				Vector2d p1 = path.get(i);
-				Vector2d p2 = path.get(i + 1);
-				gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+			Vector2d p = path.get(0);
+			gc.moveTo(p.x, p.y);
+			for(int i = 0; i < path.size(); i++) {
+				p = path.get(i);
+				gc.lineTo(p.x, p.y);
 			}
 		}
 	}

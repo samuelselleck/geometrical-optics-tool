@@ -9,11 +9,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.input.TouchEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.Material;
 import optics_objects.OpticsObject;
 import optics_objects.LightSource;
+import util.Utils;
 import util.Vector2d;
 
 public class OpticsHandler {
@@ -33,7 +35,7 @@ public class OpticsHandler {
 		this.canvas = canvas;
 		materials = new ArrayList<>();
 		lights = new ArrayList<>();
-		redraw();
+		calculateAndDrawRays();
 		// Place objects/move an object that was picked up.
 		canvas.setOnMouseReleased(e -> {
 			double x = e.getX();
@@ -43,13 +45,11 @@ public class OpticsHandler {
 						|| y > canvas.getHeight() - EDGE_LEASE) {
 					if (draging instanceof Material) {
 						materials.remove(draging);
-						calculateRayPaths();
 					} else if (draging instanceof LightSource) {
 						lights.remove(draging);
 					}
 				} else {
 					draging.setOrigin(new Vector2d(x, y).add(deltaPos));
-					update(draging);
 				}
 				
 				draging = null;
@@ -59,7 +59,7 @@ public class OpticsHandler {
 					createObject(new Vector2d(x, y));
 				}
 			}
-			redraw();
+			calculateAndDrawRays();
 			e.consume();
 		});
 
@@ -93,8 +93,7 @@ public class OpticsHandler {
 			Vector2d pos = new Vector2d(e.getX(), e.getY());
 			if (draging != null) {
 				draging.setOrigin(pos.add(deltaPos));
-				update(draging);
-				redraw();
+				calculateAndDrawRays();
 			}
 			e.consume();
 		});
@@ -103,8 +102,7 @@ public class OpticsHandler {
 		canvas.setOnRotate(e -> {
 			if(draging != null) {
 				draging.rotate(e.getAngle()/180.0*Math.PI*rotationFactor);
-				update(draging);
-				redraw();
+				calculateAndDrawRays();
 			}
 			e.consume();
 		});
@@ -121,30 +119,16 @@ public class OpticsHandler {
 				if (newOpticsObj instanceof LightSource) {
 					LightSource newLight = (LightSource) newOpticsObj;
 					lights.add(newLight);
-					newLight.calculateRayPaths(materials);
 				} else if (newOpticsObj instanceof Material) {
 					materials.add((Material) newOpticsObj);
-					calculateRayPaths();
 				}
 			}
-		}
-	}
-	
-	private void update(OpticsObject o) {
-		if (o instanceof LightSource) {
-			((LightSource) o).calculateRayPaths(materials);
-		} else if (o instanceof Material) {
-			calculateRayPaths();
+			calculateAndDrawRays();
 		}
 	}
 
-	private void calculateRayPaths() {
-		for(LightSource l : lights) {
-			l.calculateRayPaths(materials);
-		}
-	}
-
-	public void redraw() {
+	public void calculateAndDrawRays() {
+		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Paint.valueOf("BLACK"));
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -154,9 +138,29 @@ public class OpticsHandler {
 			m.draw(gc);
 		}
 		if(LightSource.WHITE) gc.setGlobalBlendMode(BlendMode.SCREEN);
+		
+		if(LightSource.WHITE) {
+			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
+			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/10) {
+				calculateAndDrawRays(gc, wavelength);
+			}
+		} else {
+			calculateAndDrawRays(gc, LightSource.DEFAULTWAVE);
+		}
+	}
+	
+	private void calculateAndDrawRays(GraphicsContext gc, int wavelength) {
+		
+		for(LightSource l : lights) {
+			l.calculateRayPaths(materials, wavelength);
+		}
+		int rgb[] = Utils.waveLengthToRGB(wavelength);
+		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], 0.8));
+		gc.beginPath();
 		for(LightSource l : lights) {
 			l.draw(gc);
 		}
+		gc.stroke();
 	}
 	
 	public void setEvent(EventHandler<TouchEvent> e) {
@@ -170,13 +174,12 @@ public class OpticsHandler {
 
 	public void clearLights() {
 		lights.clear();
-		redraw();
+		calculateAndDrawRays();
 	}
 
 	public void clearMaterials() {
 		materials.clear();
-		calculateRayPaths();
-		redraw();
+		calculateAndDrawRays();
 	}
 	
 	public void setRotationFactor(double fac) {
@@ -199,14 +202,12 @@ public class OpticsHandler {
 				lights.add((LightSource)o);
 			}
 		}
-		calculateRayPaths();
-		redraw();
+		calculateAndDrawRays();
 	}
 
 	public void createRays() {
 		lights.parallelStream().forEach(e -> e.createRays());
-		calculateRayPaths();
-		redraw();
+		calculateAndDrawRays();
 	}
 
 	public Canvas getCanvas() {

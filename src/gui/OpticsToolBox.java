@@ -32,7 +32,7 @@ public class OpticsToolBox extends HBox {
 				toggleRaysButton.setText("Rays: On");
 				LightRay.DRAW_ONLY_HITTING = false;
 			}
-			opticsHandler.redraw();
+			opticsHandler.calculateAndDrawRays();
 		});
 		toggleRaysButton.setPrefWidth(Main.WIDTH/10);
 		Button clearLightsButton = new Button("Clear Lights");

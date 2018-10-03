@@ -23,9 +23,9 @@ public abstract class LightSource extends OpticsObject {
 		this.rayCount = rayCount;
 	}
 
-	public void calculateRayPaths(List<Material> materials) {
+	public void calculateRayPaths(List<Material> materials, int wavelength) {
 		light.parallelStream().forEach(l -> {
-			l.calculatePath(materials);
+			l.calculatePath(materials, wavelength);
 		});
 	}
 
@@ -55,14 +55,7 @@ public abstract class LightSource extends OpticsObject {
 	protected abstract void create();
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {
-		if(WHITE) {
-			for(int i = 5; i >= 0; i--) {
-				light.add(new LightRay(origin, offset.copy(), ray.copy(),
-						(LIGHTWAVEMAX - LIGHTWAVEMIN)*i/5 + LIGHTWAVEMIN));
-			}
-		} else {
 			light.add(new LightRay(origin, offset, ray, DEFAULTWAVE));
-		}
 	}
 	
 	public void addLightRay(Vector2d ray) {

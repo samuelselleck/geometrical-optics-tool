@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import optics_logic.OpticsHandler;
@@ -38,7 +39,10 @@ public class Main extends Application {
 				" -fx-focus-color: white; -fx-faint-focus-color: white;");
 		
 		Canvas canvas = new Canvas(WIDTH * 4 / 5, HEIGHT * 60 / 61);
-		root.setLeft(canvas);
+		StackPane canvasHolder = new StackPane();
+		canvasHolder.setStyle("-fx-background-color: black");
+		canvasHolder.getChildren().add(canvas);
+		root.setLeft(canvasHolder);
 		
 		OpticsHandler opticsHandler = new OpticsHandler(canvas);
 

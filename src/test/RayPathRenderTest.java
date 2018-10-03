@@ -38,7 +38,7 @@ public class RayPathRenderTest {
 
 	@Test
 	public void testRayCalc() {
-		l.calculateRayPaths(materials);
+		l.calculateRayPaths(materials, LightSource.DEFAULTWAVE);
 	}
 
 }
