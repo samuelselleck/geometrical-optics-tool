@@ -11,7 +11,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import optics_logic.OpticsHandler;
-import optics_objects.materials.OpticsObject;
+import optics_objects.templates.OpticsObject;
 
 public class ExampleBox extends ChoiceBox<String> {
 	private static final String SAVE_PATH = "/Geometrical Optics Tool";

@@ -1,5 +1,6 @@
 package optics_objects.materials;
 
+import optics_objects.templates.Wall;
 import util.Vector2d;
 
 public class RectangleWall extends Wall {

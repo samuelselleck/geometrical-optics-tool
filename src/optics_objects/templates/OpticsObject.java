@@ -1,4 +1,4 @@
-package optics_objects.materials;
+package optics_objects.templates;
 
 import java.io.Serializable;
 

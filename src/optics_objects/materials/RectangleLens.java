@@ -1,5 +1,6 @@
 package optics_objects.materials;
 
+import optics_objects.templates.Lens;
 import util.Vector2d;
 
 public class RectangleLens extends Lens {

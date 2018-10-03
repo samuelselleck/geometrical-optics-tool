@@ -12,9 +12,9 @@ import javafx.scene.input.TouchEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_object_factories.OpticsObjectFactory;
-import optics_objects.materials.LightSource;
-import optics_objects.materials.Material;
-import optics_objects.materials.OpticsObject;
+import optics_objects.templates.LightSource;
+import optics_objects.templates.Material;
+import optics_objects.templates.OpticsObject;
 import util.Utils;
 import util.Vector2d;
 

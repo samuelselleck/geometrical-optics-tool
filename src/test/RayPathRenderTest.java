@@ -6,10 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import optics_objects.materials.LightSource;
-import optics_objects.materials.Material;
-import optics_objects.materials.PointLightSource;
+import optics_objects.lights.PointLightSource;
 import optics_objects.materials.Prism;
+import optics_objects.templates.LightSource;
+import optics_objects.templates.Material;
 import util.Vector2d;
 
 public class RayPathRenderTest {

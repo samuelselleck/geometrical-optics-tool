@@ -1,7 +1,7 @@
 package optics_object_factories;
 
-import optics_objects.materials.OpticsObject;
-import optics_objects.materials.PointLightSource;
+import optics_objects.lights.PointLightSource;
+import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public class PointLightSourceFactory extends OpticsObjectFactory {

@@ -1,5 +1,6 @@
-package optics_objects.materials;
+package optics_objects.lights;
 
+import optics_objects.templates.LightSource;
 import util.Vector2d;
 
 public class ConeLightSource extends LightSource {

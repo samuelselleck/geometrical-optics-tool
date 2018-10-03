@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import optics_objects.materials.OpticsObject;
+import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {

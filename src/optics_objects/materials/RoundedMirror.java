@@ -1,5 +1,6 @@
 package optics_objects.materials;
 
+import optics_objects.templates.Mirror;
 import util.Vector2d;
 
 public class RoundedMirror extends Mirror {

@@ -6,8 +6,8 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import optics_objects.materials.Material;
-import optics_objects.materials.Wall;
+import optics_objects.templates.Material;
+import optics_objects.templates.Wall;
 import util.Vector2d;
 
 public class LightRay implements Serializable {
@@ -15,13 +15,12 @@ public class LightRay implements Serializable {
 	public static boolean DRAW_ONLY_HITTING = false;
 	public static final int MAX_ITERATIONS = 10;
 	
-	ArrayList<Vector2d> path;
-	Vector2d origin;
-	Vector2d offset;
-	Vector2d ray;
+	private transient ArrayList<Vector2d> path;
+	private Vector2d origin;
+	private Vector2d offset;
+	private Vector2d ray;
 
 	public LightRay(Vector2d origin, Vector2d offset, Vector2d ray, double wavelength) {
-		path = new ArrayList<>();
 		this.origin = origin;
 		this.offset = offset;
 		this.ray = ray;
@@ -37,7 +36,7 @@ public class LightRay implements Serializable {
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
 	public void calculatePath(List<Material> materials, int wavelength) {
-		path.clear();
+		path = new ArrayList<>();
 		LightRay currRay = this;
 		path.add(getPos());
 		LightRay bestCandidateRay;

@@ -1,7 +1,7 @@
 package optics_object_factories;
 
-import optics_objects.materials.OpticsObject;
 import optics_objects.materials.Prism;
+import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public class PrismFactory extends OpticsObjectFactory {
