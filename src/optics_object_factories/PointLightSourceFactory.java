@@ -17,6 +17,7 @@ public class PointLightSourceFactory extends OpticsObjectFactory {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new PointLightSource(origin, (int) Math.round(super.getSliderValue(0)));
+		return new PointLightSource(origin, (int) Math.round(super.getSliderValue(0)), 
+				super.positionFixed.selectedProperty().getValue());
 	}
 }

@@ -26,7 +26,7 @@ public class ConcaveLensFactory extends OpticsObjectFactory {
 		double r2 = super.getSliderValue(3);
 		if(r1*2 >= d && r2*2 >= d) {
 			return new ConcaveLens(origin, d, super.getSliderValue(1), r1, r2,
-					super.getSliderValue(4));
+					super.getSliderValue(4), super.positionFixed.selectedProperty().getValue());
 		} else {
 			return null;
 		}

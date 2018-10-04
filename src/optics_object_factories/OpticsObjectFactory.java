@@ -1,8 +1,12 @@
 package optics_object_factories;
 
+import gui.Main;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -11,7 +15,8 @@ import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {
 	private Slider[] sliders;
-
+	protected CheckBox positionFixed;
+	
 	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
 	}
@@ -32,12 +37,25 @@ public abstract class OpticsObjectFactory extends VBox {
 			sliders[i].setMajorTickUnit(Math.abs(bounds[i].x - bounds[i].y + 1) / 4);
 		}
 
+		VBox top = new VBox();
+		VBox.setVgrow(top, Priority.ALWAYS);
+		top.setAlignment(Pos.TOP_LEFT);
+		VBox bot = new VBox();
+		VBox.setVgrow(bot, Priority.ALWAYS);
+		bot.setAlignment(Pos.BOTTOM_CENTER);
+		
+		this.getChildren().addAll(top, bot);
+		
 		for (int i = 0; i < sliders.length; i++) {
 			Text text = new Text(names[i]);
 			text.setFill(Color.WHITE);
-			this.getChildren().add(text);
-			this.getChildren().add(sliders[i]);
+			top.getChildren().add(text);
+			top.getChildren().add(sliders[i]);
 		}
+		
+		positionFixed = new CheckBox("Fixed position");
+		if(Main.ADMIN)
+		bot.getChildren().add(positionFixed);
 	}
 
 	public int getParamCount() {

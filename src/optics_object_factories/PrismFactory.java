@@ -19,6 +19,6 @@ public class PrismFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new Prism(origin, (int) Math.round(super.getSliderValue(0)), super.getSliderValue(1),
-				super.getSliderValue(2));
+				super.getSliderValue(2), super.positionFixed.selectedProperty().getValue());
 	}
 }

@@ -16,13 +16,13 @@ public abstract class LightSource extends OpticsObject {
 	ArrayList<LightRay> light;
 	
 
-	public LightSource(Vector2d origin, int rayCount) {
-		super(origin);
+	public LightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
+		super(origin, fixedPosition);
 		light = new ArrayList<>();
 	}
 
 	public void calculateRayPaths(List<Material> materials, int wavelength) {
-		light.parallelStream().forEach(l -> {
+		light.stream().forEach(l -> {
 			l.calculatePath(materials, wavelength);
 		});
 	}
@@ -44,7 +44,7 @@ public abstract class LightSource extends OpticsObject {
 	}
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {
-			light.add(new LightRay(origin, offset, ray, DEFAULTWAVE));
+			light.add(new LightRay(origin, offset, ray));
 	}
 	
 	public void addLightRay(Vector2d ray) {

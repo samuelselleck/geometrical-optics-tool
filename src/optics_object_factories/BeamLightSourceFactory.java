@@ -18,7 +18,7 @@ public class BeamLightSourceFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new BeamLightSource(origin, super.getSliderValue(0),
-				(int) Math.round(super.getSliderValue(1)));
+				(int) Math.round(super.getSliderValue(1)), super.positionFixed.selectedProperty().getValue());
 	}
 
 }

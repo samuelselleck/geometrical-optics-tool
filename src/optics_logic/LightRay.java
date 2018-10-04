@@ -13,24 +13,21 @@ import util.Vector2d;
 public class LightRay implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static boolean DRAW_ONLY_HITTING = false;
-	public static final int MAX_ITERATIONS = 10;
+	public static final int MAX_ITERATIONS = 15;
 	
 	private transient ArrayList<Vector2d> path;
 	private Vector2d origin;
 	private Vector2d offset;
 	private Vector2d ray;
 
-	public LightRay(Vector2d origin, Vector2d offset, Vector2d ray, double wavelength) {
+	public LightRay(Vector2d origin, Vector2d offset, Vector2d ray) {
 		this.origin = origin;
 		this.offset = offset;
 		this.ray = ray;
 	}
 
-	public LightRay(Vector2d origin, Vector2d ray, double wavelength) {
-		this(origin, new Vector2d(0, 0), ray, wavelength);
-	}
 	public LightRay(Vector2d origin, Vector2d ray) {
-		this(origin, ray, -1);
+		this(origin, new Vector2d(0, 0), ray);
 	}
 
 	// Calculates lightray path and stores it in the variable path.

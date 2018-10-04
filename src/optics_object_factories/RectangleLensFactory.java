@@ -19,7 +19,7 @@ public class RectangleLensFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RectangleLens(origin, super.getSliderValue(2), super.getSliderValue(0),
-				super.getSliderValue(1));
+				super.getSliderValue(1), super.positionFixed.selectedProperty().getValue());
 	}
 
 }

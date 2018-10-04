@@ -10,8 +10,8 @@ public abstract class Lens extends Material {
 	public static final int LENSRESOLUTION = 500;
 	private double refractionindex;
 	
-	public Lens(Vector2d origin, double refractionindex) {
-		super(origin);
+	public Lens(Vector2d origin, double refractionindex, boolean fixedPosition) {
+		super(origin, fixedPosition);
 		this.refractionindex = refractionindex;
 	}
 	

@@ -98,10 +98,17 @@ public class OpticsToolBox extends HBox {
 		
 		tools.getChildren().addAll(toggleRaysButton, clearButton,
 				clearLightsButton, clearMaterialsButton, rotationFactorButton,
-				rayModeButton, examples, saveButton, loadButton);
+				rayModeButton, examples);
+		
+		if(Main.ADMIN)
+		tools.getChildren().add(saveButton);
+		
+		tools.getChildren().add(loadButton);
+		
 		exit.getChildren().addAll(exitButton);
 		exit.setAlignment(Pos.BASELINE_RIGHT);
 		this.getChildren().addAll(tools, exit);
+		
 		VBox.setVgrow(this, Priority.ALWAYS);
 		for (Node n : this.getChildren()) {
 			VBox.setVgrow(n, Priority.ALWAYS);

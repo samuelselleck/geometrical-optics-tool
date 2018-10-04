@@ -6,8 +6,8 @@ import util.Vector2d;
 public class Prism extends Lens {
 	private static final long serialVersionUID = 1L;
 
-	public Prism(Vector2d origin, int edges, double r, double refractionindex) {
-		super(origin, refractionindex);
+	public Prism(Vector2d origin, int edges, double r, double refractionindex, boolean fixedPosition) {
+		super(origin, refractionindex, fixedPosition);
 
 		for (int i = 0; i < edges; i++) {
 			double angle = 2 * Math.PI / edges * i;

@@ -22,12 +22,12 @@ public class RayPathRenderTest {
 		for(int i = 0; i < 100; i++) {
 			for(int j = 0; j < 10; j++) {
 			Vector2d pos = new Vector2d(i*250, j*250);
-			Material mat = new Prism(pos, 1000, 100, 1.5);
+			Material mat = new Prism(pos, 1000, 100, 1.5, false);
 			materials.add(mat);
 			}
 		}
 		
-		l = new PointLightSource(new Vector2d(100*250/2, 10*250/2), 2000);	
+		l = new PointLightSource(new Vector2d(100*250/2, 10*250/2), 2000, false);	
 	}
 
 	@After

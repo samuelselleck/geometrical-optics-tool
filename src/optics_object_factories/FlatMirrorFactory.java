@@ -17,7 +17,7 @@ public class FlatMirrorFactory extends OpticsObjectFactory {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new FlatMirror(origin, super.getSliderValue(0));
+		return new FlatMirror(origin, super.getSliderValue(0), super.positionFixed.selectedProperty().getValue());
 	}
 
 }

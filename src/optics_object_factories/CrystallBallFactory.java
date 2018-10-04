@@ -19,6 +19,6 @@ public class CrystallBallFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new Prism(origin, Lens.LENSRESOLUTION, super.getSliderValue(0),
-				super.getSliderValue(1));
+				super.getSliderValue(1), super.positionFixed.selectedProperty().getValue());
 	}
 }

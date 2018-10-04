@@ -18,6 +18,6 @@ public class ConeLightSourceFactory extends OpticsObjectFactory{
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new ConeLightSource(origin, super.getSliderValue(0)/180*Math.PI,
-				(int) Math.round(super.getSliderValue(1)));
+				(int) Math.round(super.getSliderValue(1)), super.positionFixed.selectedProperty().getValue());
 	}
 }

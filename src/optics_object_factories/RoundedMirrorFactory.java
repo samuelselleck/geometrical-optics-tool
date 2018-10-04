@@ -19,6 +19,6 @@ public class RoundedMirrorFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RoundedMirror(origin, super.getSliderValue(0),
-				super.getSliderValue(1));
+				super.getSliderValue(1), super.positionFixed.selectedProperty().getValue());
 	}
 }

@@ -140,7 +140,7 @@ public class OpticsHandler {
 		if(LightSource.WHITE) {
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
-			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/10) {
+			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/12) {
 				calculateAndDrawRays(lights, gc, wavelength);
 			}
 		} else {

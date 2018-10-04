@@ -15,10 +15,14 @@ import settings.BigSettingsBox;
 
 public class Main extends Application {
 	public static boolean DEBUG = false;
+	public static boolean ADMIN;
 	public static double WIDTH;
 	public static double HEIGHT;
 
 	public static void main(String[] args) {
+		if(args.length > 0 && args[0].equals("admin")) ADMIN = true;
+		else ADMIN = false;
+		
 		Application.launch(args);
 	}
 
