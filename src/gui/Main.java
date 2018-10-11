@@ -10,7 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import optics_logic.OpticsHandler;
+import optics_logic.OpticsController;
+import optics_logic.OpticsModel;
 import settings.BigSettingsBox;
 
 public class Main extends Application {
@@ -22,7 +23,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		if(args.length > 0 && args[0].equals("admin")) ADMIN = true;
 		else ADMIN = false;
-		
+		ADMIN = true;
 		Application.launch(args);
 	}
 
@@ -42,13 +43,14 @@ public class Main extends Application {
 		root.setStyle("-fx-base: black; -fx-fill: white;" +
 				" -fx-focus-color: white; -fx-faint-focus-color: white;");
 		
+		OpticsModel model = new OpticsModel();
 		Canvas canvas = new Canvas(WIDTH * 4 / 5, HEIGHT * 60 / 61);
 		StackPane canvasHolder = new StackPane();
 		canvasHolder.setStyle("-fx-background-color: black");
 		canvasHolder.getChildren().add(canvas);
 		root.setLeft(canvasHolder);
 		
-		OpticsHandler opticsHandler = new OpticsHandler(canvas);
+		OpticsController opticsHandler = new OpticsController(model, canvas);
 
 		HBox settingsBox = new BigSettingsBox(opticsHandler);
 		root.setRight(settingsBox);

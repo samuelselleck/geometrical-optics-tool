@@ -23,8 +23,13 @@ public abstract class OpticsObject implements Serializable {
 	}
 
 	public void setOrigin(Vector2d vec) {
-		if(!fixedPosition)
-		this.origin.setTo(vec);
+		setOrigin(vec.x, vec.y);
+	}
+	
+	public void setOrigin(double x, double y) {
+		if(!fixedPosition) {
+			this.origin.setTo(x, y);
+		}
 	}
 	
 	protected abstract void rotateOp(double angle);

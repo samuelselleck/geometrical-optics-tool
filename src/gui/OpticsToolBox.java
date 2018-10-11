@@ -9,11 +9,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import optics_logic.LightRay;
-import optics_logic.OpticsHandler;
+import optics_logic.OpticsController;
 import optics_objects.templates.LightSource;
 
 public class OpticsToolBox extends HBox {
-	public OpticsToolBox(OpticsHandler opticsHandler) {
+	public OpticsToolBox(OpticsController opticsHandler) {
 		double buttonHeight = Main.HEIGHT/20;
 		HBox.setHgrow(this, Priority.ALWAYS);
 		this.setPrefHeight(Main.HEIGHT / 10);

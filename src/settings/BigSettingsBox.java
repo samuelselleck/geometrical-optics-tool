@@ -7,13 +7,13 @@ import gui.Main;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import optics_logic.OpticsHandler;
+import optics_logic.OpticsController;
 import optics_object_factories.OpticsObjectFactory;
 
 public class BigSettingsBox extends HBox {
 	TabPane typeTab;
 
-	public BigSettingsBox(OpticsHandler opticsHandler) {
+	public BigSettingsBox(OpticsController opticsHandler) {
 		
 		HBox.setHgrow(this, Priority.ALWAYS);
 		

@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.ComboBox;
-import optics_logic.OpticsHandler;
-import optics_objects.templates.OpticsObject;
+import optics_logic.OpticsController;
+import optics_logic.OpticsModel;
 
 public class ExampleBox extends ComboBox<String> {
 	private static final String SAVE_PATH = "/Geometrical Optics Tool";
-	OpticsHandler opticsHandler;
+	OpticsController opticsHandler;
 	Path root;
 	
-	public ExampleBox(OpticsHandler opticsHandler) {
+	public ExampleBox(OpticsController opticsHandler) {
 		root = Paths.get(System.getProperty("user.home") + SAVE_PATH);
 		if(root.toFile().exists()) {
 			
@@ -53,7 +53,7 @@ public class ExampleBox extends ComboBox<String> {
 			
 			FileOutputStream fileOut = new FileOutputStream(Paths.get(root.toString(), "/" + s + ".ser").toFile());
 			ObjectOutputStream out = new  ObjectOutputStream(fileOut);
-			out.writeObject(opticsHandler.getOpticsObjectList());
+			out.writeObject(opticsHandler.getOpticsModel());
 			out.close();
 			fileOut.close();
 		 
@@ -63,14 +63,13 @@ public class ExampleBox extends ComboBox<String> {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void loadExample() {
 		String s = this.getSelectionModel().getSelectedItem();
 		FileInputStream fileIn;
 		try {
 			fileIn = new FileInputStream(Paths.get(root.toString(), "/" + s + ".ser").toFile());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			opticsHandler.setOpticsObjects((List<OpticsObject>)in.readObject());
+			opticsHandler.setOpticsModel((OpticsModel)in.readObject());
 			in.close();
 			fileIn.close();
 		} catch (Exception e) {
