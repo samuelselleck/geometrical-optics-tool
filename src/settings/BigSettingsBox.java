@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
+import gui.OpticsController;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import optics_logic.OpticsController;
 import optics_object_factories.OpticsObjectFactory;
 
 public class BigSettingsBox extends HBox {

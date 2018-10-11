@@ -9,11 +9,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import optics_logic.LightRay;
-import optics_logic.OpticsController;
 import optics_objects.templates.LightSource;
 
 public class OpticsToolBox extends HBox {
-	public OpticsToolBox(OpticsController opticsHandler) {
+	
+	public OpticsToolBox(OpticsController opticsController) {
 		double buttonHeight = Main.HEIGHT/20;
 		HBox.setHgrow(this, Priority.ALWAYS);
 		this.setPrefHeight(Main.HEIGHT / 10);
@@ -33,22 +33,22 @@ public class OpticsToolBox extends HBox {
 				toggleRaysButton.setText("Rays: On");
 				LightRay.DRAW_ONLY_HITTING = false;
 			}
-			opticsHandler.calculateAndDrawRays();
+			opticsController.redraw();
 		});
 		Button clearLightsButton = new Button("Clear Lights");
 		clearLightsButton.setPrefHeight(buttonHeight);
 		clearLightsButton.setOnAction(e -> {
-			opticsHandler.clearLights();
+			opticsController.clearLights();
 		});
 		Button clearMaterialsButton = new Button("Clear Objects");
 		clearMaterialsButton.setPrefHeight(buttonHeight);
 		clearMaterialsButton.setOnAction(e -> {
-			opticsHandler.clearMaterials();
+			opticsController.clearMaterials();
 		});
 		Button clearButton = new Button("Clear All");
 		clearButton.setPrefHeight(buttonHeight);
 		clearButton.setOnAction(e -> {
-			opticsHandler.clear();
+			opticsController.clear();
 		});
 		Button rotationFactorButton = new Button("Rotation factor: 1");
 		rotationFactorButton.setPrefHeight(buttonHeight);
@@ -58,7 +58,7 @@ public class OpticsToolBox extends HBox {
 			double val = Double.parseDouble(parts[parts.length - 1]);
 			val /= 2;
 			if(val < 0.10) val = 1;
-			opticsHandler.setRotationFactor(val);
+			opticsController.setRotationFactor(val);
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
 		Button rayModeButton = new Button("Mode: Ray");
@@ -72,10 +72,10 @@ public class OpticsToolBox extends HBox {
 				LightSource.WHITE = false;
 				rayModeButton.setText("Mode: Ray");
 			}
-			opticsHandler.calculateAndDrawRays();
+			opticsController.redraw();
 		});
 		
-		ExampleBox examples = new ExampleBox(opticsHandler);
+		ExampleBox examples = new ExampleBox(opticsController);
 		
 		Button saveButton = new Button("Save");
 		saveButton.setPrefHeight(buttonHeight);

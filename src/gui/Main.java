@@ -4,13 +4,10 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import optics_logic.OpticsController;
 import optics_logic.OpticsModel;
 import settings.BigSettingsBox;
 
@@ -44,18 +41,15 @@ public class Main extends Application {
 				" -fx-focus-color: white; -fx-faint-focus-color: white;");
 		
 		OpticsModel model = new OpticsModel();
-		Canvas canvas = new Canvas(WIDTH * 4 / 5, HEIGHT * 60 / 61);
-		StackPane canvasHolder = new StackPane();
-		canvasHolder.setStyle("-fx-background-color: black");
-		canvasHolder.getChildren().add(canvas);
-		root.setLeft(canvasHolder);
+		OpticsView view = new OpticsView(WIDTH * 4 / 5, HEIGHT * 60 / 61);
+		OpticsController opticsController = new OpticsController(model, view);
+		root.setLeft(view.getCanvas());
 		
-		OpticsController opticsHandler = new OpticsController(model, canvas);
 
-		HBox settingsBox = new BigSettingsBox(opticsHandler);
+		HBox settingsBox = new BigSettingsBox(opticsController);
 		root.setRight(settingsBox);
 		
-		HBox toolBox = new OpticsToolBox(opticsHandler);
+		HBox toolBox = new OpticsToolBox(opticsController);
 		root.setBottom(toolBox);
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);

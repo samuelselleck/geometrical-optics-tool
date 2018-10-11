@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.ComboBox;
-import optics_logic.OpticsController;
 import optics_logic.OpticsModel;
 
 public class ExampleBox extends ComboBox<String> {
