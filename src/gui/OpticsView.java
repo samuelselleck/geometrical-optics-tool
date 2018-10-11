@@ -13,8 +13,8 @@ import optics_objects.templates.Material;
 import util.Utils;
 
 public class OpticsView {
-	OpticsModel model;
-	Canvas canvas;
+	private OpticsModel model;
+	private Canvas canvas;
 	
 	public OpticsView(double width, double height) {
 		this.canvas = new Canvas(width, height);
@@ -28,9 +28,9 @@ public class OpticsView {
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(Material m : model.getMaterials()) {
-			m.draw(gc);
+			m.draw(gc, model.getSettings());
 		}
-		if(LightSource.WHITE) {
+		if(model.getSettings().colorMode()) {
 			//canvas.setEffect(new BoxBlur(5, 5, 3)); ??? TODO
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
@@ -51,7 +51,7 @@ public class OpticsView {
 		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], alpha));
 		gc.beginPath();
 		for(LightSource l : lights) {
-			l.draw(gc);
+			l.draw(gc, model.getSettings());
 		}
 		gc.stroke();
 	}
@@ -60,7 +60,7 @@ public class OpticsView {
 		return canvas;
 	}
 
-	public void setModel(OpticsModel model) {
+	public void setOpticsModel(OpticsModel model) {
 		this.model = model;
 	}
 }

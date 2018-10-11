@@ -17,10 +17,8 @@ public abstract class Lens extends Material {
 	public double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
-		double var;
-		if(LightSource.WHITE) var = Math.pow((refractionindex - 1)*
+		double var = Math.pow((refractionindex - 1)*
 				(LightSource.LIGHTWAVEMAX/wavelength - 1), 1.5);
-		else var = 0;
 		
 		double currRefrac = refractionindex + var;
 		double invrefrac = 1/currRefrac;

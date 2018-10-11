@@ -5,19 +5,20 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.TouchEvent;
 import optics_logic.OpticsModel;
+import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.OpticsObject;
 
 public class OpticsController {
 	public static final int EDGE_LEASE = 10;
 	
-	OpticsModel model;
+	private OpticsModel model;
 	
-	OpticsObjectFactory opticsObjectFactory;
-	OpticsObject draging;
+	private OpticsObjectFactory opticsObjectFactory;
+	private OpticsObject draging;
 	
-	OpticsView view;
-	double rotationFactor;
+	private OpticsView view;
+	private double rotationFactor;
 
 	public OpticsController(OpticsModel model, OpticsView view) {
 		this.model = model;
@@ -39,7 +40,7 @@ public class OpticsController {
 	
 	private void connect(OpticsModel model, OpticsView view) {
 		Canvas canvas = view.getCanvas();
-		view.setModel(model);
+		view.setOpticsModel(model);
 		
 		canvas.setOnMouseReleased(e -> {
 			double x = e.getX();
@@ -123,8 +124,8 @@ public class OpticsController {
 		connect(model, view);
 		redraw();
 	}
-
-	public Canvas getCanvas() {
-		return view.getCanvas();
+	
+	public OpticsSettings getModelSettings() {
+		return model.getSettings();
 	}
 }

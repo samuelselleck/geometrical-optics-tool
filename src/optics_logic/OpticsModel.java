@@ -14,10 +14,14 @@ import util.Vector2d;
 public class OpticsModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	List<Material> materials;
 	List<LightSource> lights;
 	
-	public OpticsModel() {
+	OpticsSettings settings;
+	
+	public OpticsModel(OpticsSettings settings) {
+		this.settings = settings;
 		init();
 	}
 	
@@ -91,5 +95,9 @@ public class OpticsModel implements Serializable {
 
 	public void clearMaterials() {
 		materials.clear();
+	}
+
+	public OpticsSettings getSettings() {
+		return settings;
 	}
 }

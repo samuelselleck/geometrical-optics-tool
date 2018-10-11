@@ -8,8 +8,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import optics_logic.LightRay;
-import optics_objects.templates.LightSource;
+import optics_logic.OpticsSettings;
 
 public class OpticsToolBox extends HBox {
 	
@@ -26,13 +25,9 @@ public class OpticsToolBox extends HBox {
 		toggleRaysButton.setPrefHeight(buttonHeight);
 		toggleRaysButton.setPrefWidth(Main.WIDTH/12);
 		toggleRaysButton.setOnAction(e -> {
-			if (LightRay.DRAW_ONLY_HITTING == false) {
-				toggleRaysButton.setText("Rays: Off");
-				LightRay.DRAW_ONLY_HITTING = true;
-			} else {
-				toggleRaysButton.setText("Rays: On");
-				LightRay.DRAW_ONLY_HITTING = false;
-			}
+			OpticsSettings settings = opticsController.getModelSettings();
+			toggleRaysButton.setText("Rays: " + (settings.toggleDrawOnlyHitting() ? "Off" : "On"));
+			//TODO make button labels update when loading new model
 			opticsController.redraw();
 		});
 		Button clearLightsButton = new Button("Clear Lights");
@@ -65,13 +60,8 @@ public class OpticsToolBox extends HBox {
 		rayModeButton.setPrefHeight(buttonHeight);
 		rayModeButton.setPrefWidth(Main.WIDTH/12);
 		rayModeButton.setOnAction(e -> {
-			if(rayModeButton.getText().equals("Mode: Ray")) {
-				LightSource.WHITE = true;	
-				rayModeButton.setText("Mode: Color");
-			} else {
-				LightSource.WHITE = false;
-				rayModeButton.setText("Mode: Ray");
-			}
+			OpticsSettings settings = opticsController.getModelSettings();
+			rayModeButton.setText("Mode: " + (settings.toggleColorMode() ? "Color" : "Ray"));
 			opticsController.redraw();
 		});
 		

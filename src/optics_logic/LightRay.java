@@ -12,7 +12,6 @@ import util.Vector2d;
 
 public class LightRay implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static boolean DRAW_ONLY_HITTING = false;
 	public static final int MAX_ITERATIONS = 15;
 	
 	private transient ArrayList<Vector2d> path;
@@ -191,8 +190,8 @@ public class LightRay implements Serializable {
 		return line.rotate(angleOut).mult(ray.length()*distance);
 	}
 
-	public void draw(GraphicsContext gc) {
-		if (!DRAW_ONLY_HITTING || path.size() > 2) {
+	public void draw(GraphicsContext gc, boolean onlyHitting) {
+		if (!onlyHitting || path.size() > 2) {
 			Vector2d p = path.get(0);
 			gc.moveTo(p.x, p.y);
 			for(int i = 0; i < path.size(); i++) {

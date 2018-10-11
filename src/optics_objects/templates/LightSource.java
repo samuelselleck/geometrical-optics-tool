@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.LightRay;
+import optics_logic.OpticsSettings;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
@@ -12,7 +13,6 @@ public abstract class LightSource extends OpticsObject {
 	public static final int LIGHTWAVEMAX = 700;
 	public static final int LIGHTWAVEMIN = 380;
 	public static final int DEFAULTWAVE = 700;
-	public static boolean WHITE = false;
 	ArrayList<LightRay> light;
 	
 
@@ -28,9 +28,9 @@ public abstract class LightSource extends OpticsObject {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(GraphicsContext gc, OpticsSettings settings) {
 		for(LightRay l : light) {
-			l.draw(gc);
+			l.draw(gc, settings.drawOnlyHitting());
 		}
 	}
 

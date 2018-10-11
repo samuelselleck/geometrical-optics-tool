@@ -3,6 +3,7 @@ package optics_objects.templates;
 import java.io.Serializable;
 
 import javafx.scene.canvas.GraphicsContext;
+import optics_logic.OpticsSettings;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
@@ -16,7 +17,7 @@ public abstract class OpticsObject implements Serializable {
 		this.fixedPosition = fixedPosition;
 	}
 
-	public abstract void draw(GraphicsContext gc);
+	public abstract void draw(GraphicsContext gc, OpticsSettings settings);
 
 	public Vector2d getOrigin() {
 		return origin;

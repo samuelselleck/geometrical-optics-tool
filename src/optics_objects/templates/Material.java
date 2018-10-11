@@ -6,6 +6,7 @@ import java.util.List;
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
+import optics_logic.OpticsSettings;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -90,7 +91,8 @@ public abstract class Material extends OpticsObject {
 		return points.size();
 	}
 	
-	public void draw(GraphicsContext gc) {
+	@Override
+	public void draw(GraphicsContext gc, OpticsSettings settings) {
 		gc.setStroke(Paint.valueOf("WHITE"));
 		Vector2d p1;
 		Vector2d p2 = getPoint(0);

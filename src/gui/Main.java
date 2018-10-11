@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import optics_logic.OpticsModel;
+import optics_logic.OpticsSettings;
 import settings.BigSettingsBox;
 
 public class Main extends Application {
@@ -39,8 +40,9 @@ public class Main extends Application {
 
 		root.setStyle("-fx-base: black; -fx-fill: white;" +
 				" -fx-focus-color: white; -fx-faint-focus-color: white;");
+		OpticsSettings settings = new OpticsSettings();
 		
-		OpticsModel model = new OpticsModel();
+		OpticsModel model = new OpticsModel(settings);
 		OpticsView view = new OpticsView(WIDTH * 4 / 5, HEIGHT * 60 / 61);
 		OpticsController opticsController = new OpticsController(model, view);
 		root.setLeft(view.getCanvas());
