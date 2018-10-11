@@ -1,7 +1,5 @@
 package optics_objects.templates;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class Lens extends Material {
@@ -15,6 +13,7 @@ public abstract class Lens extends Material {
 		this.refractionindex = refractionindex;
 	}
 	
+	@Override
 	public double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
@@ -38,21 +37,9 @@ public abstract class Lens extends Material {
 		return angleOut;
 	}
 	
+	@Override
 	public void createBounds() {
 		points.add(points.get(0).copy()); //Close loop
 		super.createBounds();
-	}
-	
-	public void draw(GraphicsContext gc) {
-		gc.beginPath();
-		Vector2d p = getPoint(0);
-		gc.moveTo(p.x, p.y);
-		for (int i = 1; i < getPointCount(); i++) {
-			p = getPoint(i);
-			gc.lineTo(p.x, p.y);
-		}
-		gc.closePath();
-		gc.setStroke(Paint.valueOf("WHITE"));
-		gc.stroke();
 	}
 }

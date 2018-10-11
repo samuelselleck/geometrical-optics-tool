@@ -1,7 +1,5 @@
 package optics_objects.templates;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class Wall extends Material {
@@ -12,23 +10,14 @@ public abstract class Wall extends Material {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public double getAngle(double angleIn, double wavelength, boolean dir) {
 		return 0;
 	}
 	
+	@Override
 	public void createBounds() {
 		points.add(points.get(0).copy()); //Close loop
 		super.createBounds();
-	}
-	
-	public void draw(GraphicsContext gc) {
-		gc.setStroke(Paint.valueOf("WHITE"));
-		Vector2d p1;
-		Vector2d p2 = getPoint(0);
-		for (int i = 0; i < getPointCount(); i++) {
-			p1 = p2;
-			p2 = getPoint(i);
-			gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
-		}
 	}
 }

@@ -33,7 +33,12 @@ public class LightRay implements Serializable {
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
 	public void calculatePath(List<Material> materials, int wavelength) {
-		path = new ArrayList<>();
+		if(path == null) {
+			path = new ArrayList<>();
+		} else {
+			path.clear();
+		}
+		
 		LightRay currRay = this;
 		path.add(getPos());
 		LightRay bestCandidateRay;

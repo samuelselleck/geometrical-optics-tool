@@ -27,6 +27,7 @@ public abstract class LightSource extends OpticsObject {
 		});
 	}
 
+	@Override
 	public void draw(GraphicsContext gc) {
 		for(LightRay l : light) {
 			l.draw(gc);
@@ -37,6 +38,7 @@ public abstract class LightSource extends OpticsObject {
 		return light;
 	}
 	
+	@Override
 	public void rotateOp(double angle) {
 		for(LightRay l : light) {
 			l.rotate(angle);

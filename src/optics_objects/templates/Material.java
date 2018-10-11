@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -37,6 +39,7 @@ public abstract class Material extends OpticsObject {
 
 	public abstract double getAngle(double angleIn, double wavelength, boolean dir);
 
+	@Override
 	public void rotateOp(double angle) {
 		for(Vector2d p : points) {
 			p.rotate(angle);
@@ -85,5 +88,16 @@ public abstract class Material extends OpticsObject {
 
 	public int getPointCount() {
 		return points.size();
+	}
+	
+	public void draw(GraphicsContext gc) {
+		gc.setStroke(Paint.valueOf("WHITE"));
+		Vector2d p1;
+		Vector2d p2 = getPoint(0);
+		for (int i = 0; i < getPointCount(); i++) {
+			p1 = p2;
+			p2 = getPoint(i);
+			gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+		}
 	}
 }

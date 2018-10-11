@@ -8,6 +8,10 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.TouchEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -138,23 +142,24 @@ public class OpticsHandler {
 			m.draw(gc);
 		}
 		if(LightSource.WHITE) {
+			//canvas.setEffect(new BoxBlur(5, 5, 3)); ??? TODO
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
 			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/12) {
-				calculateAndDrawRays(lights, gc, wavelength);
+				calculateAndDrawRays(lights, gc, wavelength, 0.6f);
 			}
 		} else {
-			calculateAndDrawRays(lights, gc, LightSource.DEFAULTWAVE);
+			calculateAndDrawRays(lights, gc, LightSource.DEFAULTWAVE, 1f);
 		}
 	}
 	
-	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength) {
+	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
 		
 		for(LightSource l : lights) {
 			l.calculateRayPaths(materials, wavelength);
 		}
 		int rgb[] = Utils.waveLengthToRGB(wavelength);
-		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], 1));
+		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], alpha));
 		gc.beginPath();
 		for(LightSource l : lights) {
 			l.draw(gc);
