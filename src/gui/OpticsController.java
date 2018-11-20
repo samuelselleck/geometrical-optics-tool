@@ -8,6 +8,7 @@ import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.OpticsObject;
+import util.Vector2d;
 
 public class OpticsController {
 	public static final int EDGE_LEASE = 10;
@@ -16,6 +17,8 @@ public class OpticsController {
 	
 	private OpticsObjectFactory opticsObjectFactory;
 	private OpticsObject draging;
+	private boolean dragged;
+	private Vector2d lastPos;
 	
 	private OpticsView view;
 	private double rotationFactor;
@@ -27,9 +30,9 @@ public class OpticsController {
 		
 		rotationFactor = 1;
 		draging = null;
+		this.dragged = false;
 		
-		redraw();
-		
+		redraw();	
 	}
 
 	public void setOpticsObjectCreator(OpticsObjectFactory oof) {
@@ -59,22 +62,32 @@ public class OpticsController {
 					draging.setOrigin(x, y);
 				}	
 				draging = null;
-			} else {
+			} else if (!dragged) {
 				if (inBounds) {
 					model.addOpticsObject(opticsObjectFactory, x, y);
 				}
 			}
+			dragged = false;
 			redraw();
 		});
 
 		
 		canvas.setOnDragDetected(e -> {
 			draging = model.getOpticsObjectAt(e.getX(), e.getY());
+			lastPos = new Vector2d(e.getX(), e.getY());
 		});
 		
 		canvas.setOnMouseDragged(e -> {
+			dragged = true;
 			if (draging != null) {
-				draging.setOrigin(e.getX(), e.getY());
+				if(draging.isFixed()) {
+					Vector2d before = draging.getOrigin().copy().sub(lastPos);
+					lastPos = new Vector2d(e.getX(), e.getY());
+					Vector2d after = draging.getOrigin().copy().sub(lastPos);
+					draging.rotate(after.angleTo(before)*rotationFactor);
+				} else {
+					draging.setOrigin(e.getX(), e.getY());
+				}
 				redraw();
 			}
 		});

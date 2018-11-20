@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_logic.OpticsModel;
@@ -21,7 +22,6 @@ public class OpticsView {
 	}
 	
 	public void calculateAndDrawRays() {
-		
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Paint.valueOf("BLACK"));
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -31,7 +31,7 @@ public class OpticsView {
 			m.draw(gc, model.getSettings());
 		}
 		if(model.getSettings().colorMode()) {
-			//canvas.setEffect(new BoxBlur(5, 5, 3)); ??? TODO
+			//gc.setEffect(new BoxBlur(5, 5, 3));
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
 			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/12) {

@@ -3,6 +3,7 @@ package optics_objects.templates;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.LightRay;
 import optics_logic.OpticsSettings;
@@ -33,16 +34,16 @@ public abstract class LightSource extends OpticsObject {
 			l.draw(gc, settings.drawOnlyHitting());
 		}
 	}
-
-	public Object getRays() {
-		return light;
-	}
 	
 	@Override
 	public void rotateOp(double angle) {
 		for(LightRay l : light) {
 			l.rotate(angle);
 		}
+	}
+	
+	public boolean withinTouchHitBox(Vector2d pos) {
+		return pos.distSquared(this.getOrigin()) < (Main.HEIGHT/10)*(Main.HEIGHT/10);
 	}
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {

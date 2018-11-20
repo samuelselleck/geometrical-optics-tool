@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -21,7 +20,8 @@ public class OpticsToolBox extends HBox {
 		HBox.setHgrow(tools, Priority.ALWAYS);
 		HBox.setHgrow(exit, Priority.ALWAYS);
 		
-		ToggleButton toggleRaysButton = new ToggleButton("Rays: On");
+		//ToggleButton?
+		Button toggleRaysButton = new Button("Rays: On");
 		toggleRaysButton.setPrefHeight(buttonHeight);
 		toggleRaysButton.setPrefWidth(Main.WIDTH/12);
 		toggleRaysButton.setOnAction(e -> {
@@ -65,7 +65,7 @@ public class OpticsToolBox extends HBox {
 			opticsController.redraw();
 		});
 		
-		ExampleBox examples = new ExampleBox(opticsController);
+		ExampleBox examples = new ExampleBox(opticsController, toggleRaysButton, rayModeButton);
 		
 		Button saveButton = new Button("Save");
 		saveButton.setPrefHeight(buttonHeight);

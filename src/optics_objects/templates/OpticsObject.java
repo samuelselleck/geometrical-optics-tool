@@ -34,9 +34,14 @@ public abstract class OpticsObject implements Serializable {
 	}
 	
 	protected abstract void rotateOp(double angle);
+	public abstract boolean withinTouchHitBox(Vector2d pos);
 	
 	public void rotate(double angle) {
 		totalRotation += angle;
 		rotateOp(angle);
+	}
+
+	public boolean isFixed() {
+		return fixedPosition;
 	}
 }

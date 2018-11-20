@@ -11,15 +11,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import optics_logic.OpticsModel;
+import optics_logic.OpticsSettings;
 
 public class ExampleBox extends ComboBox<String> {
 	private static final String SAVE_PATH = "/Geometrical Optics Tool";
-	OpticsController opticsHandler;
+	OpticsController opticsController;
+	Button toggleRaysButton, rayModeButton;
 	Path root;
 	
-	public ExampleBox(OpticsController opticsHandler) {
+	public ExampleBox(OpticsController opticsController, Button toggleRaysButton, Button rayModeButton) {
+		
+		//TODO make general
+		this.toggleRaysButton = toggleRaysButton;
+		this.rayModeButton = rayModeButton;
+		
 		root = Paths.get(System.getProperty("user.home") + SAVE_PATH);
 		if(root.toFile().exists()) {
 			
@@ -40,7 +48,7 @@ public class ExampleBox extends ComboBox<String> {
 		
 		if(Main.ADMIN) this.setEditable(true);
 		
-		this.opticsHandler = opticsHandler;
+		this.opticsController = opticsController;
 	}
 	
 	public void saveCurrentWorkspace() {
@@ -52,7 +60,7 @@ public class ExampleBox extends ComboBox<String> {
 			
 			FileOutputStream fileOut = new FileOutputStream(Paths.get(root.toString(), "/" + s + ".ser").toFile());
 			ObjectOutputStream out = new  ObjectOutputStream(fileOut);
-			out.writeObject(opticsHandler.getOpticsModel());
+			out.writeObject(opticsController.getOpticsModel());
 			out.close();
 			fileOut.close();
 		 
@@ -68,9 +76,15 @@ public class ExampleBox extends ComboBox<String> {
 		try {
 			fileIn = new FileInputStream(Paths.get(root.toString(), "/" + s + ".ser").toFile());
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			opticsHandler.setOpticsModel((OpticsModel)in.readObject());
+			opticsController.setOpticsModel((OpticsModel)in.readObject());
 			in.close();
 			fileIn.close();
+			
+			// make general!!
+			OpticsSettings settings = opticsController.getModelSettings();
+			rayModeButton.setText("Mode: " + (settings.colorMode() ? "Color" : "Ray"));
+			toggleRaysButton.setText("Rays: " + (settings.drawOnlyHitting() ? "Off" : "On"));
+			
 		} catch (Exception e) {
 			System.out.println("Couldn't load file: " + s);
 			e.printStackTrace();

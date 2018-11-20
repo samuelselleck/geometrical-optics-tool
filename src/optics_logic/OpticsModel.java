@@ -33,25 +33,20 @@ public class OpticsModel implements Serializable {
 	public OpticsObject getOpticsObjectAt(double x, double y) {
 		OpticsObject draging = null;
 		Vector2d pos = new Vector2d(x, y);
+		List<OpticsObject> objList = new ArrayList<>();
+		objList.addAll(materials);
+		objList.addAll(lights);
 		
 		double closestSq = Double.MAX_VALUE;
-		for (LightSource l : lights) {
-			double distSq = l.getOrigin().distSquared(pos);
-			if (distSq < (Main.HEIGHT / 10)*(Main.HEIGHT /10) && closestSq > distSq) {
-				closestSq = distSq;
-				draging = l;
-			}
-		}
-		for (Material l : materials) {		
-			if(l.withinTouchHitBox(pos)) {
-				double distSq = l.getOrigin().distSquared(pos);
+		for (OpticsObject o : objList) {		
+			if(o.withinTouchHitBox(pos)) {
+				double distSq = o.getOrigin().distSquared(pos);
 				if (closestSq > distSq) {
 					closestSq = distSq;
-					draging = l;
+					draging = o;
 				}
 			}
 		}
-		//TODO make lights move with: withinTouchHitbox
 		return draging;
 	}
 	
