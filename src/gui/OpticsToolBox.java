@@ -66,6 +66,7 @@ public class OpticsToolBox extends HBox {
 		});
 		
 		ExampleBox examples = new ExampleBox(opticsController, toggleRaysButton, rayModeButton);
+		examples.setPrefHeight(buttonHeight);
 		
 		Button saveButton = new Button("Save");
 		saveButton.setPrefHeight(buttonHeight);

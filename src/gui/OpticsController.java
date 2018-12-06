@@ -84,7 +84,9 @@ public class OpticsController {
 					Vector2d before = draging.getOrigin().copy().sub(lastPos);
 					lastPos = new Vector2d(e.getX(), e.getY());
 					Vector2d after = draging.getOrigin().copy().sub(lastPos);
-					draging.rotate(after.angleTo(before)*rotationFactor);
+					double angle = after.angleTo(before);
+					if(Double.isFinite(angle))
+					draging.rotate(angle*rotationFactor);
 				} else {
 					draging.setOrigin(e.getX(), e.getY());
 				}
