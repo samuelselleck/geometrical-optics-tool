@@ -23,7 +23,7 @@ public class ExampleBox extends ComboBox<String> {
 	Path root;
 	
 	public ExampleBox(OpticsController opticsController, Button toggleRaysButton, Button rayModeButton) {
-		
+		//Test git
 		//TODO make general
 		this.toggleRaysButton = toggleRaysButton;
 		this.rayModeButton = rayModeButton;
