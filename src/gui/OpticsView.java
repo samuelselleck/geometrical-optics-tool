@@ -5,7 +5,6 @@ import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_logic.OpticsModel;

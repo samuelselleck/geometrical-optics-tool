@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.Main;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
