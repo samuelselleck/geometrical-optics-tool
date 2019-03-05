@@ -102,7 +102,7 @@ public class OpticsController {
 		});
 	}
 	
-	public void setEvent(EventHandler<TouchEvent> e) {
+	public void setBeforeObjectCreation(EventHandler<TouchEvent> e) {
 		view.getCanvas().setOnTouchPressed(e);
 		//TODO fix better communication line
 	}

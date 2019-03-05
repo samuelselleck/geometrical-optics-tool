@@ -20,6 +20,7 @@ public class OpticsView {
 		this.canvas = new Canvas(width, height);
 	}
 	
+	//TODO Do this in a better way for color mode
 	public void calculateAndDrawRays() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.setFill(Paint.valueOf("BLACK"));

@@ -20,7 +20,6 @@ public class OpticsToolBox extends HBox {
 		HBox.setHgrow(tools, Priority.ALWAYS);
 		HBox.setHgrow(exit, Priority.ALWAYS);
 		
-		//ToggleButton?
 		Button toggleRaysButton = new Button("Rays: On");
 		toggleRaysButton.setPrefHeight(buttonHeight);
 		toggleRaysButton.setPrefWidth(Main.WIDTH/12);
