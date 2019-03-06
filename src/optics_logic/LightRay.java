@@ -153,7 +153,8 @@ public class LightRay implements Serializable {
 	}
 
 	// Calculates the first intersection with the material, returns null
-	// if there was none and the new ray if there was a hit, where the ray length represents the distance to the hit point.
+	// if there was none and the new ray if there was a hit.
+	// The ray length represents the distance to the hit point (I am aware this is weird, TODO
 	private LightRay getRayIntersection(Material material, LightRay currRay, int wavelength) {
 		double closest = Double.MAX_VALUE;
 		Vector2d posHit = null;

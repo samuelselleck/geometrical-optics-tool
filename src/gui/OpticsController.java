@@ -1,9 +1,9 @@
 package gui;
 
 
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.input.TouchEvent;
 import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
@@ -102,8 +102,9 @@ public class OpticsController {
 		});
 	}
 	
-	public void setBeforeObjectCreation(EventHandler<TouchEvent> e) {
+	public void setBeforeObjectCreation(EventHandler<Event> e) {
 		view.getCanvas().setOnTouchPressed(e);
+		view.getCanvas().setOnMousePressed(e);
 		//TODO fix better communication line
 	}
 

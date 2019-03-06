@@ -2,12 +2,18 @@ package gui;
 
 
 import javafx.application.Application;
+import javafx.application.ConditionalFeature;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
 import settings.BigSettingsBox;
@@ -53,6 +59,15 @@ public class Main extends Application {
 		
 		HBox toolBox = new OpticsToolBox(opticsController);
 		root.setBottom(toolBox);
+		
+		if(!Platform.isSupported(ConditionalFeature.INPUT_MULTITOUCH)) {
+			Alert noMultiTouch = new Alert(AlertType.INFORMATION, 
+					"This program needs a screen with multitouch\n "
+					+ "and gesture support for all futures to work\n"
+					+ "as intended. You do not seem to be on one.",
+					ButtonType.OK);
+			noMultiTouch.showAndWait();
+		}
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		stage.setTitle("Geometrical Optics Tool");
