@@ -1,12 +1,17 @@
-opticsobjectresolution=300
-maxraybounce=10
-
-minwavelength=400
-maxwavelength=700
-defaultwavelength=400
-
+Screen properties:
 fullscreen=false
-width=1200
+width=1300
 height=700
 
+LightProperties:
+minwavelength=400
+maxwavelength=700
+defaultwavelength=700
+colormoderaycount=10
+
+Performance callibration:
+opticsobjectresolution=200
+maxraybounce=10
+
+Admin:
 admin=false

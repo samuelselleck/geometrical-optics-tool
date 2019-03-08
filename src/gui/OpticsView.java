@@ -31,14 +31,15 @@ public class OpticsView {
 			m.draw(gc, model.getSettings());
 		}
 		if(model.getSettings().colorMode()) {
-			//gc.setEffect(new BoxBlur(5, 5, 3));
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
-			int step = LightSource.LIGHTWAVEMAX - LightSource.LIGHTWAVEMIN;
-			for(int wavelength = LightSource.LIGHTWAVEMIN; wavelength < LightSource.LIGHTWAVEMAX; wavelength += step/12) {
+			int step = LightSource.lightWaveMax() - LightSource.lightWaveMin();
+			for(int wavelength = LightSource.lightWaveMin();
+					wavelength < LightSource.lightWaveMax();
+					wavelength += step/LightSource.colorModeRayCount()) {
 				calculateAndDrawRays(model.getLights(), gc, wavelength, 0.6f);
 			}
 		} else {
-			calculateAndDrawRays(model.getLights(), gc, LightSource.DEFAULTWAVE, 1f);
+			calculateAndDrawRays(model.getLights(), gc, LightSource.lightWaveDefault(), 1f);
 		}
 	}
 	

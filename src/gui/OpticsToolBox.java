@@ -3,9 +3,10 @@ package gui;
 import java.io.File;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -14,16 +15,13 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import optics_logic.OpticsSettings;
 
-public class OpticsToolBox extends HBox {
+public class OpticsToolBox extends ToolBar {
 	
 	public OpticsToolBox(OpticsController opticsController, Stage primaryStage) {
-		double buttonHeight = Main.HEIGHT/20;
 		HBox.setHgrow(this, Priority.ALWAYS);
-		this.setPrefHeight(Main.HEIGHT / 10);
-		HBox tools = new HBox(Main.HEIGHT/80);
-		HBox exit = new HBox();
-		HBox.setHgrow(tools, Priority.ALWAYS);
-		HBox.setHgrow(exit, Priority.ALWAYS);
+		VBox.setVgrow(this, Priority.ALWAYS);
+		
+		double buttonHeight = Main.HEIGHT/20;
 		
 		Button toggleRaysButton = new Button("Rays: On");
 		toggleRaysButton.setPrefHeight(buttonHeight);
@@ -51,7 +49,7 @@ public class OpticsToolBox extends HBox {
 		});
 		Button rotationFactorButton = new Button("Rotation factor: 1");
 		rotationFactorButton.setPrefHeight(buttonHeight);
-		rotationFactorButton.setPrefWidth(Main.WIDTH/10);
+		rotationFactorButton.setPrefWidth(Main.WIDTH/7);
 		rotationFactorButton.setOnAction(e -> {
 			String[] parts = rotationFactorButton.getText().split(" ");
 			double val = Double.parseDouble(parts[parts.length - 1]);
@@ -106,28 +104,17 @@ public class OpticsToolBox extends HBox {
 		
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefHeight(buttonHeight);
-		exitButton.setPrefWidth(Main.WIDTH*0.193);
 		exitButton.setOnAction(e -> {
 			System.exit(0);
 		});
 		
-		tools.getChildren().addAll(toggleRaysButton, clearButton,
-				clearLightsButton, clearMaterialsButton, rotationFactorButton,
-				rayModeButton, examples);
+		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(),
+				toggleRaysButton, rayModeButton, new Separator(), rotationFactorButton, examples);
 		
 		if(Main.ADMIN)
-		tools.getChildren().addAll(saveButton, deleteButton);
+		this.getItems().addAll(saveButton, deleteButton);
 		
-		tools.getChildren().addAll(loadButton, saveImageButton);
+		this.getItems().addAll(loadButton, saveImageButton, exitButton);
 		
-		exit.getChildren().addAll(exitButton);
-		exit.setAlignment(Pos.BASELINE_RIGHT);
-		this.getChildren().addAll(tools, exit);
-		
-		VBox.setVgrow(this, Priority.ALWAYS);
-		for (Node n : this.getChildren()) {
-			VBox.setVgrow(n, Priority.ALWAYS);
-			HBox.setMargin(n, new Insets(Main.HEIGHT/100));
-		}
 	}
 }

@@ -17,7 +17,7 @@ public abstract class Lens extends Material {
 		double angleOut;
 		
 		double var = Math.pow((refractionindex - 1)*
-				(LightSource.LIGHTWAVEMAX/wavelength - 1), 1.5);
+				(LightSource.lightWaveMax()/wavelength - 1), 1.5);
 		
 		double currRefrac = refractionindex + var;
 		double invrefrac = 1/currRefrac;

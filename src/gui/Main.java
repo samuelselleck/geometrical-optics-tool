@@ -8,6 +8,7 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
@@ -28,8 +29,7 @@ public class Main extends Application {
 		try {
 			properties.load(new FileInputStream("config.txt"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Could not find config.txt file");
 		}
 		
 		if((args.length > 0 && args[0].equals("admin")) ||
@@ -38,6 +38,7 @@ public class Main extends Application {
 		} else {
 			ADMIN = false;
 		}
+		
 		Application.launch(args);
 	}
 
@@ -59,12 +60,12 @@ public class Main extends Application {
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
 
-		root.setStyle("-fx-base: black; -fx-fill: white;" +
+		root.setStyle("-fx-base: #222222; -fx-fill: white;" +
 				" -fx-focus-color: white; -fx-faint-focus-color: white;");
 		OpticsSettings settings = new OpticsSettings();
 		
 		OpticsModel model = new OpticsModel(settings);
-		OpticsView view = new OpticsView(WIDTH * 4 / 5, HEIGHT * 9/10);
+		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT * 9/10);
 		OpticsController opticsController = new OpticsController(model, view);
 		root.setLeft(view.getCanvas());
 		
@@ -72,7 +73,7 @@ public class Main extends Application {
 		HBox settingsBox = new BigSettingsBox(opticsController);
 		root.setRight(settingsBox);
 		
-		HBox toolBox = new OpticsToolBox(opticsController, stage);
+		ToolBar toolBox = new OpticsToolBox(opticsController, stage);
 		root.setBottom(toolBox);
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);

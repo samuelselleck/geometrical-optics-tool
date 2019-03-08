@@ -11,9 +11,6 @@ import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
-	public static final int LIGHTWAVEMAX = 700;
-	public static final int LIGHTWAVEMIN = 380;
-	public static final int DEFAULTWAVE = 700;
 	ArrayList<LightRay> light;
 	
 
@@ -52,5 +49,21 @@ public abstract class LightSource extends OpticsObject {
 	
 	public void addLightRay(Vector2d ray) {
 		addLightRay(new Vector2d(0, 0), ray);
+	}
+	
+	public static int lightWaveMax() {
+		return Integer.parseInt(Main.properties.getProperty("maxwavelength"));
+	}
+	
+	public static int lightWaveMin() {
+		return Integer.parseInt(Main.properties.getProperty("minwavelength"));
+	}
+	
+	public static int lightWaveDefault() {
+		return Integer.parseInt(Main.properties.getProperty("defaultwavelength"));
+	}
+	
+	public static int colorModeRayCount() {
+		return Integer.parseInt(Main.properties.getProperty("colormoderaycount"));
 	}
 }

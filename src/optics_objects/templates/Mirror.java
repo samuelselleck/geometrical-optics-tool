@@ -5,7 +5,6 @@ import util.Vector2d;
 public abstract class Mirror extends Material {
 	
 	private static final long serialVersionUID = 1L;
-	public static final int MIRRORRESOLUTION = 500;
 	
 	public Mirror(Vector2d origin, boolean fixedPosition) {
 		super(origin, fixedPosition);

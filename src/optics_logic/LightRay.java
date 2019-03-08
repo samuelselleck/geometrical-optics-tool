@@ -12,7 +12,6 @@ import util.Vector2d;
 
 public class LightRay implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final int MAX_ITERATIONS = 15;
 	
 	private transient ArrayList<Vector2d> path;
 	private Vector2d origin;
@@ -43,6 +42,7 @@ public class LightRay implements Serializable {
 		LightRay bestCandidateRay;
 		
 		int count = 0;
+		int maxIterrations = Integer.parseInt(Main.properties.getProperty("maxraybounce"));
 		do {
 			count++;
 			bestCandidateRay = null;
@@ -77,9 +77,9 @@ public class LightRay implements Serializable {
 					currRay = bestCandidateRay;
 				}
 			}
-		} while (bestCandidateRay != null && count < MAX_ITERATIONS);
+		} while (bestCandidateRay != null && count < maxIterrations);
 
-		if (bestCandidateRay == null && count != MAX_ITERATIONS) {
+		if (bestCandidateRay == null && count != maxIterrations) {
 			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.WIDTH)));
 		}
 	}
