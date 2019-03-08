@@ -1,5 +1,7 @@
 package gui;
 
+import java.io.File;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -7,11 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import optics_logic.OpticsSettings;
 
 public class OpticsToolBox extends HBox {
 	
-	public OpticsToolBox(OpticsController opticsController) {
+	public OpticsToolBox(OpticsController opticsController, Stage primaryStage) {
 		double buttonHeight = Main.HEIGHT/20;
 		HBox.setHgrow(this, Priority.ALWAYS);
 		this.setPrefHeight(Main.HEIGHT / 10);
@@ -85,6 +90,20 @@ public class OpticsToolBox extends HBox {
 			examples.deleteCurrent();
 		});
 		
+		Button saveImageButton = new Button("Save image");
+		saveImageButton.setPrefHeight(buttonHeight);
+		saveImageButton.setOnAction(e -> {
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Choose save directory");
+			chooser.getExtensionFilters().add(
+					new ExtensionFilter("PNG file (*.png)", "*.png"));
+			File saveFile = chooser.showSaveDialog(primaryStage);
+			if(saveFile != null) {
+				opticsController.saveScreenshotTo(saveFile);
+			}
+			
+		});
+		
 		Button exitButton = new Button("Exit");
 		exitButton.setPrefHeight(buttonHeight);
 		exitButton.setPrefWidth(Main.WIDTH*0.193);
@@ -99,7 +118,7 @@ public class OpticsToolBox extends HBox {
 		if(Main.ADMIN)
 		tools.getChildren().addAll(saveButton, deleteButton);
 		
-		tools.getChildren().add(loadButton);
+		tools.getChildren().addAll(loadButton, saveImageButton);
 		
 		exit.getChildren().addAll(exitButton);
 		exit.setAlignment(Pos.BASELINE_RIGHT);

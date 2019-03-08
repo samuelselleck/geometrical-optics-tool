@@ -1,0 +1,12 @@
+opticsobjectresolution=300
+maxraybounce=10
+
+minwavelength=400
+maxwavelength=700
+defaultwavelength=400
+
+fullscreen=false
+width=1200
+height=700
+
+admin=false
