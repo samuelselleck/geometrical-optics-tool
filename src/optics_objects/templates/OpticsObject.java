@@ -2,6 +2,7 @@ package optics_objects.templates;
 
 import java.io.Serializable;
 
+import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.OpticsSettings;
 import util.Vector2d;
@@ -43,5 +44,9 @@ public abstract class OpticsObject implements Serializable {
 
 	public boolean isFixed() {
 		return fixedPosition;
+	}
+	
+	public static int getResolution() {
+		return Integer.parseInt(Main.properties.getProperty("opticsobjectresolution"));
 	}
 }

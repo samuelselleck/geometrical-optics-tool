@@ -7,20 +7,14 @@ import util.Vector2d;
 public class RectangleWallFactory extends OpticsObjectFactory {
 	
 	public RectangleWallFactory() {
-		String[] names = new String[] { "Width", "Height" };
-		double[] values = new double[] { 30, 200};
-		Vector2d[] bounds = new Vector2d[values.length];
-		bounds[0] = new Vector2d(7, 800);
-		bounds[1] = new Vector2d(7, 800);
-
-		super.setSliders(names, bounds, values);
+		addSlider("Width", 7, 800, 30);
+		addSlider("Height", 7, 800, 200);
 	}
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RectangleWall(origin,
-				super.getSliderValue(0), super.getSliderValue(1), 
-				super.positionFixed.selectedProperty().getValue());
+				getParam("Width"), getParam("Height"), fixedPos());
 	}
 
 }

@@ -1,4 +1,6 @@
 package optics_object_factories;
+import java.util.Map;
+import java.util.TreeMap;
 
 import gui.Main;
 import javafx.geometry.Insets;
@@ -14,55 +16,60 @@ import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {
-	private Slider[] sliders;
-	protected CheckBox positionFixed;
+	private Map<String, Slider> sliders;
+	private VBox top;
+	private CheckBox positionFixed;
 	
 	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
-	}
-
-	public abstract OpticsObject getOpticsObject(Vector2d origin);
-
-	protected void setSliders(String[] names, Vector2d[] bounds, double[] startValues) {
-		sliders = new Slider[startValues.length];
-		for (int i = 0; i < sliders.length; i++) {
-			sliders[i] = new Slider();
-			HBox.setMargin(sliders[i], new Insets(100, 100, 100, 100));
-			sliders[i].setMin(bounds[i].x);
-			sliders[i].setMax(bounds[i].y);
-			sliders[i].setValue(startValues[i]);
-			;
-			sliders[i].setShowTickLabels(true);
-			sliders[i].setShowTickMarks(true);
-			sliders[i].setMajorTickUnit(Math.abs(bounds[i].x - bounds[i].y + 1) / 4);
-		}
-
-		VBox top = new VBox();
+		sliders = new TreeMap<>();
+		
+		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
 		top.setAlignment(Pos.TOP_LEFT);
 		VBox bot = new VBox();
 		VBox.setVgrow(bot, Priority.ALWAYS);
 		bot.setAlignment(Pos.BOTTOM_CENTER);
 		
-		this.getChildren().addAll(top, bot);
-		
-		for (int i = 0; i < sliders.length; i++) {
-			Text text = new Text(names[i]);
-			text.setFill(Color.WHITE);
-			top.getChildren().add(text);
-			top.getChildren().add(sliders[i]);
+		positionFixed = new CheckBox("Fixed position");
+		if(Main.ADMIN) {
+			bot.getChildren().add(positionFixed);
 		}
 		
-		positionFixed = new CheckBox("Fixed position");
-		if(Main.ADMIN)
-		bot.getChildren().add(positionFixed);
+		this.getChildren().addAll(top, bot);
+		
 	}
 
-	public int getParamCount() {
-		return sliders.length;
+	public abstract OpticsObject getOpticsObject(Vector2d origin);
+
+	protected void addSlider(String name, double min, double max, double start) {
+		Text text = new Text(name);
+		text.setFill(Color.WHITE);
+		
+		Slider newSlider = new Slider();
+		HBox.setMargin(newSlider, new Insets(100, 100, 100, 100));
+		newSlider.setMin(min);
+		newSlider.setMax(max);
+		newSlider.setValue(start);
+		
+		newSlider.setShowTickLabels(true);
+		newSlider.setShowTickMarks(true);
+		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
+
+		sliders.put(name, newSlider);
+		top.getChildren().add(text);
+		top.getChildren().add(newSlider);		
 	}
 
-	public double getSliderValue(int index) {
-		return sliders[index].getValue();
+	protected double getParam(String name) {
+		return sliders.get(name).getValue();
+	}
+	
+	protected int getIntParam(String name) {
+		return (int)Math.round(getParam(name));
+	}
+	
+	protected boolean fixedPos() {
+		return positionFixed.selectedProperty().get();
 	}
 }

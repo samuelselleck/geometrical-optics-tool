@@ -5,7 +5,6 @@ import util.Vector2d;
 public abstract class Lens extends Material {
 	
 	private static final long serialVersionUID = 1L;
-	public static final int LENSRESOLUTION = 500;
 	private double refractionindex;
 	
 	public Lens(Vector2d origin, double refractionindex, boolean fixedPosition) {
@@ -23,10 +22,10 @@ public abstract class Lens extends Material {
 		double currRefrac = refractionindex + var;
 		double invrefrac = 1/currRefrac;
 		if (into) {
-			// Från luft till lens:
+			// FrÃ¥n luft till lens:
 			angleOut = Math.asin(invrefrac * Math.sin(angleIn));
 		} else if (Math.abs(angleIn) <= Math.asin(invrefrac)) {
-			// Från lens till luft:
+			// FrÃ¥n lens till luft:
 			angleOut = Math.asin(currRefrac * Math.sin(angleIn));
 		} else {
 			// Totalreflektion:

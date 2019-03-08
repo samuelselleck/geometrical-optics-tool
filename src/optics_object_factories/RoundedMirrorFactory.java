@@ -7,18 +7,13 @@ import util.Vector2d;
 public class RoundedMirrorFactory extends OpticsObjectFactory {
 	
 	public RoundedMirrorFactory() {
-		String[] names = new String[] { "Diameter", "Depth"};
-		double[] values = new double[] { 200, 30 };
-		Vector2d[] bounds = new Vector2d[values.length];
-		bounds[0] = new Vector2d(103, 800);
-		bounds[1] = new Vector2d(11, 500);
-		
-		super.setSliders(names, bounds, values);
+		addSlider("Diameter", 103, 800, 200);
+		addSlider("Depth", 11, 500, 30);
 	}
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RoundedMirror(origin, super.getSliderValue(0),
-				super.getSliderValue(1), super.positionFixed.selectedProperty().getValue());
+		return new RoundedMirror(origin, getParam("Diameter"),
+				getParam("Depth"), fixedPos());
 	}
 }

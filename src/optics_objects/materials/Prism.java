@@ -8,7 +8,6 @@ public class Prism extends Lens {
 
 	public Prism(Vector2d origin, int edges, double r, double refractionindex, boolean fixedPosition) {
 		super(origin, refractionindex, fixedPosition);
-
 		for (int i = 0; i < edges; i++) {
 			double angle = 2 * Math.PI / edges * i;
 			Vector2d p = new Vector2d(r * Math.cos(angle), r * Math.sin(angle));

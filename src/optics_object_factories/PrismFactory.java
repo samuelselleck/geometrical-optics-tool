@@ -7,18 +7,14 @@ import util.Vector2d;
 public class PrismFactory extends OpticsObjectFactory {
 
 	public PrismFactory() {
-		double[] values = new double[] { 3, 80, 1.5 };
-		Vector2d[] bounds = new Vector2d[values.length];
-		String[] names = new String[] { "Edges", "Radius", "Refractionindex" };
-		bounds[0] = new Vector2d(3, 8);
-		bounds[1] = new Vector2d(11, 300);
-		bounds[2] = new Vector2d(1, 10);
-		super.setSliders(names, bounds, values);
+		addSlider("Edges", 3, 8, 3);
+		addSlider("Radius", 11, 300, 80);
+		addSlider("Refractionindex", 1, 3, 1.5);
 	}
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new Prism(origin, (int) Math.round(super.getSliderValue(0)), super.getSliderValue(1),
-				super.getSliderValue(2), super.positionFixed.selectedProperty().getValue());
+		return new Prism(origin, getIntParam("Edges"), getParam("Radius"),
+				getParam("Refractionindex"), fixedPos());
 	}
 }

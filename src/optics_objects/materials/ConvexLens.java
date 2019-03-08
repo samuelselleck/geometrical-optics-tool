@@ -8,7 +8,7 @@ public class ConvexLens extends Lens {
 
 	public ConvexLens(Vector2d origin, double d, double r1, double r2, double refractionindex, boolean fixedPosition) {
 		super(origin, refractionindex, fixedPosition);
-		int quarterResolution = Lens.LENSRESOLUTION /4;
+		int quarterResolution = getResolution() /4;
 		
 		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
 		double rightAngle = Math.acos(1 - d * d / (2 * r2 * r2)) / 2;
