@@ -60,35 +60,9 @@ public class OpticsToolBox extends ToolBar {
 			rayModeButton.setText("Mode: " + (settings.toggleColorMode() ? "Color" : "Ray"));
 			opticsController.redraw();
 		});
-		
-		ExampleBox examples = new ExampleBox(opticsController, toggleRaysButton, rayModeButton);
-		examples.setPrefHeight(buttonHeight);
-		
-		Button saveButton = new Button("Save");
-		saveButton.setPrefHeight(buttonHeight);
-		saveButton.setOnAction(e -> {
-			examples.saveCurrentWorkspace();
-		});
-		
-		Button loadButton = new Button("Load");
-		loadButton.setPrefHeight(buttonHeight);
-		loadButton.setOnAction(e -> {
-			examples.loadExample();
-		});
-		
-		Button deleteButton = new Button("Delete");
-		deleteButton.setPrefHeight(buttonHeight);
-		deleteButton.setOnAction(e -> {
-			examples.deleteCurrent();
-		});
-		
+			
 		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(),
-				toggleRaysButton, rayModeButton, new Separator(), rotationFactorButton, examples);
-		
-		if(Main.ADMIN)
-		this.getItems().addAll(saveButton, deleteButton);
-		
-		this.getItems().addAll(loadButton);
+				toggleRaysButton, rayModeButton, new Separator(), rotationFactorButton);
 		
 	}
 }
