@@ -60,20 +60,24 @@ public class Main extends Application {
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
 
-		root.setStyle("-fx-base: #222222; -fx-fill: white;" +
-				" -fx-focus-color: white; -fx-faint-focus-color: white;");
+		root.setStyle("-fx-background-color: #222222; -fx-base: black; -fx-fill: black;" +
+				" -fx-focus-color: gray; -fx-faint-focus-color: white;");
 		OpticsSettings settings = new OpticsSettings();
 		
 		OpticsModel model = new OpticsModel(settings);
-		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT * 9/10);
+		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
 		OpticsController opticsController = new OpticsController(model, view);
-		root.setLeft(view.getCanvas());
+		root.setCenter(view.getCanvas());
 		
-
+		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, stage);
+		menuBar.setStyle("-fx-background-color: #333333;");
+		root.setTop(menuBar);
+		
 		HBox settingsBox = new BigSettingsBox(opticsController);
 		root.setRight(settingsBox);
 		
 		ToolBar toolBox = new OpticsToolBox(opticsController, stage);
+		toolBox.setStyle("-fx-background-color: #333333;");
 		root.setBottom(toolBox);
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);

@@ -1,6 +1,6 @@
 Screen properties:
 fullscreen=false
-width=1300
+width=1000
 height=700
 
 LightProperties:
