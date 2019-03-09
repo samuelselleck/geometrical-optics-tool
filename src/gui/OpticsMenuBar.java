@@ -15,7 +15,7 @@ public class OpticsMenuBar extends MenuBar {
 
 	private File workspaceFile, imgsaveFile;
 	
-	public OpticsMenuBar(OpticsController opticsController, Stage primaryStage) {
+	public OpticsMenuBar(OpticsController opticsController, OpticsToolBox toolBox, Stage primaryStage) {
 		Menu file = new Menu("File");
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
@@ -33,6 +33,7 @@ public class OpticsMenuBar extends MenuBar {
 			if(exampleFile != null) {
 				workspaceFile = exampleFile.getParentFile();
 				opticsIO.loadExample(exampleFile);
+				toolBox.update();
 			}
 		});
 		

@@ -10,13 +10,17 @@ import optics_logic.OpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
 	
+	private Button toggleRaysButton;
+	private Button rayModeButton;
+	private OpticsController opticsController;
+	
 	public OpticsToolBox(OpticsController opticsController) {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		VBox.setVgrow(this, Priority.ALWAYS);
 		
 		double buttonHeight = 35;
 		
-		Button toggleRaysButton = new Button("Rays: On");
+		toggleRaysButton = new Button("Rays: On");
 		toggleRaysButton.setPrefHeight(buttonHeight);
 		toggleRaysButton.setPrefWidth(100);
 		toggleRaysButton.setOnAction(e -> {
@@ -51,7 +55,7 @@ public class OpticsToolBox extends ToolBar {
 			opticsController.setRotationFactor(val);
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
-		Button rayModeButton = new Button("Mode: Ray");
+		rayModeButton = new Button("Mode: Ray");
 		rayModeButton.setPrefHeight(buttonHeight);
 		rayModeButton.setPrefWidth(100);
 		rayModeButton.setOnAction(e -> {
@@ -62,6 +66,12 @@ public class OpticsToolBox extends ToolBar {
 			
 		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(),
 				toggleRaysButton, rayModeButton, new Separator(), rotationFactorButton);
-		
+		this.opticsController = opticsController;
+	}
+
+	public void update() {
+		OpticsSettings settings = opticsController.getModelSettings();
+		rayModeButton.setText("Mode: " + (settings.colorMode() ? "Color" : "Ray"));
+		toggleRaysButton.setText("Rays: " + (settings.drawOnlyHitting() ? "Off" : "On"));	
 	}
 }

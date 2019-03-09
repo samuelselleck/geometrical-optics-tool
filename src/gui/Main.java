@@ -10,7 +10,6 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
@@ -72,16 +71,13 @@ public class Main extends Application {
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
 		OpticsController opticsController = new OpticsController(model, view);
 		
+		OpticsToolBox toolBox = new OpticsToolBox(opticsController);
+		toolBox.setStyle("-fx-background-color: #333333;");
 		
-		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, stage);
+		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, toolBox, stage);
 		menuBar.setStyle("-fx-background-color: #333333;");
 		
-		
 		HBox settingsBox = new BigSettingsBox(opticsController);
-		
-		
-		ToolBar toolBox = new OpticsToolBox(opticsController);
-		toolBox.setStyle("-fx-background-color: #333333;");
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #222222; -fx-base: black; -fx-fill: black;" +

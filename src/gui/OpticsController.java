@@ -167,7 +167,7 @@ public class OpticsController {
 	public OpticsSettings getModelSettings() {
 		return model.getSettings();
 	}
-
+	
 	public void saveScreenshotTo(File saveFile) {
 		WritableImage image = new WritableImage(
 				(int)view.getCanvas().getWidth(), (int)view.getCanvas().getHeight());
@@ -176,8 +176,7 @@ public class OpticsController {
 		try {
 			ImageIO.write(screenshot, "png", saveFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Failed to save screenshot");
 		}
 	}
 }
