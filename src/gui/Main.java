@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.util.Properties;
 
 import javafx.application.Application;
@@ -33,6 +32,7 @@ public class Main extends Application {
 			String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
 				    .toURI()).getParent();
 			properties.load(new FileInputStream(jarPath + "/config.txt"));
+			properties.setProperty("jarpath", jarPath);
 		} catch (IOException e) {
 			System.err.println("Could not find config.txt file");
 		} catch (URISyntaxException e) {
