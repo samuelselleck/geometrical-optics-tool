@@ -51,7 +51,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		BorderPane root = new BorderPane();
 		
 		//Set window size;
 		if(!properties.getProperty("fullscreen").equals("true")) {
@@ -66,25 +65,31 @@ public class Main extends Application {
 		
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
-
-		root.setStyle("-fx-background-color: #222222; -fx-base: black; -fx-fill: black;" +
-				" -fx-focus-color: gray; -fx-faint-focus-color: white;");
+		
 		OpticsSettings settings = new OpticsSettings();
 		
 		OpticsModel model = new OpticsModel(settings);
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
 		OpticsController opticsController = new OpticsController(model, view);
-		root.setCenter(view.getCanvas());
+		
 		
 		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, stage);
 		menuBar.setStyle("-fx-background-color: #333333;");
-		root.setTop(menuBar);
+		
 		
 		HBox settingsBox = new BigSettingsBox(opticsController);
-		root.setRight(settingsBox);
 		
-		ToolBar toolBox = new OpticsToolBox(opticsController, stage);
+		
+		ToolBar toolBox = new OpticsToolBox(opticsController);
 		toolBox.setStyle("-fx-background-color: #333333;");
+		
+		BorderPane root = new BorderPane();
+		root.setStyle("-fx-background-color: #222222; -fx-base: black; -fx-fill: black;" +
+				" -fx-focus-color: gray; -fx-faint-focus-color: white;");
+		
+		root.setTop(menuBar);
+		root.setCenter(view.getCanvas());
+		root.setRight(settingsBox);
 		root.setBottom(toolBox);
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);

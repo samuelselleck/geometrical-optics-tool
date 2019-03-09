@@ -6,12 +6,11 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import optics_logic.OpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
 	
-	public OpticsToolBox(OpticsController opticsController, Stage primaryStage) {
+	public OpticsToolBox(OpticsController opticsController) {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		VBox.setVgrow(this, Priority.ALWAYS);
 		
