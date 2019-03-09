@@ -1,8 +1,11 @@
 package gui;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import javafx.application.Application;
@@ -27,9 +30,14 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		properties = new Properties();
 		try {
-			properties.load(new FileInputStream("config.txt"));
+			String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
+				    .toURI()).getParent();
+			System.out.println(jarPath);
+			properties.load(new FileInputStream(jarPath + "/config.txt"));
 		} catch (IOException e) {
 			System.err.println("Could not find config.txt file");
+		} catch (URISyntaxException e) {
+			System.err.println("Could not find the correct file path, unsupported operating system?");
 		}
 		
 		if((args.length > 0 && args[0].equals("admin")) ||
