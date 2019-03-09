@@ -20,7 +20,7 @@ public class OpticsMenuBar extends MenuBar {
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
 		FileChooser chooser = new FileChooser();
-		MenuItem open = new MenuItem("Open Workspace");
+		MenuItem open = new MenuItem("Open");
 		open.setOnAction(e -> {
 			chooser.setTitle("Open Workspace");
 			chooser.getExtensionFilters().clear();
@@ -34,7 +34,7 @@ public class OpticsMenuBar extends MenuBar {
 			}
 		});
 		
-		MenuItem save = new MenuItem("Save Workspace");
+		MenuItem save = new MenuItem("Save");
 		save.setOnAction(e -> {
 			chooser.setTitle("Save Workspace");
 			chooser.getExtensionFilters().clear();
@@ -48,7 +48,7 @@ public class OpticsMenuBar extends MenuBar {
 			}
 		});
 		
-		MenuItem saveImage = new MenuItem("Save Screenshot");
+		MenuItem saveImage = new MenuItem("Screenshot");
 		saveImage.setOnAction(e -> {
 			chooser.setTitle("Save Screenshot");
 			chooser.getExtensionFilters().add(
