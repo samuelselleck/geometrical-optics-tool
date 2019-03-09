@@ -13,38 +13,52 @@ import javafx.stage.Stage;
 
 public class OpticsMenuBar extends MenuBar {
 
+	private File workspaceFile, imgsaveFile;
+	
 	public OpticsMenuBar(OpticsController opticsController, Stage primaryStage) {
 		Menu file = new Menu("File");
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
+		FileChooser chooser = new FileChooser();
 		MenuItem open = new MenuItem("Open Workspace");
 		open.setOnAction(e -> {
-			FileChooser chooser = new FileChooser();
 			chooser.setTitle("Open Workspace");
+			chooser.getExtensionFilters().clear();
+			if(workspaceFile != null) {
+				chooser.setInitialDirectory(workspaceFile);
+			}
 			File exampleFile = chooser.showOpenDialog(primaryStage);
 			if(exampleFile != null) {
+				workspaceFile = exampleFile.getParentFile();
 				opticsIO.loadExample(exampleFile);
 			}
 		});
 		
 		MenuItem save = new MenuItem("Save Workspace");
 		save.setOnAction(e -> {
-			FileChooser chooser = new FileChooser();
 			chooser.setTitle("Save Workspace");
-			File exampleFile = chooser.showSaveDialog(primaryStage);
-			if(exampleFile != null) {
-				opticsIO.saveCurrentWorkspace(exampleFile);
+			chooser.getExtensionFilters().clear();
+			if(workspaceFile != null) {
+				chooser.setInitialDirectory(workspaceFile);
+			}
+			File saveFile = chooser.showSaveDialog(primaryStage);
+			if(saveFile != null) {
+				workspaceFile = saveFile.getParentFile();
+				opticsIO.saveCurrentWorkspace(saveFile);
 			}
 		});
 		
 		MenuItem saveImage = new MenuItem("Save Screenshot");
 		saveImage.setOnAction(e -> {
-			FileChooser chooser = new FileChooser();
 			chooser.setTitle("Save Screenshot");
 			chooser.getExtensionFilters().add(
 					new ExtensionFilter("PNG file (*.png)", "*.png"));
+			if(imgsaveFile != null) {
+				chooser.setInitialDirectory(imgsaveFile);
+			}
 			File saveFile = chooser.showSaveDialog(primaryStage);
 			if(saveFile != null) {
+				imgsaveFile = saveFile.getParentFile();
 				opticsController.saveScreenshotTo(saveFile);
 			}
 			

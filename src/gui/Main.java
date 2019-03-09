@@ -32,7 +32,6 @@ public class Main extends Application {
 		try {
 			String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
 				    .toURI()).getParent();
-			System.out.println(jarPath);
 			properties.load(new FileInputStream(jarPath + "/config.txt"));
 		} catch (IOException e) {
 			System.err.println("Could not find config.txt file");
