@@ -32,7 +32,7 @@ public abstract class OpticsObjectFactory extends VBox {
 		bot.setAlignment(Pos.BOTTOM_CENTER);
 		
 		positionFixed = new CheckBox("Fixed position");
-		if(Main.ADMIN) {
+		if(Main.properties.getProperty("admin").equals("true")) {
 			bot.getChildren().add(positionFixed);
 		}
 		

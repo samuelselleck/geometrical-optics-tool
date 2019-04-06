@@ -101,13 +101,8 @@ public class Vector2d implements Serializable {
 	}
 	
 	public static Vector2d getIntersectionParameters(
-			Vector2d point1, Vector2d vec1, Vector2d point2, Vector2d vec2) {
-		double den = vec1.x*vec2.y - vec1.y*vec2.x;
-		double yTerm = point2.x - point1.x;
-		double xTerm = point2.y - point1.y;
-		double s = (vec1.y*yTerm - vec1.x*xTerm)/den;
-		double t = (vec2.y*yTerm - vec2.x*xTerm)/den;
-		return new Vector2d(s, t);
+			Vector2d p1, Vector2d v1, Vector2d p2, Vector2d v2) {
+		return getIntersectionParameters(p1.x, p1.y, v1.x, v1.y, p2.x, p2.y, v2.x, v2.y, Vector2d.zero());
 	}
 	
 	public static Vector2d getIntersectionParameters(
@@ -141,6 +136,6 @@ public class Vector2d implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "x: " + x + " y: " + y;
+		return "(" + x + ", " + y + ")";
 	}
 }

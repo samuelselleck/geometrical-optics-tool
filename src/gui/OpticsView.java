@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.StrokeLineJoin;
 import optics_logic.OpticsModel;
 import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
@@ -23,13 +24,13 @@ public class OpticsView {
 	//TODO Do this in a better way for color mode
 	public void calculateAndDrawRays() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.setFill(Paint.valueOf("BLACK"));
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		gc.setLineJoin(StrokeLineJoin.ROUND);
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+		gc.setFill(Paint.valueOf("BLACK"));
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(Material m : model.getMaterials()) {
-			m.draw(gc, model.getSettings());
-		}
+		
 		if(model.getSettings().colorMode()) {
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.lightWaveMax() - LightSource.lightWaveMin();
@@ -38,8 +39,13 @@ public class OpticsView {
 					wavelength += step/LightSource.colorModeRayCount()) {
 				calculateAndDrawRays(model.getLights(), gc, wavelength, 0.6f);
 			}
+			
 		} else {
 			calculateAndDrawRays(model.getLights(), gc, LightSource.lightWaveDefault(), 1f);
+		}
+		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+		for(Material m : model.getMaterials()) {
+			m.draw(gc, model.getSettings());
 		}
 	}
 	
@@ -49,7 +55,9 @@ public class OpticsView {
 			l.calculateRayPaths(model.getMaterials(), wavelength);
 		}
 		int rgb[] = Utils.waveLengthToRGB(wavelength);
-		gc.setStroke(Color.rgb(rgb[0], rgb[1], rgb[2], alpha));
+		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
+		gc.setStroke(p);
+		
 		gc.beginPath();
 		for(LightSource l : lights) {
 			l.draw(gc, model.getSettings());

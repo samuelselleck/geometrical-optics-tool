@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
@@ -49,10 +48,7 @@ public class OpticsModel implements Serializable {
 		return draging;
 	}
 	
-	public void addOpticsObject(OpticsObjectFactory oof, double x, double y) {
-		if(oof == null) return;
-		
-		OpticsObject newOpticsObject = oof.getOpticsObject(new Vector2d(x, y));
+	public void addOpticsObject(OpticsObject newOpticsObject) {
 		if(newOpticsObject == null) return;
 		
 		if(newOpticsObject instanceof Material) {

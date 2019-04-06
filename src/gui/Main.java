@@ -20,7 +20,6 @@ import settings.BigSettingsBox;
 
 public class Main extends Application {
 	public static boolean DEBUG = false;
-	public static boolean ADMIN;
 	public static double WIDTH;
 	public static double HEIGHT;
 	public static Properties properties;
@@ -36,13 +35,6 @@ public class Main extends Application {
 			System.err.println("Could not find config.txt file");
 		} catch (URISyntaxException e) {
 			System.err.println("Could not find the correct file path, unsupported operating system?");
-		}
-		
-		if((args.length > 0 && args[0].equals("admin")) ||
-				properties.getProperty("admin").equals("true")) {
-			ADMIN = true;
-		} else {
-			ADMIN = false;
 		}
 		
 		Application.launch(args);

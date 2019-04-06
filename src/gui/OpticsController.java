@@ -24,6 +24,7 @@ public class OpticsController {
 	
 	private OpticsObjectFactory opticsObjectFactory;
 	private OpticsObject draging;
+	private Vector2d offset;
 	private OpticsObject lastDragged;
 	private boolean dragged;
 	private boolean rotating;
@@ -39,6 +40,7 @@ public class OpticsController {
 		
 		rotationFactor = 1;
 		draging = null;
+		offset = Vector2d.zero();
 		lastDragged = null;
 		this.dragged = false;
 		this.rotating = false;
@@ -68,13 +70,15 @@ public class OpticsController {
 				if (!inBounds) {
 					model.remove(draging);
 				} else {
-					draging.setOrigin(x, y);
+					draging.setOrigin(x + offset.x, y + offset.y);
 				}	
 				lastDragged = draging;
 				draging = null;
 			} else if (!dragged) {
-				if (inBounds) {
-					model.addOpticsObject(opticsObjectFactory, x, y);
+				if (inBounds && opticsObjectFactory != null) {
+					OpticsObject newObj = opticsObjectFactory.getOpticsObject(new Vector2d(x, y));
+					model.addOpticsObject(newObj);
+					lastDragged = newObj;
 				}
 			}
 			rotating = false;
@@ -87,6 +91,8 @@ public class OpticsController {
 			draging = model.getOpticsObjectAt(e.getX(), e.getY());
 			if(draging == null) {
 				rotating = true;
+			} else {
+				offset = new Vector2d(e.getX(), e.getY()).sub(draging.getOrigin()).neg();
 			}
 			lastPos = new Vector2d(e.getX(), e.getY());
 		});
@@ -99,7 +105,7 @@ public class OpticsController {
 					rotate(draging, lastPos, currPos);
 					lastPos = currPos;
 				} else {
-					draging.setOrigin(e.getX(), e.getY());
+					draging.setOrigin(e.getX() + offset.x, e.getY() + offset.y);
 				}
 			} else if (rotating) {
 				Vector2d currPos = new Vector2d(e.getX(), e.getY());
