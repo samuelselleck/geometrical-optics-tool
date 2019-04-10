@@ -83,6 +83,7 @@ public class OpticsController {
 			}
 			rotating = false;
 			dragged = false;
+			view.setActionText("");
 			redraw();
 		});
 
@@ -91,7 +92,9 @@ public class OpticsController {
 			draging = model.getOpticsObjectAt(e.getX(), e.getY());
 			if(draging == null) {
 				rotating = true;
+				view.setActionText("Rotate");
 			} else {
+				view.setActionText("Drag");
 				offset = new Vector2d(e.getX(), e.getY()).sub(draging.getOrigin()).neg();
 			}
 			lastPos = new Vector2d(e.getX(), e.getY());
@@ -153,7 +156,7 @@ public class OpticsController {
 	}
 	
 	public void redraw() {
-		view.calculateAndDrawRays();
+		view.drawView();
 	}
 	
 	public void setRotationFactor(double fac) {

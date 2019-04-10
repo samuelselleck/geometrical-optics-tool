@@ -1,5 +1,6 @@
 package optics_objects.templates;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,10 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	public boolean withinTouchHitBox(Vector2d pos) {
-		
+		return getHitBox().contains(pos.x, pos.y);
+	}
+	
+	protected Rectangle2D getHitBox() {
 		Vector2d botRight = getBottomRightBound();
 		Vector2d topLeft = getTopLeftBound();
 		double diffX = botRight.x - topLeft.x;
@@ -72,11 +76,8 @@ public abstract class Material extends OpticsObject {
 			botRight.y += -diffY/2 + Main.HEIGHT/20;
 			topLeft.y -= -diffY/2 + Main.HEIGHT/20;
 		}
-		boolean left = topLeft.x >= pos.x;
-		boolean right = pos.x >= botRight.x;
-		boolean top = topLeft.y >= pos.y;
-		boolean bot = pos.y >= botRight.y;
-		return !(left || top || right || bot);
+		
+		return new Rectangle2D.Double(topLeft.x,topLeft.y,diffX,diffY);
 	}
 	
 	public Vector2d getPoint(int index) {
