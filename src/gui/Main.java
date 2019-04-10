@@ -1,6 +1,6 @@
 package gui;
 
-//HEJ! Test
+//HEJ! Test2
 
 import java.io.File;
 import java.io.FileInputStream;
