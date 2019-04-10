@@ -4,6 +4,7 @@ import optics_object_factories.ConcaveLensFactory;
 import optics_object_factories.ConvexLensFactory;
 import optics_object_factories.CrystallBallFactory;
 import optics_object_factories.OpticsObjectFactory;
+import optics_object_factories.OptimalConvexLensFactory;
 import optics_object_factories.PrismFactory;
 import optics_object_factories.RectangleLensFactory;
 
@@ -16,6 +17,8 @@ public class LensSettingsTab extends SettingsTab {
 		super.addTab("Prism", prism);
 		OpticsObjectFactory lensVex = new ConvexLensFactory();
 		super.addTab("Convex", lensVex);
+		OpticsObjectFactory lensOptVex = new OptimalConvexLensFactory();
+		super.addTab("Optimal", lensOptVex);
 		OpticsObjectFactory lensAve = new ConcaveLensFactory();
 		super.addTab("Concave", lensAve);
 		OpticsObjectFactory ball = new CrystallBallFactory();
