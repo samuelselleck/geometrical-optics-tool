@@ -19,6 +19,7 @@ public abstract class OpticsObject implements Serializable {
 	}
 
 	public abstract void draw(GraphicsContext gc, OpticsSettings settings);
+	public abstract void drawSelection(GraphicsContext gc, OpticsSettings settings);
 
 	public Vector2d getOrigin() {
 		return origin;

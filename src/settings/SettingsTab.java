@@ -2,6 +2,7 @@ package settings;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import optics_object_factories.OpticsObjectFactory;
@@ -22,6 +23,12 @@ public abstract class SettingsTab extends Tab {
 		newTab.setContent(creator);
 		creators.add(creator);
 		tabPane.getTabs().add(newTab);
+	}
+	
+	public void addListners(EventHandler e) {
+		for(OpticsObjectFactory factory: creators) {
+			factory.setSliderListener(e);
+		}
 	}
 
 	public OpticsObjectFactory getCurrentOpticsObjectCreator() {

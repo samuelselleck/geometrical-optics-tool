@@ -26,6 +26,10 @@ public class BigSettingsBox extends HBox {
 		tabs.add(new MirrorSettingsTab());
 		tabs.add(new WallSettingsTab());
 		
+		for(SettingsTab tab: tabs) {
+			tab.addListners(opticsHandler.getSliderListners());
+		}
+		
 		opticsHandler.setBeforeObjectCreation(e -> {
 			opticsHandler.setOpticsObjectCreator(getCurrentOpticsObjectCreator());
 		});

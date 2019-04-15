@@ -5,6 +5,7 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 import optics_logic.LightRay;
 import optics_logic.OpticsSettings;
 import util.Vector2d;
@@ -31,6 +32,14 @@ public abstract class LightSource extends OpticsObject {
 			l.draw(gc, settings.drawOnlyHitting());
 		}
 	}
+
+	@Override
+	public void drawSelection(GraphicsContext gc, OpticsSettings settings) {
+		gc.setStroke(Paint.valueOf("GRAY"));
+		
+		double r = getRadius();
+		gc.strokeOval(this.getOrigin().x-r, this.getOrigin().y-r, r*2, r*2);
+	}
 	
 	@Override
 	public void rotateOp(double angle) {
@@ -39,8 +48,12 @@ public abstract class LightSource extends OpticsObject {
 		}
 	}
 	
+	private double getRadius() {
+		return (Main.HEIGHT/10);
+	}
+	
 	public boolean withinTouchHitBox(Vector2d pos) {
-		return pos.distSquared(this.getOrigin()) < (Main.HEIGHT/10)*(Main.HEIGHT/10);
+		return pos.distSquared(this.getOrigin()) < getRadius()*getRadius();
 	}
 	
 	public void addLightRay(Vector2d offset, Vector2d ray) {

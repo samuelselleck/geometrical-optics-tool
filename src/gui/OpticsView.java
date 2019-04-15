@@ -11,6 +11,7 @@ import javafx.scene.shape.StrokeLineJoin;
 import optics_logic.OpticsModel;
 import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
+import optics_objects.templates.OpticsObject;
 import util.Utils;
 
 public class OpticsView {
@@ -27,7 +28,7 @@ public class OpticsView {
 	}
 	
 	//TODO Do this in a better way for color mode
-	public void drawView() {
+	public void drawView(OpticsObject picked) {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
@@ -55,7 +56,11 @@ public class OpticsView {
 		for(Material m : model.getMaterials()) {
 			m.draw(gc, model.getSettings());
 		}
-
+		
+		if(picked!=null) {
+			picked.drawSelection(gc, model.getSettings());
+		}
+		
 		gc.setFill(Paint.valueOf("GRAY"));
 		gc.fillRect(0, canvas.getHeight()-20, 200, 20);
 		

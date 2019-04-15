@@ -3,6 +3,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.Main;
+import gui.OpticsController;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -71,5 +74,11 @@ public abstract class OpticsObjectFactory extends VBox {
 	
 	protected boolean fixedPos() {
 		return positionFixed.selectedProperty().get();
+	}
+
+	public void setSliderListener(EventHandler e) {
+		for(Slider s: sliders.values()) {
+			s.setOnMousePressed(e);
+		}
 	}
 }
