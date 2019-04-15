@@ -222,7 +222,7 @@ public class OpticsController {
 				);
 	}
 
-	public EventHandler getSliderListners() {
+	public EventHandler getSettingsUpdateListener() {
 		return e -> {
 			picked = null;
 			redraw();

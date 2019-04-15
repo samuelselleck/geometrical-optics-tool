@@ -24,6 +24,8 @@ public abstract class Material extends OpticsObject {
 	public void createBounds() {
 		botRig = Vector2d.zero();
 		topLef = Vector2d.zero();
+		
+		//Find bound corners
 		for (int i = 0; i < points.size(); i++) {
 			Vector2d p1 = points.get(i);
 			if (p1.x < topLef.x)
@@ -35,6 +37,7 @@ public abstract class Material extends OpticsObject {
 			if (p1.y > botRig.y)
 				botRig.y = p1.y;
 		}
+		
 		// Safety margins:
 		topLef.add(new Vector2d(-1, -1));
 		botRig.add(new Vector2d(1, 1));
@@ -63,22 +66,13 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	protected Rectangle2D getHitBox() {
-		Vector2d botRight = getBottomRightBound();
-		Vector2d topLeft = getTopLeftBound();
-		double diffX = botRight.x - topLeft.x;
-		double diffY = botRight.y - topLeft.y;
+		double diffX = Math.max(this.botRig.x - topLef.x,Main.WIDTH/20);
+		double diffY = Math.max(botRig.y - topLef.y,Main.HEIGHT/20);
 		
-		//To make sure that mirrors and other really thin objects can be grabbed:
-		if( diffX < Main.HEIGHT/10) {
-			botRight.x += -diffX/2 + Main.HEIGHT/20;
-			topLeft.x -= -diffX/2 + Main.HEIGHT/20;
-		}
-		if( diffY < Main.HEIGHT/10) {
-			botRight.y += -diffY/2 + Main.HEIGHT/20;
-			topLeft.y -= -diffY/2 + Main.HEIGHT/20;
-		}
+		double hitX = getOrigin().x-diffX/2;
+		double hitY = getOrigin().y-diffY/2;
 		
-		return new Rectangle2D.Double(topLeft.x,topLeft.y,diffX,diffY);
+		return new Rectangle2D.Double(hitX,hitY,diffX,diffY);
 	}
 	
 	public Vector2d getPoint(int index) {

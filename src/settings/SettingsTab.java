@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
 import optics_object_factories.OpticsObjectFactory;
 
 public abstract class SettingsTab extends Tab {
@@ -25,7 +26,8 @@ public abstract class SettingsTab extends Tab {
 		tabPane.getTabs().add(newTab);
 	}
 	
-	public void addListners(EventHandler e) {
+	public void addListeners(EventHandler e) {
+		tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED, e);
 		for(OpticsObjectFactory factory: creators) {
 			factory.setSliderListener(e);
 		}

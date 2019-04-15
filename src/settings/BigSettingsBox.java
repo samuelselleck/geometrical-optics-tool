@@ -6,6 +6,7 @@ import java.util.List;
 import gui.Main;
 import gui.OpticsController;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import optics_object_factories.OpticsObjectFactory;
@@ -18,6 +19,7 @@ public class BigSettingsBox extends HBox {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		
 		typeTab = new TabPane();
+			
 		typeTab.setPrefWidth(Main.WIDTH / 4);
 		
 		List<SettingsTab> tabs = new ArrayList<>();
@@ -27,7 +29,7 @@ public class BigSettingsBox extends HBox {
 		tabs.add(new WallSettingsTab());
 		
 		for(SettingsTab tab: tabs) {
-			tab.addListners(opticsHandler.getSliderListners());
+			tab.addListeners(opticsHandler.getSettingsUpdateListener());
 		}
 		
 		opticsHandler.setBeforeObjectCreation(e -> {
@@ -37,6 +39,9 @@ public class BigSettingsBox extends HBox {
 		typeTab.getTabs().addAll(tabs);
 		typeTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		this.getChildren().add(typeTab);
+
+		typeTab.addEventHandler(MouseEvent.MOUSE_PRESSED,opticsHandler.getSettingsUpdateListener());
+		
 	}
 
 	public OpticsObjectFactory getCurrentOpticsObjectCreator() {
