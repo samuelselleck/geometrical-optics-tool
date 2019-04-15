@@ -15,4 +15,9 @@ public class FlatMirrorFactory extends OpticsObjectFactory {
 		return new FlatMirror(origin, getParam("Diameter"), fixedPos());
 	}
 
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((FlatMirror)object).setPoints(getParam("Diameter"));
+	}
+
 }

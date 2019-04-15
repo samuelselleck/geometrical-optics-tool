@@ -8,12 +8,17 @@ public class ConeLightSource extends LightSource {
 	
 	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount, boolean fixedPosition) {
 		super(origin, rayCount, fixedPosition);
+		setConeRays(coneAngle,rayCount);
+	}
+	
+	public void setConeRays(double coneAngle, int rayCount) {
+		super.clearLightRays();
+		
 		double deltaAngle = coneAngle/(rayCount - 1);
 		Vector2d ray = new Vector2d(1, 0).rotate(-coneAngle/2);
 		for(int i = 0; i < rayCount; i++) {
 			super.addLightRay(ray.copy());
 			ray.rotate(deltaAngle);
 		}
-		
 	}
 }

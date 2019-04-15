@@ -16,4 +16,9 @@ public class RoundedMirrorFactory extends OpticsObjectFactory {
 		return new RoundedMirror(origin, getParam("Diameter"),
 				getParam("Depth"), fixedPos());
 	}
+
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((RoundedMirror)object).setPoints(getParam("Diameter"), getParam("Depth"));
+	}
 }

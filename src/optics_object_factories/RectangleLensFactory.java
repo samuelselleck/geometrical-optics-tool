@@ -18,4 +18,10 @@ public class RectangleLensFactory extends OpticsObjectFactory {
 				getParam("Height"), fixedPos());
 	}
 
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((RectangleLens)object).setPoints(getParam("Width"), getParam("Height"));
+		((RectangleLens)object).setRefractionIndex(getParam("Refractionindex"));
+	}
+
 }

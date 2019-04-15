@@ -14,4 +14,9 @@ public class PointLightSourceFactory extends OpticsObjectFactory {
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new PointLightSource(origin, getIntParam("LightRays"), fixedPos());
 	}
+
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((PointLightSource)object).setPointLightRays(getIntParam("LightRays"));
+	}
 }

@@ -8,6 +8,12 @@ public class RectangleWall extends Wall {
 
 	public RectangleWall(Vector2d origin, double width, double height, boolean fixedPosition) {
 		super(origin, fixedPosition);
+		
+		setPoints(width, height);
+	}
+
+	public void setPoints(double width, double height) {
+		clearPoints();
 		points.add(new Vector2d(-width/2,-height/2));
 		points.add(new Vector2d(-width/2, height/2));
 		points.add(new Vector2d(width/2, height/2));

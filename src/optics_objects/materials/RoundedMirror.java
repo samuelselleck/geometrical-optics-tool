@@ -9,6 +9,12 @@ public class RoundedMirror extends Mirror {
 
 	public RoundedMirror(Vector2d origin, double diameter, double depth, boolean fixedPosition) {
 		super(origin, fixedPosition);
+
+		setPoints(diameter, depth);
+	}
+	
+	public void setPoints(double diameter, double depth) {
+		clearPoints();
 		for(int i = 0; i <= OpticsObject.getResolution(); i++) {
 			double x = (2.0*i/OpticsObject.getResolution() - 1);
 			double y = x*x;

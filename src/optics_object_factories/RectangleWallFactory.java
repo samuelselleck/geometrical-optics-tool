@@ -17,4 +17,9 @@ public class RectangleWallFactory extends OpticsObjectFactory {
 				getParam("Width"), getParam("Height"), fixedPos());
 	}
 
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((RectangleWall)object).setPoints(getParam("Width"), getParam("Height"));
+	}
+
 }

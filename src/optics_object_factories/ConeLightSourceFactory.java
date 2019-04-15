@@ -16,4 +16,9 @@ public class ConeLightSourceFactory extends OpticsObjectFactory {
 		return new ConeLightSource(origin, getParam("Cone Angle")/180*Math.PI,
 				getIntParam("LightRays"), fixedPos());
 	}
+
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((ConeLightSource)object).setConeRays(getParam("Cone Angle")/180*Math.PI, getIntParam("LightRays"));
+	}
 }

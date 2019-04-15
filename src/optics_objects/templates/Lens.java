@@ -12,6 +12,10 @@ public abstract class Lens extends Material {
 		this.refractionindex = refractionindex;
 	}
 	
+	public void setRefractionIndex(double index) {
+		this.refractionindex = index;
+	}
+	
 	@Override
 	public double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;

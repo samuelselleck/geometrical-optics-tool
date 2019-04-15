@@ -26,4 +26,16 @@ public class ConcaveLensFactory extends OpticsObjectFactory {
 			return null;
 		}
 	}
+
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		double d = getParam("Diameter");
+		double r1 = getParam("Radius 1");
+		double r2 = getParam("Radius 2");
+		if(r1*2 >= d && r2*2 >= d) {
+		((ConcaveLens)object).setPoints(d, getParam("Width"), r1, r2);
+		((ConcaveLens)object).setRefractionIndex(getParam("Refractionindex"));
+		}
+	}
+	
 }

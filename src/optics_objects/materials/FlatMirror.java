@@ -8,6 +8,12 @@ public class FlatMirror extends Mirror {
 
 	public FlatMirror(Vector2d origin, double diameter, boolean fixedPosition) {
 		super(origin, fixedPosition);
+		
+		setPoints(diameter);
+	}
+	
+	public void setPoints(double diameter) {
+		clearPoints();
 		Vector2d unit = new Vector2d(1, 0).mult(diameter / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));

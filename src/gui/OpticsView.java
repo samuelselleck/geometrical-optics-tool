@@ -17,14 +17,9 @@ import util.Utils;
 public class OpticsView {
 	private OpticsModel model;
 	private Canvas canvas;
-	private String actionText="";
 	
 	public OpticsView(double width, double height) {
 		this.canvas = new Canvas(width, height);
-	}
-	
-	public void setActionText(String text) {
-		actionText = text;
 	}
 	
 	//TODO Do this in a better way for color mode
@@ -60,12 +55,7 @@ public class OpticsView {
 		if(picked!=null) {
 			picked.drawSelection(gc, model.getSettings());
 		}
-		
-		gc.setFill(Paint.valueOf("GRAY"));
-		gc.fillRect(0, canvas.getHeight()-20, 200, 20);
-		
-		gc.setStroke(Paint.valueOf("WHITE"));
-		gc.strokeText(actionText, 10, canvas.getHeight()-5);
+
 	}
 	
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {

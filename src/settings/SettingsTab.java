@@ -2,6 +2,7 @@ package settings;
 
 import java.util.ArrayList;
 
+import gui.OpticsController;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -26,10 +27,11 @@ public abstract class SettingsTab extends Tab {
 		tabPane.getTabs().add(newTab);
 	}
 	
-	public void addListeners(EventHandler e) {
-		tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED, e);
+	public void addListeners(EventHandler deselect, EventHandler update) {
+		tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED, deselect);
+	
 		for(OpticsObjectFactory factory: creators) {
-			factory.setSliderListener(e);
+			factory.setSliderListener(update);
 		}
 	}
 

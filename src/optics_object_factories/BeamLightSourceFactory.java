@@ -17,4 +17,11 @@ public class BeamLightSourceFactory extends OpticsObjectFactory {
 				getIntParam("LightRays"), fixedPos());
 	}
 
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((BeamLightSource) object).setBeamRays(getParam("Diameter"),getIntParam("LightRays"));
+	}
+	
+	
+
 }

@@ -8,6 +8,11 @@ public class PointLightSource extends LightSource {
 
 	public PointLightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
 		super(origin, rayCount, fixedPosition);
+		setPointLightRays(rayCount);
+	}
+	
+	public void setPointLightRays(int rayCount) {
+		super.clearLightRays();
 		for (int i = 0; i < rayCount; i++) {
 			double ang = (2 * Math.PI / rayCount) * i;
 			double x = Math.cos(ang);

@@ -11,6 +11,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import optics_object_factories.OpticsObjectFactory;
 
+/*
+ * Huvudtab
+ * 	- (Om valt objekts undertab ligger under, behåll val, annars ta bort)
+ *  - nu: Ta bort val
+ * Undertab
+ *  - (Om valt objekt: behåll, annars ta bort)
+ *  - nu: Ta bort val
+ * Slider
+ *  - Om valt objekt: uppdatera, annars ta bort
+ *  
+ *  När objekt väljs: Gå till rätt flik och sätt rätt värden
+ * */
+
 public class BigSettingsBox extends HBox {
 	TabPane typeTab;
 
@@ -29,7 +42,7 @@ public class BigSettingsBox extends HBox {
 		tabs.add(new WallSettingsTab());
 		
 		for(SettingsTab tab: tabs) {
-			tab.addListeners(opticsHandler.getSettingsUpdateListener());
+			tab.addListeners(opticsHandler.getDeselectListener(),opticsHandler.getSettingsUpdateListener());
 		}
 		
 		opticsHandler.setBeforeObjectCreation(e -> {
@@ -40,7 +53,7 @@ public class BigSettingsBox extends HBox {
 		typeTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		this.getChildren().add(typeTab);
 
-		typeTab.addEventHandler(MouseEvent.MOUSE_PRESSED,opticsHandler.getSettingsUpdateListener());
+		typeTab.addEventHandler(MouseEvent.MOUSE_PRESSED,opticsHandler.getDeselectListener());
 		
 	}
 

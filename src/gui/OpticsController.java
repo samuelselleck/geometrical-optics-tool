@@ -91,7 +91,6 @@ public class OpticsController {
 			rotating = false;
 			dragged = false;
 			pickedThisClick = false;
-			view.setActionText("");
 			redraw();
 		});
 		
@@ -125,7 +124,6 @@ public class OpticsController {
 			}
 			
 		});
-		
 	
 		canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
 		
@@ -166,16 +164,19 @@ public class OpticsController {
 
 	public void clear() {
 		model.clear();
+		picked = null;
 		redraw();
 	}
 
 	public void clearLights() {
 		model.clearLights();
+		picked = null;
 		redraw();
 	}
 
 	public void clearMaterials() {
 		model.clearMaterials();
+		picked = null;
 		redraw();
 	}
 	
@@ -221,9 +222,23 @@ public class OpticsController {
 				y > view.getCanvas().getHeight() - EDGE_LEASE
 				);
 	}
+	
+	public OpticsObjectFactory currentOpticsObjectFactory() {
+		return this.opticsObjectFactory;
+	}
 
 	public EventHandler getSettingsUpdateListener() {
 		return e -> {
+			if(picked!=null) {
+				this.opticsObjectFactory.updateOpticsObject(picked);
+			}
+			
+			redraw();
+		};
+	}
+	
+	public EventHandler getDeselectListener() {
+		return e-> {
 			picked = null;
 			redraw();
 		};

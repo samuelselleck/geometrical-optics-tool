@@ -21,6 +21,10 @@ public abstract class Material extends OpticsObject {
 		points = new ArrayList<>();
 	}
 
+	public void clearPoints() {
+		this.points = new ArrayList<Vector2d>();
+	}
+	
 	public void createBounds() {
 		botRig = Vector2d.zero();
 		topLef = Vector2d.zero();

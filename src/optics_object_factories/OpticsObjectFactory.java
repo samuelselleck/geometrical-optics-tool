@@ -15,6 +15,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import optics_objects.materials.Prism;
 import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
@@ -44,7 +45,8 @@ public abstract class OpticsObjectFactory extends VBox {
 	}
 
 	public abstract OpticsObject getOpticsObject(Vector2d origin);
-
+	public abstract void updateOpticsObject(OpticsObject object);
+	
 	protected void addSlider(String name, double min, double max, double start) {
 		Text text = new Text(name);
 		text.setFill(Color.WHITE);
@@ -78,7 +80,8 @@ public abstract class OpticsObjectFactory extends VBox {
 
 	public void setSliderListener(EventHandler e) {
 		for(Slider s: sliders.values()) {
-			s.setOnMousePressed(e);
+			s.setOnMouseDragged(e);
 		}
 	}
+
 }

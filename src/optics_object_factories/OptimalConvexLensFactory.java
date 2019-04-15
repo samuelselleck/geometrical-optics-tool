@@ -26,4 +26,10 @@ public class OptimalConvexLensFactory extends OpticsObjectFactory {
 		}
 	}
 
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

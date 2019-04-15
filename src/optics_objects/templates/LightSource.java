@@ -25,6 +25,10 @@ public abstract class LightSource extends OpticsObject {
 			l.calculatePath(materials, wavelength);
 		});
 	}
+	
+	protected void clearLightRays() {
+		light.clear();
+	}
 
 	@Override
 	public void draw(GraphicsContext gc, OpticsSettings settings) {

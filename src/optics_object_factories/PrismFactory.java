@@ -17,4 +17,10 @@ public class PrismFactory extends OpticsObjectFactory {
 		return new Prism(origin, getIntParam("Edges"), getParam("Radius"),
 				getParam("Refractionindex"), fixedPos());
 	}
+	
+	@Override
+	public void updateOpticsObject(OpticsObject object) {
+		((Prism) object).setPoints(getIntParam("Edges"), getParam("Radius"));
+		((Prism) object).setRefractionIndex(getParam("Refractionindex"));
+	}
 }
