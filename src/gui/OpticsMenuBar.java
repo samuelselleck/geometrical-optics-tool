@@ -16,7 +16,7 @@ public class OpticsMenuBar extends MenuBar {
 	private File workspaceFile, imgsaveFile;
 	
 	public OpticsMenuBar(OpticsController opticsController, OpticsToolBox toolBox, Stage primaryStage) {
-		Menu file = new Menu("File");
+		Menu file = new Menu("FileErik");
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
 		FileChooser chooser = new FileChooser();
