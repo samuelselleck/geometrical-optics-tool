@@ -71,6 +71,7 @@ public class OpticsController {
 				//Delete object if outside window
 				if (!inBounds) {
 					model.remove(picked);
+					picked = null;
 				} else if(!rotating){
 					picked.setOrigin(x + offset.x, y + offset.y);
 				}
