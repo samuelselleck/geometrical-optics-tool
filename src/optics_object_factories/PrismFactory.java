@@ -24,4 +24,5 @@ public class PrismFactory extends OpticsObjectFactory {
 		((Prism) object).setPoints(getIntParam("Edges"), getParam("Radius"));
 		((Prism) object).setRefractionIndex(getParam("Refractionindex"));
 	}
+	
 }

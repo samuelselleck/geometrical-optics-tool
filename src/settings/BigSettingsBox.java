@@ -38,10 +38,10 @@ public class BigSettingsBox extends HBox {
 		typeTab.setPrefWidth(Main.WIDTH / 4);
 		
 		List<SettingsTab> tabs = new ArrayList<>();
-		tabs.add(LENS_SETTINGS, new LensSettingsTab().setId(LENS_SETTINGS));
-		tabs.add(LIGHT_SETTINGS, new LightSettingsTab().setId(LIGHT_SETTINGS));
-		tabs.add(MIRROR_SETTINGS, new MirrorSettingsTab().setId(MIRROR_SETTINGS));
-		tabs.add(WALL_SETTINGS, new WallSettingsTab().setId(WALL_SETTINGS));
+		tabs.add(SettingsMap.LENS_SETTINGS, new LensSettingsTab());
+		tabs.add(SettingsMap.LIGHT_SETTINGS, new LightSettingsTab());
+		tabs.add(SettingsMap.MIRROR_SETTINGS, new MirrorSettingsTab());
+		tabs.add(SettingsMap.WALL_SETTINGS, new WallSettingsTab());
 		
 		for(SettingsTab tab: tabs) {
 			tab.addListeners(opticsHandler.getDeselectListener(),opticsHandler.getSettingsUpdateListener());
@@ -57,6 +57,8 @@ public class BigSettingsBox extends HBox {
 
 		typeTab.addEventHandler(MouseEvent.MOUSE_PRESSED,opticsHandler.getDeselectListener());
 		
+		SettingsMap.initSettingsMap();
+		
 	}
 
 	public OpticsObjectFactory getCurrentOpticsObjectCreator() {
@@ -66,12 +68,9 @@ public class BigSettingsBox extends HBox {
 	}
 	
 	public void selectSettingsTab(OpticsObject select) {
-		typeTab.getSelectionModel().select(select.getSettingId());
-		((SettingsTab) typeTab.getSelectionModel().getSelectedItem()).selectCreator(select.getCreatorId());
+		typeTab.getSelectionModel().select(SettingsMap.getSettingId(select));
+		((SettingsTab) typeTab.getSelectionModel().getSelectedItem()).
+				selectCreator(SettingsMap.getCreatorId(select));
 	}
 	
-	public static final int LENS_SETTINGS = 0;
-	public static final int LIGHT_SETTINGS = 1;
-	public static final int MIRROR_SETTINGS = 2;
-	public static final int WALL_SETTINGS = 3;
 }
