@@ -17,6 +17,7 @@ import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
+import settings.BigSettingsBox;
 import util.Vector2d;
 
 public class OpticsController {
@@ -25,6 +26,7 @@ public class OpticsController {
 	private OpticsModel model;
 	
 	private OpticsObjectFactory opticsObjectFactory;
+	private BigSettingsBox settings;
 	private Vector2d offset;
 	private Vector2d lastPos;
 	
@@ -56,6 +58,10 @@ public class OpticsController {
 	public void setOpticsObjectCreator(OpticsObjectFactory oof) {
 		this.opticsObjectFactory = oof;
 	}
+	
+	public void setSettingsBox(BigSettingsBox b) {
+		settings = b;
+	}
 
 	private void connect(OpticsModel model, OpticsView view) {
 		Canvas canvas = view.getCanvas();
@@ -82,7 +88,7 @@ public class OpticsController {
 				
 			} else {
 				if (inBounds && opticsObjectFactory != null) {
-					OpticsObject newObj = opticsObjectFactory.getOpticsObject(new Vector2d(x, y));
+					OpticsObject newObj = opticsObjectFactory.getOpticsObjectWithId(new Vector2d(x, y));
 					model.addOpticsObject(newObj);
 					picked = newObj;
 				}
@@ -131,6 +137,7 @@ public class OpticsController {
 			
 			if(hit!=null) {
 				picked = hit;
+				settings.selectSettingsTab(picked);
 				pickedThisClick = true;
 			}
 			

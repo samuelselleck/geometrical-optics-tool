@@ -14,16 +14,16 @@ public class LensSettingsTab extends SettingsTab {
 		this.setText("Lenses");
 		
 		OpticsObjectFactory prism = new PrismFactory();
-		super.addTab("Prism", prism);
+		super.addTab("Prism", prism.setId(settingsId, 0));
 		OpticsObjectFactory lensVex = new ConvexLensFactory();
-		super.addTab("Convex", lensVex);
+		super.addTab("Convex", lensVex.setId(settingsId, 1));
 		OpticsObjectFactory lensOptVex = new OptimalConvexLensFactory();
-		super.addTab("Optimal", lensOptVex);
+		super.addTab("Optimal", lensOptVex.setId(settingsId, 2));
 		OpticsObjectFactory lensAve = new ConcaveLensFactory();
-		super.addTab("Concave", lensAve);
+		super.addTab("Concave", lensAve.setId(settingsId, 3));
 		OpticsObjectFactory ball = new CrystallBallFactory();
-		super.addTab("Ball", ball);
+		super.addTab("Ball", ball.setId(settingsId, 4));
 		OpticsObjectFactory rect = new RectangleLensFactory();
-		super.addTab("Rectangle", rect);
+		super.addTab("Rectangle", rect.setId(settingsId, 5));
 	}
 }

@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import optics_object_factories.OpticsObjectFactory;
+import optics_objects.templates.OpticsObject;
 
 /*
  * Huvudtab
@@ -30,16 +31,17 @@ public class BigSettingsBox extends HBox {
 	public BigSettingsBox(OpticsController opticsHandler) {
 		
 		HBox.setHgrow(this, Priority.ALWAYS);
+		opticsHandler.setSettingsBox(this);
 		
 		typeTab = new TabPane();
 			
 		typeTab.setPrefWidth(Main.WIDTH / 4);
 		
 		List<SettingsTab> tabs = new ArrayList<>();
-		tabs.add(new LensSettingsTab());
-		tabs.add(new LightSettingsTab());
-		tabs.add(new MirrorSettingsTab());
-		tabs.add(new WallSettingsTab());
+		tabs.add(LENS_SETTINGS, new LensSettingsTab().setId(LENS_SETTINGS));
+		tabs.add(LIGHT_SETTINGS, new LightSettingsTab().setId(LIGHT_SETTINGS));
+		tabs.add(MIRROR_SETTINGS, new MirrorSettingsTab().setId(MIRROR_SETTINGS));
+		tabs.add(WALL_SETTINGS, new WallSettingsTab().setId(WALL_SETTINGS));
 		
 		for(SettingsTab tab: tabs) {
 			tab.addListeners(opticsHandler.getDeselectListener(),opticsHandler.getSettingsUpdateListener());
@@ -62,4 +64,14 @@ public class BigSettingsBox extends HBox {
 		OpticsObjectFactory curr = currentTab.getCurrentOpticsObjectCreator();
 		return curr;
 	}
+	
+	public void selectSettingsTab(OpticsObject select) {
+		typeTab.getSelectionModel().select(select.getSettingId());
+		((SettingsTab) typeTab.getSelectionModel().getSelectedItem()).selectCreator(select.getCreatorId());
+	}
+	
+	public static final int LENS_SETTINGS = 0;
+	public static final int LIGHT_SETTINGS = 1;
+	public static final int MIRROR_SETTINGS = 2;
+	public static final int WALL_SETTINGS = 3;
 }

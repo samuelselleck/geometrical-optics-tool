@@ -42,4 +42,5 @@ public class ConcaveLens extends Lens {
 		super.restoreRotation();
 		super.createBounds();
 	}
+
 }

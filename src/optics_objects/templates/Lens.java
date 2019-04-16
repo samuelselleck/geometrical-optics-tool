@@ -1,5 +1,6 @@
 package optics_objects.templates;
 
+import settings.BigSettingsBox;
 import util.Vector2d;
 
 public abstract class Lens extends Material {

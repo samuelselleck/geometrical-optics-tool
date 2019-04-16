@@ -13,9 +13,24 @@ public abstract class OpticsObject implements Serializable {
 	protected double totalRotation;
 	private boolean fixedPosition;
 	
+	private int settingsId, creatorId;
+	
 	public OpticsObject(Vector2d origin, boolean fixedPosition) {
 		this.origin = origin;
 		this.fixedPosition = fixedPosition;
+	}
+	
+	public OpticsObject setId(int settings, int creator) {
+		this.settingsId = settings;
+		this.creatorId  = creator;
+		return this;
+	}
+	
+	public int getSettingId() {
+		return settingsId;
+	}
+	public int getCreatorId() {
+		return creatorId;
 	}
 
 	public abstract void draw(GraphicsContext gc, OpticsSettings settings);
