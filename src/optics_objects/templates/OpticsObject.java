@@ -42,6 +42,10 @@ public abstract class OpticsObject implements Serializable {
 		totalRotation += angle;
 		rotateOp(angle);
 	}
+	
+	protected void restoreRotation() {
+		rotateOp(totalRotation);
+	}
 
 	public boolean isFixed() {
 		return fixedPosition;

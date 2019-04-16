@@ -17,6 +17,8 @@ public class FlatMirror extends Mirror {
 		Vector2d unit = new Vector2d(1, 0).mult(diameter / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));
+		
+		super.restoreRotation();
 		super.createBounds();
 	}
 }

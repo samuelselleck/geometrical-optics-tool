@@ -20,6 +20,8 @@ public class RoundedMirror extends Mirror {
 			double y = x*x;
 			points.add(new Vector2d(x*diameter/2, depth*(y - 1.0/2)));
 		}
+		
+		super.restoreRotation();
 		super.createBounds();
 	}
 }

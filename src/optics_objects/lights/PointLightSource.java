@@ -19,5 +19,7 @@ public class PointLightSource extends LightSource {
 			double y = Math.sin(ang);
 			super.addLightRay(new Vector2d(x, y));
 		}
+		
+		super.restoreRotation();
 	}
 }

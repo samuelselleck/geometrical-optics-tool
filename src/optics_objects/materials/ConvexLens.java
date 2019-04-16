@@ -33,6 +33,8 @@ public class ConvexLens extends Lens {
 		for (int i = 0; i < quarterResolution * 2; i++) {
 			points.add(pos.copy().add(vec.rotate(rightStep)));
 		}
+		
+		super.restoreRotation();
 		super.createBounds();
 	}
 

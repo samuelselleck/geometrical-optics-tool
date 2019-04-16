@@ -19,6 +19,7 @@ public class RectangleLens extends Lens {
 		points.add(new Vector2d(-width/2, height/2));
 		points.add(new Vector2d(-width/2,-height/2));
 		
+		super.restoreRotation();
 		super.createBounds();
 	}
 

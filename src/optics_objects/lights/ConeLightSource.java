@@ -20,5 +20,7 @@ public class ConeLightSource extends LightSource {
 			super.addLightRay(ray.copy());
 			ray.rotate(deltaAngle);
 		}
+		
+		super.restoreRotation();
 	}
 }

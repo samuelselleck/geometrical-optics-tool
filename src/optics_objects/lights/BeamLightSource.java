@@ -20,5 +20,7 @@ public class BeamLightSource extends LightSource {
 		for (int i = rayCount / 2; i >= -rayCount / 2; i--) {
 			super.addLightRay(posVec.copy().mult(i), rayVec.copy());
 		}
+		
+		super.restoreRotation();
 	}
 }

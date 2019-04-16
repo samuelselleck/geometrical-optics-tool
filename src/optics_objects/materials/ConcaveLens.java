@@ -38,6 +38,8 @@ public class ConcaveLens extends Lens {
 			points.add(pos.copy().add(vec));
 			vec.rotate(-leftStep);
 		}
+		
+		super.restoreRotation();
 		super.createBounds();
 	}
 }
