@@ -12,18 +12,12 @@ import optics_object_factories.OpticsObjectFactory;
 public abstract class SettingsTab extends Tab {
 	private TabPane tabPane;
 	private ArrayList<OpticsObjectFactory> creators;
-	protected int settingsId;
 
 	public SettingsTab() {
 		tabPane = new TabPane();
 		creators = new ArrayList<>();
 		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		this.setContent(tabPane);
-	}
-	
-	public SettingsTab setId(int id) {
-		settingsId = id;
-		return this;
 	}
 
 	protected void addTab(String name, OpticsObjectFactory creator) {

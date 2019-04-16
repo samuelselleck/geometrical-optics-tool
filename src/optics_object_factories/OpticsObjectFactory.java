@@ -23,7 +23,6 @@ public abstract class OpticsObjectFactory extends VBox {
 	private Map<String, Slider> sliders;
 	private VBox top;
 	private CheckBox positionFixed;
-	private int settingsId, creatorId;
 	
 	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
@@ -44,16 +43,9 @@ public abstract class OpticsObjectFactory extends VBox {
 		this.getChildren().addAll(top, bot);
 		
 	}
-	
-	public OpticsObjectFactory setId(int settings, int creator) {
-		settingsId = settings;
-		creatorId = creator;
-		
-		return this;
-	}
 
 	public OpticsObject getOpticsObjectWithId(Vector2d origin) {
-		return getOpticsObject(origin).setId(settingsId, creatorId);
+		return getOpticsObject(origin);
 	}
 	
 	public abstract OpticsObject getOpticsObject(Vector2d origin);

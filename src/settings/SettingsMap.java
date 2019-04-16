@@ -18,6 +18,7 @@ public class SettingsMap {
 		add(ConvexLens.class,LENS_SETTINGS,1);
 		add(OptimalConvexLens.class,LENS_SETTINGS,2);
 		add(ConcaveLens.class, LENS_SETTINGS, 3);
+		add(SettingsMap.class, LENS_SETTINGS,4); //Hack, använder bara en godtycklig klass
 		add(RectangleLens.class, LENS_SETTINGS,5);
 		
 		add(PointLightSource.class, LIGHT_SETTINGS,0);
@@ -36,6 +37,14 @@ public class SettingsMap {
 	}
 	
 	private static SettingsIdWrapper getIdWrapper(OpticsObject obj) {
+		
+		//Fult undantag för bollar :(
+		if(obj instanceof Prism) {
+			if(((Prism)obj).getPointCount()>20){
+				return map.get(SettingsMap.class);
+			}
+		}
+		
 		return map.get(obj.getClass());
 	}
 	
