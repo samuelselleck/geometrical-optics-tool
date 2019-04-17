@@ -6,11 +6,12 @@ import util.Vector2d;
 public class ConcaveLens extends Lens {
 	private static final long serialVersionUID = 1L;
 
-	public ConcaveLens(Vector2d origin, double d, double w, double r1, double r2, double refractionindex, boolean fixedPosition) {
+	public ConcaveLens(Vector2d origin, double d, double w, double r1, double r2, double refractionindex, boolean fixedPosition, boolean showAxis) {
 		super(origin, refractionindex, fixedPosition);
 		
 		setPoints(d,w,r1,r2);
 		
+		showOpticalAxis(showAxis);
 		super.createBounds();
 	}
 	

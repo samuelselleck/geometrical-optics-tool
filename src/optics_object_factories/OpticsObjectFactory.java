@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -72,9 +73,26 @@ public abstract class OpticsObjectFactory extends VBox {
 		top.getChildren().add(text);
 		top.getChildren().add(newSlider);		
 	}
+	
+	protected void addCheckBox(String name) {
+		Text text = new Text(name);
+		text.setFill(Color.WHITE);
+		
+		CheckBox box = new CheckBox();
+		box.setAllowIndeterminate(false);
+		
+		checkBoxes.put(name, box);
+		
+		top.getChildren().add(text);
+		top.getChildren().add(box);
+	}
 
 	protected double getParam(String name) {
 		return sliders.get(name).getValue();
+	}
+	
+	protected boolean getBoxParam(String name) {
+		return checkBoxes.get(name).isSelected();
 	}
 	
 	protected int getIntParam(String name) {
@@ -85,10 +103,14 @@ public abstract class OpticsObjectFactory extends VBox {
 		return positionFixed.selectedProperty().get();
 	}
 
-	public void setSliderListener(EventHandler e) {
+	public void setListeners(EventHandler e) {
 		for(Slider s: sliders.values()) {
 			s.setOnMouseDragged(e);
 			s.setOnMousePressed(e);
+		}
+		
+		for(CheckBox c: checkBoxes.values()) {
+			c.setOnAction(e);
 		}
 	}
 

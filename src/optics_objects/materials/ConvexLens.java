@@ -6,9 +6,10 @@ import util.Vector2d;
 public class ConvexLens extends Lens {
 	private static final long serialVersionUID = 1L;
 
-	public ConvexLens(Vector2d origin, double d, double r1, double r2, double refractionindex, boolean fixedPosition) {
+	public ConvexLens(Vector2d origin, double d, double r1, double r2, double refractionindex, boolean fixedPosition, boolean showAxis) {
 		super(origin, refractionindex, fixedPosition);
-
+		
+		showOpticalAxis(showAxis);
 		setPoints(d, r1, r2);
 	}
 	

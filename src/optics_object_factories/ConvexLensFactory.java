@@ -11,6 +11,8 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		addSlider("Radius 1", 55, 800, 300);
 		addSlider("Radius 2", 55, 800, 300);
 		addSlider("Refractionindex", 1, 3, 1.5);
+		
+		addCheckBox("Show optical axis");
 	}
 
 	@Override
@@ -20,7 +22,7 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 			return new ConvexLens(origin, d, r1, r2,
-					getParam("Refractionindex"), fixedPos());
+					getParam("Refractionindex"), fixedPos(), getBoxParam("Show optical axis"));
 		} else {
 			return null;
 		}
@@ -33,8 +35,10 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 			((ConvexLens)object).setPoints(d, r1, r2);
-			((ConvexLens)object).setRefractionIndex(getParam("Refractionindex"));
 		}
+		
+		((ConvexLens)object).setRefractionIndex(getParam("Refractionindex"));
+		((ConvexLens)object).showOpticalAxis(getBoxParam("Show optical axis"));
 	}
 
 }

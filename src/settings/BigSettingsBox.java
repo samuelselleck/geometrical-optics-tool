@@ -12,19 +12,6 @@ import javafx.scene.layout.Priority;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.templates.OpticsObject;
 
-/*
- * Huvudtab
- * 	- (Om valt objekts undertab ligger under, behåll val, annars ta bort)
- *  - nu: Ta bort val
- * Undertab
- *  - (Om valt objekt: behåll, annars ta bort)
- *  - nu: Ta bort val
- * Slider
- *  - Om valt objekt: uppdatera, annars ta bort
- *  
- *  När objekt väljs: Gå till rätt flik och sätt rätt värden
- * */
-
 public class BigSettingsBox extends HBox {
 	TabPane typeTab;
 

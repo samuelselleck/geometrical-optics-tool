@@ -1,6 +1,7 @@
 package optics_object_factories;
 
 import optics_objects.materials.ConcaveLens;
+import optics_objects.materials.ConvexLens;
 import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
@@ -12,6 +13,8 @@ public class ConcaveLensFactory extends OpticsObjectFactory {
 		addSlider("Radius 1", 55, 800, 300);
 		addSlider("Radius 2", 55, 800, 300);
 		addSlider("Refractionindex", 1, 3, 1.5);
+		
+		addCheckBox("Show optical axis");
 	}
 
 	@Override
@@ -21,7 +24,7 @@ public class ConcaveLensFactory extends OpticsObjectFactory {
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 			return new ConcaveLens(origin, d, getParam("Width"), r1, r2,
-					getParam("Refractionindex"), fixedPos());
+					getParam("Refractionindex"), fixedPos(), getBoxParam("Show optical axis"));
 		} else {
 			return null;
 		}
@@ -34,8 +37,9 @@ public class ConcaveLensFactory extends OpticsObjectFactory {
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 		((ConcaveLens)object).setPoints(d, getParam("Width"), r1, r2);
-		((ConcaveLens)object).setRefractionIndex(getParam("Refractionindex"));
 		}
+		((ConcaveLens)object).setRefractionIndex(getParam("Refractionindex"));
+		((ConvexLens)object).showOpticalAxis(getBoxParam("Show optical axis"));
 	}
 	
 }

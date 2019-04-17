@@ -1,5 +1,9 @@
 package optics_objects.templates;
 
+import gui.Main;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
+import optics_logic.OpticsSettings;
 import settings.BigSettingsBox;
 import util.Vector2d;
 
@@ -7,14 +11,36 @@ public abstract class Lens extends Material {
 	
 	private static final long serialVersionUID = 1L;
 	private double refractionindex;
+	private boolean showOpticalAxis = false;
 	
 	public Lens(Vector2d origin, double refractionindex, boolean fixedPosition) {
 		super(origin, fixedPosition);
 		this.refractionindex = refractionindex;
 	}
 	
+	public void showOpticalAxis(boolean show) {
+		showOpticalAxis = show;
+	}
+	
 	public void setRefractionIndex(double index) {
 		this.refractionindex = index;
+	}
+	
+	@Override
+	public void draw(GraphicsContext gc, OpticsSettings settings) {
+		
+		super.draw(gc, settings);
+		
+		if(showOpticalAxis) {
+			gc.setStroke(Paint.valueOf("GRAY"));
+		
+			Vector2d start = this.getOrigin().copy().sub(new Vector2d(Main.WIDTH,0).rotate(totalRotation));
+			Vector2d end   = this.getOrigin().copy().add(new Vector2d(Main.WIDTH,0).rotate(totalRotation));
+			
+			gc.strokeLine(start.x, start.y, end.x, end.y);
+			
+		}
+		
 	}
 	
 	@Override

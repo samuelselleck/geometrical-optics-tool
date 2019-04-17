@@ -31,8 +31,9 @@ public abstract class SettingsTab extends Tab {
 		tabPane.addEventHandler(MouseEvent.MOUSE_PRESSED, deselect);
 	
 		for(OpticsObjectFactory factory: creators) {
-			factory.setSliderListener(update);
+			factory.setListeners(update);
 		}
+		
 	}
 
 	public OpticsObjectFactory getCurrentOpticsObjectCreator() {
