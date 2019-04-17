@@ -21,7 +21,7 @@ import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {
-	private Map<String, Slider> sliders;
+	protected Map<String, Slider> sliders;
 	private Map<String, CheckBox> checkBoxes;
 	private VBox top;
 	private CheckBox positionFixed;

@@ -1,5 +1,9 @@
 package optics_object_factories;
 
+import javafx.event.EventHandler;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import optics_objects.materials.ConvexLens;
 import optics_objects.templates.OpticsObject;
 import util.Vector2d;
@@ -27,6 +31,10 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 			return null;
 		}
 	}
+	
+	private boolean correctParams() {
+		return getParam("Radius 1")*2 >= getParam("Diameter") && getParam("Radius 2")*2 >= getParam("Diameter");
+	}
 
 	@Override
 	public void updateOpticsObject(OpticsObject object) {
@@ -39,6 +47,27 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		
 		((ConvexLens)object).setRefractionIndex(getParam("Refractionindex"));
 		((ConvexLens)object).showOpticalAxis(getBoxParam("Show optical axis"));
+	}
+	
+	@Override
+	public void setListeners(EventHandler e) {
+		super.setListeners(e);
+		String[] relSliders = {"Radius 1", "Radius 2", "Diameter"};
+		
+		EventHandler onIncorrectParams = event ->{
+			if(!correctParams()) {
+				for(String s: relSliders)
+					sliders.get(s).setStyle("-fx-background-color:red");
+			}else {
+				for(String s: relSliders)
+				sliders.get(s).setStyle("");
+			}
+		};
+	
+		for(String s: relSliders) {
+			sliders.get(s).addEventHandler(MouseEvent.MOUSE_CLICKED, onIncorrectParams);
+			sliders.get(s).addEventFilter(MouseEvent.MOUSE_DRAGGED, onIncorrectParams);
+		}
 	}
 
 }
