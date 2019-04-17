@@ -34,6 +34,8 @@ public class ConvexLens extends Lens {
 			points.add(pos.copy().add(vec.rotate(rightStep)));
 		}
 		
+		points.add(points.get(0).copy()); //Close loop
+		
 		super.restoreRotation();
 		super.createBounds();
 	}

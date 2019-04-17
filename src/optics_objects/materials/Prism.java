@@ -24,6 +24,8 @@ public class Prism extends Lens {
 			Vector2d p = new Vector2d(r * Math.cos(angle), r * Math.sin(angle));
 			points.add(p);
 		}
+		
+		points.add(points.get(0).copy()); //Close loop
 
 		super.restoreRotation();
 		super.createBounds();

@@ -21,12 +21,14 @@ import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {
 	private Map<String, Slider> sliders;
+	private Map<String, CheckBox> checkBoxes;
 	private VBox top;
 	private CheckBox positionFixed;
 	
 	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
 		sliders = new TreeMap<>();
+		checkBoxes = new TreeMap<>();
 		
 		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
@@ -40,6 +42,7 @@ public abstract class OpticsObjectFactory extends VBox {
 			bot.getChildren().add(positionFixed);
 		}
 
+		
 		this.getChildren().addAll(top, bot);
 		
 	}

@@ -22,7 +22,7 @@ public abstract class Material extends OpticsObject {
 	}
 
 	public void clearPoints() {
-		this.points = new ArrayList<Vector2d>();
+		points.clear();
 	}
 
 	public void createBounds() {
@@ -54,6 +54,7 @@ public abstract class Material extends OpticsObject {
 		for(Vector2d p : points) {
 			p.rotate(angle);
 		}
+
 		this.createBounds();
 	}
 	

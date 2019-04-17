@@ -41,7 +41,6 @@ public abstract class Lens extends Material {
 	
 	@Override
 	public void createBounds() {
-		points.add(points.get(0).copy()); //Close loop
 		super.createBounds();
 	}
 }
