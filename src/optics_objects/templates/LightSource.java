@@ -2,9 +2,11 @@ package optics_objects.templates;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_logic.LightRay;
 import optics_logic.OpticsSettings;
@@ -13,7 +15,6 @@ import util.Vector2d;
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	ArrayList<LightRay> light;
-	
 
 	public LightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
 		super(origin, fixedPosition);
@@ -32,6 +33,7 @@ public abstract class LightSource extends OpticsObject {
 
 	@Override
 	public void draw(GraphicsContext gc, OpticsSettings settings) {
+
 		for(LightRay l : light) {
 			l.draw(gc, settings.drawOnlyHitting());
 		}

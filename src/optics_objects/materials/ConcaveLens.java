@@ -1,5 +1,7 @@
 package optics_objects.materials;
 
+import javafx.scene.canvas.GraphicsContext;
+import optics_logic.OpticsSettings;
 import optics_objects.templates.Lens;
 import util.Vector2d;
 
