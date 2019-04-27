@@ -16,7 +16,7 @@ public class ConeLightSourceFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new ConeLightSource(origin, getParam("Cone Angle")/180*Math.PI,
-				getIntParam("LightRays"), getIntParam("LightRays"), fixedPos());
+				getIntParam("LightRays"), getIntParam("WaveLength"), fixedPos());
 	}
 
 	@Override
