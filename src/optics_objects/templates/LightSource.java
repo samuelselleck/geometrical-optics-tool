@@ -15,10 +15,19 @@ import util.Vector2d;
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	ArrayList<LightRay> light;
+	private int waveLength = 440;
 
 	public LightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
 		super(origin, fixedPosition);
 		light = new ArrayList<>();
+	}
+	
+	public int getWaveLength() {
+		return waveLength;
+	}
+	
+	public void setWaveLength(int w) {
+		waveLength = w;
 	}
 
 	public void calculateRayPaths(List<Material> materials, int wavelength) {
@@ -33,7 +42,6 @@ public abstract class LightSource extends OpticsObject {
 
 	@Override
 	public void draw(GraphicsContext gc, OpticsSettings settings) {
-
 		for(LightRay l : light) {
 			l.draw(gc, settings.drawOnlyHitting());
 		}

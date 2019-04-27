@@ -6,12 +6,12 @@ import util.Vector2d;
 public class ConeLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount, boolean fixedPosition) {
+	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount, int wavelength, boolean fixedPosition) {
 		super(origin, rayCount, fixedPosition);
-		setConeRays(coneAngle,rayCount);
+		setConeRays(coneAngle,rayCount, wavelength);
 	}
 	
-	public void setConeRays(double coneAngle, int rayCount) {
+	public void setConeRays(double coneAngle, int rayCount, int wavelength) {
 		super.clearLightRays();
 		
 		double deltaAngle = coneAngle/(rayCount - 1);
@@ -21,6 +21,7 @@ public class ConeLightSource extends LightSource {
 			ray.rotate(deltaAngle);
 		}
 		
+		super.setWaveLength(wavelength);
 		super.restoreRotation();
 	}
 }

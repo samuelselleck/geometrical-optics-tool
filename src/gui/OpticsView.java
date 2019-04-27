@@ -43,7 +43,9 @@ public class OpticsView {
 			}
 			
 		} else {
-			calculateAndDrawRays(model.getLights(), gc, LightSource.lightWaveDefault(), 1f);
+			for(LightSource l : model.getLights()) {
+				calculateAndDrawRay(l, gc);
+			}
 		}
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		
@@ -57,6 +59,21 @@ public class OpticsView {
 		}
 
 	}
+	
+	private void calculateAndDrawRay(LightSource l, GraphicsContext gc) {
+		
+		l.calculateRayPaths(model.getMaterials(), l.getWaveLength());
+		
+		int rgb[] = Utils.waveLengthToRGB(l.getWaveLength());
+		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], 1f);
+		gc.setStroke(p);
+		
+		gc.beginPath();
+		l.draw(gc, model.getSettings());
+		gc.stroke();
+	}
+	
+	
 	
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
 		

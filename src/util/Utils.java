@@ -48,7 +48,7 @@ public class Utils {
 	    };
 
 	    // Let the intensity fall off near the vision limits
-
+	    /*
 	    if((Wavelength >= 380) && (Wavelength<420)){
 	        factor = 0.3 + 0.7*(Wavelength - 380) / (420 - 380);
 	    }else if((Wavelength >= 420) && (Wavelength<701)){
@@ -58,7 +58,9 @@ public class Utils {
 	    }else{
 	        factor = 0.0;
 	    };
-
+	     */
+	    factor=1;
+	    
 	    int[] rgb = new int[3];
 
 	    // Don't want 0^x = 1 for x <> 0

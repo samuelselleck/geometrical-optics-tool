@@ -6,13 +6,13 @@ import util.Vector2d;
 public class BeamLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public BeamLightSource(Vector2d origin, double diameter, int rayCount, boolean fixedPosition) {
+	public BeamLightSource(Vector2d origin, double diameter, int rayCount, int wavelength, boolean fixedPosition) {
 		super(origin, rayCount, fixedPosition);
 
-		setBeamRays(diameter, rayCount);
+		setBeamRays(diameter, rayCount, wavelength);
 	}
 	
-	public void setBeamRays(double diameter, int rayCount) {
+	public void setBeamRays(double diameter, int rayCount, int wavelength) {
 		super.clearLightRays();
 		
 		Vector2d posVec = new Vector2d(0, 1).mult(diameter).div(rayCount);
@@ -20,6 +20,8 @@ public class BeamLightSource extends LightSource {
 		for (int i = rayCount / 2; i >= -rayCount / 2; i--) {
 			super.addLightRay(posVec.copy().mult(i), rayVec.copy());
 		}
+		
+		super.setWaveLength(wavelength);
 		
 		super.restoreRotation();
 	}
