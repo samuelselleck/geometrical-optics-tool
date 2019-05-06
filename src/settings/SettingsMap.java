@@ -2,7 +2,6 @@ package settings;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import optics_objects.lights.*;
 import optics_objects.materials.*;
@@ -18,7 +17,7 @@ public class SettingsMap {
 		add(ConvexLens.class,LENS_SETTINGS,1);
 		add(OptimalConvexLens.class,LENS_SETTINGS,2);
 		add(ConcaveLens.class, LENS_SETTINGS, 3);
-		add(SettingsMap.class, LENS_SETTINGS,4); //Hack, använder bara en godtycklig klass
+		add(SettingsMap.class, LENS_SETTINGS,4); //Hack, anvï¿½nder bara en godtycklig klass
 		add(RectangleLens.class, LENS_SETTINGS,5);
 		
 		add(PointLightSource.class, LIGHT_SETTINGS,0);
@@ -29,6 +28,8 @@ public class SettingsMap {
 		add(RoundedMirror.class, MIRROR_SETTINGS,1);
 		
 		add(RectangleWall.class, WALL_SETTINGS,0);
+
+		add(DiffractionGrating.class, DIFFRACTION_GRATING_SETTINGS, 0);
 		
 	}
 	
@@ -38,7 +39,7 @@ public class SettingsMap {
 	
 	private static SettingsIdWrapper getIdWrapper(OpticsObject obj) {
 		
-		//Fult undantag för bollar :(
+		//Fult undantag fï¿½r bollar :(
 		if(obj instanceof Prism) {
 			if(((Prism)obj).getPointCount()>20){
 				return map.get(SettingsMap.class);
@@ -60,6 +61,7 @@ public class SettingsMap {
 	public static final int LIGHT_SETTINGS = 1;
 	public static final int MIRROR_SETTINGS = 2;
 	public static final int WALL_SETTINGS = 3;
+	public static final int DIFFRACTION_GRATING_SETTINGS = 4;
 	
 	private static class SettingsIdWrapper{
 		private int settingId, creatorId;

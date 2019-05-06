@@ -3,9 +3,11 @@ package optics_logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
+import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.Material;
 import optics_objects.templates.Wall;
 import util.Vector2d;
@@ -31,36 +33,48 @@ public class LightRay implements Serializable {
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
 	public void calculatePath(List<Material> materials, int wavelength) {
+		//Start with empty list of points
 		if(path == null) {
 			path = new ArrayList<>();
 		} else {
 			path.clear();
 		}
-		
+
+		//Add origin of ray to start of list
 		LightRay currRay = this;
 		path.add(getPos());
 		LightRay bestCandidateRay;
 		
 		int count = 0;
 		int maxIterrations = Integer.parseInt(Main.properties.getProperty("maxraybounce"));
-		do {
+		do { // Do while count < max number of bounces
 			count++;
+			//Reset best candidate ray
 			bestCandidateRay = null;
 			//Find closest intersection, if it exists, add its point to path and set currRay to next ray.
 			ArrayList<Vector2d> distanceList = getDistanceIndexList(materials, currRay);
+			//Variable to keep track of the index of the object that maps to the shortest path
+			int bestIndex = -1;
 			double closestIntersection = Double.MAX_VALUE;
 			for(int i = 0; i < distanceList.size(); i++) {
+				//Get material (lens/wall) at index 'distanceList.get(i).x'
 				Material currentMaterial = materials.get((int)distanceList.get(i).x);
-				
+
+				//Get the outgoing ray when our ray is intersecting with this material
 				LightRay candidateRay = getRayIntersection(currentMaterial, currRay, wavelength);
+				//Check for an intersection
 				if(candidateRay != null) {
+					//Check if this is our shortest ray path yet
 					if(candidateRay.ray.length() < closestIntersection) {
 						closestIntersection = candidateRay.ray.length();
+						//If we're intersecting with a 'wall', kill the ray by creating a ray without direction.
 						if(currentMaterial instanceof Wall) {
 							bestCandidateRay = new LightRay(candidateRay.getPos(), new Vector2d(0, 0));
 						} else {
 							bestCandidateRay = new LightRay(candidateRay.getPos(), candidateRay.ray.normalize());
 						}
+						//Save the index of the shortest path
+						bestIndex = i;
 						//If the distance to the current light intersection is shorter than the
 						//distance to the next material hitbox, we don't need to check the next one:
 						if(i + 1 < distanceList.size() && closestIntersection < distanceList.get(i + 1).y) {
@@ -70,7 +84,14 @@ public class LightRay implements Serializable {
 				}
 			}
 			if(bestCandidateRay != null) {
+				//Add the shortest distance to the path.
 				path.add(bestCandidateRay.getPos());
+
+				//If the object at this point is a lattice, run extra logic.
+				if(materials.get((int)distanceList.get(bestIndex).x) instanceof DiffractionGrating) {
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).createRays(wavelength);
+				}
+
 				if(bestCandidateRay.ray.isZero()) {
 					break; //Wall breaks it!
 				} else {
@@ -188,7 +209,8 @@ public class LightRay implements Serializable {
 		line.rotate(cross*Math.PI / 2).normalize();
 		double angleIn = ray.angleTo(line);
 		double angleOut = material.getAngle(angleIn, wavelength, cross > 0);
-		return line.rotate(angleOut).mult(ray.length()*distance);
+		return line.rotate(angleOut).
+				mult(ray.length()*distance); // Är denna multiplikation onödig?
 	}
 
 	public void draw(GraphicsContext gc, boolean onlyHitting) {

@@ -29,6 +29,7 @@ public class BigSettingsBox extends HBox {
 		tabs.add(SettingsMap.LIGHT_SETTINGS, new LightSettingsTab());
 		tabs.add(SettingsMap.MIRROR_SETTINGS, new MirrorSettingsTab());
 		tabs.add(SettingsMap.WALL_SETTINGS, new WallSettingsTab());
+		tabs.add(SettingsMap.DIFFRACTION_GRATING_SETTINGS, new DiffractionGratingSettingsTab());
 		
 		for(SettingsTab tab: tabs) {
 			tab.addListeners(opticsHandler.getDeselectListener(),opticsHandler.getSettingsUpdateListener());
