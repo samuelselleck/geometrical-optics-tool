@@ -75,6 +75,7 @@ public class OpticsView {
 	
 	
 	
+	
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
 		
 		for(LightSource l : lights) {
