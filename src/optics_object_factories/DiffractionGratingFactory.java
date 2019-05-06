@@ -12,12 +12,13 @@ public class DiffractionGratingFactory extends OpticsObjectFactory {
     public DiffractionGratingFactory() {
         addSlider("Slits per unit distance", 100, 10000, 500);
         addSlider("Height", 100, 400, 200);
+        addSlider("Number of maximums",1,12,2);
     }
 
     @Override
     public OpticsObject getOpticsObject(Vector2d origin) {
         return new DiffractionGrating(origin,
-                WIDTH, getParam("Height"), getParam("Slits per unit distance"), fixedPos());
+                WIDTH, getParam("Height"), getParam("Slits per unit distance"), (int)getParam("Number of maximums"), fixedPos());
     }
 
     @Override

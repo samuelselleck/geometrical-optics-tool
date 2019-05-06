@@ -36,6 +36,7 @@ public abstract class LightSource extends OpticsObject {
 		});
 	}
 	
+	
 	protected void clearLightRays() {
 		light.clear();
 	}

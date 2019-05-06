@@ -89,7 +89,7 @@ public class LightRay implements Serializable {
 
 				//If the object at this point is a lattice, run extra logic.
 				if(materials.get((int)distanceList.get(bestIndex).x) instanceof DiffractionGrating) {
-					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).createRays(wavelength);
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).updateRays(wavelength);
 				}
 
 				if(bestCandidateRay.ray.isZero()) {
