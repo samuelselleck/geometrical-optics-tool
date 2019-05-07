@@ -10,32 +10,33 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import optics_logic.LightRay;
 import optics_logic.OpticsSettings;
+import optics_objects.lights.BeamLightSource;
+import optics_objects.lights.DiffractionGratingLightSource;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
-	ArrayList<LightRay> light;
+	public ArrayList<LightRay> light;
 	private int waveLength = 440;
 
-	public LightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
+	public LightSource(Vector2d origin, boolean fixedPosition) {
 		super(origin, fixedPosition);
 		light = new ArrayList<>();
 	}
-	
+
 	public int getWaveLength() {
 		return waveLength;
 	}
-	
+
 	public void setWaveLength(int w) {
 		waveLength = w;
 	}
 
-	public void calculateRayPaths(List<Material> materials, int wavelength) {
+	public void calculateRayPaths(List<Material> materials) {
 		light.stream().forEach(l -> {
-			l.calculatePath(materials, wavelength);
+			l.calculatePath(materials, waveLength);
 		});
 	}
-	
 	
 	protected void clearLightRays() {
 		light.clear();

@@ -1,12 +1,13 @@
 package optics_object_factories;
 
+import optics_objects.templates.LightSource;
 import optics_objects.templates.OpticsObject;
 import optics_objects.materials.DiffractionGrating;
 import util.Vector2d;
 
 public class DiffractionGratingFactory extends OpticsObjectFactory {
 
-    private static final int WIDTH = 10;
+    private static final int GRATING_WIDTH = 10;
 
 
     public DiffractionGratingFactory() {
@@ -18,12 +19,12 @@ public class DiffractionGratingFactory extends OpticsObjectFactory {
     @Override
     public OpticsObject getOpticsObject(Vector2d origin) {
         return new DiffractionGrating(origin,
-                WIDTH, getParam("Height"), getParam("Slits per unit distance"), (int)getParam("Number of maximums"), fixedPos());
+                GRATING_WIDTH, getParam("Height"), getParam("Slits per unit distance"), getIntParam("Number of maximums"), fixedPos());
     }
 
     @Override
     public void updateOpticsObject(OpticsObject object) {
-        ((DiffractionGrating)object).setPoints(WIDTH, getParam("Height"));
-        ((DiffractionGrating)object).setSlitsPerUnitDistance(getParam("Slits per unit distance"));
+        ((DiffractionGrating)object).updateGrating(GRATING_WIDTH, getParam("Height"),
+                getParam("Slits per unit distance"), getIntParam("Number of maximums"), LightSource.lightWaveDefault());
     }
 }

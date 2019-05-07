@@ -7,7 +7,7 @@ public class BeamLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
 	public BeamLightSource(Vector2d origin, double diameter, int rayCount, int wavelength, boolean fixedPosition) {
-		super(origin, rayCount, fixedPosition);
+		super(origin, fixedPosition);
 
 		setBeamRays(diameter, rayCount, wavelength);
 	}
@@ -25,4 +25,6 @@ public class BeamLightSource extends LightSource {
 		
 		super.restoreRotation();
 	}
+
+
 }

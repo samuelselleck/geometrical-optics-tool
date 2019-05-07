@@ -87,9 +87,9 @@ public class LightRay implements Serializable {
 				//Add the shortest distance to the path.
 				path.add(bestCandidateRay.getPos());
 
-				//If the object at this point is a lattice, run extra logic.
+				//If the object at this point is a diffraction grating, run extra logic.
 				if(materials.get((int)distanceList.get(bestIndex).x) instanceof DiffractionGrating) {
-					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).updateRays(wavelength);
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).calculateRays(wavelength);
 				}
 
 				if(bestCandidateRay.ray.isZero()) {

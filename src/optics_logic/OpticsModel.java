@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import optics_objects.lights.DiffractionGratingLightSource;
+import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
@@ -53,6 +55,9 @@ public class OpticsModel implements Serializable {
 		
 		if(newOpticsObject instanceof Material) {
 			materials.add((Material)newOpticsObject);
+			if(newOpticsObject instanceof DiffractionGrating){
+				lights.add(((DiffractionGrating) newOpticsObject).getLightSource());
+			}
 		} else {
 			lights.add((LightSource)newOpticsObject);
 		}
@@ -80,11 +85,28 @@ public class OpticsModel implements Serializable {
 	}
 
 	public void clearLights() {
-		lights.clear();
+		List<LightSource> remove = new ArrayList<>();
+		for(LightSource l : lights){
+			if(l instanceof DiffractionGratingLightSource == false){
+				remove.add(l);
+			}
+		}
+		for (LightSource l : remove) {
+			lights.remove(l);
+		}
 	}
 
 	public void clearMaterials() {
-		materials.clear();
+		List<Material> remove = new ArrayList<>();
+		for(Material m : materials){
+			if(m instanceof DiffractionGrating == true){
+				lights.remove(((DiffractionGrating) m).getLightSource());
+			}
+			remove.add(m);
+		}
+		for (Material m : remove) {
+			materials.remove(m);
+		}
 	}
 
 	public OpticsSettings getSettings() {

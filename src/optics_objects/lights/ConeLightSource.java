@@ -7,7 +7,7 @@ public class ConeLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
 	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount, int wavelength, boolean fixedPosition) {
-		super(origin, rayCount, fixedPosition);
+		super(origin, fixedPosition);
 		setConeRays(coneAngle,rayCount, wavelength);
 	}
 	

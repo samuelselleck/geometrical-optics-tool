@@ -7,7 +7,7 @@ public class PointLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 
 	public PointLightSource(Vector2d origin, int rayCount, int wavelength, boolean fixedPosition) {
-		super(origin, rayCount, fixedPosition);
+		super(origin, fixedPosition);
 		setPointLightRays(rayCount, wavelength);
 	}
 	

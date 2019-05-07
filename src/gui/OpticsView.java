@@ -49,7 +49,7 @@ public class OpticsView {
 		}
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		
-		//Draw lences
+		//Draw lenses
 		for(Material m : model.getMaterials()) {
 			m.draw(gc, model.getSettings());
 		}
@@ -62,7 +62,7 @@ public class OpticsView {
 	
 	private void calculateAndDrawRay(LightSource l, GraphicsContext gc) {
 		
-		l.calculateRayPaths(model.getMaterials(), l.getWaveLength());
+		l.calculateRayPaths(model.getMaterials());
 		
 		int rgb[] = Utils.waveLengthToRGB(l.getWaveLength());
 		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], 1f);
@@ -79,7 +79,8 @@ public class OpticsView {
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
 		
 		for(LightSource l : lights) {
-			l.calculateRayPaths(model.getMaterials(), wavelength);
+			l.setWaveLength(wavelength);
+			l.calculateRayPaths(model.getMaterials());
 		}
 		int rgb[] = Utils.waveLengthToRGB(wavelength);
 		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
