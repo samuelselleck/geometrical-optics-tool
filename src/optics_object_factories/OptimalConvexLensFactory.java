@@ -14,7 +14,7 @@ public class OptimalConvexLensFactory extends OpticsObjectFactory {
 		addSlider("Radius 1", 55, 800, 300);
 		addSlider("Radius 2", 55, 800, 300);
 		addSlider("Refractionindex", 1, 3, 1.5);
-
+		addSlider("Focal length", 100 , 1000, 300);
 		addCheckBox("Show optical axis");
 	}
 
@@ -24,7 +24,7 @@ public class OptimalConvexLensFactory extends OpticsObjectFactory {
 		double r1 = getParam("Radius 1");
 		double r2 = getParam("Radius 2");
 		if (r1 * 2 >= d && r2 * 2 >= d) {
-			return new ConvexLens(origin, d, r1, r2, getParam("Refractionindex"), fixedPos(),
+			return new OptimalConvexLens(origin, d,getParam("Focal length"), getParam("Refractionindex"), fixedPos(),
 					getBoxParam("Show optical axis"));
 		} else {
 			return null;

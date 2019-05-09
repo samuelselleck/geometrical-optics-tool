@@ -25,6 +25,7 @@ public abstract class Lens extends Material {
 	public void setRefractionIndex(double index) {
 		this.refractionindex = index;
 	}
+
 	
 	@Override
 	public void draw(GraphicsContext gc, OpticsSettings settings) {
