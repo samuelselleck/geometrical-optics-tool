@@ -15,7 +15,7 @@ public class RectangleLensFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RectangleLens(origin, getParam("Refractionindex"), getParam("Width"),
-				getParam("Height"), fixedPos());
+				getParam("Height"));
 	}
 
 }

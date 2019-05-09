@@ -14,7 +14,7 @@ public class BeamLightSourceFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new BeamLightSource(origin, getParam("Diameter"),
-				getIntParam("LightRays"), fixedPos());
+				getIntParam("LightRays"));
 	}
 
 }

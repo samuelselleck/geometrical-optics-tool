@@ -6,8 +6,8 @@ import util.Vector2d;
 public class ConeLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount, boolean fixedPosition) {
-		super(origin, rayCount, fixedPosition);
+	public ConeLightSource(Vector2d origin, double coneAngle, int rayCount) {
+		super(origin, rayCount);
 		double deltaAngle = coneAngle/(rayCount - 1);
 		Vector2d ray = new Vector2d(1, 0).rotate(-coneAngle/2);
 		for(int i = 0; i < rayCount; i++) {

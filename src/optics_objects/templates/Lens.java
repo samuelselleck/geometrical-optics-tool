@@ -7,8 +7,8 @@ public abstract class Lens extends Material {
 	private static final long serialVersionUID = 1L;
 	private double refractionindex;
 	
-	public Lens(Vector2d origin, double refractionindex, boolean fixedPosition) {
-		super(origin, fixedPosition);
+	public Lens(Vector2d origin, double refractionindex) {
+		super(origin);
 		this.refractionindex = refractionindex;
 	}
 	

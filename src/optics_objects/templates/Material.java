@@ -14,8 +14,8 @@ public abstract class Material extends OpticsObject {
 	private Vector2d botRig, topLef;
 	protected List<Vector2d> points;
 
-	public Material(Vector2d origin, boolean fixedPosition) {
-		super(origin, fixedPosition);
+	public Material(Vector2d origin) {
+		super(origin);
 		points = new ArrayList<>();
 	}
 

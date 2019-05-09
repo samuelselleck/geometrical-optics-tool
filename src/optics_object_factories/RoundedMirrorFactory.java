@@ -14,6 +14,6 @@ public class RoundedMirrorFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RoundedMirror(origin, getParam("Diameter"),
-				getParam("Depth"), fixedPos());
+				getParam("Depth"));
 	}
 }

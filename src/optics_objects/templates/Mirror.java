@@ -6,8 +6,8 @@ public abstract class Mirror extends Material {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Mirror(Vector2d origin, boolean fixedPosition) {
-		super(origin, fixedPosition);
+	public Mirror(Vector2d origin) {
+		super(origin);
 	}
 	
 	@Override

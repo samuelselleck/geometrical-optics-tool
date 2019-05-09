@@ -14,7 +14,7 @@ public class RectangleWallFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new RectangleWall(origin,
-				getParam("Width"), getParam("Height"), fixedPos());
+				getParam("Width"), getParam("Height"));
 	}
 
 }

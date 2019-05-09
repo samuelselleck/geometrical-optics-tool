@@ -15,6 +15,6 @@ public class PrismFactory extends OpticsObjectFactory {
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
 		return new Prism(origin, getIntParam("Edges"), getParam("Radius"),
-				getParam("Refractionindex"), fixedPos());
+				getParam("Refractionindex"));
 	}
 }

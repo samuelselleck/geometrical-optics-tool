@@ -2,10 +2,8 @@ package optics_object_factories;
 import java.util.Map;
 import java.util.TreeMap;
 
-import gui.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -18,7 +16,6 @@ import util.Vector2d;
 public abstract class OpticsObjectFactory extends VBox {
 	private Map<String, Slider> sliders;
 	private VBox top;
-	private CheckBox positionFixed;
 	
 	public OpticsObjectFactory() {
 		this.setPadding(new Insets(20, 20, 20, 20));
@@ -27,16 +24,7 @@ public abstract class OpticsObjectFactory extends VBox {
 		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
 		top.setAlignment(Pos.TOP_LEFT);
-		VBox bot = new VBox();
-		VBox.setVgrow(bot, Priority.ALWAYS);
-		bot.setAlignment(Pos.BOTTOM_CENTER);
-		
-		positionFixed = new CheckBox("Fixed position");
-		if(Main.properties.getProperty("admin").equals("true")) {
-			bot.getChildren().add(positionFixed);
-		}
-		
-		this.getChildren().addAll(top, bot);
+		this.getChildren().addAll(top);
 		
 	}
 
@@ -67,9 +55,5 @@ public abstract class OpticsObjectFactory extends VBox {
 	
 	protected int getIntParam(String name) {
 		return (int)Math.round(getParam(name));
-	}
-	
-	protected boolean fixedPos() {
-		return positionFixed.selectedProperty().get();
 	}
 }

@@ -100,13 +100,7 @@ public class OpticsController {
 		canvas.setOnMouseDragged(e -> {
 			dragged = true;
 			if (draging != null) {
-				if(draging.isFixed()) {
-					Vector2d currPos = new Vector2d(e.getX(), e.getY());
-					rotate(draging, lastPos, currPos);
-					lastPos = currPos;
-				} else {
-					draging.setOrigin(e.getX() + offset.x, e.getY() + offset.y);
-				}
+				draging.setOrigin(e.getX() + offset.x, e.getY() + offset.y);
 			} else if (rotating) {
 				Vector2d currPos = new Vector2d(e.getX(), e.getY());
 				rotate(lastDragged, lastPos, currPos);

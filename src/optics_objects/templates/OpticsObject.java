@@ -11,11 +11,9 @@ public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Vector2d origin;
 	protected double totalRotation;
-	private boolean fixedPosition;
 	
-	public OpticsObject(Vector2d origin, boolean fixedPosition) {
+	public OpticsObject(Vector2d origin) {
 		this.origin = origin;
-		this.fixedPosition = fixedPosition;
 	}
 
 	public abstract void draw(GraphicsContext gc, OpticsSettings settings);
@@ -29,9 +27,7 @@ public abstract class OpticsObject implements Serializable {
 	}
 	
 	public void setOrigin(double x, double y) {
-		if(!fixedPosition) {
-			this.origin.setTo(x, y);
-		}
+		this.origin.setTo(x, y);
 	}
 	
 	protected abstract void rotateOp(double angle);
@@ -40,10 +36,6 @@ public abstract class OpticsObject implements Serializable {
 	public void rotate(double angle) {
 		totalRotation += angle;
 		rotateOp(angle);
-	}
-
-	public boolean isFixed() {
-		return fixedPosition;
 	}
 	
 	public static int getResolution() {

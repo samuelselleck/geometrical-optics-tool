@@ -12,7 +12,7 @@ public class FlatMirrorFactory extends OpticsObjectFactory {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new FlatMirror(origin, getParam("Diameter"), fixedPos());
+		return new FlatMirror(origin, getParam("Diameter"));
 	}
 
 }

@@ -14,8 +14,8 @@ public abstract class LightSource extends OpticsObject {
 	ArrayList<LightRay> light;
 	
 
-	public LightSource(Vector2d origin, int rayCount, boolean fixedPosition) {
-		super(origin, fixedPosition);
+	public LightSource(Vector2d origin, int rayCount) {
+		super(origin);
 		light = new ArrayList<>();
 	}
 

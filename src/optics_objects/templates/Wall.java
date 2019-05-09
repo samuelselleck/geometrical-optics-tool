@@ -4,8 +4,8 @@ import util.Vector2d;
 
 public abstract class Wall extends Material {
 
-	public Wall(Vector2d origin, boolean fixedPosition) {
-		super(origin, fixedPosition);
+	public Wall(Vector2d origin) {
+		super(origin);
 	}
 
 	private static final long serialVersionUID = 1L;

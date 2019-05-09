@@ -20,7 +20,7 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 			return new ConvexLens(origin, d, r1, r2,
-					getParam("Refractionindex"), fixedPos());
+					getParam("Refractionindex"));
 		} else {
 			return null;
 		}
