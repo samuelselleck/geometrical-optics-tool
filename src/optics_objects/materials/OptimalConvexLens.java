@@ -1,6 +1,7 @@
 package optics_objects.materials;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.OpticsSettings;
@@ -40,69 +41,47 @@ public class OptimalConvexLens extends Lens {
 
 	public double xVal(double y) {
 		double L = (Math.hypot(d/2, focalLength));
-		double x = (n * L - focalLength - Math.sqrt(Math.pow(L, 2) - 2*n*focalLength*L + Math.pow(n*focalLength, 2) + Math.pow(n * y, 2) - Math.pow(y, 2) / (Math.pow(n, 2) - 1)));
+		double x = (n * L - focalLength + Math.sqrt(Math.pow(L, 2) - 2*n*focalLength*L + Math.pow(n*focalLength, 2) + Math.pow(n * y, 2) - Math.pow(y, 2)) / (Math.pow(n, 2) - 1));
 		return x;
 	}
 
 	public void setPoints(double d, double f) {
 		clearPoints();
 		int res = getResolution();
-//		points.add(new Vector2d(50, 50));
-//		points.add(new Vector2d(50, -50));
-//		points.add(new Vector2d(-50, -50));
-//		points.add(new Vector2d(-50, 50));
-//		points.add(new Vector2d(50, 50));
-//		points.add(new Vector2d(0,d/2));
-		
-		double y2 = -d/2;
+
+		double fel = xVal(-d/2);
+		double y1 = 0;
 		for (int i = 0; i < res; i++) {
-			points.add(new Vector2d(xVal(y2), y2));
-			y2 += d/ (res);
-		}
-		
-		double y1 = d/2;
-		for (int i = 0; i < res; i++) {
-			
-			points.add(new Vector2d(-xVal(y1), y1));
-			y1 -= d / (res);
+			points.add(new Vector2d(xVal(y1) - fel, y1));
+			y1 -= d/ (2 * res);
 		}
 		
 		
+		int temp = points.size() - 1;
+		for (int i = 0; i < temp; i++) {
+			points.add(new Vector2d(-points.get(temp - i).x ,points.get(temp - i).y));
+		}
 		
-//		points.add(new Vector2d(0,d/2));
+		int temp2 = points.size() - 1;
+		for (int i = 0; i < temp2; i++) {
+			points.add(new Vector2d(-points.get(i).x ,-points.get(i).y));
+		}
+		points.add(points.get(0).copy());
+//		
+//	
+//		double y1 = -d/2;
+//		for (int i = 0; i < res; i++) {
+//			
+//			points.add(new Vector2d(xVal(y1), y1));
+//			y1 += d / (res);
+//		}
+		
+
 
 		super.restoreRotation();
 		super.createBounds();
 
-//			points.add(pos.copy().add(vec.rotate(rightStep)));
-//		}
 
-//
-//		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
-//		double rightAngle = Math.acos(1 - d * d / (2 * r2 * r2)) / 2;
-//		double leftStep = leftAngle / quarterResolution;
-//		double rightStep = rightAngle / quarterResolution;
-//		double leftDist = Math.sqrt(r1 * r1 - d * d / 4);
-//		double rightDist = Math.sqrt(r2 * r2 - d * d / 4);
-//
-//		Vector2d pos = new Vector2d(-leftDist, 0);
-//		Vector2d vec = new Vector2d(r1, 0).rotate(-leftAngle);
-//		for (int i = 0; i < quarterResolution * 2; i++) {
-//			points.add(pos.copy().add(vec.rotate(leftStep)));
-//		}
-//		pos = new Vector2d(rightDist, 0);
-//		vec = new Vector2d(-r2, 0).rotate(-rightAngle);
-//		for (int i = 0; i < quarterResolution * 2; i++) {
-//			points.add(pos.copy().add(vec.rotate(rightStep)));
-//		}
-//
-//		points.add(points.get(0).copy()); // Close loop
-//
-//		super.restoreRotation();
-//		super.createBounds();
-//
-//		this.r1 = r1;
-//		this.r2 = r2;
 
 	}
 }
