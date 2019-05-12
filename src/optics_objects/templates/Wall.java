@@ -30,11 +30,11 @@ public abstract class Wall extends Material {
 	@Override
 	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
 		if(selected) {
-			Stop[] stops = new Stop[] { new Stop(0, new Color(0.2, 0.2, 0.2, 1)), new Stop(1, new Color(0.3, 0.3, 0.3, 1))};
+			Stop[] stops = new Stop[] { new Stop(0, new Color(0.3, 0.3, 0.3, 1)), new Stop(1, new Color(0.6, 0.6, 0.6, 1))};
 	        LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 			gc.setFill(fillGradient);
 		} else {
-			Stop[] stops = new Stop[] { new Stop(0, new Color(0.1, 0.1, 0.1, 1)), new Stop(1, new Color(0.2, 0.2, 0.2, 1))};
+			Stop[] stops = new Stop[] { new Stop(0, new Color(0.1, 0.1, 0.1, 1)), new Stop(1, new Color(0.3, 0.3, 0.3, 1))};
 	        LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 			gc.setFill(fillGradient);
 		}

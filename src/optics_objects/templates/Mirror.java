@@ -24,7 +24,11 @@ public abstract class Mirror extends Material {
 	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
 		
 		gc.setStroke(new Color(0.7, 0.7, 0.7, 1));
-		gc.setLineWidth(3);
+		if(selected) {
+			gc.setLineWidth(3);
+		} else {
+			gc.setLineWidth(2);
+		}
 		gc.beginPath();
 		for (int i = 0; i < getPointCount(); i++) {
 			Vector2d p = getPoint(i);

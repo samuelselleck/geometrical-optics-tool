@@ -47,7 +47,7 @@ public abstract class Lens extends Material {
 	@Override
 	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
 		if(selected) {
-			Stop[] stops = new Stop[] { new Stop(0, new Color(0.6, 1, 1, 0.15)), new Stop(1, new Color(0.6, 1, 1, 0.5))};
+			Stop[] stops = new Stop[] { new Stop(0, new Color(1, 1, 1, 0.35)), new Stop(1, new Color(1, 1, 1, 0.7))};
 	        LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 			gc.setFill(fillGradient);
 		} else {
