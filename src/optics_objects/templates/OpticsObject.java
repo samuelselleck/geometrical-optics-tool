@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import optics_logic.OpticsSettings;
+import optics_logic.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
@@ -16,7 +16,7 @@ public abstract class OpticsObject implements Serializable {
 		this.origin = origin;
 	}
 
-	public abstract void draw(GraphicsContext gc, OpticsSettings settings);
+	public abstract void draw(GraphicsContext gc, GlobalOpticsSettings settings);
 
 	public Vector2d getOrigin() {
 		return origin;

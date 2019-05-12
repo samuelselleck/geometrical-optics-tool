@@ -6,7 +6,7 @@ import java.util.List;
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
 import optics_logic.LightRay;
-import optics_logic.OpticsSettings;
+import optics_logic.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
@@ -26,7 +26,7 @@ public abstract class LightSource extends OpticsObject {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc, OpticsSettings settings) {
+	public void draw(GraphicsContext gc, GlobalOpticsSettings settings) {
 		for(LightRay l : light) {
 			l.draw(gc, settings.drawOnlyHitting());
 		}

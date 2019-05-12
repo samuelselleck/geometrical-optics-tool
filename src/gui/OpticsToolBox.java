@@ -6,7 +6,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import optics_logic.OpticsSettings;
+import optics_logic.GlobalOpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
 	
@@ -24,7 +24,7 @@ public class OpticsToolBox extends ToolBar {
 		toggleRaysButton.setPrefHeight(buttonHeight);
 		toggleRaysButton.setPrefWidth(100);
 		toggleRaysButton.setOnAction(e -> {
-			OpticsSettings settings = opticsController.getModelSettings();
+			GlobalOpticsSettings settings = opticsController.getModelSettings();
 			toggleRaysButton.setText("Rays: " + (settings.toggleDrawOnlyHitting() ? "Off" : "On"));
 			//TODO make button labels update when loading new model
 			opticsController.redraw();
@@ -59,7 +59,7 @@ public class OpticsToolBox extends ToolBar {
 		rayModeButton.setPrefHeight(buttonHeight);
 		rayModeButton.setPrefWidth(100);
 		rayModeButton.setOnAction(e -> {
-			OpticsSettings settings = opticsController.getModelSettings();
+			GlobalOpticsSettings settings = opticsController.getModelSettings();
 			rayModeButton.setText("Mode: " + (settings.toggleColorMode() ? "Color" : "Ray"));
 			opticsController.redraw();
 		});
@@ -70,7 +70,7 @@ public class OpticsToolBox extends ToolBar {
 	}
 
 	public void update() {
-		OpticsSettings settings = opticsController.getModelSettings();
+		GlobalOpticsSettings settings = opticsController.getModelSettings();
 		rayModeButton.setText("Mode: " + (settings.colorMode() ? "Color" : "Ray"));
 		toggleRaysButton.setText("Rays: " + (settings.drawOnlyHitting() ? "Off" : "On"));	
 	}

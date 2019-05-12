@@ -16,9 +16,9 @@ public class OpticsModel implements Serializable {
 	List<Material> materials;
 	List<LightSource> lights;
 	
-	OpticsSettings settings;
+	GlobalOpticsSettings settings;
 	
-	public OpticsModel(OpticsSettings settings) {
+	public OpticsModel(GlobalOpticsSettings settings) {
 		this.settings = settings;
 		init();
 	}
@@ -87,7 +87,7 @@ public class OpticsModel implements Serializable {
 		materials.clear();
 	}
 
-	public OpticsSettings getSettings() {
+	public GlobalOpticsSettings getSettings() {
 		return settings;
 	}
 }

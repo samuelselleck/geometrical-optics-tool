@@ -5,8 +5,7 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Paint;
-import optics_logic.OpticsSettings;
+import optics_logic.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -92,14 +91,12 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, OpticsSettings settings) {
-		gc.setStroke(Paint.valueOf("WHITE"));
-		Vector2d p1;
-		Vector2d p2 = getPoint(0);
+	public void draw(GraphicsContext gc, GlobalOpticsSettings settings) {
+		gc.beginPath();
 		for (int i = 0; i < getPointCount(); i++) {
-			p1 = p2;
-			p2 = getPoint(i);
-			gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+			Vector2d p = getPoint(i);
+			gc.lineTo(p.x, p.y);
 		}
+		gc.fill();
 	}
 }
