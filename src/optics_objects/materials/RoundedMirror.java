@@ -9,11 +9,18 @@ public class RoundedMirror extends Mirror {
 
 	public RoundedMirror(Vector2d origin, double diameter, double depth) {
 		super(origin);
+		super.addProperty("Diameter", diameter);
+		super.addProperty("Depth", depth);
+		update();
+	}
+	
+	protected void update() {
+		points.clear();
 		for(int i = 0; i <= OpticsObject.getResolution(); i++) {
 			double x = (2.0*i/OpticsObject.getResolution() - 1);
 			double y = x*x;
-			points.add(new Vector2d(x*diameter/2, depth*(y - 1.0/2)));
+			points.add(new Vector2d(x*get("Diameter")/2, get("Depth")*(y - 1.0/2)));
 		}
-		super.createBounds();
+		super.initObject();
 	}
 }

@@ -5,14 +5,22 @@ import util.Vector2d;
 
 public class Prism extends Lens {
 	private static final long serialVersionUID = 1L;
-
+	
 	public Prism(Vector2d origin, int edges, double r, double refractionindex) {
 		super(origin, refractionindex);
-		for (int i = 0; i < edges; i++) {
-			double angle = 2 * Math.PI / edges * i;
-			Vector2d p = new Vector2d(r * Math.cos(angle), r * Math.sin(angle));
+		super.addProperty("Edges", edges);
+		super.addProperty("Radius", r);
+		update();
+	}
+
+	@Override
+	protected void update() {
+		points.clear();
+		for (int i = 0; i < get("Edges"); i++) {
+			double angle = 2 * Math.PI / get("Edges") * i;
+			Vector2d p = new Vector2d(get("Radius")* Math.cos(angle), get("Radius") * Math.sin(angle));
 			points.add(p);
 		}
-		super.createBounds();
+		super.initObject();
 	}
 }

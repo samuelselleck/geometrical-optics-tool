@@ -1,12 +1,14 @@
 package optics_object_factories;
 
+import gui.OpticsView;
 import optics_objects.materials.ConvexLens;
 import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public class ConvexLensFactory extends OpticsObjectFactory {
 
-	public ConvexLensFactory() {
+	public ConvexLensFactory(OpticsView view) {
+		super(view);
 		addSlider("Diameter", 103, 800, 180);
 		addSlider("Radius 1", 55, 800, 300);
 		addSlider("Radius 2", 55, 800, 300);
@@ -24,6 +26,15 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 		} else {
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean setEditing(OpticsObject obj) {
+		if(obj instanceof ConvexLens) {
+			this.requestFocus();
+			return true;
+		}
+		return false;
 	}
 
 }

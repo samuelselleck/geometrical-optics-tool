@@ -1,0 +1,9 @@
+TODO
+
+unbind when tab selected manualy
+set property starting value to that of object!
+		    
+ha istället arraylist med property namn (statisk) som en massa double properties med dessa namn skapas ifrån (det är
+dessa som factories använder!!!) + när värden ska bindas så bindar de bara alla properties med varandra
+
+fixa så att inte speglar/väggar ser ut som linser

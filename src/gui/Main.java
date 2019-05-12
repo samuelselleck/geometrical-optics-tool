@@ -60,7 +60,7 @@ public class Main extends Application {
 		
 		OpticsModel model = new OpticsModel(settings);
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
-		SettingsBox settingsBox = new SettingsBox();
+		SettingsBox settingsBox = new SettingsBox(view);
 		OpticsController opticsController = new OpticsController(model, view, settingsBox);
 		
 		OpticsToolBox toolBox = new OpticsToolBox(opticsController);

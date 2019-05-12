@@ -5,17 +5,20 @@ import util.Vector2d;
 
 public class RectangleLens extends Lens {
 	private static final long serialVersionUID = 1L;
-
+	
 	public RectangleLens(Vector2d origin, double refractionindex, double width, double height) {
 		super(origin, refractionindex);
-		points.add(new Vector2d(width/2, -height/2));
-		points.add(new Vector2d(width/2, height/2));
-		points.add(new Vector2d(-width/2, height/2));
-		points.add(new Vector2d(-width/2,-height/2));
-		
-		
-		
-		super.createBounds();
+		super.addProperty("Width", width);
+		super.addProperty("Height", height);
+		update();
 	}
-
+	
+	protected void update()  {
+		points.clear();
+		points.add(new Vector2d(-get("Width")/2,-get("Height")/2));
+		points.add(new Vector2d(-get("Width")/2, get("Height")/2));
+		points.add(new Vector2d(get("Width")/2, get("Height")/2));
+		points.add(new Vector2d(get("Width")/2, -get("Height")/2));
+		super.initObject();
+	}
 }

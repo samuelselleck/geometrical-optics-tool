@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import optics_object_factories.OpticsObjectFactory;
+import optics_objects.templates.OpticsObject;
 
 public abstract class SettingsTab extends Tab {
 	private TabPane tabPane;
@@ -31,6 +32,18 @@ public abstract class SettingsTab extends Tab {
 		} else {
 			return creators.get(0);
 		}
-
+	}
+	
+	public Tab setEditing(OpticsObject obj) {
+		for(Tab t : tabPane.getTabs()) {
+			OpticsObjectFactory factory = (OpticsObjectFactory)(t.getContent());
+			if(factory.setEditing(obj)) {
+				tabPane.getSelectionModel().select(t);
+				
+				factory.bind(obj);
+				return this;
+			}
+		}
+		return null;
 	}
 }

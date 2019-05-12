@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
+import gui.OpticsController;
+import gui.OpticsView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -12,8 +15,9 @@ import optics_objects.templates.OpticsObject;
 
 public class SettingsBox extends HBox {
 	TabPane typeTab;
-
-	public SettingsBox() {
+	OpticsObject editing;
+	
+	public SettingsBox(OpticsView view) {
 		
 		HBox.setHgrow(this, Priority.ALWAYS);
 		
@@ -21,16 +25,17 @@ public class SettingsBox extends HBox {
 		typeTab.setPrefWidth(Main.WIDTH / 4);
 		
 		List<SettingsTab> tabs = new ArrayList<>();
-		tabs.add(new LensSettingsTab());
-		tabs.add(new LightSettingsTab());
-		tabs.add(new MirrorSettingsTab());
-		tabs.add(new WallSettingsTab());
+		tabs.add(new LensSettingsTab(view));
+		tabs.add(new LightSettingsTab(view));
+		tabs.add(new MirrorSettingsTab(view));
+		tabs.add(new WallSettingsTab(view));
 		
 		
 		
 		typeTab.getTabs().addAll(tabs);
 		typeTab.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		this.getChildren().add(typeTab);
+		editing = null;
 	}
 
 	public OpticsObjectFactory getCurrentOpticsObjectCreator() {
@@ -39,7 +44,17 @@ public class SettingsBox extends HBox {
 		return curr;
 	}
 
-	public void select(OpticsObject obj) {
-		// TODO Auto-generated method stub
+	public void setEditing(OpticsObject obj) {
+		if(editing != null) {
+			editing.undbind();
+		}
+		for(Tab tab : typeTab.getTabs()) {
+			Tab focus = ((SettingsTab)tab).setEditing(obj);
+			if(focus != null) {
+				editing = obj;
+				typeTab.getSelectionModel().select(focus);
+				return;
+			}
+		}
 	}
 }

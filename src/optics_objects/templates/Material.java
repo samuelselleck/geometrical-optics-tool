@@ -18,6 +18,11 @@ public abstract class Material extends OpticsObject {
 		points = new ArrayList<>();
 	}
 
+	protected void initObject() {
+		super.initObject();
+		createBounds();
+	}
+	
 	public void createBounds() {
 		botRig = Vector2d.zero();
 		topLef = Vector2d.zero();
@@ -88,15 +93,5 @@ public abstract class Material extends OpticsObject {
 
 	public int getPointCount() {
 		return points.size();
-	}
-	
-	@Override
-	public void draw(GraphicsContext gc, GlobalOpticsSettings settings) {
-		gc.beginPath();
-		for (int i = 0; i < getPointCount(); i++) {
-			Vector2d p = getPoint(i);
-			gc.lineTo(p.x, p.y);
-		}
-		gc.fill();
 	}
 }

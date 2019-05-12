@@ -78,6 +78,8 @@ public class OpticsController {
 			if (draging != null) {
 				if (!inBounds) {
 					model.remove(draging);
+					selected = null;
+					view.deselect();
 				} else {
 					draging.setOrigin(x + offset.x, y + offset.y);
 				}	
@@ -98,7 +100,9 @@ public class OpticsController {
 		canvas.setOnDragDetected(e -> {
 			draging = model.getOpticsObjectAt(e.getX(), e.getY());
 			if(draging == null) {
-				rotating = true;
+				if(selected != null) {
+					rotating = true;
+				}
 			} else {
 				select(draging);
 				offset = new Vector2d(e.getX(), e.getY()).sub(draging.getOrigin()).neg();
@@ -128,7 +132,7 @@ public class OpticsController {
 	
 	private void select(OpticsObject obj) {
 		selected = obj;
-		settingsBox.select(obj);
+		settingsBox.setEditing(obj);
 		view.select(obj);
 	}
 	
@@ -156,7 +160,7 @@ public class OpticsController {
 	}
 	
 	public void redraw() {
-		view.calculateAndDrawRays();
+		view.redraw();
 	}
 	
 	public void setRotationFactor(double fac) {

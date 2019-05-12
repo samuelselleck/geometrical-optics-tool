@@ -29,7 +29,7 @@ public class OpticsView {
 	}
 	
 	//TODO Do this in a better way for color mode
-	public void calculateAndDrawRays() {
+	public void redraw() {
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
@@ -37,6 +37,7 @@ public class OpticsView {
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		gc.setFill(Paint.valueOf("BLACK"));
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.setLineWidth(1);
 		
 		if(model.getSettings().colorMode()) {
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
@@ -53,19 +54,13 @@ public class OpticsView {
 		
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		
-		Stop[] stops = new Stop[] { new Stop(0, new Color(1, 1, 1, 0.15)), new Stop(1, new Color(1, 1, 1, 0.5))};
-		LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-		gc.setFill(fillGradient);
 		for(Material m : model.getMaterials()) {
 			if(m != selected) {
-				m.draw(gc, model.getSettings());	
+				m.draw(gc, model.getSettings(), false);	
 			}
 		}
 		if(selected != null) {
-			stops = new Stop[] { new Stop(0, new Color(0.6, 1, 1, 0.15)), new Stop(1, new Color(0.6, 1, 1, 0.5))};
-	        fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-			gc.setFill(fillGradient);
-			selected.draw(gc, model.getSettings());
+			selected.draw(gc, model.getSettings(), true);
 		}
 	}
 	
@@ -77,16 +72,19 @@ public class OpticsView {
 		int rgb[] = Utils.waveLengthToRGB(wavelength);
 		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
 		gc.setStroke(p);
-		
 		gc.beginPath();
 		for(LightSource l : lights) {
-			l.draw(gc, model.getSettings());
+			l.draw(gc, model.getSettings(), false);
 		}
 		gc.stroke();
 	}
 	
 	public void select(OpticsObject obj) {
 		this.selected = obj;
+	}
+	
+	public void deselect() {
+		this.selected = null;
 	}
 	
 	public Canvas getCanvas() {

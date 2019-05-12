@@ -5,17 +5,18 @@ import java.util.List;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import optics_logic.LightRay;
 import optics_logic.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
-	ArrayList<LightRay> light;
-	
+	List<LightRay> light;
 
 	public LightSource(Vector2d origin, int rayCount) {
 		super(origin);
+		super.addProperty("LightRays", rayCount);
 		light = new ArrayList<>();
 	}
 
@@ -26,9 +27,13 @@ public abstract class LightSource extends OpticsObject {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc, GlobalOpticsSettings settings) {
+	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
 		for(LightRay l : light) {
 			l.draw(gc, settings.drawOnlyHitting());
+		}
+		if(selected) {
+			gc.setFill(new Color(1, 1, 1, 0.3));
+			gc.fillOval(origin.x - Main.WIDTH/30, origin.y - Main.WIDTH/30, Main.WIDTH/15, Main.WIDTH/15);
 		}
 	}
 	
@@ -43,12 +48,16 @@ public abstract class LightSource extends OpticsObject {
 		return pos.distSquared(this.getOrigin()) < (Main.HEIGHT/10)*(Main.HEIGHT/10);
 	}
 	
-	public void addLightRay(Vector2d offset, Vector2d ray) {
+	protected void addLightRay(Vector2d offset, Vector2d ray) {
 			light.add(new LightRay(origin, offset, ray));
 	}
 	
-	public void addLightRay(Vector2d ray) {
+	protected void addLightRay(Vector2d ray) {
 		addLightRay(new Vector2d(0, 0), ray);
+	}
+	
+	protected void clearRays() {
+		light.clear();
 	}
 	
 	public static int lightWaveMax() {
