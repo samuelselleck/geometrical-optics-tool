@@ -16,9 +16,9 @@ public class RectangleLens extends Lens {
 	protected void update()  {
 		super.clear();
 		points.add(new Vector2d(-get("Width")/2,-get("Height")/2));
-		points.add(new Vector2d(-get("Width")/2, get("Height")/2));
-		points.add(new Vector2d(get("Width")/2, get("Height")/2));
 		points.add(new Vector2d(get("Width")/2, -get("Height")/2));
+		points.add(new Vector2d(get("Width")/2, get("Height")/2));
+		points.add(new Vector2d(-get("Width")/2, get("Height")/2));
 		super.initObject();
 	}
 }

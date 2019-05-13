@@ -84,7 +84,7 @@ public abstract class OpticsObject implements Serializable {
 		Map<String, Double> properties = (Map<String, Double>)in.readObject();
 		editableProperties = new TreeMap<>();
 		for(Map.Entry<String, Double> p : properties.entrySet()) {
-			editableProperties.put(p.getKey(), new SimpleDoubleProperty(p.getValue()));
+			addProperty(p.getKey(), p.getValue());
 		}
 		in.defaultReadObject();
 		update();

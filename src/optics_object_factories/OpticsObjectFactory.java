@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.OpticsView;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,12 +17,12 @@ import optics_objects.templates.OpticsObject;
 import util.Vector2d;
 
 public abstract class OpticsObjectFactory extends VBox {
-	private OpticsView view;
 	protected Map<String, Slider> sliders;
 	private VBox top;
+	private InvalidationListener redraw;
 	
 	public OpticsObjectFactory(OpticsView view) {
-		this.view = view;
+		redraw = e -> view.redraw();
 		this.setPadding(new Insets(20, 20, 20, 20));
 		sliders = new TreeMap<>();
 		
@@ -40,7 +41,9 @@ public abstract class OpticsObjectFactory extends VBox {
 			DoubleProperty sliderVal = sliders.get(property.getKey()).valueProperty();
 			DoubleProperty objVal = property.getValue();
 		    sliderVal.set(objVal.get());
+		    sliderVal.removeListener(redraw);
 		    objVal.bind(sliderVal);
+		    sliderVal.addListener(redraw);
 		 }
 	}
 	
@@ -59,7 +62,6 @@ public abstract class OpticsObjectFactory extends VBox {
 		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
 
 		sliders.put(name, newSlider);
-		newSlider.valueProperty().addListener( e -> view.redraw());
 		top.getChildren().add(text);
 		top.getChildren().add(newSlider);		
 		return newSlider;
