@@ -2,9 +2,6 @@ package optics_objects.templates;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
 import optics_logic.GlobalOpticsSettings;
 import util.Vector2d;
 

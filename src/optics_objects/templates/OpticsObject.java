@@ -1,7 +1,6 @@
 package optics_objects.templates;
 
 import java.io.IOException;
-import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;

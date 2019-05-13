@@ -1,8 +1,5 @@
 package util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Utils {
 	
 	static private double Gamma = 0.80;

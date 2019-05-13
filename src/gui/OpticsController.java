@@ -136,6 +136,11 @@ public class OpticsController {
 		view.select(obj);
 	}
 	
+	private void deselect() {
+		selected = null;
+		view.deselect();
+	}
+	
 	private void rotate(OpticsObject obj, Vector2d pFrom, Vector2d pTo) {
 		Vector2d before = obj.getOrigin().copy().sub(pFrom);
 		Vector2d after = obj.getOrigin().copy().sub(pTo);
@@ -145,16 +150,19 @@ public class OpticsController {
 	}
 
 	public void clear() {
+		deselect();
 		model.clear();
 		redraw();
 	}
 
 	public void clearLights() {
+		deselect();
 		model.clearLights();
 		redraw();
 	}
 
 	public void clearMaterials() {
+		deselect();
 		model.clearMaterials();
 		redraw();
 	}

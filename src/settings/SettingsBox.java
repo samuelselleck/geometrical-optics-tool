@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
-import gui.OpticsController;
 import gui.OpticsView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
