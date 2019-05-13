@@ -3,7 +3,6 @@ package optics_logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
@@ -32,7 +31,7 @@ public class LightRay implements Serializable {
 
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
-	public void calculatePath(List<Material> materials, int wavelength) {
+	public void calculatePath(List<Material> materials, int waveLength) {
 		//Start with empty list of points
 		if(path == null) {
 			path = new ArrayList<>();
@@ -61,7 +60,7 @@ public class LightRay implements Serializable {
 				Material currentMaterial = materials.get((int)distanceList.get(i).x);
 
 				//Get the outgoing ray when our ray is intersecting with this material
-				LightRay candidateRay = getRayIntersection(currentMaterial, currRay, wavelength);
+				LightRay candidateRay = getRayIntersection(currentMaterial, currRay, waveLength);
 				//Check for an intersection
 				if(candidateRay != null) {
 					//Check if this is our shortest ray path yet
@@ -89,7 +88,9 @@ public class LightRay implements Serializable {
 
 				//If the object at this point is a diffraction grating, run extra logic.
 				if(materials.get((int)distanceList.get(bestIndex).x) instanceof DiffractionGrating) {
-					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).calculateRays(wavelength);
+					System.out.println("Hit!");
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).setWaveLength(waveLength);
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).getLightSource().calculateLight();
 				}
 
 				if(bestCandidateRay.ray.isZero()) {
@@ -214,7 +215,10 @@ public class LightRay implements Serializable {
 	}
 
 	public void draw(GraphicsContext gc, boolean onlyHitting) {
-		if (!onlyHitting || path.size() > 2) {
+		if(path == null || path.get(0) == null){
+			return;
+		}
+		if (!onlyHitting || path.size() > 2){
 			Vector2d p = path.get(0);
 			gc.moveTo(p.x, p.y);
 			for(int i = 0; i < path.size(); i++) {

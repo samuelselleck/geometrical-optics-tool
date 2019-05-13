@@ -69,4 +69,7 @@ public abstract class OpticsObject implements Serializable {
 	public static int getResolution() {
 		return Integer.parseInt(Main.properties.getProperty("opticsobjectresolution"));
 	}
+
+	public double getTotalRotation() { return totalRotation; }
+
 }

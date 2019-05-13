@@ -9,29 +9,37 @@ public class DiffractionGrating extends Wall {
 
     private DiffractionGratingLightSource lightSource;
     private double slitsPerUnitDistance;
-    private int numMax;
+    private int numMax, waveLength = -1;
+    private double width, height;
 
     public DiffractionGrating(Vector2d origin, double width, double height, double slitsPerUnitDistance, int numMax, boolean fixedPosition) {
         super(origin, fixedPosition);
         setPoints(width, height);
         this.slitsPerUnitDistance = slitsPerUnitDistance;
+        this.width = width;
+        this.height = height;
         this.numMax = numMax;
-        this.lightSource = new DiffractionGratingLightSource(origin, (int)width, slitsPerUnitDistance, numMax, fixedPosition, this);
-    }
-
-    public void calculateRays(int waveLength){
-        lightSource.updateLightSource(slitsPerUnitDistance, numMax, waveLength);
+        this.lightSource = new DiffractionGratingLightSource(origin, (int)width, fixedPosition, this);
     }
 
     public DiffractionGratingLightSource getLightSource(){
         return lightSource;
     }
 
-    public void updateGrating(double width, double height, double slits, int numMax, int wavelength) {
+    public void updateGrating(double width, double height, double slits, int numMax, int waveLength) {
         this.slitsPerUnitDistance = slits;
         this.numMax = numMax;
+        this.waveLength = waveLength;
         setPoints(width, height);
-        calculateRays(wavelength);
+
+        lightSource.setOrigin( this.origin );
+        lightSource.rotate(this.getTotalRotation() - lightSource.getTotalRotation());
+
+        lightSource.calculateLight();
+    }
+
+    public void setWaveLength(int waveLength){
+        this.waveLength = waveLength;
     }
 
     @SuppressWarnings("Duplicates")
@@ -44,5 +52,17 @@ public class DiffractionGrating extends Wall {
 
         super.restoreRotation();
         super.createBounds();
+    }
+
+    public int getWaveLength(){
+        return waveLength;
+    }
+
+    public double getSlitsPerUnitDistance(){
+        return slitsPerUnitDistance;
+    }
+
+    public int getNumMax(){
+        return numMax;
     }
 }

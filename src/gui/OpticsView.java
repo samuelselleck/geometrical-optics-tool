@@ -44,7 +44,8 @@ public class OpticsView {
 			
 		} else {
 			for(LightSource l : model.getLights()) {
-				calculateAndDrawRay(l, gc);
+				System.out.println("DRAW");
+				calculateAndDrawRay(l, gc, 1);
 			}
 		}
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
@@ -60,12 +61,12 @@ public class OpticsView {
 
 	}
 	
-	private void calculateAndDrawRay(LightSource l, GraphicsContext gc) {
+	private void calculateAndDrawRay(LightSource l, GraphicsContext gc, float alpha) {
 		
 		l.calculateRayPaths(model.getMaterials());
 		
 		int rgb[] = Utils.waveLengthToRGB(l.getWaveLength());
-		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], 1f);
+		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
 		gc.setStroke(p);
 		
 		gc.beginPath();
@@ -77,20 +78,25 @@ public class OpticsView {
 	
 	
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
-		
+
+		//Den utkommenterade koden kommer att krascha programmet om man introducerar en färg-ljuskälla till en
+		//diffraction grating, i vissa fall. Den är dock snabbare, så jag låter den stå kvar om någon vill
+		//försöka optimera.
+
 		for(LightSource l : lights) {
 			l.setWaveLength(wavelength);
-			l.calculateRayPaths(model.getMaterials());
+			calculateAndDrawRay(l, gc, alpha);
+			//l.calculateRayPaths(model.getMaterials());
 		}
-		int rgb[] = Utils.waveLengthToRGB(wavelength);
+		/*int rgb[] = Utils.waveLengthToRGB(wavelength);
 		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
 		gc.setStroke(p);
-		
+
 		gc.beginPath();
 		for(LightSource l : lights) {
 			l.draw(gc, model.getSettings());
 		}
-		gc.stroke();
+		gc.stroke();*/
 	}
 	
 	public Canvas getCanvas() {

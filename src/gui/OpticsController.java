@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
+import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
 import settings.BigSettingsBox;
@@ -77,6 +78,9 @@ public class OpticsController {
 				//Delete object if outside window
 				if (!inBounds) {
 					model.remove(picked);
+					if(picked instanceof DiffractionGrating){
+						model.remove(((DiffractionGrating) picked).getLightSource());
+					}
 					picked = null;
 				} else if(!rotating){
 					picked.setOrigin(x + offset.x, y + offset.y);
