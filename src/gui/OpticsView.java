@@ -37,7 +37,7 @@ public class OpticsView {
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
 			int step = LightSource.lightWaveMax() - LightSource.lightWaveMin();
 			for(int wavelength = LightSource.lightWaveMin();
-					wavelength < LightSource.lightWaveMax();
+					wavelength <= LightSource.lightWaveMax();
 					wavelength += step/LightSource.colorModeRayCount()) {
 				calculateAndDrawRays(model.getLights(), gc, wavelength, 0.6f);
 			}
@@ -71,9 +71,6 @@ public class OpticsView {
 		l.draw(gc, model.getSettings());
 		gc.stroke();
 	}
-	
-	
-	
 	
 	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
 

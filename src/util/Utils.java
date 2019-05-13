@@ -18,7 +18,7 @@ public class Utils {
 	    double Red,Green,Blue;
 
 	    if((Wavelength >= 380) && (Wavelength<440)){
-	        Red = -(Wavelength - 440) / (440 - 380);
+			Red = -(Wavelength - 440) / (440 - 380);
 	        Green = 0.0;
 	        Blue = 1.0;
 	    }else if((Wavelength >= 440) && (Wavelength<490)){
@@ -45,7 +45,7 @@ public class Utils {
 	        Red = 0.0;
 	        Green = 0.0;
 	        Blue = 0.0;
-	    };
+	    }
 
 	    // Let the intensity fall off near the vision limits
 	    /*

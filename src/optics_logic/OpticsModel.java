@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.OpticsController;
 import optics_objects.lights.DiffractionGratingLightSource;
 import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.LightSource;
@@ -19,7 +20,7 @@ public class OpticsModel implements Serializable {
 	List<LightSource> lights;
 	
 	OpticsSettings settings;
-	
+
 	public OpticsModel(OpticsSettings settings) {
 		this.settings = settings;
 		init();
@@ -66,6 +67,9 @@ public class OpticsModel implements Serializable {
 	public void remove(OpticsObject draging) {
 		if(draging instanceof Material) {
 			materials.remove(draging);
+			if(draging instanceof DiffractionGrating){
+				lights.remove(((DiffractionGrating) draging).getLightSource());
+			}
 		} else {
 			lights.remove(draging);
 		}
@@ -78,7 +82,7 @@ public class OpticsModel implements Serializable {
 	public List<LightSource> getLights() {
 		return lights;
 	}
-	
+
 	public void clear() {
 		lights.clear();
 		clearMaterials();

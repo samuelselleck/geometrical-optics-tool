@@ -3,7 +3,6 @@ package gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Key;
 
 import javax.imageio.ImageIO;
 
@@ -17,9 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
 import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
+import optics_object_factories.DiffractionGratingFactory;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.lights.DiffractionGratingLightSource;
-import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.OpticsObject;
 import settings.BigSettingsBox;
 import util.Vector2d;
@@ -47,7 +46,7 @@ public class OpticsController {
 		this.model = model;
 		this.view = view;
 		connect(model, view);
-		
+
 		rotationFactor = 1;
 		offset = Vector2d.zero();
 		
@@ -81,9 +80,6 @@ public class OpticsController {
 				//Delete object if outside window
 				if (!inBounds) {
 					model.remove(picked);
-					if(picked instanceof DiffractionGrating){
-						model.remove(((DiffractionGrating) picked).getLightSource());
-					}
 					picked = null;
 				} else if(!rotating){
 					picked.setOrigin(x + offset.x, y + offset.y);
@@ -98,6 +94,16 @@ public class OpticsController {
 					OpticsObject newObj = opticsObjectFactory.getOpticsObjectWithId(new Vector2d(x, y));
 					model.addOpticsObject(newObj);
 					picked = newObj;
+
+					redraw();
+					}
+
+				if(opticsObjectFactory instanceof DiffractionGratingFactory){
+					//Effectively redraw twice if we add a diffraction grating. This is necessary
+					//because of where in the code the lightrays from the grating are calculated,
+					//after the first (this) redraw that is. We then call redraw once more below to
+					//display them.
+					redraw();
 				}
 			}
 			
@@ -167,12 +173,16 @@ public class OpticsController {
 		canvas.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
 			if(e.getCode() == KeyCode.BACK_SPACE){
 				model.remove(picked);
-				if(picked instanceof DiffractionGrating){
-					model.remove(((DiffractionGrating) picked).getLightSource());
-				}
 				picked = null;
+				redraw();
 			}
-			redraw();
+		});
+
+		// DEBUG
+		canvas.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			if(e.getCode() == KeyCode.R){
+				redraw();
+			}
 		});
 
 
@@ -211,7 +221,7 @@ public class OpticsController {
 		redraw();
 	}
 	
-	void redraw() {
+	public void redraw() {
 		view.drawView(picked);
 	}
 	
