@@ -3,6 +3,7 @@ package gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.security.Key;
 
 import javax.imageio.ImageIO;
 
@@ -11,12 +12,14 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import optics_logic.OpticsModel;
 import optics_logic.OpticsSettings;
 import optics_object_factories.OpticsObjectFactory;
+import optics_objects.lights.DiffractionGratingLightSource;
 import optics_objects.materials.DiffractionGrating;
-import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
 import settings.BigSettingsBox;
 import util.Vector2d;
@@ -140,6 +143,9 @@ public class OpticsController {
 			OpticsObject hit = model.getOpticsObjectAt(e.getX(), e.getY());
 			
 			if(hit!=null) {
+				if(hit instanceof DiffractionGratingLightSource){
+					return;
+				}
 				picked = hit;
 				settings.selectSettingsTab(picked);
 				pickedThisClick = true;
@@ -157,6 +163,20 @@ public class OpticsController {
 			
 			redraw();
 		});
+
+		canvas.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			if(e.getCode() == KeyCode.BACK_SPACE){
+				model.remove(picked);
+				if(picked instanceof DiffractionGrating){
+					model.remove(((DiffractionGrating) picked).getLightSource());
+				}
+				picked = null;
+			}
+			redraw();
+		});
+
+
+		canvas.addEventFilter(MouseEvent.ANY, (e) -> canvas.requestFocus());
 	}
 	
 	private void rotate(OpticsObject obj, Vector2d pFrom, Vector2d pTo) {
@@ -173,29 +193,29 @@ public class OpticsController {
 		//TODO fix better communication line
 	}
 
-	public void clear() {
+	void clear() {
 		model.clear();
 		picked = null;
 		redraw();
 	}
 
-	public void clearLights() {
+	void clearLights() {
 		model.clearLights();
 		picked = null;
 		redraw();
 	}
 
-	public void clearMaterials() {
+	void clearMaterials() {
 		model.clearMaterials();
 		picked = null;
 		redraw();
 	}
 	
-	public void redraw() {
+	void redraw() {
 		view.drawView(picked);
 	}
 	
-	public void setRotationFactor(double fac) {
+	void setRotationFactor(double fac) {
 		this.rotationFactor = fac;
 	}
 
@@ -209,11 +229,11 @@ public class OpticsController {
 		redraw();
 	}
 	
-	public OpticsSettings getModelSettings() {
+	OpticsSettings getModelSettings() {
 		return model.getSettings();
 	}
 	
-	public void saveScreenshotTo(File saveFile) {
+	void saveScreenshotTo(File saveFile) {
 		WritableImage image = new WritableImage(
 				(int)view.getCanvas().getWidth(), (int)view.getCanvas().getHeight());
 		image = view.getCanvas().snapshot(null, image);

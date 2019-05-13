@@ -1,14 +1,10 @@
 package optics_objects.lights;
 
-import optics_logic.LightRay;
 import optics_objects.materials.DiffractionGrating;
 import optics_objects.templates.LightSource;
 import util.Vector2d;
 
 public class DiffractionGratingLightSource extends LightSource {
-
-	private static final double METER_TO_NANOMETER = Math.pow(10, 9);
-	private static final double NANOMETER_TO_METER = Math.pow(10, -9);
 
 	private int width;
 	private DiffractionGrating myDiffractionGrating;
@@ -24,14 +20,9 @@ public class DiffractionGratingLightSource extends LightSource {
 	public void calculateLight(){
 		super.clearLightRays();
 
-		if(myDiffractionGrating.getWaveLength() == -1){
-			return;
-		}
-
 		//Från https://en.wikipedia.org/wiki/Diffraction_grating
 		for(int m = 0; m <= myDiffractionGrating.getNumMax(); m++){
 
-			//Stämmer detta ens???
 			double angleOut = Math.asin(Math.sin(latestAngleIn)- m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitsPerUnitDistance());
 
 			if(Double.isNaN(angleOut)){
@@ -47,7 +38,6 @@ public class DiffractionGratingLightSource extends LightSource {
 		super.setWaveLength(myDiffractionGrating.getWaveLength());
 		super.restoreRotation();
 
-		myDiffractionGrating.setWaveLength(-1);
 	}
 
 	public void calculateInAngle(Vector2d ray){
@@ -56,6 +46,6 @@ public class DiffractionGratingLightSource extends LightSource {
 		//convert the line to a normal:
 		lineSegment.rotate(cross*Math.PI / 2).normalize();
 		latestAngleIn = ray.angleTo(lineSegment);
-		//System.out.println("Angle:" + Math.toDegrees(latestAngleIn));
+		System.out.println("InAngle:" + Math.toDegrees(latestAngleIn) + " source rotation: " + Math.toDegrees(this.getTotalRotation()) % 360);
 	}
 }
