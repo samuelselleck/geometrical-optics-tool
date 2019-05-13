@@ -19,6 +19,8 @@ import optics_logic.OpticsSettings;
 import optics_object_factories.DiffractionGratingFactory;
 import optics_object_factories.OpticsObjectFactory;
 import optics_objects.lights.DiffractionGratingLightSource;
+import optics_objects.materials.DiffractionGrating;
+import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
 import settings.BigSettingsBox;
 import util.Vector2d;
@@ -222,6 +224,15 @@ public class OpticsController {
 	}
 	
 	public void redraw() {
+        for (Material m: model.getMaterials()) {
+            if(m instanceof DiffractionGrating){
+               ((DiffractionGrating) m).getLightSource().clearLightRays();
+               view.drawView(picked);
+               //Måste beräkna stålarna två gånger. Likt när man skapar ett gitter.
+                //Först måste instrålarna skapas. Sedan måste gittret reagera på det
+                //och skapa egna strålar.
+            }
+        }
 		view.drawView(picked);
 	}
 	

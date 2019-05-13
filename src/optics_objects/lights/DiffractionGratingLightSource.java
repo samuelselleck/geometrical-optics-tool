@@ -32,19 +32,20 @@ public class DiffractionGratingLightSource extends LightSource {
 			if(Double.isNaN(angleOut)){
 				continue;
 			}
-
-			System.out.println("Wavelength: " + myDiffractionGrating.getWaveLength() + " AngleOut: " + Math.toDegrees(angleOut));
-
 			double dy = Math.tan(angleOut);
 			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, dy));
 			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, -dy));
 		}
 
-
 		super.setWaveLength(myDiffractionGrating.getWaveLength());
 		super.restoreRotation();
 
 		myDiffractionGrating.setWaveLength(-1);
+	}
+
+	@Override
+	public void clearLightRays(){
+		super.clearLightRays();
 	}
 
 	public void calculateInAngle(Vector2d ray){
