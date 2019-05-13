@@ -31,7 +31,8 @@ public class DiffractionGratingLightSource extends LightSource {
 		//Från https://en.wikipedia.org/wiki/Diffraction_grating
 		for(int m = 0; m < myDiffractionGrating.getNumMax(); m++){
 
-			double dy = Math.atan(Math.sin(latestAngleIn) - m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitsPerUnitDistance());
+			//Stämmer detta ens???
+			double dy = Math.atan(Math.abs(Math.sin(latestAngleIn)) - m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitsPerUnitDistance());
 
 			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, dy));
 			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, -dy));
