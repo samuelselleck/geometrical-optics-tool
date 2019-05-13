@@ -13,28 +13,36 @@ import optics_objects.templates.LightSource;
 import optics_objects.templates.Material;
 import optics_objects.templates.OpticsObject;
 import util.Utils;
+import util.Vector2d;
 
 public class OpticsView {
 	private OpticsModel model;
+	private GraphicsContext gc;
 	private Canvas canvas;
+	private double scale, xTranslation, yTranslation;
 	
 	private OpticsObject selected;
 	
 	public OpticsView(double width, double height) {
 		this.canvas = new Canvas(width, height);
+		this.gc = canvas.getGraphicsContext2D();
+		gc.setLineJoin(StrokeLineJoin.ROUND);
+		gc.save();
+		this.scale = 1;
+		this.xTranslation = 0;
+		this.yTranslation = 0;
 		selected = null;
 	}
 	
 	//TODO Do this in a better way for color mode
 	public void redraw() {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
-		gc.setLineJoin(StrokeLineJoin.ROUND);
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		gc.setFill(Paint.valueOf("BLACK"));
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		gc.setLineWidth(1);
+		Vector2d p1 = getTablePos(0, 0);
+		Vector2d p2 = getTablePos(canvas.getWidth(), canvas.getHeight());
+		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+		gc.setLineWidth(0.5);
 		
 		if(model.getSettings().colorMode()) {
 			gc.setGlobalBlendMode(BlendMode.SCREEN);
@@ -82,6 +90,34 @@ public class OpticsView {
 	
 	public void deselect() {
 		this.selected = null;
+	}
+	
+	public void translate(double x, double y) {
+		xTranslation += x;
+		yTranslation += y;
+		gc.translate(x/scale, y/scale);
+	}
+	
+	public void scale(double factor, double x, double y) {
+		double old = scale;
+		scale += factor;
+		scale = Math.max(scale, 0.5);
+		scale = Math.min(scale, 2);
+		
+		gc.scale(scale/old, scale/old);
+		translate(-x*(scale - old), -y*(scale - old));
+	}
+	
+	public void resetView() {
+		gc.restore();
+		gc.save();
+		xTranslation = 0;
+		yTranslation = 0;
+		scale = 1;
+	}
+	
+	public Vector2d getTablePos(double screenX, double screenY) {
+		return new Vector2d((-xTranslation + screenX)/scale, (-yTranslation + screenY)/scale);
 	}
 	
 	public Canvas getCanvas() {

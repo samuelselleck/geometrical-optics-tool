@@ -67,12 +67,18 @@ public class OpticsMenuBar extends MenuBar {
 			
 		});
 		
+		MenuItem resetView = new MenuItem("Reset View");
+		resetView.setOnAction(e -> {
+			opticsController.getView().resetView();
+			opticsController.redraw();
+		});
+		
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(e -> {
 			System.exit(0);
 		});
 		
-		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
+		file.getItems().addAll(open, save, saveImage, resetView, new SeparatorMenuItem(), exit);
 		this.getMenus().add(file);
 	}
 }

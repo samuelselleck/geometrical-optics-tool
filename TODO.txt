@@ -1,0 +1,25 @@
+TODO:
+
+4) Möjliggör zoomning och translation
+fixa strålritning så att den alltid ritar till bortesta kanten!
+bakrgrundsgrid av/på? (lättare att se!)
+
+5) Inkludera ett korrekt våglängdsberoende (och lägg till några riktiga material)
+
+6) Testa att göra ett gitter (behöver inte konservera energi)
+
+7) Möjliggör för plan-konvexa linser
+
+8) Gör en kort förklarande film så att vi kan pitcha programmet ;)
+
+9) Gör en mode som endast har perfekta, tunna linser och begränsat antal strålar för att demonstrera strålgången i kikare, mikroskop etc...
+
+10) Skriv ett nytt program för diffraktion (Fraunhofer och Fresnel)
+
+FÄRDIGT:
+
+1) Markera vilket element som är aktivt 
+
+2) Möjliggör att det aktiva elementets egenskaper kan ändras (på ett sätt som du känner dig nöjd med)
+
+3) Sätt lite färg på alla optiska element som inte är luft/vakuum

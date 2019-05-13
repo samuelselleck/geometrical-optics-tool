@@ -80,7 +80,7 @@ public class LightRay implements Serializable {
 		} while (bestCandidateRay != null && count < maxIterrations);
 
 		if (bestCandidateRay == null && count != maxIterrations) {
-			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.WIDTH)));
+			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.WIDTH*50)));
 		}
 	}
 
