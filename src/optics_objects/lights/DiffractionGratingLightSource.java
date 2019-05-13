@@ -12,6 +12,7 @@ public class DiffractionGratingLightSource extends LightSource {
 
 	private int width;
 	private DiffractionGrating myDiffractionGrating;
+	private double latestAngleIn = 0;
 
 	public DiffractionGratingLightSource(Vector2d origin, int width, boolean fixedPosition, DiffractionGrating diffractionGrating) {
 		super(origin, fixedPosition);
@@ -27,12 +28,13 @@ public class DiffractionGratingLightSource extends LightSource {
 			return;
 		}
 
-		for(int i = 0; i <= myDiffractionGrating.getNumMax(); i++){
+		//Från https://en.wikipedia.org/wiki/Diffraction_grating
+		for(int m = 0; m < myDiffractionGrating.getNumMax(); m++){
 
-			double dy=METER_TO_NANOMETER*Math.tan(Math.asin((i*myDiffractionGrating.getWaveLength()*NANOMETER_TO_METER)/myDiffractionGrating.getSlitsPerUnitDistance()));
+			double dy = Math.atan(Math.sin(latestAngleIn) - m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitsPerUnitDistance());
 
-			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, -dy));
 			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, dy));
+			super.addLightRay(new Vector2d(width/2 + 2, 0), new Vector2d(1, -dy));
 		}
 
 
@@ -42,8 +44,12 @@ public class DiffractionGratingLightSource extends LightSource {
 		myDiffractionGrating.setWaveLength(-1);
 	}
 
-	//Från https://en.wikipedia.org/wiki/Diffraction_grating
-	private double calculateAngle(LightRay ray, double numSlits, int waveLength){
-		return 0;
+	public void calculateInAngle(Vector2d ray){
+		Vector2d lineSegment = myDiffractionGrating.getSegment(0);
+		double cross = lineSegment.crossSign(ray);
+		//convert the line to a normal:
+		lineSegment.rotate(cross*Math.PI / 2).normalize();
+		latestAngleIn = ray.angleTo(lineSegment);
+		System.out.println("Angle:" + Math.toDegrees(latestAngleIn));
 	}
 }

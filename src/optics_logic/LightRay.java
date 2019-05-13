@@ -90,7 +90,9 @@ public class LightRay implements Serializable {
 				if(materials.get((int)distanceList.get(bestIndex).x) instanceof DiffractionGrating) {
 					System.out.println("Hit!");
 					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).setWaveLength(waveLength);
+					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).getLightSource().calculateInAngle(currRay.ray);
 					((DiffractionGrating)materials.get((int)distanceList.get(bestIndex).x)).getLightSource().calculateLight();
+
 				}
 
 				if(bestCandidateRay.ray.isZero()) {

@@ -11,7 +11,7 @@ public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Vector2d origin;
 	protected double totalRotation;
-	private boolean fixedPosition;
+	protected boolean fixedPosition;
 	
 	private int settingsId, creatorId;
 	
