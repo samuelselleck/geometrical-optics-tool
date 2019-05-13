@@ -65,4 +65,11 @@ public class DiffractionGrating extends Wall {
     public int getNumMax(){
         return numMax;
     }
+
+    @Override
+    public void rotate(double angle) {
+        totalRotation += angle;
+        rotateOp(angle);
+        lightSource.rotate(angle);
+    }
 }

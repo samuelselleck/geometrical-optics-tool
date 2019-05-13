@@ -21,14 +21,11 @@ public class DiffractionGratingLightSource extends LightSource {
 	}
 
 	public void calculateLight(){
-
 		super.clearLightRays();
 
 		if(myDiffractionGrating.getWaveLength() == -1){
 			return;
 		}
-
-		System.out.println("wavelength::" + myDiffractionGrating.getWaveLength());
 
 		for(int i = 0; i <= myDiffractionGrating.getNumMax(); i++){
 
@@ -41,6 +38,8 @@ public class DiffractionGratingLightSource extends LightSource {
 
 		super.setWaveLength(myDiffractionGrating.getWaveLength());
 		super.restoreRotation();
+
+		myDiffractionGrating.setWaveLength(-1);
 	}
 
 	//Från https://en.wikipedia.org/wiki/Diffraction_grating

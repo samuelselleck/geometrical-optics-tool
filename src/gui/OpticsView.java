@@ -44,7 +44,6 @@ public class OpticsView {
 			
 		} else {
 			for(LightSource l : model.getLights()) {
-				System.out.println("DRAW");
 				calculateAndDrawRay(l, gc, 1);
 			}
 		}
@@ -62,7 +61,6 @@ public class OpticsView {
 	}
 	
 	private void calculateAndDrawRay(LightSource l, GraphicsContext gc, float alpha) {
-		
 		l.calculateRayPaths(model.getMaterials());
 		
 		int rgb[] = Utils.waveLengthToRGB(l.getWaveLength());
