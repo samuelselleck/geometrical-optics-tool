@@ -182,6 +182,7 @@ public class OpticsController {
 	public void setOpticsModel(OpticsModel model) {
 		this.model = model;
 		connect(model, view);
+		deselect();
 		redraw();
 	}
 	

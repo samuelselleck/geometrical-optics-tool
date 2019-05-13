@@ -20,10 +20,7 @@ public class CrystallBallFactory extends OpticsObjectFactory {
 	}
 	
 	@Override
-	public boolean setEditing(OpticsObject obj) {
-		if(obj instanceof CrystalBall) {
-			return true;
-		}
-		return false;
+	public boolean editsOpticsObject(OpticsObject obj) {
+		return obj instanceof CrystalBall;
 	}
 }

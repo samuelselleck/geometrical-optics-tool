@@ -21,11 +21,7 @@ public class PrismFactory extends OpticsObjectFactory {
 	}
 	
 	@Override
-	public boolean setEditing(OpticsObject obj) {
-		if(obj instanceof Prism) {
-			this.requestFocus();
-			return true;
-		}
-		return false;
+	public boolean editsOpticsObject(OpticsObject obj) {
+		return obj instanceof Prism;
 	}
 }

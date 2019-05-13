@@ -20,10 +20,7 @@ public class RoundedMirrorFactory extends OpticsObjectFactory {
 	}
 	
 	@Override
-	public boolean setEditing(OpticsObject obj) {
-		if(obj instanceof RoundedMirror) {
-			return true;
-		}
-		return false;
+	public boolean editsOpticsObject(OpticsObject obj) {
+		return obj instanceof RoundedMirror;
 	}
 }

@@ -37,9 +37,8 @@ public abstract class SettingsTab extends Tab {
 	public Tab setEditing(OpticsObject obj) {
 		for(Tab t : tabPane.getTabs()) {
 			OpticsObjectFactory factory = (OpticsObjectFactory)(t.getContent());
-			if(factory.setEditing(obj)) {
+			if(factory.editsOpticsObject(obj)) {
 				tabPane.getSelectionModel().select(t);
-				
 				factory.bind(obj);
 				return this;
 			}

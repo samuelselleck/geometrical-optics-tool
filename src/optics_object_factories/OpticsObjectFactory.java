@@ -34,7 +34,7 @@ public abstract class OpticsObjectFactory extends VBox {
 	}
 
 	public abstract OpticsObject getOpticsObject(Vector2d origin);
-	public abstract boolean setEditing(OpticsObject obj);
+	public abstract boolean editsOpticsObject(OpticsObject obj);
 	
 	public void bind(OpticsObject obj) {
 		 for(Map.Entry<String, DoubleProperty> property : obj.getProperties().entrySet()) {

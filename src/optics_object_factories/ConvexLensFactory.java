@@ -29,12 +29,8 @@ public class ConvexLensFactory extends OpticsObjectFactory {
 	}
 	
 	@Override
-	public boolean setEditing(OpticsObject obj) {
-		if(obj instanceof ConvexLens) {
-			this.requestFocus();
-			return true;
-		}
-		return false;
+	public boolean editsOpticsObject(OpticsObject obj) {
+		return obj instanceof ConvexLens;
 	}
 
 }
