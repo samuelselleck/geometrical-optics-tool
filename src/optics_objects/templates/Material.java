@@ -11,16 +11,23 @@ import util.Vector2d;
 public abstract class Material extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	private Vector2d botRig, topLef;
-	protected List<Vector2d> points;
+	protected transient List<Vector2d> points = new ArrayList<>();
 
 	public Material(Vector2d origin) {
 		super(origin);
-		points = new ArrayList<>();
 	}
 
 	protected void initObject() {
 		super.initObject();
 		createBounds();
+	}
+	
+	protected void clear() {
+		if(points == null) {
+			points = new ArrayList<>();
+		} else {
+			points.clear();
+		}
 	}
 	
 	public void createBounds() {

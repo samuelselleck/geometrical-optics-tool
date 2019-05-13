@@ -14,7 +14,7 @@ public class ConeLightSource extends LightSource {
 
 	@Override
 	protected void update() {
-		super.clearRays();
+		super.clear();
 		double deltaAngle = get("Cone Angle")/180*Math.PI/(get("LightRays") - 1);
 		Vector2d ray = new Vector2d(1, 0).rotate(-get("Cone Angle")/180*Math.PI/2);
 		for(int i = 0; i < get("LightRays"); i++) {

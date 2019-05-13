@@ -12,12 +12,11 @@ import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
-	List<LightRay> light;
+	List<LightRay> light = new ArrayList<>();
 
 	public LightSource(Vector2d origin, int rayCount) {
 		super(origin);
 		super.addProperty("LightRays", rayCount);
-		light = new ArrayList<>();
 	}
 
 	public void calculateRayPaths(List<Material> materials, int wavelength) {
@@ -56,8 +55,12 @@ public abstract class LightSource extends OpticsObject {
 		addLightRay(new Vector2d(0, 0), ray);
 	}
 	
-	protected void clearRays() {
-		light.clear();
+	protected void clear() {
+		if(light == null) {
+			light = new ArrayList<>();
+		} else {
+			light.clear();
+		}
 	}
 	
 	public static int lightWaveMax() {

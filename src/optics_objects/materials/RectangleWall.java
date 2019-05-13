@@ -14,7 +14,7 @@ public class RectangleWall extends Wall {
 	}
 	
 	protected void update()  {
-		points.clear();
+		super.clear();
 		points.add(new Vector2d(-get("Width")/2,-get("Height")/2));
 		points.add(new Vector2d(-get("Width")/2, get("Height")/2));
 		points.add(new Vector2d(get("Width")/2, get("Height")/2));

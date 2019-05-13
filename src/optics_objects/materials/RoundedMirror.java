@@ -15,7 +15,7 @@ public class RoundedMirror extends Mirror {
 	}
 	
 	protected void update() {
-		points.clear();
+		super.clear();
 		for(int i = 0; i <= OpticsObject.getResolution(); i++) {
 			double x = (2.0*i/OpticsObject.getResolution() - 1);
 			double y = x*x;

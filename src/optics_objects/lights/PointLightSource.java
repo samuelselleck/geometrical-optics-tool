@@ -13,7 +13,7 @@ public class PointLightSource extends LightSource {
 
 	@Override
 	protected void update() {
-		super.clearRays();
+		super.clear();
 		for (int i = 0; i < get("LightRays"); i++) {
 			double ang = (2 * Math.PI / get("LightRays")) * i;
 			double x = Math.cos(ang);

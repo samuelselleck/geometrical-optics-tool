@@ -16,7 +16,7 @@ public class ConvexLens extends Lens {
 
 	@Override
 	protected void update() {
-		points.clear();
+		super.clear();
 		int quarterResolution = getResolution() /4;
 		double d = get("Diameter");
 		double r1 = get("Radius 1");

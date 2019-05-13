@@ -15,7 +15,7 @@ public class CrystalBall extends Lens {
 
 	@Override
 	protected void update() {
-		points.clear();
+		super.clear();
 		for (int i = 0; i < OpticsObject.getResolution(); i++) {
 			double angle = 2 * Math.PI / OpticsObject.getResolution() * i;
 			Vector2d p = new Vector2d(get("Radius")* Math.cos(angle), get("Radius") * Math.sin(angle));

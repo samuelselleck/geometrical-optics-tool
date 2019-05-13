@@ -14,7 +14,7 @@ public class BeamLightSource extends LightSource {
 
 	@Override
 	protected void update() {
-		super.clearRays();
+		super.clear();
 		Vector2d posVec = new Vector2d(0, 1).mult(get("Diameter")).div(get("LightRays"));
 		Vector2d rayVec = posVec.copy().normalize().rotate(-Math.PI / 2);
 		for (int i = (int) (get("LightRays") / 2); i >= -get("LightRays") / 2; i--) {

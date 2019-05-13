@@ -17,7 +17,7 @@ public class ConcaveLens extends Lens {
 
 	@Override
 	protected void update() {
-		points.clear();
+		super.clear();
 		int quarterResolution = getResolution() / 4;
 		double d = get("Diameter");
 		double w = get("Width");

@@ -15,7 +15,7 @@ public class Prism extends Lens {
 
 	@Override
 	protected void update() {
-		points.clear();
+		super.clear();
 		for (int i = 0; i < get("Edges"); i++) {
 			double angle = 2 * Math.PI / get("Edges") * i;
 			Vector2d p = new Vector2d(get("Radius")* Math.cos(angle), get("Radius") * Math.sin(angle));

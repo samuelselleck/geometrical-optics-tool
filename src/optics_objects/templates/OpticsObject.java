@@ -1,7 +1,8 @@
 package optics_objects.templates;
 
+import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -15,13 +16,11 @@ import util.Vector2d;
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Vector2d origin;
-	private Map<String, DoubleProperty> editableProperties;
+	private transient Map<String, DoubleProperty> editableProperties = new TreeMap<>();
 	protected double totalRotation;
 	
 	public OpticsObject(Vector2d origin) {
-		this.origin = origin;
-		editableProperties = new TreeMap<>();
-		
+		this.origin = origin;		
 	}
 
 	protected final void addProperty(String name, double value) {
@@ -34,6 +33,7 @@ public abstract class OpticsObject implements Serializable {
 		return editableProperties.get(name).get();
 	}
 	
+	protected abstract void clear();
 	protected abstract void update();
 	public abstract void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected);
 	
@@ -69,6 +69,26 @@ public abstract class OpticsObject implements Serializable {
 	
 	protected void initObject() {
 		rotateOp(totalRotation);
+	}
+	
+	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+		Map<String, Double> properties = new TreeMap<>();
+		for(Map.Entry<String, DoubleProperty> p : editableProperties.entrySet()) {
+			properties.put(p.getKey(), p.getValue().get());
+		}
+		out.writeObject(properties);
+		out.defaultWriteObject();
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		@SuppressWarnings("unchecked")
+		Map<String, Double> properties = (Map<String, Double>)in.readObject();
+		editableProperties = new TreeMap<>();
+		for(Map.Entry<String, Double> p : properties.entrySet()) {
+			editableProperties.put(p.getKey(), new SimpleDoubleProperty(p.getValue()));
+		}
+		in.defaultReadObject();
+		update();
 	}
 	
 	public static int getResolution() {

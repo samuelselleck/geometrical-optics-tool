@@ -14,7 +14,7 @@ public class FlatMirror extends Mirror {
 
 	@Override
 	protected void update() {
-		points.clear();
+		super.clear();
 		Vector2d unit = new Vector2d(1, 0).mult(get("Diameter") / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));
