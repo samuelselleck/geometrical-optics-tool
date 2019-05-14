@@ -1,8 +1,6 @@
-TODO:
 
-4) Möjliggör zoomning och translation
-fixa strålritning så att den alltid ritar till bortesta kanten!
-bakrgrundsgrid av/på? (lättare att se!)
+
+TODO------------------------------------------------------------------
 
 5) Inkludera ett korrekt våglängdsberoende (och lägg till några riktiga material)
 
@@ -16,10 +14,21 @@ bakrgrundsgrid av/på? (lättare att se!)
 
 10) Skriv ett nytt program för diffraktion (Fraunhofer och Fresnel)
 
-FÄRDIGT:
+FÄRDIGT----------------------------------------------------------------
 
 1) Markera vilket element som är aktivt 
 
 2) Möjliggör att det aktiva elementets egenskaper kan ändras (på ett sätt som du känner dig nöjd med)
 
 3) Sätt lite färg på alla optiska element som inte är luft/vakuum
+
+4) Möjliggör zoomning och translation
+
+REFAKTORISERA----------------------------------------------------------
+zoomning/hela opticsController
+gui bitar i JXML?
+calculateRaypaths, speciellt colormode
+factories tas bort? (räcker med spec i objecten? statiska spec? objekt utan attribut (eller update) först?
+
+FRAMTIDA FRÅGOR OM FEATURES--------------------------------------------
+bakrgrundsgrid av/på? (lättare att se!)

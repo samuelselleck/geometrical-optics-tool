@@ -67,9 +67,25 @@ public class OpticsMenuBar extends MenuBar {
 			
 		});
 		
+		
+		Menu window = new Menu("Window");
+		
 		MenuItem resetView = new MenuItem("Reset View");
 		resetView.setOnAction(e -> {
 			opticsController.getView().resetView();
+			opticsController.redraw();
+		});
+		
+		MenuItem grid = new MenuItem("Grid: OFF");
+		grid.setOnAction(e -> {
+			String str = grid.getText().split(" ")[1];
+			if(str.equals("OFF")) {
+				opticsController.getView().setGrid(true);
+				grid.setText("Grid: ON");
+			} else {
+				opticsController.getView().setGrid(false);
+				grid.setText("Grid: OFF");
+			}
 			opticsController.redraw();
 		});
 		
@@ -78,7 +94,8 @@ public class OpticsMenuBar extends MenuBar {
 			System.exit(0);
 		});
 		
-		file.getItems().addAll(open, save, saveImage, resetView, new SeparatorMenuItem(), exit);
-		this.getMenus().add(file);
+		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
+		window.getItems().addAll(resetView, grid);
+		this.getMenus().addAll(file, window);
 	}
 }
