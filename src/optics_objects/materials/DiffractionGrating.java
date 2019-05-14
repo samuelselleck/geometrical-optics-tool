@@ -55,7 +55,51 @@ public class DiffractionGrating extends Wall {
         points.add(new Vector2d(-width / 2, height / 2));
         points.add(new Vector2d(width / 2, height / 2));
         points.add(new Vector2d(width / 2, -height / 2));
-
+        points.add(new Vector2d(-width / 2, -height / 2));
+        points.add(new Vector2d(-width / 2, height / 2));
+        points.add(new Vector2d(width / 2, height / 2));
+        points.add(new Vector2d(width / 2, -height / 2));
+        
+        
+        int nrofSlits=(int) slitsPerUnitDistance/2000;
+        if(nrofSlits<2) {
+        	nrofSlits=2;
+        }
+        int spacing=15/nrofSlits;
+        int negative=1;
+        for(int i=0;i<nrofSlits;i++) {
+        	if(i==0) {
+        	      points.add(new Vector2d(width / 2, 0));
+        	      points.add(new Vector2d(-width / 2, 0));
+        	}else {
+        		 points.add(new Vector2d(-width / 2, i*spacing*negative));
+        		 points.add(new Vector2d(width / 2, i*spacing*negative));
+        		 if(negative==1) {
+        			 negative=-1;
+        		 }else {
+        			 negative=1;
+        		 }
+        	     points.add(new Vector2d(width / 2, i*spacing*negative));
+        	     points.add(new Vector2d(-width / 2, i*spacing*negative));
+        	}
+        	
+        	
+        }
+        
+        
+//        points.add(new Vector2d(width / 2, 0));
+//        points.add(new Vector2d(-width / 2, 0));
+//        
+//        points.add(new Vector2d(-width / 2, 3));
+//        points.add(new Vector2d(width / 2, 3));
+//        points.add(new Vector2d(width / 2, -3));
+//        points.add(new Vector2d(-width / 2, -3));
+//        
+//        points.add(new Vector2d(-width / 2, -6));
+//        points.add(new Vector2d(width / 2, -6));
+//        points.add(new Vector2d(width / 2, 6));
+//        points.add(new Vector2d(-width / 2, 6));
+       
         super.restoreRotation();
         super.createBounds();
     }
