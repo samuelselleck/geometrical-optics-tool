@@ -2,13 +2,16 @@ package optics_object_factories;
 import java.util.Map;
 import java.util.TreeMap;
 
+import gui.Main;
 import gui.OpticsView;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -62,7 +65,26 @@ public abstract class OpticsObjectFactory extends VBox {
 		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
 
 		sliders.put(name, newSlider);
-		top.getChildren().add(text);
+		HBox propertyBox = new HBox();
+		propertyBox.getChildren().add(text);
+		if(Main.properties.getProperty("attributeboxes").equals("true")) {
+			TextField tf = new TextField(String.format("%.2f", newSlider.getValue()));
+			tf.setMaxWidth(Main.WIDTH/15);
+			
+			HBox.setHgrow(tf, Priority.ALWAYS);
+			newSlider.valueProperty().addListener(e -> {
+				tf.setText(String.format("%.2f", newSlider.getValue()));
+			});
+			tf.setOnAction(e -> {
+				double val = Double.parseDouble(tf.getText().replace(',', '.'));
+				newSlider.setValue(val);
+			});
+			Pane spacing = new Pane();
+			HBox.setHgrow(spacing, Priority.SOMETIMES);
+			propertyBox.getChildren().addAll(spacing, tf);
+			propertyBox.setPadding(new Insets(10, 0, 10, 0));
+		}
+		top.getChildren().add(propertyBox);
 		top.getChildren().add(newSlider);		
 		return newSlider;
 	}

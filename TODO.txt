@@ -24,11 +24,14 @@ FÄRDIGT----------------------------------------------------------------
 
 4) Möjliggör zoomning och translation
 
+S) Lägg till möjlighet att skriva in värden
+
 REFAKTORISERA----------------------------------------------------------
 zoomning/hela opticsController
 gui bitar i JXML?
 calculateRaypaths, speciellt colormode
 factories tas bort? (räcker med spec i objecten? statiska spec? objekt utan attribut (eller update) först?
+ERRORhandling i S) (skriva värden)
 
 FRAMTIDA FRÅGOR OM FEATURES--------------------------------------------
 bakrgrundsgrid av/på? (lättare att se!)

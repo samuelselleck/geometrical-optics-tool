@@ -9,6 +9,9 @@ maxwavelength=700
 defaultwavelength=700
 colormoderaycount=10
 
+Interaction:
+attributeboxes=true
+
 Performance callibration:
 opticsobjectresolution=200
 maxraybounce=10
