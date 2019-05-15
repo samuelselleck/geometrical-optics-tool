@@ -30,7 +30,7 @@ public class DiffractionGratingLightSource extends LightSource {
 		//Från https://en.wikipedia.org/wiki/Diffraction_grating
 		for(int m = 0; m <= myDiffractionGrating.getNumMax(); m++){
 
-			double angleOut = Math.asin(Math.sin(latestAngleIn)- m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitsPerUnitDistance());
+			double angleOut = Math.asin(Math.sin(latestAngleIn)- m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitSpacing());
 
 			if(Double.isNaN(angleOut)){
 				continue;

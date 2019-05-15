@@ -8,13 +8,13 @@ public class DiffractionGrating extends Wall {
     private static final long serialVersionUID = 1L;
 
     private DiffractionGratingLightSource lightSource;
-    private double slitsPerUnitDistance;
+    private double slitSpacing;
     private int numMax, waveLength = -1;
 
-    public DiffractionGrating(Vector2d origin, double width, double height, double slitsPerUnitDistance, int numMax, boolean fixedPosition) {
+    public DiffractionGrating(Vector2d origin, double width, double height, double slitSpacing, int numMax, boolean fixedPosition) {
         super(origin, fixedPosition);
         setPoints(width, height);
-        this.slitsPerUnitDistance = slitsPerUnitDistance;
+        this.slitSpacing = slitSpacing;
         this.numMax = numMax;
         this.lightSource = new DiffractionGratingLightSource(origin, (int)width, fixedPosition, this);
     }
@@ -24,7 +24,7 @@ public class DiffractionGrating extends Wall {
     }
 
     public void updateGrating(double width, double height, double slits, int numMax, int waveLength) {
-        this.slitsPerUnitDistance = slits;
+        this.slitSpacing = slits;
         this.numMax = numMax;
         this.waveLength = waveLength;
         setPoints(width, height);
@@ -40,8 +40,8 @@ public class DiffractionGrating extends Wall {
         return waveLength;
     }
 
-    public double getSlitsPerUnitDistance(){
-        return slitsPerUnitDistance;
+    public double getSlitSpacing(){
+        return slitSpacing;
     }
 
     public int getNumMax(){
@@ -78,7 +78,7 @@ public class DiffractionGrating extends Wall {
         points.add(new Vector2d(width / 2, -height / 2));
 
 
-        int nrofSlits=(int) slitsPerUnitDistance/2000;
+        int nrofSlits=(10000-(int)slitSpacing)/2000;
         if(nrofSlits<2) {
             nrofSlits=2;
         }
