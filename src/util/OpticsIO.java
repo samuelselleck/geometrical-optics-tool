@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 
 import gui.OpticsController;
-import optics_logic.OpticsModel;
+import model.OpticsModel;
 
 public class OpticsIO {
 	OpticsController opticsController;

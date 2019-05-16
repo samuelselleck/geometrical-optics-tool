@@ -1,21 +1,20 @@
 package gui;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
+import gui.optics_tabs.OpticsBox;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import optics_logic.OpticsModel;
-import optics_logic.GlobalOpticsSettings;
-import settings.SettingsBox;
+import model.GlobalOpticsSettings;
+import model.OpticsModel;
 
 public class Main extends Application {
 	public static boolean DEBUG = false;
@@ -60,8 +59,8 @@ public class Main extends Application {
 		
 		OpticsModel model = new OpticsModel(settings);
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
-		SettingsBox settingsBox = new SettingsBox(view);
-		OpticsController opticsController = new OpticsController(model, view, settingsBox);
+		OpticsBox opticsBox = new OpticsBox(view);
+		OpticsController opticsController = new OpticsController(model, view, opticsBox);
 		
 		OpticsToolBox toolBox = new OpticsToolBox(opticsController);
 		toolBox.setStyle("-fx-background-color: #333333;");
@@ -77,7 +76,7 @@ public class Main extends Application {
 		
 		root.setTop(menuBar);
 		root.setCenter(view.getCanvas());
-		root.setRight(settingsBox);
+		root.setRight(opticsBox);
 		root.setBottom(toolBox);
 		
 		Scene scene = new Scene(root, WIDTH, HEIGHT);

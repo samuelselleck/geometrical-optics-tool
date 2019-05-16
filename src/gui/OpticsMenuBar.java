@@ -8,8 +8,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import util.OpticsIO;
 import javafx.stage.Stage;
+import util.OpticsIO;
 
 public class OpticsMenuBar extends MenuBar {
 
@@ -76,7 +76,7 @@ public class OpticsMenuBar extends MenuBar {
 			opticsController.redraw();
 		});
 		
-		MenuItem grid = new MenuItem("Grid: OFF");
+		MenuItem grid = new MenuItem("Grid: ON");
 		grid.setOnAction(e -> {
 			String str = grid.getText().split(" ")[1];
 			if(str.equals("OFF")) {

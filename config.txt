@@ -10,7 +10,7 @@ defaultwavelength=700
 colormoderaycount=10
 
 Interaction:
-attributeboxes=true
+propertytextfields=true
 
 Performance callibration:
 opticsobjectresolution=200

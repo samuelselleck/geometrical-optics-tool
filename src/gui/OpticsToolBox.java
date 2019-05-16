@@ -6,7 +6,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import optics_logic.GlobalOpticsSettings;
+import model.GlobalOpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
 	

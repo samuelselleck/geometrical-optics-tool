@@ -8,10 +8,10 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
-import optics_logic.OpticsModel;
-import optics_objects.templates.LightSource;
-import optics_objects.templates.Material;
-import optics_objects.templates.OpticsObject;
+import model.OpticsModel;
+import model.optics_objects.LightSource;
+import model.optics_objects.Material;
+import model.optics_objects.OpticsObject;
 import util.Utils;
 import util.Vector2d;
 
@@ -33,7 +33,7 @@ public class OpticsView {
 		this.xTranslation = 0;
 		this.yTranslation = 0;
 		selected = null;
-		grid = false;
+		grid = true;
 	}
 	
 	//TODO Do this in a better way for color mode

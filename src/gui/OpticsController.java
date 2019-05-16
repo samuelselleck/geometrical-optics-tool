@@ -6,17 +6,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import gui.optics_object_creators.OpticsObjectCreator;
+import gui.optics_tabs.OpticsBox;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
-import optics_logic.OpticsModel;
-import optics_logic.GlobalOpticsSettings;
-import optics_object_factories.OpticsObjectFactory;
-import optics_objects.templates.OpticsObject;
-import settings.SettingsBox;
+import model.GlobalOpticsSettings;
+import model.OpticsModel;
+import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class OpticsController {
@@ -24,9 +24,9 @@ public class OpticsController {
 	
 	private OpticsModel model;
 	private OpticsView view;
-	private SettingsBox settingsBox;
+	private OpticsBox opticsBox;
 	
-	private OpticsObjectFactory opticsObjectFactory;
+	private OpticsObjectCreator opticsObjectCreator;
 	private OpticsObject draging;
 	private Vector2d offset;
 	private OpticsObject selected;
@@ -35,15 +35,15 @@ public class OpticsController {
 	private Vector2d lastPos;
 	private double rotationFactor;
 
-	public OpticsController(OpticsModel model, OpticsView view, SettingsBox settingsBox) {
+	public OpticsController(OpticsModel model, OpticsView view, OpticsBox opticsBox) {
 		this.model = model;
 		this.view = view;
-		this.settingsBox = settingsBox;
+		this.opticsBox = opticsBox;
 		
 		connect(model, view);
 		
 		EventHandler<Event> creation = e -> {
-			opticsObjectFactory = settingsBox.getCurrentOpticsObjectCreator();
+			opticsObjectCreator = opticsBox.getCurrentOpticsObjectCreator();
 		};
 		view.getCanvas().setOnTouchPressed(creation);
 		view.getCanvas().setOnMousePressed(creation);
@@ -58,8 +58,8 @@ public class OpticsController {
 		redraw();	
 	}
 
-	public void setOpticsObjectCreator(OpticsObjectFactory oof) {
-		this.opticsObjectFactory = oof;
+	public void setOpticsObjectCreator(OpticsObjectCreator oof) {
+		this.opticsObjectCreator = oof;
 	}
 
 	private void connect(OpticsModel model, OpticsView view) {
@@ -89,8 +89,8 @@ public class OpticsController {
 					OpticsObject atMouse = model.getOpticsObjectAt(pos.x, pos.y);
 					if(atMouse != null) {
 						select(atMouse);
-					} else if (inBounds && opticsObjectFactory != null) {
-						OpticsObject newObj = opticsObjectFactory.getOpticsObject(new Vector2d(pos.x, pos.y));
+					} else if (inBounds && opticsObjectCreator != null) {
+						OpticsObject newObj = opticsObjectCreator.getOpticsObject(new Vector2d(pos.x, pos.y));
 						model.addOpticsObject(newObj);
 						select(newObj);
 					}
@@ -156,7 +156,7 @@ public class OpticsController {
 	
 	private void select(OpticsObject obj) {
 		selected = obj;
-		settingsBox.setEditing(obj);
+		opticsBox.setEditing(obj);
 		view.select(obj);
 	}
 	
