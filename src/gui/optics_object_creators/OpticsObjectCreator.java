@@ -6,6 +6,8 @@ import gui.Main;
 import gui.OpticsView;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
@@ -73,17 +75,19 @@ public abstract class OpticsObjectCreator extends VBox {
 			
 			TextField tf = new TextField();
 			tf.setMaxWidth(Main.WIDTH/15);
-			
+			tf.setStyle("-fx-control-inner-background: black");
 			InvalidationListener updateTextField = e -> {
 				tf.setText(String.format("%.2f", newSlider.getValue()));
 			};
 			newSlider.valueProperty().addListener(updateTextField);
 			updateTextField.invalidated(null);
 			
-			tf.setOnAction(e -> {
+			EventHandler<ActionEvent> commitValue = e -> {
 				double val = Double.parseDouble(tf.getText().replace(',', '.'));
 				newSlider.setValue(val);
-			});
+				tf.positionCaret(tf.getLength());
+			};
+			tf.setOnAction(commitValue);
 			
 			
 			Pane spacing = new Pane();
