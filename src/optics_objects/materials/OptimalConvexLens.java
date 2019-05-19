@@ -42,6 +42,14 @@ public class OptimalConvexLens extends Lens {
 		double x = (n * L - focalLength + Math.sqrt(Math.pow(L, 2) - 2*n*focalLength*L + Math.pow(n*focalLength, 2) + Math.pow(n * y, 2) - Math.pow(y, 2)) / (Math.pow(n, 2) - 1));
 		return x;
 	}
+	
+	public void setRefractionIndex(double n) {
+		this.n = n;
+	}
+	
+	public void setFocalLength(double f) {
+		this.focalLength = f;
+	}
 
 	public void setPoints(double d, double f) {
 		clearPoints();
