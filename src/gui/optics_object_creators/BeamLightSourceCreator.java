@@ -5,7 +5,7 @@ import model.optics_objects.BeamLightSource;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class BeamLightSourceCreator extends OpticsObjectCreator {
+public class BeamLightSourceCreator extends LightSourceCreator {
 
 	public BeamLightSourceCreator(OpticsView view) {
 		super(view);

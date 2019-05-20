@@ -5,7 +5,7 @@ import model.optics_objects.ConeLightSource;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class ConeLightSourceCreator extends OpticsObjectCreator {
+public class ConeLightSourceCreator extends LightSourceCreator {
 
 	public ConeLightSourceCreator(OpticsView view) {
 		super(view);

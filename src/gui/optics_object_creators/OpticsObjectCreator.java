@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -22,7 +23,7 @@ import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public abstract class OpticsObjectCreator extends VBox {
-	protected Map<String, Slider> sliders;
+	private Map<String, Slider> sliders;
 	private VBox top;
 	private InvalidationListener redraw;
 	
@@ -100,6 +101,10 @@ public abstract class OpticsObjectCreator extends VBox {
 		top.getChildren().add(box);
 		top.getChildren().add(newSlider);		
 		return newSlider;
+	}
+	
+	protected void addElement(Node n) {
+		top.getChildren().add(n);
 	}
 
 	protected double getParam(String name) {

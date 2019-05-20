@@ -5,7 +5,7 @@ import model.optics_objects.OpticsObject;
 import model.optics_objects.PointLightSource;
 import util.Vector2d;
 
-public class PointLightSourceCreator extends OpticsObjectCreator {
+public class PointLightSourceCreator extends LightSourceCreator {
 
 	public PointLightSourceCreator(OpticsView view) {
 		super(view);
