@@ -1,6 +1,8 @@
 package gui.optics_object_creators;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import gui.OpticsView;
 import javafx.geometry.Point2D;
@@ -38,10 +40,13 @@ public abstract class LightSourceCreator extends OpticsObjectCreator {
 	}
 	
 	private void setData(double wavelength, double bandwidth) {
-		graph.setData(Arrays.asList(
-				new Point2D(wavelength - bandwidth/2, 0),
-				new Point2D(wavelength, 1),
-				new Point2D(wavelength + bandwidth/2, 0)));
+		bandwidth = Math.max(bandwidth, 18);
+		List<Point2D> normalCurve = new ArrayList<>();
+		for(double x = LightSource.lightWaveMin() - wavelength; x <= LightSource.lightWaveMax() + wavelength; x++) {
+			double y = Math.exp(-12*(x - wavelength)*(x - wavelength)/bandwidth/bandwidth);
+			normalCurve.add(new Point2D(x, y));
+		}
+		graph.setData(normalCurve);
 	}
 
 }
