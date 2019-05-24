@@ -28,18 +28,12 @@ public class DiffractionGratingLightSource extends LightSource {
 
 		boolean rightFacing = Math.toDegrees(totalRotation) % 360 > -90 && Math.toDegrees(totalRotation) % 360 < 90;
 
-		// adds the middle maximum
-		if ((lastRayInSign == 1 && rightFacing) || (lastRayInSign == -1) && !rightFacing) {
-			super.addLightRay(new Vector2d(width / 2 + 2, 0), new Vector2d(1, 0));
-		} else {
-			super.addLightRay(new Vector2d(-width / 2 - 2, 0), new Vector2d(-1, 0));
-		}
 
 		// Från https://en.wikipedia.org/wiki/Diffraction_grating
 		for (int m = 0; m <= myDiffractionGrating.getNumMax(); m++) {
 
-			double angleOut = Math.asin(Math.sin(latestAngleIn)
-					- m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitSpacing());
+			double angleOut = Math.asin(-Math.sin(latestAngleIn)
+					+ m * myDiffractionGrating.getWaveLength() / myDiffractionGrating.getSlitSpacing());
 
 			if (Double.isNaN(angleOut)) {
 				continue;
