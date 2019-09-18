@@ -65,7 +65,7 @@ public class Main extends Application {
 		OpticsToolBox toolBox = new OpticsToolBox(opticsController);
 		toolBox.setStyle("-fx-background-color: #333333;");
 		
-		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, toolBox, stage);
+		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, stage);
 		menuBar.setStyle("-fx-background-color: #333333;");
 		
 		

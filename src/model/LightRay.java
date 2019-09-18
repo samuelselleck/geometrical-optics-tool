@@ -13,7 +13,6 @@ import util.Vector2d;
 public class LightRay implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private transient ArrayList<Vector2d> path;
 	private Vector2d origin;
 	private Vector2d offset;
 	private Vector2d ray;
@@ -27,15 +26,12 @@ public class LightRay implements Serializable {
 	public LightRay(Vector2d origin, Vector2d ray) {
 		this(origin, new Vector2d(0, 0), ray);
 	}
-
+	
 	// Calculates lightray path and stores it in the variable path.
 	// (This is bad code, I'm aware, just wanted to make it work)
-	public void calculatePath(List<Material> materials, int wavelength) {
-		if(path == null) {
-			path = new ArrayList<>();
-		} else {
-			path.clear();
-		}
+	public List<Vector2d> calculatePath(List<Material> materials, int wavelength) {
+		
+		List<Vector2d> path = new ArrayList<>();
 		
 		LightRay currRay = this;
 		path.add(getPos());
@@ -82,6 +78,8 @@ public class LightRay implements Serializable {
 		if (bestCandidateRay == null && count != maxIterrations) {
 			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.WIDTH*50)));
 		}
+		
+		return path;
 	}
 
 	// Calculates and returns a list of lens indexes and their distances,
@@ -189,17 +187,6 @@ public class LightRay implements Serializable {
 		double angleIn = ray.angleTo(line);
 		double angleOut = material.getAngle(angleIn, wavelength, cross > 0);
 		return line.rotate(angleOut).mult(ray.length()*distance);
-	}
-
-	public void draw(GraphicsContext gc, boolean onlyHitting) {
-		if (!onlyHitting || path.size() > 2) {
-			Vector2d p = path.get(0);
-			gc.moveTo(p.x, p.y);
-			for(int i = 0; i < path.size(); i++) {
-				p = path.get(i);
-				gc.lineTo(p.x, p.y);
-			}
-		}
 	}
 
 	private Vector2d getPos() {

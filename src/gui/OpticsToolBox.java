@@ -10,8 +10,6 @@ import model.GlobalOpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
 	
-	private Button toggleRaysButton;
-	private Button rayModeButton;
 	private OpticsController opticsController;
 	
 	public OpticsToolBox(OpticsController opticsController) {
@@ -20,15 +18,6 @@ public class OpticsToolBox extends ToolBar {
 		
 		double buttonHeight = 35;
 		
-		toggleRaysButton = new Button("Rays: On");
-		toggleRaysButton.setPrefHeight(buttonHeight);
-		toggleRaysButton.setPrefWidth(100);
-		toggleRaysButton.setOnAction(e -> {
-			GlobalOpticsSettings settings = opticsController.getModelSettings();
-			toggleRaysButton.setText("Rays: " + (settings.toggleDrawOnlyHitting() ? "Off" : "On"));
-			//TODO make button labels update when loading new model
-			opticsController.redraw();
-		});
 		Button clearLightsButton = new Button("Clear Lights");
 		clearLightsButton.setPrefHeight(buttonHeight);
 		clearLightsButton.setOnAction(e -> {
@@ -55,23 +44,8 @@ public class OpticsToolBox extends ToolBar {
 			opticsController.setRotationFactor(val);
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
-		rayModeButton = new Button("Mode: Ray");
-		rayModeButton.setPrefHeight(buttonHeight);
-		rayModeButton.setPrefWidth(100);
-		rayModeButton.setOnAction(e -> {
-			GlobalOpticsSettings settings = opticsController.getModelSettings();
-			rayModeButton.setText("Mode: " + (settings.toggleColorMode() ? "Color" : "Ray"));
-			opticsController.redraw();
-		});
-			
-		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(),
-				toggleRaysButton, rayModeButton, new Separator(), rotationFactorButton);
+		
+		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);
 		this.opticsController = opticsController;
-	}
-
-	public void update() {
-		GlobalOpticsSettings settings = opticsController.getModelSettings();
-		rayModeButton.setText("Mode: " + (settings.colorMode() ? "Color" : "Ray"));
-		toggleRaysButton.setText("Rays: " + (settings.drawOnlyHitting() ? "Off" : "On"));	
 	}
 }

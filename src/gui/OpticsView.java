@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.List;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -12,7 +10,6 @@ import model.OpticsModel;
 import model.optics_objects.LightSource;
 import model.optics_objects.Material;
 import model.optics_objects.OpticsObject;
-import util.Utils;
 import util.Vector2d;
 
 public class OpticsView {
@@ -58,17 +55,11 @@ public class OpticsView {
 			}
 		}
 		
-		if(model.getSettings().colorMode()) {
-			gc.setGlobalBlendMode(BlendMode.SCREEN);
-			int step = LightSource.lightWaveMax() - LightSource.lightWaveMin();
-			for(int wavelength = LightSource.lightWaveMin();
-					wavelength < LightSource.lightWaveMax();
-					wavelength += step/LightSource.colorModeRayCount()) {
-				calculateAndDrawRays(model.getLights(), gc, wavelength, 0.6f);
-			}
-			
-		} else {
-			calculateAndDrawRays(model.getLights(), gc, LightSource.lightWaveDefault(), 1f);
+		gc.setGlobalBlendMode(BlendMode.SCREEN);
+		
+		for(LightSource s : model.getLights()) {
+			s.calculateRayPaths(model.getMaterials());
+			s.draw(gc, model.getSettings(), selected == s);
 		}
 		
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
@@ -76,21 +67,6 @@ public class OpticsView {
 		for(Material m : model.getMaterials()) {
 			m.draw(gc, model.getSettings(), selected == m);	
 		}
-	}
-	
-	private void calculateAndDrawRays(List<LightSource> lights, GraphicsContext gc, int wavelength, float alpha) {
-		
-		for(LightSource l : lights) {
-			l.calculateRayPaths(model.getMaterials(), wavelength);
-		}
-		int rgb[] = Utils.waveLengthToRGB(wavelength);
-		Paint p = Color.rgb(rgb[0], rgb[1], rgb[2], alpha);
-		gc.setStroke(p);
-		gc.beginPath();
-		for(LightSource l : lights) {
-			l.draw(gc, model.getSettings(), false);
-		}
-		gc.stroke();
 	}
 	
 	public void select(OpticsObject obj) {

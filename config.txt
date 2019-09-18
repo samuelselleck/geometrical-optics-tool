@@ -7,7 +7,7 @@ LightProperties:
 minwavelength=400
 maxwavelength=700
 defaultwavelength=600
-colormoderaycount=10
+maxcolorraycount=10
 
 Interaction:
 propertytextfields=true
