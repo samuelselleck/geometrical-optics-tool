@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
-import javafx.scene.canvas.GraphicsContext;
 import model.optics_objects.Material;
 import model.optics_objects.Wall;
 import util.Vector2d;

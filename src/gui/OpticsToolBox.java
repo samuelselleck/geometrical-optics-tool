@@ -6,12 +6,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import model.GlobalOpticsSettings;
 
 public class OpticsToolBox extends ToolBar {
-	
-	private OpticsController opticsController;
-	
+
 	public OpticsToolBox(OpticsController opticsController) {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		VBox.setVgrow(this, Priority.ALWAYS);
@@ -46,6 +43,5 @@ public class OpticsToolBox extends ToolBar {
 		});
 		
 		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);
-		this.opticsController = opticsController;
 	}
 }

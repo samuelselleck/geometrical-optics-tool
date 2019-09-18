@@ -1,7 +1,6 @@
 package gui.optics_object_creators;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import gui.OpticsView;
