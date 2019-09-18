@@ -6,7 +6,7 @@ height=700
 LightProperties:
 minwavelength=400
 maxwavelength=700
-defaultwavelength=600
+defaultwavelength=700
 maxcolorraycount=10
 
 Interaction:

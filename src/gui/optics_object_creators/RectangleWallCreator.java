@@ -1,14 +1,12 @@
 package gui.optics_object_creators;
 
-import gui.OpticsView;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.RectangleWall;
 import util.Vector2d;
 
 public class RectangleWallCreator extends OpticsObjectCreator {
 	
-	public RectangleWallCreator(OpticsView view) {
-		super(view);
+	public RectangleWallCreator() {
 		addSlider("Width", 7, 800, 30);
 		addSlider("Height", 7, 800, 200);
 	}

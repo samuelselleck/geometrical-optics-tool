@@ -1,6 +1,5 @@
 package gui.optics_tabs;
 
-import gui.OpticsView;
 import gui.optics_object_creators.BeamLightSourceCreator;
 import gui.optics_object_creators.ConeLightSourceCreator;
 import gui.optics_object_creators.OpticsObjectCreator;
@@ -8,16 +7,16 @@ import gui.optics_object_creators.PointLightSourceCreator;
 
 public class LightTab extends OpticsTab {
 
-	public LightTab(OpticsView view) {
+	public LightTab() {
 		super();
 		this.setText("Lights");
-		OpticsObjectCreator pointLightSource = new PointLightSourceCreator(view);
+		OpticsObjectCreator pointLightSource = new PointLightSourceCreator();
 		super.addTab("Point", pointLightSource);
 		
-		OpticsObjectCreator coneLightSource = new ConeLightSourceCreator(view);
+		OpticsObjectCreator coneLightSource = new ConeLightSourceCreator();
 		super.addTab("Cone", coneLightSource);
 		 
-		OpticsObjectCreator beamLightSource = new BeamLightSourceCreator(view);
+		OpticsObjectCreator beamLightSource = new BeamLightSourceCreator();
 		super.addTab("Beam", beamLightSource);
 	}
 }

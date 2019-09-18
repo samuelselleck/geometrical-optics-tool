@@ -1,14 +1,12 @@
 package gui.optics_object_creators;
 
-import gui.OpticsView;
 import model.optics_objects.BeamLightSource;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class BeamLightSourceCreator extends LightSourceCreator {
 
-	public BeamLightSourceCreator(OpticsView view) {
-		super(view);
+	public BeamLightSourceCreator() {
 		addSlider("Diameter", 23, 400, 80);
 		addSlider("LightRays", 1, 100, 20);
 	}

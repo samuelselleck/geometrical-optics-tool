@@ -7,7 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import gui.optics_object_creators.OpticsObjectCreator;
-import gui.optics_tabs.OpticsBox;
+import gui.optics_tabs.OpticsCreatorsBox;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -24,7 +24,7 @@ public class OpticsController {
 	
 	private OpticsModel model;
 	private OpticsView view;
-	private OpticsBox opticsBox;
+	private OpticsCreatorsBox opticsBox;
 	
 	private OpticsObjectCreator opticsObjectCreator;
 	private OpticsObject draging;
@@ -35,7 +35,7 @@ public class OpticsController {
 	private Vector2d lastPos;
 	private double rotationFactor;
 
-	public OpticsController(OpticsModel model, OpticsView view, OpticsBox opticsBox) {
+	public OpticsController(OpticsModel model, OpticsView view, OpticsCreatorsBox opticsBox) {
 		this.model = model;
 		this.view = view;
 		this.opticsBox = opticsBox;
@@ -45,6 +45,11 @@ public class OpticsController {
 		EventHandler<Event> creation = e -> {
 			opticsObjectCreator = opticsBox.getCurrentOpticsObjectCreator();
 		};
+		
+		opticsBox.onUpdated(e -> {
+			view.redraw();
+		});
+		
 		view.getCanvas().setOnTouchPressed(creation);
 		view.getCanvas().setOnMousePressed(creation);
 		
@@ -56,10 +61,6 @@ public class OpticsController {
 		this.rotating = false;
 		
 		redraw();	
-	}
-
-	public void setOpticsObjectCreator(OpticsObjectCreator oof) {
-		this.opticsObjectCreator = oof;
 	}
 
 	private void connect(OpticsModel model, OpticsView view) {

@@ -11,8 +11,7 @@ import model.optics_objects.LightSource;
 public abstract class LightSourceCreator extends OpticsObjectCreator {
 	private GraphElement graph;
 	
-	public LightSourceCreator(OpticsView view) {
-		super(view);
+	public LightSourceCreator() {
 		graph = new GraphElement();
 		this.addElement(graph);
 		

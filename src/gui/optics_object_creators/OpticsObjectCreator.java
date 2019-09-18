@@ -25,10 +25,9 @@ import util.Vector2d;
 public abstract class OpticsObjectCreator extends VBox {
 	private Map<String, Slider> sliders;
 	private VBox top;
-	private InvalidationListener redraw;
+	private InvalidationListener updated;
 	
-	public OpticsObjectCreator(OpticsView view) {
-		redraw = e -> view.redraw();
+	public OpticsObjectCreator() {
 		this.setPadding(new Insets(20, 20, 20, 20));
 		sliders = new TreeMap<>();
 		
@@ -47,10 +46,14 @@ public abstract class OpticsObjectCreator extends VBox {
 			DoubleProperty sliderVal = sliders.get(property.getKey()).valueProperty();
 			DoubleProperty objVal = property.getValue();
 		    sliderVal.set(objVal.get());
-		    sliderVal.removeListener(redraw);
+		    sliderVal.removeListener(updated);
 		    objVal.bind(sliderVal);
-		    sliderVal.addListener(redraw);
+		    sliderVal.addListener(updated);
 		 }
+	}
+	
+	public void onUpdated(InvalidationListener updated) {
+		this.updated = updated;
 	}
 	
 	protected Slider addSlider(String name, double min, double max, double start) {

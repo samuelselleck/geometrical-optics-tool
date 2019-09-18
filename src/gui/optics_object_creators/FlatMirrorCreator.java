@@ -1,14 +1,12 @@
 package gui.optics_object_creators;
 
-import gui.OpticsView;
 import model.optics_objects.FlatMirror;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class FlatMirrorCreator extends OpticsObjectCreator {
 
-	public FlatMirrorCreator(OpticsView view) {
-		super(view);
+	public FlatMirrorCreator() {
 		addSlider("Diameter", 103, 800, 200);
 	}
 

@@ -7,8 +7,7 @@ import util.Vector2d;
 
 public class PointLightSourceCreator extends LightSourceCreator {
 
-	public PointLightSourceCreator(OpticsView view) {
-		super(view);
+	public PointLightSourceCreator() {
 		addSlider("LightRays", 11, 300, 30);
 	}
 

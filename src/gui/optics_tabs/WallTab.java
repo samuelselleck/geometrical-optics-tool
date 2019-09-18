@@ -1,15 +1,14 @@
 package gui.optics_tabs;
 
-import gui.OpticsView;
 import gui.optics_object_creators.OpticsObjectCreator;
 import gui.optics_object_creators.RectangleWallCreator;
 
 public class WallTab extends OpticsTab {
 
-	public WallTab(OpticsView view) {
+	public WallTab() {
 		this.setText("Walls");
 		
-		OpticsObjectCreator rect = new RectangleWallCreator(view);
+		OpticsObjectCreator rect = new RectangleWallCreator();
 		super.addTab("Rectangle", rect);
 	}
 }

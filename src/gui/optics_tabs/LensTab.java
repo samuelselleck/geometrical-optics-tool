@@ -10,18 +10,18 @@ import gui.optics_object_creators.RectangleLensCreator;
 
 public class LensTab extends OpticsTab {
 
-	public LensTab(OpticsView view) {
+	public LensTab() {
 		this.setText("Lenses");
 		
-		OpticsObjectCreator ball = new CrystallBallCreator(view);
+		OpticsObjectCreator ball = new CrystallBallCreator();
 		super.addTab("Ball", ball);
-		OpticsObjectCreator prism = new PrismCreator(view);
+		OpticsObjectCreator prism = new PrismCreator();
 		super.addTab("Prism", prism);
-		OpticsObjectCreator lensVex = new ConvexLensCreator(view);
+		OpticsObjectCreator lensVex = new ConvexLensCreator();
 		super.addTab("Convex", lensVex);
-		OpticsObjectCreator lensAve = new ConcaveLensCreator(view);
+		OpticsObjectCreator lensAve = new ConcaveLensCreator();
 		super.addTab("Concave", lensAve);
-		OpticsObjectCreator rect = new RectangleLensCreator(view);
+		OpticsObjectCreator rect = new RectangleLensCreator();
 		super.addTab("Rectangle", rect);
 	}
 }

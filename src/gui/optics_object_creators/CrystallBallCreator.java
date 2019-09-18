@@ -1,14 +1,12 @@
 package gui.optics_object_creators;
 
-import gui.OpticsView;
 import model.optics_objects.CrystalBall;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class CrystallBallCreator extends OpticsObjectCreator {
 	
-	public CrystallBallCreator(OpticsView view) {
-		super(view);
+	public CrystallBallCreator() {
 		addSlider("Radius", 11, 500, 80);
 		addSlider("Refractionindex", 1, 3, 1.5);
 	}

@@ -7,8 +7,7 @@ import util.Vector2d;
 
 public class RectangleLensCreator extends OpticsObjectCreator {
 
-	public RectangleLensCreator(OpticsView view) {
-		super(view);
+	public RectangleLensCreator() {
 		addSlider("Width", 7, 800, 500);
 		addSlider("Height", 7, 800, 100);
 		addSlider("Refractionindex", 1, 3, 1.5);

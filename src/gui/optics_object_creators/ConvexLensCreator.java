@@ -7,8 +7,7 @@ import util.Vector2d;
 
 public class ConvexLensCreator extends OpticsObjectCreator {
 
-	public ConvexLensCreator(OpticsView view) {
-		super(view);
+	public ConvexLensCreator() {
 		addSlider("Diameter", 103, 800, 180);
 		addSlider("Radius 1", 55, 800, 300);
 		addSlider("Radius 2", 55, 800, 300);

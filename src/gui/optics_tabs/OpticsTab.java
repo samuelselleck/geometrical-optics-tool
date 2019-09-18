@@ -3,6 +3,7 @@ package gui.optics_tabs;
 import java.util.ArrayList;
 
 import gui.optics_object_creators.OpticsObjectCreator;
+import javafx.beans.InvalidationListener;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import model.optics_objects.OpticsObject;
@@ -44,5 +45,11 @@ public abstract class OpticsTab extends Tab {
 			}
 		}
 		return null;
+	}
+
+	public void onUpdated(InvalidationListener updated) {
+		tabPane.getTabs().forEach(t -> {
+			((OpticsObjectCreator)(t.getContent())).onUpdated(updated);
+		});
 	}
 }

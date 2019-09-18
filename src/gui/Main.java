@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Properties;
 
-import gui.optics_tabs.OpticsBox;
+import gui.optics_tabs.OpticsCreatorsBox;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -23,10 +23,17 @@ public class Main extends Application {
 	public static Properties properties;
 
 	public static void main(String[] args) {
+		
 		properties = new Properties();
 		try {
-			String jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
-				    .toURI()).getParent();
+			
+			String jarPath = new File(Main.class
+					.getProtectionDomain()
+					.getCodeSource()
+					.getLocation()
+				    .toURI())
+					.getParent();
+			
 			properties.load(new FileInputStream(jarPath + "/config.txt"));
 			properties.setProperty("jarpath", jarPath);
 		} catch (IOException e) {
@@ -50,16 +57,17 @@ public class Main extends Application {
 			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 			WIDTH = primaryScreenBounds.getWidth();
 			HEIGHT = primaryScreenBounds.getHeight();
+			stage.setFullScreen(true);
 		}
 		
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
 		
 		GlobalOpticsSettings settings = new GlobalOpticsSettings();
-		
 		OpticsModel model = new OpticsModel(settings);
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
-		OpticsBox opticsBox = new OpticsBox(view);
+		OpticsCreatorsBox opticsBox = new OpticsCreatorsBox();
+		
 		OpticsController opticsController = new OpticsController(model, view, opticsBox);
 		
 		OpticsToolBox toolBox = new OpticsToolBox(opticsController);
@@ -83,9 +91,6 @@ public class Main extends Application {
 		stage.setTitle("Geometrical Optics Tool");
 		stage.setScene(scene);
 		stage.setResizable(false);
-		if(properties.getProperty("fullscreen").equals("true")) {
-			stage.setFullScreen(true);
-		}
 		stage.show();
 	}
 

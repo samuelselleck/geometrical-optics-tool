@@ -36,24 +36,7 @@ public class OpticsView {
 	//TODO Do this in a better way for color mode
 	public void redraw() {
 		
-		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-		gc.setFill(Paint.valueOf("BLACK"));
-		Vector2d p1 = getTablePos(0, 0);
-		Vector2d p2 = getTablePos(canvas.getWidth(), canvas.getHeight());
-		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
-		gc.setLineWidth(1);
-		
-		double gridSize = Main.WIDTH/20;
-		
-		gc.setStroke(new Color(1, 1, 1, 0.12));
-		if(grid) {
-			for(int i = 0; i < (canvas.getWidth()/gridSize + 2)/scale; i++) {
-				double xStart = p1.x + (xTranslation/scale)%gridSize - gridSize;
-				double yStart = p1.y + (yTranslation/scale)%gridSize - gridSize;
-				gc.strokeLine(xStart + i*gridSize, yStart, xStart + i*gridSize, yStart + canvas.getHeight()/scale + 2*gridSize);
-				gc.strokeLine(xStart, yStart + i*gridSize, xStart + canvas.getWidth()/scale + 2*gridSize, yStart + i*gridSize);
-			}
-		}
+		drawBackground();
 		
 		gc.setGlobalBlendMode(BlendMode.SCREEN);
 		
@@ -66,6 +49,28 @@ public class OpticsView {
 		
 		for(Material m : model.getMaterials()) {
 			m.draw(gc, model.getSettings(), selected == m);	
+		}
+	}
+	
+	private void drawBackground() {
+		
+		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+		gc.setFill(Paint.valueOf("BLACK"));
+		Vector2d p1 = getTablePos(0, 0);
+		Vector2d p2 = getTablePos(canvas.getWidth(), canvas.getHeight());
+		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
+		gc.setLineWidth(1);
+		
+		double gridSize = Main.WIDTH/20;
+		
+		gc.setStroke(new Color(1, 1, 1, 0.3));
+		if(grid) {
+			for(int i = 0; i < (canvas.getWidth()/gridSize + 2)/scale; i++) {
+				double xStart = p1.x + (xTranslation/scale)%gridSize - gridSize;
+				double yStart = p1.y + (yTranslation/scale)%gridSize - gridSize;
+				gc.strokeLine(xStart + i*gridSize, yStart, xStart + i*gridSize, yStart + canvas.getHeight()/scale + 2*gridSize);
+				gc.strokeLine(xStart, yStart + i*gridSize, xStart + canvas.getWidth()/scale + 2*gridSize, yStart + i*gridSize);
+			}
 		}
 	}
 	
