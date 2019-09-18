@@ -1,13 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class BeamLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public BeamLightSource(Vector2d origin, double diameter, int rayCount) {
-		super(origin, rayCount);
-		super.addProperty("Diameter", diameter);
+	public BeamLightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 

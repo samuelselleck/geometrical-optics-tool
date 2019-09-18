@@ -1,16 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class ConcaveLens extends Lens {
 	private static final long serialVersionUID = 1L;
 
-	public ConcaveLens(Vector2d origin, double d, double w, double r1, double r2, double refractionindex) {
-		super(origin, refractionindex);
-		super.addProperty("Diameter", d);
-		super.addProperty("Width", w);
-		super.addProperty("Radius 1", r1);
-		super.addProperty("Radius 2", r2);
+	public ConcaveLens(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 

@@ -15,8 +15,7 @@ public class RectangleWallCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RectangleWall(origin,
-				getParam("Width"), getParam("Height"));
+		return new RectangleWall(origin, getSliderProperties());
 	}
 	
 	@Override

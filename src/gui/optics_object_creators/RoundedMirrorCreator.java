@@ -15,8 +15,7 @@ public class RoundedMirrorCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RoundedMirror(origin, getParam("Diameter"),
-				getParam("Depth"));
+		return new RoundedMirror(origin, getSliderProperties());
 	}
 	
 	@Override

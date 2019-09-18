@@ -18,8 +18,14 @@ public abstract class OpticsObject implements Serializable {
 	private transient Map<String, DoubleProperty> editableProperties = new TreeMap<>();
 	protected double totalRotation;
 	
-	public OpticsObject(Vector2d origin) {
+	public OpticsObject(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		
+		for(Map.Entry<String, DoubleProperty> entry : editableProperties.entrySet()) {
+			double val = entry.getValue().get();
+			addProperty(entry.getKey(), val);
+		}
 		this.origin = origin;		
+		
 	}
 
 	protected final void addProperty(String name, double value) {
@@ -70,6 +76,7 @@ public abstract class OpticsObject implements Serializable {
 		rotateOp(totalRotation);
 	}
 	
+
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		Map<String, Double> properties = new TreeMap<>();
 		for(Map.Entry<String, DoubleProperty> p : editableProperties.entrySet()) {

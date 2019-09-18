@@ -14,7 +14,7 @@ public class FlatMirrorCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new FlatMirror(origin, getParam("Diameter"));
+		return new FlatMirror(origin, getSliderProperties());
 	}
 	
 	@Override

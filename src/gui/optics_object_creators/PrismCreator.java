@@ -16,8 +16,7 @@ public class PrismCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new Prism(origin, getIntParam("Edges"), getParam("Radius"),
-				getParam("Refractionindex"));
+		return new Prism(origin, getSliderProperties());
 	}
 	
 	@Override

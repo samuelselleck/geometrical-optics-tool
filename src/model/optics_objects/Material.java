@@ -2,8 +2,10 @@ package model.optics_objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import gui.Main;
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -11,8 +13,8 @@ public abstract class Material extends OpticsObject {
 	private Vector2d botRig, topLef;
 	protected transient List<Vector2d> points = new ArrayList<>();
 
-	public Material(Vector2d origin) {
-		super(origin);
+	public Material(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 	}
 
 	@Override

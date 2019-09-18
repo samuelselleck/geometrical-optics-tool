@@ -1,14 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class RoundedMirror extends Mirror {
 	private static final long serialVersionUID = 1L;
 
-	public RoundedMirror(Vector2d origin, double diameter, double depth) {
-		super(origin);
-		super.addProperty("Diameter", diameter);
-		super.addProperty("Depth", depth);
+	public RoundedMirror(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 	

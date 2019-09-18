@@ -1,5 +1,8 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -10,8 +13,8 @@ import util.Vector2d;
 
 public abstract class Wall extends Material {
 
-	public Wall(Vector2d origin) {
-		super(origin);
+	public Wall(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 	}
 
 	private static final long serialVersionUID = 1L;

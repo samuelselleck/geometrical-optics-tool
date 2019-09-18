@@ -1,5 +1,8 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -11,9 +14,8 @@ import util.Vector2d;
 public abstract class Lens extends Material {
 	private static final long serialVersionUID = 1L;
 	
-	public Lens(Vector2d origin, double refractionindex) {
-		super(origin);
-		super.addProperty("Refractionindex", refractionindex);
+	public Lens(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 	}
 	
 	@Override

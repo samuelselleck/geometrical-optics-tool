@@ -107,6 +107,14 @@ public abstract class OpticsObjectCreator extends VBox {
 		top.getChildren().add(n);
 	}
 
+	protected Map<String, DoubleProperty> getSliderProperties() {
+		Map<String, DoubleProperty> properties = new TreeMap<>();
+		for(Map.Entry<String, Slider> entry : sliders.entrySet()) {
+			properties.put(entry.getKey(), entry.getValue().valueProperty());
+		}
+		
+		return properties;
+	}
 	protected double getParam(String name) {
 		return sliders.get(name).getValue();
 	}

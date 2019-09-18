@@ -1,14 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class RectangleLens extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public RectangleLens(Vector2d origin, double refractionindex, double width, double height) {
-		super(origin, refractionindex);
-		super.addProperty("Width", width);
-		super.addProperty("Height", height);
+	public RectangleLens(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 	

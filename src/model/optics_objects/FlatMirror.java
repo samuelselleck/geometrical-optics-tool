@@ -1,13 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class FlatMirror extends Mirror {
 	private static final long serialVersionUID = 1L;
 	
-	public FlatMirror(Vector2d origin, double diameter) {
-		super(origin);
-		super.addProperty("Diameter", diameter);
+	public FlatMirror(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 

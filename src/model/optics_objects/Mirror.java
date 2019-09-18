@@ -1,5 +1,8 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.GlobalOpticsSettings;
@@ -9,8 +12,8 @@ public abstract class Mirror extends Material {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Mirror(Vector2d origin) {
-		super(origin);
+	public Mirror(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 	}
 	
 	@Override

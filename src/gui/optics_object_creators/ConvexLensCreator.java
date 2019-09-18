@@ -21,8 +21,7 @@ public class ConvexLensCreator extends OpticsObjectCreator {
 		double r1 = getParam("Radius 1");
 		double r2 = getParam("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
-			return new ConvexLens(origin, d, r1, r2,
-					getParam("Refractionindex"));
+			return new ConvexLens(origin, getSliderProperties());
 		} else {
 			return null;
 		}

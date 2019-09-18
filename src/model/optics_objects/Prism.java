@@ -1,14 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class Prism extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public Prism(Vector2d origin, int edges, double r, double refractionindex) {
-		super(origin, refractionindex);
-		super.addProperty("Edges", edges);
-		super.addProperty("Radius", r);
+	public Prism(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 

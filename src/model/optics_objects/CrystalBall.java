@@ -1,13 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class CrystalBall extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public CrystalBall(Vector2d origin, double r, double refractionindex) {
-		super(origin, refractionindex);
-		super.addProperty("Radius", r);
+	public CrystalBall(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 

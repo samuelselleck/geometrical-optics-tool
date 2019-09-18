@@ -15,8 +15,7 @@ public class CrystallBallCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new CrystalBall(origin, getParam("Radius"),
-				getParam("Refractionindex"));
+		return new CrystalBall(origin, getSliderProperties());
 	}
 	
 	@Override

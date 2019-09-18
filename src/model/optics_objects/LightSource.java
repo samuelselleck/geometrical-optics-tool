@@ -2,8 +2,10 @@ package model.optics_objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import gui.Main;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.GlobalOpticsSettings;
@@ -11,12 +13,12 @@ import model.LightRay;
 import util.Vector2d;
 
 public abstract class LightSource extends OpticsObject {
+	
 	private static final long serialVersionUID = 1L;
 	List<LightRay> light = new ArrayList<>();
 
-	public LightSource(Vector2d origin, int rayCount) {
-		super(origin);
-		super.addProperty("LightRays", rayCount);
+	public LightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 	}
 
 	public void calculateRayPaths(List<Material> materials, int wavelength) {

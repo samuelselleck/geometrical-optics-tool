@@ -16,8 +16,7 @@ public class RectangleLensCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RectangleLens(origin, getParam("Refractionindex"), getParam("Width"),
-				getParam("Height"));
+		return new RectangleLens(origin, getSliderProperties());
 	}
 	
 	@Override

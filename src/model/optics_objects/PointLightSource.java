@@ -1,12 +1,15 @@
 package model.optics_objects;
 
+import java.util.Map;
+
+import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
 public class PointLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public PointLightSource(Vector2d origin, int rayCount) {
-		super(origin, rayCount);
+	public PointLightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+		super(origin, editableProperties);
 		update();
 	}
 
