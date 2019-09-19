@@ -6,8 +6,6 @@ import gui.Main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -74,14 +72,13 @@ public abstract class OpticsObjectCreator extends VBox {
 		text.setFill(Color.WHITE);
 		
 		Slider newSlider = new Slider();
-		HBox.setMargin(newSlider, new Insets(100, 100, 100, 100));
 		newSlider.setMin(min);
 		newSlider.setMax(max);
 		newSlider.setValue(start);
 		
 		newSlider.setShowTickLabels(true);
 		newSlider.setShowTickMarks(true);
-		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
+		newSlider.setMajorTickUnit(Math.round(max - min)/4);
 
 		sliders.put(name, newSlider);
 		
@@ -96,15 +93,14 @@ public abstract class OpticsObjectCreator extends VBox {
 			InvalidationListener updateTextField = e -> {
 				tf.setText(String.format("%.2f", newSlider.getValue()));
 			};
-			newSlider.valueProperty().addListener(updateTextField);
 			updateTextField.invalidated(null);
+			newSlider.valueProperty().addListener(updateTextField);
 			
-			EventHandler<ActionEvent> commitValue = e -> {
+			tf.setOnAction(e -> {
 				double val = Double.parseDouble(tf.getText().replace(',', '.'));
 				newSlider.setValue(val);
 				tf.positionCaret(tf.getLength());
-			};
-			tf.setOnAction(commitValue);
+			});
 			
 			
 			Pane spacing = new Pane();

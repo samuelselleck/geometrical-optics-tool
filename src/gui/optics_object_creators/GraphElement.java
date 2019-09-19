@@ -13,10 +13,10 @@ import model.optics_objects.LightSource;
 
 public class GraphElement extends LineChart<Number, Number> {
 
-	public GraphElement() {
-		
+	public GraphElement() {	
 		super(new NumberAxis(LightSource.lightWaveMin(), LightSource.lightWaveMax(), 100), new NumberAxis());
-		this.setPrefHeight(Main.HEIGHT/5);
+		this.setMinHeight(Main.HEIGHT/6);
+		this.setPrefHeight(Main.HEIGHT/6);
 		this.setLegendVisible(false);
 		this.getYAxis().setTickLabelsVisible(false);
 		this.getYAxis().setVisible(false);

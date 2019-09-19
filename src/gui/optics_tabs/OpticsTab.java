@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import gui.optics_object_creators.OpticsObjectCreator;
 import javafx.beans.InvalidationListener;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import model.optics_objects.OpticsObject;
@@ -21,7 +23,14 @@ public abstract class OpticsTab extends Tab {
 
 	protected void addTab(String name, OpticsObjectCreator creator) {
 		Tab newTab = new Tab(name);
-		newTab.setContent(creator);
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
+		scrollPane.setContent(creator);
+		newTab.setContent(scrollPane);
+		
 		creators.add(creator);
 		tabPane.getTabs().add(newTab);
 	}
@@ -36,11 +45,11 @@ public abstract class OpticsTab extends Tab {
 	}
 	
 	public Tab setEditing(OpticsObject obj) {
-		for(Tab t : tabPane.getTabs()) {
-			OpticsObjectCreator factory = (OpticsObjectCreator)(t.getContent());
-			if(factory.editsOpticsObject(obj)) {
-				tabPane.getSelectionModel().select(t);
-				factory.bind(obj);
+		for(int i = 0; i < creators.size(); i++) {
+			OpticsObjectCreator creator = creators.get(i);
+			if(creator.editsOpticsObject(obj)) {
+				tabPane.getSelectionModel().select(i);
+				creator.bind(obj);
 				return this;
 			}
 		}
@@ -48,8 +57,8 @@ public abstract class OpticsTab extends Tab {
 	}
 
 	public void onUpdated(InvalidationListener updated) {
-		tabPane.getTabs().forEach(t -> {
-			((OpticsObjectCreator)(t.getContent())).onUpdated(updated);
+		creators.forEach(c -> {
+			c.onUpdated(updated);
 		});
 	}
 }
