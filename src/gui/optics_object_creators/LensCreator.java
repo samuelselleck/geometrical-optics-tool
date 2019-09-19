@@ -36,7 +36,7 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		
 		getProperty("Material Index").addListener((s, o, n) -> {
 			update();
-			materialsBox.getSelectionModel().select((int)n);
+			materialsBox.getSelectionModel().select(n.intValue());
 		});
 		
 		materialsBox.getSelectionModel().select(0);
@@ -48,7 +48,7 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		List<Point2D> func = new ArrayList<>();
 		for(double x = LightSource.lightWaveMin(); x <= LightSource.lightWaveMax(); x++) {
 			
-			double y = SellmeierCoefficients.values()[(int)getProperty("Material Index").get()]
+			double y = SellmeierCoefficients.values()[getProperty("Material Index").intValue()]
 					.refraction(x, getProperty("Refraction Multiplier").get());
 			func.add(new Point2D(x, y));
 		}
