@@ -13,7 +13,7 @@ public class BeamLightSourceCreator extends LightSourceCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new BeamLightSource(origin, getSliderProperties());
+		return new BeamLightSource(origin, getCreatorProperties());
 	}
 
 	@Override

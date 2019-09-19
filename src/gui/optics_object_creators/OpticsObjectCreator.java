@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import gui.Main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,12 +24,14 @@ import util.Vector2d;
 
 public abstract class OpticsObjectCreator extends VBox {
 	private Map<String, Slider> sliders;
+	private Map<String, DoubleProperty> properties;
 	private VBox top;
 	private InvalidationListener updated;
 	
 	public OpticsObjectCreator() {
 		this.setPadding(new Insets(20, 20, 20, 20));
 		sliders = new TreeMap<>();
+		properties = new TreeMap<>();
 		
 		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
@@ -41,14 +44,25 @@ public abstract class OpticsObjectCreator extends VBox {
 	public abstract boolean editsOpticsObject(OpticsObject obj);
 	
 	public void bind(OpticsObject obj) {
+		
 		 for(Map.Entry<String, DoubleProperty> property : obj.getProperties().entrySet()) {
-			DoubleProperty sliderVal = sliders.get(property.getKey()).valueProperty();
-			DoubleProperty objVal = property.getValue();
-		    sliderVal.set(objVal.get());
-		    sliderVal.removeListener(updated);
-		    objVal.bind(sliderVal);
-		    sliderVal.addListener(updated);
+			 
+			if (properties.containsKey(property.getKey())) {
+				
+				DoubleProperty creatorProperty = properties.get(property.getKey());
+				DoubleProperty objVal = property.getValue();
+				
+				creatorProperty.set(objVal.get());
+				creatorProperty.removeListener(updated);
+				objVal.bind(creatorProperty);
+				creatorProperty.addListener(updated);
+				
+			} else {
+				
+				System.out.println("ERROR: could not find creator property to bind to");
+			}
 		 }
+		 
 	}
 	
 	public void onUpdated(InvalidationListener updated) {
@@ -67,9 +81,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		newSlider.setShowTickLabels(true);
 		newSlider.setShowTickMarks(true);
-		newSlider.setMinorTickCount(1);
 		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
-		newSlider.setSnapToTicks(true);
 
 		sliders.put(name, newSlider);
 		
@@ -104,30 +116,43 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		top.getChildren().add(box);
 		top.getChildren().add(newSlider);		
+		
+		addProperty(name, newSlider.valueProperty());
+		
 		return newSlider;
 	}
 	
 	protected Slider addSlider(String name, double min, double max, double start, boolean intValues) {
 		Slider slider = addSlider(name, min, max, start);
 		
-		slider.valueProperty().addListener((obs, oldval, newVal) ->
-	    slider.setValue(Math.round(newVal.doubleValue())));
+		if(intValues) {
+			slider.valueProperty().addListener((obs, oldval, newVal) ->
+		    slider.setValue(Math.round(newVal.doubleValue())));
+		}
 		
 		return slider;
+	}
+	
+	public void addProperty(String name, DoubleProperty value) {
+		properties.put(name, value);
+	}
+	
+	public void addProperty(String name) {
+		addProperty(name, new SimpleDoubleProperty());
+	}
+	
+	public DoubleProperty getProperty(String name) {
+		return properties.get(name);
 	}
 	
 	protected void addElement(Node n) {
 		top.getChildren().add(n);
 	}
 
-	protected Map<String, DoubleProperty> getSliderProperties() {
-		Map<String, DoubleProperty> properties = new TreeMap<>();
-		for(Map.Entry<String, Slider> entry : sliders.entrySet()) {
-			properties.put(entry.getKey(), entry.getValue().valueProperty());
-		}
-		
+	protected Map<String, DoubleProperty> getCreatorProperties() {
 		return properties;
 	}
+	
 	protected double getParam(String name) {
 		return sliders.get(name).getValue();
 	}

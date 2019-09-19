@@ -12,7 +12,7 @@ public class PointLightSourceCreator extends LightSourceCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new PointLightSource(origin, getSliderProperties());
+		return new PointLightSource(origin, getCreatorProperties());
 	}
 	
 	@Override

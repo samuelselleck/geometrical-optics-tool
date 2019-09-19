@@ -4,17 +4,16 @@ import model.optics_objects.OpticsObject;
 import model.optics_objects.RectangleLens;
 import util.Vector2d;
 
-public class RectangleLensCreator extends OpticsObjectCreator {
+public class RectangleLensCreator extends LensCreator {
 
 	public RectangleLensCreator() {
 		addSlider("Width", 7, 800, 500);
 		addSlider("Height", 7, 800, 100);
-		addSlider("Refractionindex", 1, 3, 1.5);
 	}
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RectangleLens(origin, getSliderProperties());
+		return new RectangleLens(origin, getCreatorProperties());
 	}
 	
 	@Override

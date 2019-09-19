@@ -13,7 +13,7 @@ Interaction:
 propertytextfields=true
 
 Performance callibration:
-opticsobjectresolution=200
+opticsobjectresolution=500
 maxraybounce=10
 
 Admin:

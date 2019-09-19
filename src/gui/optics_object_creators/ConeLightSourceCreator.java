@@ -13,7 +13,7 @@ public class ConeLightSourceCreator extends LightSourceCreator {
 	
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new ConeLightSource(origin, getSliderProperties());
+		return new ConeLightSource(origin, getCreatorProperties());
 	}
 	
 	@Override

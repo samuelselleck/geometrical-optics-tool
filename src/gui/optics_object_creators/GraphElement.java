@@ -14,6 +14,7 @@ import model.optics_objects.LightSource;
 public class GraphElement extends LineChart<Number, Number> {
 
 	public GraphElement() {
+		
 		super(new NumberAxis(LightSource.lightWaveMin(), LightSource.lightWaveMax(), 100), new NumberAxis());
 		this.setPrefHeight(Main.HEIGHT/5);
 		this.setLegendVisible(false);
