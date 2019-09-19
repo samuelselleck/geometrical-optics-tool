@@ -8,7 +8,7 @@ public class BeamLightSourceCreator extends LightSourceCreator {
 
 	public BeamLightSourceCreator() {
 		addSlider("Diameter", 23, 400, 80);
-		addSlider("LightRays", 1, 100, 20);
+		addSlider("LightRays", 1, 100, 20, true);
 	}
 
 	@Override

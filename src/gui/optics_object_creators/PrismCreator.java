@@ -7,7 +7,7 @@ import util.Vector2d;
 public class PrismCreator extends OpticsObjectCreator {
 
 	public PrismCreator() {
-		addSlider("Edges", 3, 8, 3);
+		addSlider("Edges", 3, 8, 3, true);
 		addSlider("Radius", 11, 300, 80);
 		addSlider("Refractionindex", 1, 3, 1.5);
 	}

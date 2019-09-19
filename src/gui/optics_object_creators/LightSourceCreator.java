@@ -3,7 +3,6 @@ package gui.optics_object_creators;
 import java.util.ArrayList;
 import java.util.List;
 
-import gui.OpticsView;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Slider;
 import model.optics_objects.LightSource;
@@ -17,6 +16,7 @@ public abstract class LightSourceCreator extends OpticsObjectCreator {
 		
 		Slider wavelength = addSlider("Wavelength", LightSource.lightWaveMin(), LightSource.lightWaveMax(), LightSource.lightWaveDefault());
 		Slider bandwidth = addSlider("Bandwidth", 0, LightSource.lightWaveMax() - LightSource.lightWaveMin(), 0);
+		
 		wavelength.valueProperty().addListener(e -> {
 			double distToEdge = Math.min(
 					wavelength.getValue() - LightSource.lightWaveMin(),

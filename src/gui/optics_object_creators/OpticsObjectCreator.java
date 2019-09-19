@@ -3,7 +3,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.Main;
-import gui.OpticsView;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
@@ -68,7 +67,9 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		newSlider.setShowTickLabels(true);
 		newSlider.setShowTickMarks(true);
+		newSlider.setMinorTickCount(1);
 		newSlider.setMajorTickUnit(Math.abs(max - min + 1) / 4);
+		newSlider.setSnapToTicks(true);
 
 		sliders.put(name, newSlider);
 		
@@ -104,6 +105,15 @@ public abstract class OpticsObjectCreator extends VBox {
 		top.getChildren().add(box);
 		top.getChildren().add(newSlider);		
 		return newSlider;
+	}
+	
+	protected Slider addSlider(String name, double min, double max, double start, boolean intValues) {
+		Slider slider = addSlider(name, min, max, start);
+		
+		slider.valueProperty().addListener((obs, oldval, newVal) ->
+	    slider.setValue(Math.round(newVal.doubleValue())));
+		
+		return slider;
 	}
 	
 	protected void addElement(Node n) {

@@ -1,6 +1,5 @@
 package gui.optics_object_creators;
 
-import gui.OpticsView;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.RectangleLens;
 import util.Vector2d;
