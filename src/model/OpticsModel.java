@@ -15,11 +15,8 @@ public class OpticsModel implements Serializable {
 	
 	List<Material> materials;
 	List<LightSource> lights;
-	
-	GlobalOpticsSettings settings;
-	
-	public OpticsModel(GlobalOpticsSettings settings) {
-		this.settings = settings;
+
+	public OpticsModel() {
 		init();
 	}
 	
@@ -29,8 +26,10 @@ public class OpticsModel implements Serializable {
 	}
 	
 	public OpticsObject getOpticsObjectAt(double x, double y) {
-		OpticsObject draging = null;
+		OpticsObject obj = null;
+		
 		Vector2d pos = new Vector2d(x, y);
+		
 		List<OpticsObject> objList = new ArrayList<>();
 		objList.addAll(materials);
 		objList.addAll(lights);
@@ -41,11 +40,11 @@ public class OpticsModel implements Serializable {
 				double distSq = o.getOrigin().distSquared(pos);
 				if (closestSq > distSq) {
 					closestSq = distSq;
-					draging = o;
+					obj = o;
 				}
 			}
 		}
-		return draging;
+		return obj;
 	}
 	
 	public void addOpticsObject(OpticsObject newOpticsObject) {
@@ -58,11 +57,11 @@ public class OpticsModel implements Serializable {
 		}
 	}
 
-	public void remove(OpticsObject draging) {
-		if(draging instanceof Material) {
-			materials.remove(draging);
+	public void remove(OpticsObject obj) {
+		if(obj instanceof Material) {
+			materials.remove(obj);
 		} else {
-			lights.remove(draging);
+			lights.remove(obj);
 		}
 	}
 
@@ -75,7 +74,7 @@ public class OpticsModel implements Serializable {
 	}
 	
 	public void clear() {
-		lights.clear();
+		clearLights();
 		clearMaterials();
 	}
 
@@ -85,9 +84,5 @@ public class OpticsModel implements Serializable {
 
 	public void clearMaterials() {
 		materials.clear();
-	}
-
-	public GlobalOpticsSettings getSettings() {
-		return settings;
 	}
 }

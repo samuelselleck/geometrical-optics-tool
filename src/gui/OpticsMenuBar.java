@@ -20,7 +20,7 @@ public class OpticsMenuBar extends MenuBar {
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
 		FileChooser chooser = new FileChooser();
-		workspaceFile = imgsaveFile = new File(Main.properties.getProperty("jarpath"));
+		workspaceFile = imgsaveFile = new File(Main.PATH);
 		
 		MenuItem open = new MenuItem("Open");
 		open.setOnAction(e -> {

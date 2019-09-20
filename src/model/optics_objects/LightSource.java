@@ -9,7 +9,6 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import model.GlobalOpticsSettings;
 import model.LightRay;
 import util.Utils;
 import util.Vector2d;
@@ -19,7 +18,6 @@ public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	List<LightRay> light = new ArrayList<>();
 	
-	//Colors, Paths, Positions
 	Map<Integer, List<List<Vector2d>>> paths = new TreeMap<>();
 	
 	public LightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
@@ -29,20 +27,23 @@ public abstract class LightSource extends OpticsObject {
 	public void calculateRayPaths(List<Material> materials) {
 		paths.clear();
 		
+		int min = Main.getIntProperty("minwavelength");
+		int max = Main.getIntProperty("maxwavelength");
 		double wavelength = get("Wavelength");
 		double bandwidth = get("Bandwidth");
-		int maxRayCount = maxColorRayCount();
+		int maxRayCount = Main.getIntProperty("maxcolorraycount");
+		
 		List<Integer> wavelengths = new ArrayList<>();
 		
-		double step = (lightWaveMax() - lightWaveMin())/maxRayCount;
+		double step = (max - min)/maxRayCount;
 		
-		for(double w = wavelength; w <= lightWaveMax(); w+= step) {	
+		for(double w = wavelength; w <= max; w+= step) {	
 			if(w <= wavelength + bandwidth/2) {
 				wavelengths.add((int)w);
 			}
 		}
 		
-		for(double w = wavelength - step; w >= lightWaveMin(); w -= step) {	
+		for(double w = wavelength - step; w >= min; w -= step) {	
 			if(w >= wavelength - bandwidth/2) {
 				wavelengths.add((int)w);
 			}
@@ -59,11 +60,12 @@ public abstract class LightSource extends OpticsObject {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
+	public void draw(GraphicsContext gc, boolean selected) {
 		
 		for(Map.Entry<Integer, List<List<Vector2d>>> entry : paths.entrySet()) {
+			
 			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
-			gc.setStroke(new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 1));
+			gc.setStroke(new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 0.7));
 			
 			gc.beginPath();
 			for(List<Vector2d> path : entry.getValue()) {
@@ -109,21 +111,5 @@ public abstract class LightSource extends OpticsObject {
 		} else {
 			light.clear();
 		}
-	}
-	
-	public static int lightWaveMax() {
-		return Integer.parseInt(Main.properties.getProperty("maxwavelength"));
-	}
-	
-	public static int lightWaveMin() {
-		return Integer.parseInt(Main.properties.getProperty("minwavelength"));
-	}
-	
-	public static int lightWaveDefault() {
-		return Integer.parseInt(Main.properties.getProperty("defaultwavelength"));
-	}
-	
-	public static int maxColorRayCount() {
-		return Integer.parseInt(Main.properties.getProperty("maxcolorraycount"));
 	}
 }

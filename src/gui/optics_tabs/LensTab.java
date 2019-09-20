@@ -1,6 +1,5 @@
 package gui.optics_tabs;
 
-import gui.OpticsView;
 import gui.optics_object_creators.ConcaveLensCreator;
 import gui.optics_object_creators.ConvexLensCreator;
 import gui.optics_object_creators.CrystallBallCreator;

@@ -9,12 +9,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import model.optics_objects.LightSource;
 
 public class GraphElement extends LineChart<Number, Number> {
 
-	public GraphElement() {	
-		super(new NumberAxis(LightSource.lightWaveMin(), LightSource.lightWaveMax(), 100), new NumberAxis());
+	public GraphElement(double min, double max, double step) {	
+		super(new NumberAxis(min , max, step), new NumberAxis());
 		this.setMinHeight(Main.HEIGHT/6);
 		this.setPrefHeight(Main.HEIGHT/6);
 		this.setLegendVisible(false);

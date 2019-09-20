@@ -42,13 +42,13 @@ public class OpticsView {
 		
 		for(LightSource s : model.getLights()) {
 			s.calculateRayPaths(model.getMaterials());
-			s.draw(gc, model.getSettings(), selected == s);
+			s.draw(gc, selected == s);
 		}
 		
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		
 		for(Material m : model.getMaterials()) {
-			m.draw(gc, model.getSettings(), selected == m);	
+			m.draw(gc, selected == m);	
 		}
 	}
 	

@@ -37,7 +37,7 @@ public class LightRay implements Serializable {
 		LightRay bestCandidateRay;
 		
 		int count = 0;
-		int maxIterrations = Integer.parseInt(Main.properties.getProperty("maxraybounce"));
+		int maxIterrations = Main.getIntProperty("maxraybounce");
 		do {
 			count++;
 			bestCandidateRay = null;

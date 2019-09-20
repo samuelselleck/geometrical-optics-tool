@@ -5,7 +5,6 @@ import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import model.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class Mirror extends Material {
@@ -22,7 +21,7 @@ public abstract class Mirror extends Material {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected) {
+	public void draw(GraphicsContext gc, boolean selected) {
 		
 		gc.setStroke(new Color(0.7, 0.7, 0.7, 1));
 		if(selected) {

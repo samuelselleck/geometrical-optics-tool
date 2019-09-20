@@ -2,6 +2,7 @@ package model.optics_objects;
 
 import java.util.Map;
 
+import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
@@ -16,8 +17,10 @@ public class RoundedMirror extends Mirror {
 	@Override
 	protected void update() {
 		super.clear();
-		for(int i = 0; i <= OpticsObject.getResolution(); i++) {
-			double x = (2.0*i/OpticsObject.getResolution() - 1);
+		int resolution = Main.getIntProperty("opticsobjectresolution");
+		
+		for(int i = 0; i <= resolution; i++) {
+			double x = (2.0*i/resolution - 1);
 			double y = x*x;
 			points.add(new Vector2d(x*get("Diameter")/2, get("Depth")*(y - 1.0/2)));
 		}

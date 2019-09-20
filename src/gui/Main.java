@@ -13,29 +13,29 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.GlobalOpticsSettings;
 import model.OpticsModel;
 
 public class Main extends Application {
 	public static boolean DEBUG = false;
 	public static double WIDTH;
 	public static double HEIGHT;
-	public static Properties properties;
+	public static String PATH;
+	private static Properties PROPERTIES;
 
 	public static void main(String[] args) {
 		
-		properties = new Properties();
+		PROPERTIES = new Properties();
 		try {
 			
-			String jarPath = new File(Main.class
+			PATH = new File(Main.class
 					.getProtectionDomain()
 					.getCodeSource()
 					.getLocation()
 				    .toURI())
 					.getParent();
 			
-			properties.load(new FileInputStream(jarPath + "/config.txt"));
-			properties.setProperty("jarpath", jarPath);
+			PROPERTIES.load(new FileInputStream(PATH + "/config.txt"));
+			
 		} catch (IOException e) {
 			System.err.println("Could not find config.txt file");
 		} catch (URISyntaxException e) {
@@ -44,14 +44,22 @@ public class Main extends Application {
 		
 		Application.launch(args);
 	}
-
+	
+	public static int getIntProperty(String name) {
+		return Integer.parseInt(PROPERTIES.getProperty(name));
+	}
+	
+	public static boolean isActive(String name) {
+		return PROPERTIES.getProperty(name).equalsIgnoreCase("true");
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		
 		//Set window size;
-		if(!properties.getProperty("fullscreen").equals("true")) {
-			WIDTH = Integer.parseInt(properties.getProperty("width"));
-			HEIGHT = Integer.parseInt(properties.getProperty("height"));
+		if(!PROPERTIES.getProperty("fullscreen").equals("true")) {
+			WIDTH = Integer.parseInt(PROPERTIES.getProperty("width"));
+			HEIGHT = Integer.parseInt(PROPERTIES.getProperty("height"));
 			
 		} else {
 			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -63,8 +71,7 @@ public class Main extends Application {
 		stage.setWidth(WIDTH);
 		stage.setHeight(HEIGHT);
 		
-		GlobalOpticsSettings settings = new GlobalOpticsSettings();
-		OpticsModel model = new OpticsModel(settings);
+		OpticsModel model = new OpticsModel();
 		OpticsView view = new OpticsView(WIDTH * 3/4, HEIGHT - 100);
 		OpticsCreatorsBox opticsBox = new OpticsCreatorsBox();
 		

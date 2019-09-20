@@ -9,7 +9,6 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
-import model.GlobalOpticsSettings;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
@@ -40,7 +39,7 @@ public abstract class OpticsObject implements Serializable {
 	
 	protected abstract void clear();
 	protected abstract void update();
-	public abstract void draw(GraphicsContext gc, GlobalOpticsSettings settings, boolean selected);
+	public abstract void draw(GraphicsContext gc, boolean selected);
 	
 	public final Map<String, DoubleProperty> getProperties() {
 		return editableProperties;
@@ -95,9 +94,5 @@ public abstract class OpticsObject implements Serializable {
 		}
 		in.defaultReadObject();
 		update();
-	}
-	
-	public static int getResolution() {
-		return Integer.parseInt(Main.properties.getProperty("opticsobjectresolution"));
 	}
 }

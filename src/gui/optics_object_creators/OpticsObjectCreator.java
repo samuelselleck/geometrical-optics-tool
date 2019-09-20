@@ -85,7 +85,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		HBox box = new HBox();
 		box.getChildren().add(text);
 		
-		if(Main.properties.getProperty("propertytextfields").equals("true")) {
+		if(Main.isActive("propertytextfields")) {
 			
 			TextField tf = new TextField();
 			tf.setMaxWidth(Main.WIDTH/15);

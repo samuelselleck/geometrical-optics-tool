@@ -14,7 +14,6 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
-import model.GlobalOpticsSettings;
 import model.OpticsModel;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
@@ -209,10 +208,6 @@ public class OpticsController {
 		connect(model, view);
 		deselect();
 		redraw();
-	}
-	
-	public GlobalOpticsSettings getModelSettings() {
-		return model.getSettings();
 	}
 	
 	public void saveScreenshotTo(File saveFile) {

@@ -3,15 +3,18 @@ package gui.optics_object_creators;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.Main;
 import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ComboBox;
-import model.optics_objects.Lens.SellmeierCoefficients;
-import model.optics_objects.LightSource;
+import model.optics_objects.Lens.LensMaterial;
 
 public abstract class LensCreator extends OpticsObjectCreator {
 	
-	GraphElement graph = new GraphElement();
+	GraphElement graph = new GraphElement(
+			Main.getIntProperty("minwavelength"), 
+			Main.getIntProperty("maxwavelength"), 
+			100);
 	
 	public LensCreator() {
 		
@@ -21,8 +24,8 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		
 		addProperty("Material Index");
 		
-		ComboBox<SellmeierCoefficients> materialsBox = new ComboBox<SellmeierCoefficients>(
-				FXCollections.observableArrayList(SellmeierCoefficients.values()));
+		ComboBox<LensMaterial> materialsBox = new ComboBox<LensMaterial>(
+				FXCollections.observableArrayList(LensMaterial.values()));
 		materialsBox.setPrefWidth(Double.MAX_VALUE);
 		
 		materialsBox.setOnAction(e -> {
@@ -46,9 +49,9 @@ public abstract class LensCreator extends OpticsObjectCreator {
 	
 	private void update() {
 		List<Point2D> func = new ArrayList<>();
-		for(double x = LightSource.lightWaveMin(); x <= LightSource.lightWaveMax(); x++) {
+		for(double x = Main.getIntProperty("minwavelength"); x <= Main.getIntProperty("maxwavelength"); x++) {
 			
-			double y = SellmeierCoefficients.values()[getProperty("Material Index").intValue()]
+			double y = LensMaterial.values()[getProperty("Material Index").intValue()]
 					.refraction(x, getProperty("Refraction Multiplier").get());
 			func.add(new Point2D(x, y));
 		}

@@ -2,6 +2,7 @@ package model.optics_objects;
 
 import java.util.Map;
 
+import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
@@ -16,7 +17,7 @@ public class ConcaveLens extends Lens {
 	@Override
 	protected void update() {
 		super.clear();
-		int quarterResolution = getResolution() / 4;
+		int quarterResolution = Main.getIntProperty("opticsobjectresolution")/ 4;
 		double d = get("Diameter");
 		double w = get("Width");
 		double r1 = get("Radius 1");
