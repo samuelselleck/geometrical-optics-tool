@@ -88,7 +88,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		if(Main.isActive("propertytextfields")) {
 			
 			TextField tf = new TextField();
-			tf.setMaxWidth(Main.WIDTH/15);
+			tf.setMaxWidth(Main.DPCM*2);
 			tf.setStyle("-fx-control-inner-background: black");
 			InvalidationListener updateTextField = e -> {
 				tf.setText(String.format("%.2f", newSlider.getValue()));
@@ -141,19 +141,15 @@ public abstract class OpticsObjectCreator extends VBox {
 		return properties.get(name);
 	}
 	
+	public double get(String name) {
+		return getProperty(name).get();
+	}
+	
 	protected void addElement(Node n) {
 		top.getChildren().add(n);
 	}
 
 	protected Map<String, DoubleProperty> getCreatorProperties() {
 		return properties;
-	}
-	
-	protected double getParam(String name) {
-		return sliders.get(name).getValue();
-	}
-	
-	protected int getIntParam(String name) {
-		return (int)Math.round(getParam(name));
 	}
 }

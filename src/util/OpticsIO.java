@@ -19,7 +19,7 @@ public class OpticsIO {
 		this.opticsController = opticsController;
 	}
 	
-	public void saveCurrentWorkspace(File file) {
+	public void saveWorkspace(File file) {
 		
 		try {
 			
@@ -35,7 +35,7 @@ public class OpticsIO {
 		}
 	}
 	
-	public void loadExample(File file) {
+	public void loadWorkspace(File file) {
 		try {
 			FileInputStream fileIn =  new FileInputStream(file);
 			ObjectInputStream in = new ObjectInputStream(fileIn);

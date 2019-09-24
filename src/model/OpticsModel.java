@@ -13,16 +13,16 @@ public class OpticsModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	List<Material> materials;
-	List<LightSource> lights;
+	private List<Material> materials;
+	private List<LightSource> lights;
 
 	public OpticsModel() {
 		init();
 	}
 	
 	public void init() {
-		materials = new ArrayList<Material>();
-		lights = new ArrayList<LightSource>();
+		materials = new ArrayList<>();
+		lights = new ArrayList<>();
 	}
 	
 	public OpticsObject getOpticsObjectAt(double x, double y) {

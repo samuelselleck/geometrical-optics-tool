@@ -15,9 +15,9 @@ public class ConcaveLensCreator extends LensCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		double d = getParam("Diameter");
-		double r1 = getParam("Radius 1");
-		double r2 = getParam("Radius 2");
+		double d = get("Diameter");
+		double r1 = get("Radius 1");
+		double r2 = get("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
 			return new ConcaveLens(origin, getCreatorProperties());
 		} else {

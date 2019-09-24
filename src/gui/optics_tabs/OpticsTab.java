@@ -24,7 +24,7 @@ public abstract class OpticsTab extends Tab {
 	protected void addTab(String name, OpticsObjectCreator creator) {
 		Tab newTab = new Tab(name);
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setFitToHeight(true);
 		scrollPane.setFitToWidth(true);

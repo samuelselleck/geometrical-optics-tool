@@ -75,7 +75,8 @@ public class LightRay implements Serializable {
 		} while (bestCandidateRay != null && count < maxIterrations);
 
 		if (bestCandidateRay == null && count != maxIterrations) {
-			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.WIDTH*50)));
+			//Add far away point in the rays direction (can't bother calculating screen bound hit)
+			path.add(currRay.getPos().add(currRay.ray.normalize().mult(Main.DPCM*100)));
 		}
 		
 		return path;

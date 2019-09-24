@@ -80,7 +80,7 @@ public abstract class LightSource extends OpticsObject {
 		
 		if(selected) {
 			gc.setFill(new Color(1, 1, 1, 0.3));
-			gc.fillOval(origin.x - Main.WIDTH/30, origin.y - Main.WIDTH/30, Main.WIDTH/15, Main.WIDTH/15);
+			gc.fillOval(origin.x - Main.DPCM/2, origin.y - Main.DPCM/2, Main.DPCM, Main.DPCM);
 		}
 	}
 	
@@ -93,7 +93,7 @@ public abstract class LightSource extends OpticsObject {
 	
 	@Override
 	public boolean withinTouchHitBox(Vector2d pos) {
-		return pos.distSquared(this.getOrigin()) < (Main.HEIGHT/10)*(Main.HEIGHT/10);
+		return pos.distSquared(this.getOrigin()) < Main.DPCM*Main.DPCM;
 	}
 	
 	protected void addLightRay(Vector2d offset, Vector2d ray) {

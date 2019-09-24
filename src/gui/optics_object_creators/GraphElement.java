@@ -14,8 +14,7 @@ public class GraphElement extends LineChart<Number, Number> {
 
 	public GraphElement(double min, double max, double step) {	
 		super(new NumberAxis(min , max, step), new NumberAxis());
-		this.setMinHeight(Main.HEIGHT/6);
-		this.setPrefHeight(Main.HEIGHT/6);
+		this.setPrefHeight(Main.DPCM*2);
 		this.setLegendVisible(false);
 		this.getYAxis().setTickLabelsVisible(false);
 		this.getYAxis().setVisible(false);

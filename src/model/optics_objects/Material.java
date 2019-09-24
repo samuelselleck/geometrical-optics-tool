@@ -78,13 +78,13 @@ public abstract class Material extends OpticsObject {
 		double diffY = botRight.y - topLeft.y;
 		
 		//To make sure that mirrors and other really thin objects can be grabbed:
-		if( diffX < Main.HEIGHT/10) {
-			botRight.x += -diffX/2 + Main.HEIGHT/20;
-			topLeft.x -= -diffX/2 + Main.HEIGHT/20;
+		if( diffX < Main.DPCM) {
+			botRight.x += -diffX/2 + Main.DPCM;
+			topLeft.x -= -diffX/2 + Main.DPCM;
 		}
-		if( diffY < Main.HEIGHT/10) {
-			botRight.y += -diffY/2 + Main.HEIGHT/20;
-			topLeft.y -= -diffY/2 + Main.HEIGHT/20;
+		if( diffY < Main.DPCM) {
+			botRight.y += -diffY/2 + Main.DPCM;
+			topLeft.y -= -diffY/2 + Main.DPCM;
 		}
 		boolean left = topLeft.x >= pos.x;
 		boolean right = pos.x >= botRight.x;

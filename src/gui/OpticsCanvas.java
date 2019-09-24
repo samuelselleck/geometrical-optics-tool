@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.beans.binding.DoubleExpression;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -12,7 +13,7 @@ import model.optics_objects.Material;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class OpticsView {
+public class OpticsCanvas {
 	private OpticsModel model;
 	private GraphicsContext gc;
 	private Canvas canvas;
@@ -21,9 +22,46 @@ public class OpticsView {
 	
 	private OpticsObject selected;
 	
-	public OpticsView(double width, double height) {
-		this.canvas = new Canvas(width, height);
+	public OpticsCanvas() {
+		
+		this.canvas = new Canvas(10, 10) {
+			@Override
+		    public boolean isResizable() {
+		        return true;
+		    }
+
+		    @Override
+		    public double maxHeight(double width) {
+		        return Double.POSITIVE_INFINITY;
+		    }
+
+		    @Override
+		    public double maxWidth(double height) {
+		        return Double.POSITIVE_INFINITY;
+		    }
+
+		    @Override
+		    public double minWidth(double height) {
+		        return 1D;
+		    }
+
+		    @Override
+		    public double minHeight(double width) {
+		        return 1D;
+		    }
+
+		    @Override
+		    public void resize(double width, double height) {
+		        this.setWidth(width);
+		        this.setHeight(height);
+		    }
+		};
+		
+		canvas.widthProperty().addListener(e -> redraw());
+		canvas.heightProperty().addListener(e -> redraw());
+		
 		this.gc = canvas.getGraphicsContext2D();
+		
 		gc.setLineJoin(StrokeLineJoin.ROUND);
 		gc.save();
 		this.scale = 1;
@@ -61,7 +99,7 @@ public class OpticsView {
 		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 		gc.setLineWidth(1);
 		
-		double gridSize = Main.WIDTH/20;
+		double gridSize = Main.DPCM*2;
 		
 		gc.setStroke(new Color(1, 1, 1, 0.3));
 		if(grid) {
@@ -120,5 +158,10 @@ public class OpticsView {
 
 	public void setOpticsModel(OpticsModel model) {
 		this.model = model;
+	}
+
+	public void bind(DoubleExpression widthBinding, DoubleExpression heightBinding) {
+		canvas.widthProperty().bind(widthBinding);
+		canvas.heightProperty().bind(heightBinding);
 	}
 }

@@ -7,7 +7,8 @@ import gui.Main;
 import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ComboBox;
-import model.optics_objects.Lens.LensMaterial;
+import model.LensMaterial;
+import model.optics_objects.Lens;
 
 public abstract class LensCreator extends OpticsObjectCreator {
 	
@@ -25,7 +26,7 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		addProperty("Material Index");
 		
 		ComboBox<LensMaterial> materialsBox = new ComboBox<LensMaterial>(
-				FXCollections.observableArrayList(LensMaterial.values()));
+				FXCollections.observableArrayList(Lens.MATERIALS));
 		materialsBox.setPrefWidth(Double.MAX_VALUE);
 		
 		materialsBox.setOnAction(e -> {
@@ -51,8 +52,8 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		List<Point2D> func = new ArrayList<>();
 		for(double x = Main.getIntProperty("minwavelength"); x <= Main.getIntProperty("maxwavelength"); x++) {
 			
-			double y = LensMaterial.values()[getProperty("Material Index").intValue()]
-					.refraction(x, getProperty("Refraction Multiplier").get());
+			double y = Lens.MATERIALS.get((int)get("Material Index"))
+					.refraction(x, get("Refraction Multiplier"));
 			func.add(new Point2D(x, y));
 		}
 		graph.setData(func);

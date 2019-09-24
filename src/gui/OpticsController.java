@@ -22,7 +22,7 @@ public class OpticsController {
 	public static final int EDGE_LEASE = 10;
 	
 	private OpticsModel model;
-	private OpticsView view;
+	private OpticsCanvas view;
 	private OpticsCreatorsBox opticsBox;
 	
 	private OpticsObjectCreator opticsObjectCreator;
@@ -34,7 +34,7 @@ public class OpticsController {
 	private Vector2d lastPos;
 	private double rotationFactor;
 
-	public OpticsController(OpticsModel model, OpticsView view, OpticsCreatorsBox opticsBox) {
+	public OpticsController(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
 		this.model = model;
 		this.view = view;
 		this.opticsBox = opticsBox;
@@ -62,7 +62,7 @@ public class OpticsController {
 		redraw();	
 	}
 
-	private void connect(OpticsModel model, OpticsView view) {
+	private void connect(OpticsModel model, OpticsCanvas view) {
 		Canvas canvas = view.getCanvas();
 		view.setOpticsModel(model);
 		
@@ -222,7 +222,7 @@ public class OpticsController {
 		}
 	}
 
-	public OpticsView getView() {
+	public OpticsCanvas getView() {
 		return view;
 	}
 }

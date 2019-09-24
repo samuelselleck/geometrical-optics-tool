@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;

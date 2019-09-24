@@ -2,6 +2,7 @@ package gui;
 
 import java.io.File;
 
+import gui.subviews.AddMaterialWindow;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,7 @@ public class OpticsMenuBar extends MenuBar {
 	private File workspaceFile, imgsaveFile;
 	
 	public OpticsMenuBar(OpticsController opticsController, Stage primaryStage) {
+		
 		Menu file = new Menu("File");
 		
 		OpticsIO opticsIO = new OpticsIO(opticsController);
@@ -32,7 +34,7 @@ public class OpticsMenuBar extends MenuBar {
 			File exampleFile = chooser.showOpenDialog(primaryStage);
 			if(exampleFile != null) {
 				workspaceFile = exampleFile.getParentFile();
-				opticsIO.loadExample(exampleFile);
+				opticsIO.loadWorkspace(exampleFile);
 			}
 		});
 		
@@ -46,7 +48,7 @@ public class OpticsMenuBar extends MenuBar {
 			File saveFile = chooser.showSaveDialog(primaryStage);
 			if(saveFile != null) {
 				workspaceFile = saveFile.getParentFile();
-				opticsIO.saveCurrentWorkspace(saveFile);
+				opticsIO.saveWorkspace(saveFile);
 			}
 		});
 		
@@ -93,8 +95,17 @@ public class OpticsMenuBar extends MenuBar {
 			System.exit(0);
 		});
 		
+		Menu options = new Menu("Options");
+		
+		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
+		
+		addLensMaterial.setOnAction(e -> {
+			@SuppressWarnings("unused")
+			AddMaterialWindow addMWin = new AddMaterialWindow();
+		});
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
 		window.getItems().addAll(resetView, grid);
-		this.getMenus().addAll(file, window);
+		options.getItems().addAll(addLensMaterial);
+		this.getMenus().addAll(file, window, options);
 	}
 }
