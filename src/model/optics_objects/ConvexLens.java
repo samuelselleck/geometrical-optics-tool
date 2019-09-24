@@ -9,8 +9,8 @@ import util.Vector2d;
 public class ConvexLens extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public ConvexLens(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
-		super(origin, editableProperties);
+	public ConvexLens(Vector2d origin, Map<String, DoubleProperty> properties) {
+		super(origin, properties);
 		update();
 	}
 
@@ -18,9 +18,9 @@ public class ConvexLens extends Lens {
 	protected void update() {
 		super.clear();
 		int quarterResolution = Main.getIntProperty("opticsobjectresolution")/4;
-		double d = get("Diameter");
-		double r1 = get("Radius 1");
-		double r2 = get("Radius 2");
+		double d = get("Diameter")*Main.DPCM;
+		double r1 = get("Radius 1")*Main.DPCM;
+		double r2 = get("Radius 2")*Main.DPCM;
 		
 		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
 		double rightAngle = Math.acos(1 - d * d / (2 * r2 * r2)) / 2;

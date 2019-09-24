@@ -42,7 +42,8 @@ public class OpticsIO {
 			opticsController.setOpticsModel((OpticsModel)in.readObject());
 			in.close();
 			fileIn.close();
-			//TODO UPDATE BUTTONS
+			
+			opticsController.getView().redraw();
 		} catch (Exception e) {
 			System.err.println("Couldn't load file: " + file.getAbsolutePath());
 			e.printStackTrace();

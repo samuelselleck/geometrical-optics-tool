@@ -13,12 +13,12 @@ import util.Vector2d;
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Vector2d origin;
-	private transient Map<String, DoubleProperty> editableProperties = new TreeMap<>();
+	private transient Map<String, DoubleProperty> properties = new TreeMap<>();
 	protected double totalRotation;
 	
-	public OpticsObject(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
+	public OpticsObject(Vector2d origin, Map<String, DoubleProperty> properties) {
 		
-		for(Map.Entry<String, DoubleProperty> entry : editableProperties.entrySet()) {
+		for(Map.Entry<String, DoubleProperty> entry : properties.entrySet()) {
 			double val = entry.getValue().get();
 			addProperty(entry.getKey(), val);
 		}
@@ -29,11 +29,11 @@ public abstract class OpticsObject implements Serializable {
 	protected final void addProperty(String name, double value) {
 		DoubleProperty property = new SimpleDoubleProperty(value);
 		property.addListener(e -> update());
-		editableProperties.put(name, property);	
+		properties.put(name, property);	
 	}
 	
 	protected final double get(String name) {
-		return editableProperties.get(name).get();
+		return properties.get(name).get();
 	}
 	
 	protected abstract void clear();
@@ -41,11 +41,11 @@ public abstract class OpticsObject implements Serializable {
 	public abstract void draw(GraphicsContext gc, boolean selected);
 	
 	public final Map<String, DoubleProperty> getProperties() {
-		return editableProperties;
+		return properties;
 	}
 	
 	public final void undbind() {
-		for(Map.Entry<String, DoubleProperty> p : editableProperties.entrySet()) {
+		for(Map.Entry<String, DoubleProperty> p : properties.entrySet()) {
 			p.getValue().unbind();
 		}
 	}
@@ -76,19 +76,19 @@ public abstract class OpticsObject implements Serializable {
 	
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		Map<String, Double> properties = new TreeMap<>();
-		for(Map.Entry<String, DoubleProperty> p : editableProperties.entrySet()) {
-			properties.put(p.getKey(), p.getValue().get());
+		Map<String, Double> propertiesSave = new TreeMap<>();
+		for(Map.Entry<String, DoubleProperty> p : properties.entrySet()) {
+			propertiesSave.put(p.getKey(), p.getValue().get());
 		}
-		out.writeObject(properties);
+		out.writeObject(propertiesSave);
 		out.defaultWriteObject();
 	}
 	
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		@SuppressWarnings("unchecked")
-		Map<String, Double> properties = (Map<String, Double>)in.readObject();
-		editableProperties = new TreeMap<>();
-		for(Map.Entry<String, Double> p : properties.entrySet()) {
+		Map<String, Double> propertiesLoad = (Map<String, Double>)in.readObject();
+		properties = new TreeMap<>();
+		for(Map.Entry<String, Double> p : propertiesLoad.entrySet()) {
 			addProperty(p.getKey(), p.getValue());
 		}
 		in.defaultReadObject();

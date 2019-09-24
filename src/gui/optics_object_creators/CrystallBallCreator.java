@@ -1,5 +1,6 @@
 package gui.optics_object_creators;
 
+import gui.Main;
 import model.optics_objects.CrystalBall;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
@@ -7,7 +8,7 @@ import util.Vector2d;
 public class CrystallBallCreator extends LensCreator {
 	
 	public CrystallBallCreator() {
-		addSlider("Radius", 11, 500, 80);
+		addSlider("Radius", 1, Main.getIntProperty("maxobjectsizecm")/2, 2);
 	}
 
 	@Override

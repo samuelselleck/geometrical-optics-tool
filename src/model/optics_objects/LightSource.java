@@ -20,11 +20,12 @@ public abstract class LightSource extends OpticsObject {
 	
 	Map<Integer, List<List<Vector2d>>> paths = new TreeMap<>();
 	
-	public LightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
-		super(origin, editableProperties);
+	public LightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
+		super(origin, properties);
 	}
 
 	public void calculateRayPaths(List<Material> materials) {
+		
 		paths.clear();
 		
 		int min = Main.getIntProperty("minwavelength");
@@ -80,7 +81,7 @@ public abstract class LightSource extends OpticsObject {
 		
 		if(selected) {
 			gc.setFill(new Color(1, 1, 1, 0.3));
-			gc.fillOval(origin.x - Main.DPCM/2, origin.y - Main.DPCM/2, Main.DPCM, Main.DPCM);
+			gc.fillOval(origin.x - Main.DPCM, origin.y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
 		}
 	}
 	

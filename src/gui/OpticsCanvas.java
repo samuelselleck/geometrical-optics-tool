@@ -68,7 +68,7 @@ public class OpticsCanvas {
 		this.xTranslation = 0;
 		this.yTranslation = 0;
 		selected = null;
-		grid = true;
+		grid = false;
 	}
 	
 	//TODO Do this in a better way for color mode

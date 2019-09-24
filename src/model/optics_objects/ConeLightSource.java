@@ -8,8 +8,8 @@ import util.Vector2d;
 public class ConeLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public ConeLightSource(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
-		super(origin, editableProperties);
+	public ConeLightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
+		super(origin, properties);
 		update();
 	}
 

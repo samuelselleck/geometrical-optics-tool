@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 
 import gui.subviews.AddMaterialWindow;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -77,16 +78,9 @@ public class OpticsMenuBar extends MenuBar {
 			opticsController.redraw();
 		});
 		
-		MenuItem grid = new MenuItem("Grid: ON");
+		CheckMenuItem grid = new CheckMenuItem("Grid");
 		grid.setOnAction(e -> {
-			String str = grid.getText().split(" ")[1];
-			if(str.equals("OFF")) {
-				opticsController.getView().setGrid(true);
-				grid.setText("Grid: ON");
-			} else {
-				opticsController.getView().setGrid(false);
-				grid.setText("Grid: OFF");
-			}
+		    opticsController.getView().setGrid(grid.isSelected());
 			opticsController.redraw();
 		});
 		

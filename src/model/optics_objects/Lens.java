@@ -27,8 +27,8 @@ public abstract class Lens extends Material {
 				1.43134930, 0.65054713, 5.3414021, 5.2799261e-3, 1.42382647e-2, 325.017834));
 	}
 	
-	public Lens(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
-		super(origin, editableProperties);
+	public Lens(Vector2d origin, Map<String, DoubleProperty> properties) {
+		super(origin, properties);
 	}
 	
 	@Override

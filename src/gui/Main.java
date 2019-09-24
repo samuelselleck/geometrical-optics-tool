@@ -81,9 +81,7 @@ public class Main extends Application {
 		BorderPane root = new BorderPane();
 		
 		root.setStyle(
-				"-fx-background-color: #222222;" + 
-				"-fx-base: black; -fx-fill: black;" +
-				"-fx-focus-color: gray;" + 
+				"-fx-base: #222222;" +
 				"-fx-faint-focus-color: white;"
 				);
 		

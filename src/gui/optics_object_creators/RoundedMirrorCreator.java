@@ -1,5 +1,6 @@
 package gui.optics_object_creators;
 
+import gui.Main;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.RoundedMirror;
 import util.Vector2d;
@@ -7,8 +8,8 @@ import util.Vector2d;
 public class RoundedMirrorCreator extends OpticsObjectCreator {
 	
 	public RoundedMirrorCreator() {
-		addSlider("Diameter", 103, 800, 200);
-		addSlider("Depth", 11, 500, 30);
+		addSlider("Diameter", 2, Main.getIntProperty("maxobjectsizecm"), 4);
+		addSlider("Depth", 0.5, Main.getIntProperty("maxobjectsizecm"), 1);
 	}
 
 	@Override

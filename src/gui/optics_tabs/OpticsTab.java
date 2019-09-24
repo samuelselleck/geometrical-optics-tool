@@ -23,11 +23,13 @@ public abstract class OpticsTab extends Tab {
 
 	protected void addTab(String name, OpticsObjectCreator creator) {
 		Tab newTab = new Tab(name);
+		
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);	
 		scrollPane.setFitToHeight(true);
 		scrollPane.setFitToWidth(true);
+		
 		scrollPane.setContent(creator);
 		newTab.setContent(scrollPane);
 		
@@ -36,6 +38,7 @@ public abstract class OpticsTab extends Tab {
 	}
 
 	public OpticsObjectCreator getCurrentOpticsObjectCreator() {
+		
 		int index = tabPane.getSelectionModel().getSelectedIndex();
 		if (index >= 0) {
 			return creators.get(index);

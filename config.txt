@@ -10,6 +10,7 @@ maxcolorraycount=10
 
 Interaction:
 propertytextfields=true
+maxobjectsizecm=15
 
 Performance callibration:
 opticsobjectresolution=500

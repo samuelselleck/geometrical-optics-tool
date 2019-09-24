@@ -1,5 +1,6 @@
 package gui.optics_object_creators;
 
+import gui.Main;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.Prism;
 import util.Vector2d;
@@ -8,7 +9,7 @@ public class PrismCreator extends LensCreator {
 
 	public PrismCreator() {
 		addSlider("Edges", 3, 8, 3, true);
-		addSlider("Radius", 11, 300, 80);
+		addSlider("Radius", 1, Main.getIntProperty("maxobjectsizecm")/2, 2);
 	}
 
 	@Override

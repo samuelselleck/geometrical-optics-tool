@@ -7,6 +7,7 @@ import util.Vector2d;
 public class ConeLightSourceCreator extends LightSourceCreator {
 
 	public ConeLightSourceCreator() {
+		
 		addSlider("Cone Angle", 11, 180, 30);
 		addSlider("LightRays", 11, 100, 20, true);
 	}

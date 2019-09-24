@@ -13,8 +13,8 @@ public abstract class Material extends OpticsObject {
 	private Vector2d botRig, topLef;
 	protected transient List<Vector2d> points = new ArrayList<>();
 
-	public Material(Vector2d origin, Map<String, DoubleProperty> editableProperties) {
-		super(origin, editableProperties);
+	public Material(Vector2d origin, Map<String, DoubleProperty> properties) {
+		super(origin, properties);
 	}
 
 	@Override

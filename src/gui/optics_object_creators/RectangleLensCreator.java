@@ -1,5 +1,6 @@
 package gui.optics_object_creators;
 
+import gui.Main;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.RectangleLens;
 import util.Vector2d;
@@ -7,8 +8,8 @@ import util.Vector2d;
 public class RectangleLensCreator extends LensCreator {
 
 	public RectangleLensCreator() {
-		addSlider("Width", 7, 800, 500);
-		addSlider("Height", 7, 800, 100);
+		addSlider("Width", 0.2, Main.getIntProperty("maxobjectsizecm"), 1);
+		addSlider("Height", 0.2, Main.getIntProperty("maxobjectsizecm"), 4);
 	}
 
 	@Override

@@ -35,6 +35,7 @@ public class OpticsController {
 	private double rotationFactor;
 
 	public OpticsController(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
+		
 		this.model = model;
 		this.view = view;
 		this.opticsBox = opticsBox;

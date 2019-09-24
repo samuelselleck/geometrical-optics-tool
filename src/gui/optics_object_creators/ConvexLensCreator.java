@@ -1,5 +1,6 @@
 package gui.optics_object_creators;
 
+import gui.Main;
 import model.optics_objects.ConvexLens;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
@@ -7,9 +8,11 @@ import util.Vector2d;
 public class ConvexLensCreator extends LensCreator {
 
 	public ConvexLensCreator() {
-		addSlider("Diameter", 103, 800, 180);
-		addSlider("Radius 1", 55, 800, 300);
-		addSlider("Radius 2", 55, 800, 300);
+		double max = Main.getIntProperty("maxobjectsizecm");
+		
+		addSlider("Diameter", 2, max, 4);
+		addSlider("Radius 1", 1, 100, 10);
+		addSlider("Radius 2", 1, 100, 10);
 	}
 
 	@Override
