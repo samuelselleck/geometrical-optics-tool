@@ -65,11 +65,11 @@ public class Main extends Application {
 		OpticsCanvas canvasView = new OpticsCanvas();
 		OpticsCreatorsBox opticsBox = new OpticsCreatorsBox();
 
-		OpticsController opticsController = new OpticsController(model, canvasView, opticsBox);
+		OpticsEnvironment opticsEnvironment = new OpticsEnvironment(model, canvasView, opticsBox);
 
-		OpticsToolBox toolBox = new OpticsToolBox(opticsController);
+		OpticsToolBox toolBox = new OpticsToolBox(opticsEnvironment);
 		
-		OpticsMenuBar menuBar = new OpticsMenuBar(opticsController, stage);
+		OpticsMenuBar menuBar = new OpticsMenuBar(opticsEnvironment, stage);
 		
 		SplitPane splitPane = new SplitPane();
 		

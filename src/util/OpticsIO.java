@@ -8,15 +8,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Path;
 
-import gui.OpticsController;
+import gui.OpticsEnvironment;
 import model.OpticsModel;
 
 public class OpticsIO {
-	OpticsController opticsController;
+	OpticsEnvironment opticsEnvironment;
 	Path root;
 	
-	public OpticsIO(OpticsController opticsController) {
-		this.opticsController = opticsController;
+	public OpticsIO(OpticsEnvironment opticsEnvironment) {
+		this.opticsEnvironment = opticsEnvironment;
 	}
 	
 	public void saveWorkspace(File file) {
@@ -25,7 +25,7 @@ public class OpticsIO {
 			
 			FileOutputStream fileOut = new FileOutputStream(file);
 			ObjectOutputStream out = new  ObjectOutputStream(fileOut);
-			out.writeObject(opticsController.getOpticsModel());
+			out.writeObject(opticsEnvironment.getOpticsModel());
 			out.close();
 			fileOut.close();
 		 
@@ -39,11 +39,11 @@ public class OpticsIO {
 		try {
 			FileInputStream fileIn =  new FileInputStream(file);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			opticsController.setOpticsModel((OpticsModel)in.readObject());
+			opticsEnvironment.setOpticsModel((OpticsModel)in.readObject());
 			in.close();
 			fileIn.close();
 			
-			opticsController.getView().redraw();
+			opticsEnvironment.getView().redraw();
 		} catch (Exception e) {
 			System.err.println("Couldn't load file: " + file.getAbsolutePath());
 			e.printStackTrace();

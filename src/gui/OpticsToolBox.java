@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class OpticsToolBox extends ToolBar {
 
-	public OpticsToolBox(OpticsController opticsController) {
+	public OpticsToolBox(OpticsEnvironment opticsEnvironment) {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		VBox.setVgrow(this, Priority.ALWAYS);
 		
@@ -18,17 +18,17 @@ public class OpticsToolBox extends ToolBar {
 		Button clearLightsButton = new Button("Clear Lights");
 		clearLightsButton.setPrefHeight(buttonHeight);
 		clearLightsButton.setOnAction(e -> {
-			opticsController.clearLights();
+			opticsEnvironment.clearLights();
 		});
 		Button clearMaterialsButton = new Button("Clear Objects");
 		clearMaterialsButton.setPrefHeight(buttonHeight);
 		clearMaterialsButton.setOnAction(e -> {
-			opticsController.clearMaterials();
+			opticsEnvironment.clearMaterials();
 		});
 		Button clearButton = new Button("Clear All");
 		clearButton.setPrefHeight(buttonHeight);
 		clearButton.setOnAction(e -> {
-			opticsController.clear();
+			opticsEnvironment.clear();
 		});
 		Button rotationFactorButton = new Button("Rotation factor: 1");
 		rotationFactorButton.setPrefHeight(buttonHeight);
@@ -38,7 +38,7 @@ public class OpticsToolBox extends ToolBar {
 			double val = Double.parseDouble(parts[parts.length - 1]);
 			val /= 2;
 			if(val < 0.10) val = 1;
-			opticsController.setRotationFactor(val);
+			opticsEnvironment.setRotationFactor(val);
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
 		

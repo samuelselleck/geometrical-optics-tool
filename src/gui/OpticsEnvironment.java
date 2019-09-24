@@ -18,7 +18,7 @@ import model.OpticsModel;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class OpticsController {
+public class OpticsEnvironment {
 	public static final int EDGE_LEASE = 10;
 	
 	private OpticsModel model;
@@ -34,7 +34,7 @@ public class OpticsController {
 	private Vector2d lastPos;
 	private double rotationFactor;
 
-	public OpticsController(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
+	public OpticsEnvironment(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
 		
 		this.model = model;
 		this.view = view;
@@ -121,6 +121,7 @@ public class OpticsController {
 				lastPos = new Vector2d(e.getX(), e.getY());
 			}
 		});
+		
 		canvas.setOnMouseDragged(e -> {
 			Vector2d currPos  = view.getTablePos(e.getX(), e.getY());
 			

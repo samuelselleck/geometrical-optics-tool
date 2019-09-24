@@ -17,11 +17,11 @@ public class OpticsMenuBar extends MenuBar {
 
 	private File workspaceFile, imgsaveFile;
 	
-	public OpticsMenuBar(OpticsController opticsController, Stage primaryStage) {
+	public OpticsMenuBar(OpticsEnvironment opticsEnvironment, Stage primaryStage) {
 		
 		Menu file = new Menu("File");
 		
-		OpticsIO opticsIO = new OpticsIO(opticsController);
+		OpticsIO opticsIO = new OpticsIO(opticsEnvironment);
 		FileChooser chooser = new FileChooser();
 		workspaceFile = imgsaveFile = new File(Main.PATH);
 		
@@ -64,7 +64,7 @@ public class OpticsMenuBar extends MenuBar {
 			File saveFile = chooser.showSaveDialog(primaryStage);
 			if(saveFile != null) {
 				imgsaveFile = saveFile.getParentFile();
-				opticsController.saveScreenshotTo(saveFile);
+				opticsEnvironment.saveScreenshotTo(saveFile);
 			}
 			
 		});
@@ -74,14 +74,14 @@ public class OpticsMenuBar extends MenuBar {
 		
 		MenuItem resetView = new MenuItem("Reset View");
 		resetView.setOnAction(e -> {
-			opticsController.getView().resetView();
-			opticsController.redraw();
+			opticsEnvironment.getView().resetView();
+			opticsEnvironment.redraw();
 		});
 		
 		CheckMenuItem grid = new CheckMenuItem("Grid");
 		grid.setOnAction(e -> {
-		    opticsController.getView().setGrid(grid.isSelected());
-			opticsController.redraw();
+		    opticsEnvironment.getView().setGrid(grid.isSelected());
+			opticsEnvironment.redraw();
 		});
 		
 		MenuItem exit = new MenuItem("Exit");

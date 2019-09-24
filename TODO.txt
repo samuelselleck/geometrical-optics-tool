@@ -2,36 +2,36 @@
 
 TODO------------------------------------------------------------------
 
-5) Inkludera ett korrekt våglängdsberoende (och lägg till några riktiga material)
+5) Inkludera ett korrekt vï¿½glï¿½ngdsberoende (och lï¿½gg till nï¿½gra riktiga material)
 
-6) Testa att göra ett gitter (behöver inte konservera energi)
+6) Testa att gï¿½ra ett gitter (behï¿½ver inte konservera energi)
 
-7) Möjliggör för plan-konvexa linser
+7) Mï¿½jliggï¿½r fï¿½r plan-konvexa linser
 
-8) Gör en kort förklarande film så att vi kan pitcha programmet ;)
+8) Gï¿½r en kort fï¿½rklarande film sï¿½ att vi kan pitcha programmet ;)
 
-9) Gör en mode som endast har perfekta, tunna linser och begränsat antal strålar för att demonstrera strålgången i kikare, mikroskop etc...
+9) Gï¿½r en mode som endast har perfekta, tunna linser och begrï¿½nsat antal strï¿½lar fï¿½r att demonstrera strï¿½lgï¿½ngen i kikare, mikroskop etc...
 
-10) Skriv ett nytt program för diffraktion (Fraunhofer och Fresnel)
+10) Skriv ett nytt program fï¿½r diffraktion (Fraunhofer och Fresnel)
 
-FÄRDIGT----------------------------------------------------------------
+Fï¿½RDIGT----------------------------------------------------------------
 
-1) Markera vilket element som är aktivt 
+1) Markera vilket element som ï¿½r aktivt 
 
-2) Möjliggör att det aktiva elementets egenskaper kan ändras (på ett sätt som du känner dig nöjd med)
+2) Mï¿½jliggï¿½r att det aktiva elementets egenskaper kan ï¿½ndras (pï¿½ ett sï¿½tt som du kï¿½nner dig nï¿½jd med)
 
-3) Sätt lite färg på alla optiska element som inte är luft/vakuum
+3) Sï¿½tt lite fï¿½rg pï¿½ alla optiska element som inte ï¿½r luft/vakuum
 
-4) Möjliggör zoomning och translation
+4) Mï¿½jliggï¿½r zoomning och translation
 
-S) Lägg till möjlighet att skriva in värden
+S) Lï¿½gg till mï¿½jlighet att skriva in vï¿½rden
 
 REFAKTORISERA----------------------------------------------------------
-zoomning/hela opticsController
+zoomning/hela opticsEnvironment
 gui bitar i JXML?
 calculateRaypaths, speciellt colormode
-factories tas bort? (räcker med spec i objecten? statiska spec? objekt utan attribut (eller update) först?
-ERRORhandling i S) (skriva värden)
+factories tas bort? (rï¿½cker med spec i objecten? statiska spec? objekt utan attribut (eller update) fï¿½rst?
+ERRORhandling i S) (skriva vï¿½rden)
 
-FRAMTIDA FRÅGOR OM FEATURES--------------------------------------------
-bakrgrundsgrid av/på? (lättare att se!)
+FRAMTIDA FRï¿½GOR OM FEATURES--------------------------------------------
+bakrgrundsgrid av/pï¿½? (lï¿½ttare att se!)
