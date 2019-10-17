@@ -1,10 +1,10 @@
 package model.optics_objects;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -15,7 +15,7 @@ import util.Vector2d;
 public abstract class Lens extends Material {
 	private static final long serialVersionUID = 1L;
 
-	public static List<LensMaterial> MATERIALS = new ArrayList<>();
+	public static ObservableList<LensMaterial> MATERIALS = FXCollections.observableArrayList();
 	
 	static {
 		

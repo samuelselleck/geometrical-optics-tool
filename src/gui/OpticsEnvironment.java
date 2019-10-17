@@ -59,7 +59,6 @@ public class OpticsEnvironment {
 		selected = null;
 		this.dragged = false;
 		this.rotating = false;
-		
 		redraw();	
 	}
 
@@ -68,39 +67,12 @@ public class OpticsEnvironment {
 		view.setOpticsModel(model);
 		
 		canvas.setOnMouseReleased(e -> {
-			if(e.getButton() != MouseButton.MIDDLE) {
-				Vector2d pos = view.getTablePos(e.getX(), e.getY());
-				boolean inBounds = !(
-						e.getX() < EDGE_LEASE ||
-						e.getX() > canvas.getWidth() - EDGE_LEASE ||
-						e.getY() < EDGE_LEASE ||
-						e.getY() > canvas.getHeight() - EDGE_LEASE
-						);
-				
-				if (draging != null) {
-					if (!inBounds) {
-						model.remove(draging);
-						selected = null;
-						view.deselect();
-					} else {
-						draging.setOrigin(pos.x + offset.x, pos.y + offset.y);
-					}	
-					draging = null;
-				} else if (!dragged) {
-					OpticsObject atMouse = model.getOpticsObjectAt(pos.x, pos.y);
-					if(atMouse != null) {
-						select(atMouse);
-					} else if (inBounds && opticsObjectCreator != null) {
-						OpticsObject newObj = opticsObjectCreator.getOpticsObject(new Vector2d(pos.x, pos.y));
-						model.addOpticsObject(newObj);
-						select(newObj);
-					}
-				}
-				rotating = false;
-				dragged = false;
+			if(!e.getButton().equals(MouseButton.MIDDLE)) {
+				release(e.getX(), e.getY());
 			}
-			lastPos = null;
-			redraw();
+		});
+		canvas.setOnTouchReleased(e -> {
+			release(e.getTouchPoint().getX(), e.getTouchPoint().getY());
 		});
 
 		
@@ -142,6 +114,10 @@ public class OpticsEnvironment {
 			redraw();
 		});
 		
+		canvas.setOnTouchMoved(e -> {
+			e.consume();
+		});
+		
 		canvas.setOnRotate(e -> {
 			if(draging != null) {
 				draging.rotate(e.getAngle()/180.0*Math.PI*rotationFactor);
@@ -154,6 +130,42 @@ public class OpticsEnvironment {
 			view.scale(e.getDeltaY()/400, p.x, p.y);
 			redraw();
 		});
+	}
+	
+	private void release(double x, double y) {
+		Vector2d pos = view.getTablePos(x, y);
+		Canvas canvas = view.getCanvas();
+		
+		boolean inBounds = !(
+				x < EDGE_LEASE ||
+				x > canvas.getWidth() - EDGE_LEASE ||
+				y < EDGE_LEASE ||
+				y > canvas.getHeight() - EDGE_LEASE
+				);
+		
+		if (draging != null) {
+			if (!inBounds) {
+				model.remove(draging);
+				selected = null;
+				view.deselect();
+			} else {
+				draging.setOrigin(pos.x + offset.x, pos.y + offset.y);
+			}	
+			draging = null;
+		} else if (!dragged) {
+			OpticsObject atMouse = model.getOpticsObjectAt(pos.x, pos.y);
+			if(atMouse != null) {
+				select(atMouse);
+			} else if (inBounds && opticsObjectCreator != null) {
+				OpticsObject newObj = opticsObjectCreator.getOpticsObject(new Vector2d(pos.x, pos.y));
+				model.addOpticsObject(newObj);
+				select(newObj);
+			}
+		}
+		rotating = false;
+		dragged = false;
+		lastPos = null;
+		redraw();
 	}
 	
 	private void select(OpticsObject obj) {

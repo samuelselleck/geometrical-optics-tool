@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Main;
-import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ComboBox;
 import model.LensMaterial;
@@ -25,8 +24,7 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		
 		addProperty("Material Index");
 		
-		ComboBox<LensMaterial> materialsBox = new ComboBox<LensMaterial>(
-				FXCollections.observableArrayList(Lens.MATERIALS));
+		ComboBox<LensMaterial> materialsBox = new ComboBox<LensMaterial>(Lens.MATERIALS);
 		materialsBox.setPrefWidth(Double.MAX_VALUE);
 		
 		materialsBox.setOnAction(e -> {
