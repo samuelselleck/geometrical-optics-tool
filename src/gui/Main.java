@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import model.OpticsModel;
 
 public class Main extends Application {
-	public static boolean DEBUG = false;
 	public static String PATH;
 	public static double DPCM;
 	private static Properties PROPERTIES;
@@ -25,6 +24,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 
 		PROPERTIES = new Properties();
+		
 		try {
 
 			PATH = new File(Main.class

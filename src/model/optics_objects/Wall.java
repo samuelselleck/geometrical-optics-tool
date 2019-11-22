@@ -1,5 +1,7 @@
 package model.optics_objects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
@@ -19,8 +21,8 @@ public abstract class Wall extends Material {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public double getAngle(double angleIn, double wavelength, boolean dir) {
-		return 0;
+	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+		return new ArrayList<>();
 	}
 	
 	@Override

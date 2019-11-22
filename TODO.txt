@@ -32,6 +32,3 @@ gui bitar i JXML?
 calculateRaypaths, speciellt colormode
 factories tas bort? (r�cker med spec i objecten? statiska spec? objekt utan attribut (eller update) f�rst?
 ERRORhandling i S) (skriva v�rden)
-
-FRAMTIDA FR�GOR OM FEATURES--------------------------------------------
-bakrgrundsgrid av/p�? (l�ttare att se!)

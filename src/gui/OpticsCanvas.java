@@ -99,7 +99,7 @@ public class OpticsCanvas {
 		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
 		gc.setLineWidth(1);
 		
-		double gridSize = Main.DPCM*2;
+		double gridSize = Main.DPCM;
 		
 		gc.setStroke(new Color(1, 1, 1, 0.3));
 		if(grid) {

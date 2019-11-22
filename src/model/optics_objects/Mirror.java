@@ -1,5 +1,7 @@
 package model.optics_objects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
@@ -16,8 +18,12 @@ public abstract class Mirror extends Material {
 	}
 	
 	@Override
-	public double getAngle(double angleIn, double wavelength, boolean dir) {
-		return Math.PI - angleIn;
+	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+		List<Vector2d> scattered = new ArrayList<>();
+		double angle = ray.angleTo(surface);
+		Vector2d newRay = ray.copy().rotate(-2*angle);
+		scattered.add(newRay);
+		return scattered;
 	}
 	
 	@Override

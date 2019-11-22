@@ -50,9 +50,7 @@ public abstract class Material extends OpticsObject {
 		topLef.add(new Vector2d(-1, -1));
 		botRig.add(new Vector2d(1, 1));
 	}
-
-	public abstract double getAngle(double angleIn, double wavelength, boolean dir);
-
+	
 	@Override
 	public void rotateOp(double angle) {
 		for(Vector2d p : points) {
@@ -104,4 +102,6 @@ public abstract class Material extends OpticsObject {
 	public int getPointCount() {
 		return points.size();
 	}
+
+	public abstract List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength);
 }

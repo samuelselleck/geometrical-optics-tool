@@ -9,6 +9,7 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.LightPathNode;
 import model.LightRay;
 import util.Utils;
 import util.Vector2d;
@@ -18,7 +19,7 @@ public abstract class LightSource extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	List<LightRay> light = new ArrayList<>();
 	
-	Map<Integer, List<List<Vector2d>>> paths = new TreeMap<>();
+	Map<Integer, List<LightPathNode>> paths = new TreeMap<>();
 	
 	public LightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
 		super(origin, properties);
@@ -51,9 +52,9 @@ public abstract class LightSource extends OpticsObject {
 		}
 		
 		wavelengths.stream().forEach(w -> {	
-			List<List<Vector2d>> pathsAtWavelength = new ArrayList<>();
+			List<LightPathNode> pathsAtWavelength = new ArrayList<>();
 			light.stream().forEach(l -> {
-				List<Vector2d> path = l.calculatePath(materials, w);
+				LightPathNode path = l.calculatePath(materials, w);
 				pathsAtWavelength.add(path);
 			});
 			paths.put(w, pathsAtWavelength);
@@ -63,18 +64,15 @@ public abstract class LightSource extends OpticsObject {
 	@Override
 	public void draw(GraphicsContext gc, boolean selected) {
 		
-		for(Map.Entry<Integer, List<List<Vector2d>>> entry : paths.entrySet()) {
+		for(Map.Entry<Integer, List<LightPathNode>> entry : paths.entrySet()) {
 			
 			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
 			gc.setStroke(new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 0.7));
 			
 			gc.beginPath();
-			for(List<Vector2d> path : entry.getValue()) {
-				gc.moveTo(path.get(0).x, path.get(0).y);
-				for(int i = 1; i < path.size(); i++) {
-					Vector2d pos = path.get(i);
-					gc.lineTo(pos.x, pos.y);
-				}
+			for(LightPathNode path : entry.getValue()) {
+				gc.moveTo(path.getOrigin().x, path.getOrigin().y);
+				path.strokeWith(gc);
 			}	
 			gc.stroke();
 		}

@@ -1,5 +1,7 @@
 package model.optics_objects;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
@@ -32,7 +34,19 @@ public abstract class Lens extends Material {
 	}
 	
 	@Override
-	public double getAngle(double angleIn, double wavelength, boolean into) {
+	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+		List<Vector2d> scattered = new ArrayList<>();
+		double cross = surface.crossSign(ray);
+		//convert the line to a normal:
+		Vector2d normal = surface.copy().rotate(cross*Math.PI / 2).normalize();
+		double angleIn = ray.angleTo(normal);
+		double angleOut = getAngle(angleIn, wavelength, cross > 0);
+		normal.rotate(angleOut);
+		scattered.add(normal);
+		return scattered;
+	}
+	
+	private double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
 		double currRefrac = MATERIALS.get((int)get("Material Index"))
