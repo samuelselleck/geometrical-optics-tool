@@ -19,9 +19,11 @@ public abstract class Mirror extends Material {
 	
 	@Override
 	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
-		List<Vector2d> scattered = new ArrayList<>();
+		
 		double angle = ray.angleTo(surface);
 		Vector2d newRay = ray.copy().rotate(-2*angle);
+		
+		List<Vector2d> scattered = new ArrayList<>();
 		scattered.add(newRay);
 		return scattered;
 	}

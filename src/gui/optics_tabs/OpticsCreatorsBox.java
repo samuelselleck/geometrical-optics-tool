@@ -20,6 +20,7 @@ public class OpticsCreatorsBox extends TabPane {
 		tabs.add(new LightTab());
 		tabs.add(new MirrorTab());
 		tabs.add(new WallTab());
+		tabs.add(new OtherTab());
 		
 		this.getTabs().addAll(tabs);
 		this.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
