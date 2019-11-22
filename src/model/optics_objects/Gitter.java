@@ -12,8 +12,8 @@ import util.Vector2d;
 public abstract class Gitter extends Material {
 	private static final long serialVersionUID = 1L;
 
-	public Gitter(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
+	public Gitter(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override

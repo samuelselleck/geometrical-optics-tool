@@ -9,9 +9,8 @@ import util.Vector2d;
 public class RectangleLens extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public RectangleLens(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public RectangleLens(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 	
 	@Override
@@ -24,6 +23,6 @@ public class RectangleLens extends Lens {
 		points.add(new Vector2d(halfWidth, -halfHeight));
 		points.add(new Vector2d(halfWidth, halfHeight));
 		points.add(new Vector2d(-halfWidth, halfHeight));
-		super.initObject();
+		super.init();
 	}
 }

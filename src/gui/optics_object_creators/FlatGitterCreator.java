@@ -13,7 +13,7 @@ public class FlatGitterCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new FlatGitter(origin, getCreatorProperties());
+		return new FlatGitter(getInitializationProperties(origin));
 	}
 	
 	@Override

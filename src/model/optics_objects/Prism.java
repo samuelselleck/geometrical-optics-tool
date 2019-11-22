@@ -9,9 +9,8 @@ import util.Vector2d;
 public class Prism extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public Prism(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public Prism(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -24,6 +23,6 @@ public class Prism extends Lens {
 					get("Radius")*Main.DPCM * Math.sin(angle));
 			points.add(p);
 		}
-		super.initObject();
+		super.init();
 	}
 }

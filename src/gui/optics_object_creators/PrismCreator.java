@@ -14,7 +14,7 @@ public class PrismCreator extends LensCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new Prism(origin, getCreatorProperties());
+		return new Prism(getInitializationProperties(origin));
 	}
 	
 	@Override

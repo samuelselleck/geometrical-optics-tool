@@ -9,9 +9,8 @@ import util.Vector2d;
 public class FlatMirror extends Mirror {
 	private static final long serialVersionUID = 1L;
 	
-	public FlatMirror(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public FlatMirror(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -20,6 +19,6 @@ public class FlatMirror extends Mirror {
 		Vector2d unit = new Vector2d(1, 0).mult(get("Diameter")*Main.DPCM / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));
-		super.initObject();
+		super.init();
 	}
 }

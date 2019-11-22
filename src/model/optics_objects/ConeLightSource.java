@@ -8,9 +8,8 @@ import util.Vector2d;
 public class ConeLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public ConeLightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public ConeLightSource(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -22,6 +21,6 @@ public class ConeLightSource extends LightSource {
 			super.addLightRay(ray.copy());
 			ray.rotate(deltaAngle);
 		}
-		super.initObject();
+		super.init();
 	}
 }

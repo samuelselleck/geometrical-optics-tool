@@ -6,9 +6,11 @@ import gui.Main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -25,17 +27,45 @@ public abstract class OpticsObjectCreator extends VBox {
 	private Map<String, DoubleProperty> properties;
 	private VBox top;
 	private InvalidationListener updated;
+	private OpticsObject lastBound;
 	
 	public OpticsObjectCreator() {
+		
 		this.setPadding(new Insets(20, 20, 20, 20));
 		sliders = new TreeMap<>();
 		properties = new TreeMap<>();
 		
+		for(String p : OpticsObject.REQUIRED_PROPERTIES) {
+			addProperty(p);
+		}
+		
 		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
 		top.setAlignment(Pos.TOP_LEFT);
-		this.getChildren().addAll(top);
 		
+		HBox bot = new HBox();
+		Label xLabel = new Label("x:");
+		TextField xPos = new TextField();
+		bindStringToDouble(xPos.textProperty(), properties.get("X"));
+		Label yLabel = new Label("y:");
+		TextField yPos = new TextField();
+		bindStringToDouble(yPos.textProperty(), properties.get("Y"));
+		Label rLabel = new Label("r:");
+		TextField rotation = new TextField();
+		bindStringToDouble(rotation.textProperty(), properties.get("Rotation"));
+		
+		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
+		this.getChildren().addAll(top, bot);
+		
+	}
+	
+	private void bindStringToDouble(StringProperty s, DoubleProperty d) {
+		s.addListener((l, o, n) -> {
+			d.set(Double.parseDouble(s.get().replace(",", ".")));
+		});
+		d.addListener((l, o, n) -> {
+			s.set(String.format("%.2f", d.get()));
+		});
 	}
 
 	public abstract OpticsObject getOpticsObject(Vector2d origin);
@@ -43,24 +73,53 @@ public abstract class OpticsObjectCreator extends VBox {
 	
 	public void bind(OpticsObject obj) {
 		
+		 unbind();
+		 
 		 for(Map.Entry<String, DoubleProperty> property : obj.getProperties().entrySet()) {
-			 
+			
 			if (properties.containsKey(property.getKey())) {
 				
 				DoubleProperty creatorProperty = properties.get(property.getKey());
 				DoubleProperty objVal = property.getValue();
 				
 				creatorProperty.set(objVal.get());
-				creatorProperty.removeListener(updated);
-				objVal.bind(creatorProperty);
-				creatorProperty.addListener(updated);
+				
+				objVal.removeListener(updated);
+			    creatorProperty.bindBidirectional(objVal);
+				objVal.addListener(updated);
+				
 				
 			} else {
 				
-				System.out.println("ERROR: could not find creator property to bind to");
+				System.out.println("ERROR: could not find creator property to bind to: " + 
+				property.getKey());
 			}
 		 }
 		 
+		 lastBound = obj;
+		 
+	}
+	
+	public void unbind() {
+		if(lastBound != null) {
+			for(Map.Entry<String, DoubleProperty> property : lastBound.getProperties().entrySet()) {
+				
+				if (properties.containsKey(property.getKey())) {
+					
+					DoubleProperty creatorProperty = properties.get(property.getKey());
+					DoubleProperty objVal = property.getValue();
+					
+					creatorProperty.set(objVal.get());
+					
+				    objVal.unbindBidirectional(creatorProperty);
+				} else {
+					
+					System.out.println("ERROR: could not find creator property to unbind from: " + 
+					property.getKey());
+				}
+			 }
+		}
+		lastBound = null;
 	}
 	
 	public void onUpdated(InvalidationListener updated) {
@@ -149,7 +208,11 @@ public abstract class OpticsObjectCreator extends VBox {
 		top.getChildren().add(n);
 	}
 
-	protected Map<String, DoubleProperty> getCreatorProperties() {
+	protected Map<String, DoubleProperty> getInitializationProperties(Vector2d origin) {
+		properties.get("X").set(origin.x);
+		properties.get("Y").set(origin.y);
+		properties.get("Rotation").set(1);
+		properties.get("Rotation").set(0);
 		return properties;
 	}
 }

@@ -9,9 +9,8 @@ import util.Vector2d;
 public class RectangleWall extends Wall {
 	private static final long serialVersionUID = 1L;
 	
-	public RectangleWall(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public RectangleWall(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 	
 	@Override
@@ -24,6 +23,6 @@ public class RectangleWall extends Wall {
 		points.add(new Vector2d(halfWidth, -halfHeight));
 		points.add(new Vector2d(halfWidth, halfHeight));
 		points.add(new Vector2d(-halfWidth, halfHeight));
-		super.initObject();
+		super.init();
 	}
 }

@@ -9,9 +9,8 @@ import util.Vector2d;
 public class ConcaveLens extends Lens {
 	private static final long serialVersionUID = 1L;
 
-	public ConcaveLens(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public ConcaveLens(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -43,6 +42,6 @@ public class ConcaveLens extends Lens {
 			points.add(pos.copy().add(vec));
 			vec.rotate(-leftStep);
 		}
-		super.initObject();
+		super.init();
 	}
 }

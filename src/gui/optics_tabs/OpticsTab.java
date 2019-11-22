@@ -13,7 +13,7 @@ import model.optics_objects.OpticsObject;
 public abstract class OpticsTab extends Tab {
 	private TabPane tabPane;
 	private ArrayList<OpticsObjectCreator> creators;
-
+	
 	public OpticsTab() {
 		tabPane = new TabPane();
 		creators = new ArrayList<>();
@@ -40,7 +40,7 @@ public abstract class OpticsTab extends Tab {
 	public OpticsObjectCreator getCurrentOpticsObjectCreator() {
 		
 		int index = tabPane.getSelectionModel().getSelectedIndex();
-		if (index >= 0) {
+		if (index >= 0) {			
 			return creators.get(index);
 		} else {
 			return creators.get(0);
@@ -53,6 +53,7 @@ public abstract class OpticsTab extends Tab {
 			if(creator.editsOpticsObject(obj)) {
 				tabPane.getSelectionModel().select(i);
 				creator.bind(obj);
+				
 				return this;
 			}
 		}
@@ -63,5 +64,11 @@ public abstract class OpticsTab extends Tab {
 		creators.forEach(c -> {
 			c.onUpdated(updated);
 		});
+	}
+
+	public void unbindAll() {
+		for(OpticsObjectCreator c : creators) {
+			c.unbind();
+		}
 	}
 }

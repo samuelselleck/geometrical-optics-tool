@@ -9,9 +9,8 @@ import util.Vector2d;
 public class RoundedMirror extends Mirror {
 	private static final long serialVersionUID = 1L;
 
-	public RoundedMirror(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public RoundedMirror(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 	
 	@Override
@@ -26,6 +25,6 @@ public class RoundedMirror extends Mirror {
 					x*get("Diameter")*Main.DPCM/2,
 					get("Depth")*Main.DPCM*(y - 1.0/2)));
 		}
-		super.initObject();
+		super.init();
 	}
 }

@@ -13,7 +13,7 @@ public class CrystallBallCreator extends LensCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new CrystalBall(origin, getCreatorProperties());
+		return new CrystalBall(getInitializationProperties(origin));
 	}
 	
 	@Override

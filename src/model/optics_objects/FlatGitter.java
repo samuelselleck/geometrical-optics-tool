@@ -9,8 +9,8 @@ import util.Vector2d;
 public class FlatGitter extends Gitter {
 	private static final long serialVersionUID = 1L;
 
-	public FlatGitter(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
+	public FlatGitter(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class FlatGitter extends Gitter {
 		Vector2d unit = new Vector2d(1, 0).mult(get("Diameter")*Main.DPCM / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));
-		super.initObject();
+		super.init();
 	}
 
 }

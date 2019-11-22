@@ -9,9 +9,8 @@ import util.Vector2d;
 public class ConvexLens extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public ConvexLens(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public ConvexLens(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -39,6 +38,6 @@ public class ConvexLens extends Lens {
 		for (int i = 0; i < quarterResolution * 2; i++) {
 			points.add(pos.copy().add(vec.rotate(rightStep)));
 		}
-		super.initObject();
+		super.init();
 	}
 }

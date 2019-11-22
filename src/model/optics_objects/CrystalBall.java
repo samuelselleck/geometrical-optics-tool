@@ -9,9 +9,8 @@ import util.Vector2d;
 public class CrystalBall extends Lens {
 	private static final long serialVersionUID = 1L;
 	
-	public CrystalBall(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public CrystalBall(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class CrystalBall extends Lens {
 					get("Radius")*Main.DPCM * Math.sin(angle));
 			points.add(p);
 		}
-		super.initObject();
+		super.init();
 	}
 
 }

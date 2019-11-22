@@ -22,7 +22,7 @@ public class ConcaveLensCreator extends LensCreator {
 		double r1 = get("Radius 1");
 		double r2 = get("Radius 2");
 		if(r1*2 >= d && r2*2 >= d) {
-			return new ConcaveLens(origin, getCreatorProperties());
+			return new ConcaveLens(getInitializationProperties(origin));
 		} else {
 			return null;
 		}

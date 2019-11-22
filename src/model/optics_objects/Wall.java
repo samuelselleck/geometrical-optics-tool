@@ -14,8 +14,8 @@ import util.Vector2d;
 
 public abstract class Wall extends Material {
 
-	public Wall(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
+	public Wall(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	private static final long serialVersionUID = 1L;

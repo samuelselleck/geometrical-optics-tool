@@ -8,9 +8,8 @@ import util.Vector2d;
 public class PointLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public PointLightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public PointLightSource(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -22,6 +21,6 @@ public class PointLightSource extends LightSource {
 			double y = Math.sin(ang);
 			super.addLightRay(new Vector2d(x, y));
 		}
-		super.initObject();
+		super.init();
 	}
 }

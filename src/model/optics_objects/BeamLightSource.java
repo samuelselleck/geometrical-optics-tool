@@ -9,9 +9,8 @@ import util.Vector2d;
 public class BeamLightSource extends LightSource {
 	private static final long serialVersionUID = 1L;
 	
-	public BeamLightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
-		update();
+	public BeamLightSource(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
@@ -22,6 +21,6 @@ public class BeamLightSource extends LightSource {
 		for (int i = (int) (get("LightRays") / 2); i >= -get("LightRays") / 2; i--) {
 			super.addLightRay(posVec.copy().mult(i), rayVec.copy());
 		}
-		super.initObject();
+		super.init();
 	}
 }

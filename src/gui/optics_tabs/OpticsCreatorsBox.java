@@ -34,9 +34,7 @@ public class OpticsCreatorsBox extends TabPane {
 	}
 
 	public void setEditing(OpticsObject obj) {
-		if(editing != null) {
-			editing.undbind();
-		}
+		unbindAll();
 		for(Tab tab : this.getTabs()) {
 			Tab focus = ((OpticsTab)tab).setEditing(obj);
 			if(focus != null) {
@@ -47,6 +45,12 @@ public class OpticsCreatorsBox extends TabPane {
 		}
 	}
 
+	public void unbindAll() {
+		for(Tab tab : this.getTabs()) {
+			((OpticsTab)tab).unbindAll();
+		}
+	}
+	
 	public void onUpdated(InvalidationListener updated) {
 		this.getTabs().forEach(t -> {
 			((OpticsTab)t).onUpdated(updated);

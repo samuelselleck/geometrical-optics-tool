@@ -14,7 +14,7 @@ public class RoundedMirrorCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new RoundedMirror(origin, getCreatorProperties());
+		return new RoundedMirror(getInitializationProperties(origin));
 	}
 	
 	@Override

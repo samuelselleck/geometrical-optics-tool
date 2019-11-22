@@ -21,8 +21,8 @@ public abstract class LightSource extends OpticsObject {
 	
 	Map<Integer, List<LightPathNode>> paths = new TreeMap<>();
 	
-	public LightSource(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
+	public LightSource(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	public void calculateRayPaths(List<Material> materials) {
@@ -79,7 +79,7 @@ public abstract class LightSource extends OpticsObject {
 		
 		if(selected) {
 			gc.setFill(new Color(1, 1, 1, 0.3));
-			gc.fillOval(origin.x - Main.DPCM, origin.y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
+			gc.fillOval(get("X") - Main.DPCM, get("Y") - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
 		}
 	}
 	
@@ -92,11 +92,11 @@ public abstract class LightSource extends OpticsObject {
 	
 	@Override
 	public boolean withinTouchHitBox(Vector2d pos) {
-		return pos.distSquared(this.getOrigin()) < Main.DPCM*Main.DPCM;
+		return pos.distSquared(getOrigin()) < Main.DPCM*Main.DPCM;
 	}
 	
 	protected void addLightRay(Vector2d offset, Vector2d ray) {
-			light.add(new LightRay(origin, offset, ray));
+			light.add(new LightRay(getOrigin(), offset, ray));
 	}
 	
 	protected void addLightRay(Vector2d ray) {

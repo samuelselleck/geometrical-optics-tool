@@ -2,6 +2,8 @@ package model.optics_objects;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -12,18 +14,29 @@ import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
-	protected Vector2d origin;
+	public static final List<String> REQUIRED_PROPERTIES = new ArrayList<>();
 	private transient Map<String, DoubleProperty> properties = new TreeMap<>();
-	protected double totalRotation;
 	
-	public OpticsObject(Vector2d origin, Map<String, DoubleProperty> properties) {
+	static {
+		REQUIRED_PROPERTIES.add("X");
+		REQUIRED_PROPERTIES.add("Y");
+		REQUIRED_PROPERTIES.add("Rotation");
+	}
+	
+	public OpticsObject(Map<String, DoubleProperty> properties) {
+		
+		for(String propertyName : REQUIRED_PROPERTIES) {
+			if(!properties.containsKey(propertyName)) {
+				throw new IllegalArgumentException("Required property: " + propertyName + " missing");
+			}
+		}
 		
 		for(Map.Entry<String, DoubleProperty> entry : properties.entrySet()) {
 			double val = entry.getValue().get();
 			addProperty(entry.getKey(), val);
 		}
-		this.origin = origin;		
 		
+		update();
 	}
 
 	protected final void addProperty(String name, double value) {
@@ -38,6 +51,7 @@ public abstract class OpticsObject implements Serializable {
 	
 	protected abstract void clear();
 	protected abstract void update();
+	
 	public abstract void draw(GraphicsContext gc, boolean selected);
 	
 	public final Map<String, DoubleProperty> getProperties() {
@@ -50,30 +64,25 @@ public abstract class OpticsObject implements Serializable {
 		}
 	}
 	
-	public Vector2d getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(Vector2d vec) {
-		setOrigin(vec.x, vec.y);
-	}
-	
-	public void setOrigin(double x, double y) {
-		this.origin.setTo(x, y);
-	}
-	
 	protected abstract void rotateOp(double angle);
 	public abstract boolean withinTouchHitBox(Vector2d pos);
 	
 	public void rotate(double angle) {
-		totalRotation += angle;
-		rotateOp(angle);
+		properties.get("Rotation").set(angle + get("Rotation"));
 	}
 	
-	protected void initObject() {
-		rotateOp(totalRotation);
+	protected void init() {
+		rotateOp(get("Rotation"));
 	}
 	
+	public Vector2d getOrigin() {
+		return new Vector2d(get("X"), get("Y"));
+	}
+	
+	public void setOrigin(double x, double y) {
+		properties.get("X").set(x);
+		properties.get("Y").set(y);
+	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		Map<String, Double> propertiesSave = new TreeMap<>();

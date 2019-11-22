@@ -10,16 +10,16 @@ import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
 	private static final long serialVersionUID = 1L;
-	private Vector2d botRig, topLef;
+	private transient Vector2d botRig, topLef;
 	protected transient List<Vector2d> points = new ArrayList<>();
 
-	public Material(Vector2d origin, Map<String, DoubleProperty> properties) {
-		super(origin, properties);
+	public Material(Map<String, DoubleProperty> properties) {
+		super(properties);
 	}
 
 	@Override
-	protected void initObject() {
-		super.initObject();
+	protected void init() {
+		super.init();
 		createBounds();
 	}
 	
@@ -60,11 +60,11 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	public Vector2d getBottomRightBound() {
-		return origin.copy().add(botRig);
+		return getOrigin().add(botRig);
 	}
 
 	public Vector2d getTopLeftBound() {
-		return origin.copy().add(topLef);
+		return getOrigin().add(topLef);
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	public Vector2d getPoint(int index) {
-		return origin.copy().add(points.get(index % points.size()));
+		return getOrigin().add(points.get(index % points.size()));
 	}
 	
 	public Vector2d getSegment(int index) {

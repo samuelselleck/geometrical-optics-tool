@@ -9,6 +9,6 @@ public class OtherTab extends OpticsTab {
 		this.setText("Other");
 		
 		OpticsObjectCreator git = new FlatGitterCreator();
-		super.addTab("Flat Gitter", git);
+		super.addTab("Gitter", git);
 	}
 }
