@@ -11,6 +11,7 @@ public class FlatGitter extends Gitter {
 
 	public FlatGitter(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

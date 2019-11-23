@@ -87,6 +87,14 @@ public class Vector2d implements Serializable {
 		return this;
 	}
 	
+	public double angleToInDegrees(Vector2d vec) {
+		return this.angleTo(vec)*180/Math.PI;
+	}
+	
+	public Vector2d rotateDegrees(double angle) {
+		return this.rotate(angle*Math.PI/180);
+	}
+	
 	public Vector2d copy() {
 		return new Vector2d(this.x, this.y);
 	}

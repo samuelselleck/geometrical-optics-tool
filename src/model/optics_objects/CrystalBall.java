@@ -11,6 +11,7 @@ public class CrystalBall extends Lens {
 	
 	public CrystalBall(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

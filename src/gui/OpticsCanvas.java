@@ -145,7 +145,8 @@ public class OpticsCanvas {
 	}
 	
 	public Vector2d getTablePos(double screenX, double screenY) {
-		return new Vector2d((-xTranslation + screenX)/scale, (-yTranslation + screenY)/scale);
+		return new Vector2d((-xTranslation + screenX)/scale,
+				(-yTranslation + screenY)/scale);
 	}
 	
 	public Canvas getCanvas() {

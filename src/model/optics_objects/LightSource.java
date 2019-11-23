@@ -17,9 +17,9 @@ import util.Vector2d;
 public abstract class LightSource extends OpticsObject {
 	
 	private static final long serialVersionUID = 1L;
-	List<LightRay> light = new ArrayList<>();
+	private List<LightRay> light = new ArrayList<>();
 	
-	Map<Integer, List<LightPathNode>> paths = new TreeMap<>();
+	private transient Map<Integer, List<LightPathNode>> paths;
 	
 	public LightSource(Map<String, DoubleProperty> properties) {
 		super(properties);
@@ -27,7 +27,11 @@ public abstract class LightSource extends OpticsObject {
 
 	public void calculateRayPaths(List<Material> materials) {
 		
-		paths.clear();
+		if(paths == null) {
+			paths = new TreeMap<>();
+		} else {
+			paths.clear();
+		}
 		
 		int min = Main.getIntProperty("minwavelength");
 		int max = Main.getIntProperty("maxwavelength");
@@ -79,7 +83,7 @@ public abstract class LightSource extends OpticsObject {
 		
 		if(selected) {
 			gc.setFill(new Color(1, 1, 1, 0.3));
-			gc.fillOval(get("X") - Main.DPCM, get("Y") - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
+			gc.fillOval(getOrigin().x - Main.DPCM, getOrigin().y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
 		}
 	}
 	

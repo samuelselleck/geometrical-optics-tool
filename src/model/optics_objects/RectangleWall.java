@@ -11,6 +11,7 @@ public class RectangleWall extends Wall {
 	
 	public RectangleWall(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 	
 	@Override

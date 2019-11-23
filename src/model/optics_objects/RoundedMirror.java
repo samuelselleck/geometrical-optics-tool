@@ -11,6 +11,7 @@ public class RoundedMirror extends Mirror {
 
 	public RoundedMirror(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 	
 	@Override

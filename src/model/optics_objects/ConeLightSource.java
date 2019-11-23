@@ -10,6 +10,7 @@ public class ConeLightSource extends LightSource {
 	
 	public ConeLightSource(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

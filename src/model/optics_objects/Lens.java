@@ -16,7 +16,6 @@ import util.Vector2d;
 
 public abstract class Lens extends Material {
 	private static final long serialVersionUID = 1L;
-
 	public static ObservableList<LensMaterial> MATERIALS = FXCollections.observableArrayList();
 	
 	static {

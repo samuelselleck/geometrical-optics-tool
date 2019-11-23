@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
@@ -35,8 +36,6 @@ public abstract class OpticsObject implements Serializable {
 			double val = entry.getValue().get();
 			addProperty(entry.getKey(), val);
 		}
-		
-		update();
 	}
 
 	protected final void addProperty(String name, double value) {
@@ -76,12 +75,12 @@ public abstract class OpticsObject implements Serializable {
 	}
 	
 	public Vector2d getOrigin() {
-		return new Vector2d(get("X"), get("Y"));
+		return new Vector2d(get("X")*Main.DPCM, get("Y")*Main.DPCM);
 	}
 	
 	public void setOrigin(double x, double y) {
-		properties.get("X").set(x);
-		properties.get("Y").set(y);
+		properties.get("X").set(x/Main.DPCM);
+		properties.get("Y").set(y/Main.DPCM);
 	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {

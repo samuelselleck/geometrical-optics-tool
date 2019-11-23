@@ -10,6 +10,7 @@ public class PointLightSource extends LightSource {
 	
 	public PointLightSource(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

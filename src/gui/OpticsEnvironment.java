@@ -182,7 +182,7 @@ public class OpticsEnvironment {
 	private void rotate(OpticsObject obj, Vector2d pFrom, Vector2d pTo) {
 		Vector2d before = obj.getOrigin().copy().sub(pFrom);
 		Vector2d after = obj.getOrigin().copy().sub(pTo);
-		double angle = after.angleTo(before);
+		double angle = after.angleToInDegrees(before);
 		if(Double.isFinite(angle))
 		obj.rotate(angle*rotationFactor);
 	}

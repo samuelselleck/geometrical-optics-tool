@@ -54,7 +54,7 @@ public abstract class Material extends OpticsObject {
 	@Override
 	public void rotateOp(double angle) {
 		for(Vector2d p : points) {
-			p.rotate(angle);
+			p.rotateDegrees(angle);
 		}
 		this.createBounds();
 	}

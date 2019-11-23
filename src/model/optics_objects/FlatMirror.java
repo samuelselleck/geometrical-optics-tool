@@ -11,6 +11,7 @@ public class FlatMirror extends Mirror {
 	
 	public FlatMirror(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

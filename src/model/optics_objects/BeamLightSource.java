@@ -11,6 +11,7 @@ public class BeamLightSource extends LightSource {
 	
 	public BeamLightSource(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

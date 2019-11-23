@@ -11,6 +11,7 @@ public class ConcaveLens extends Lens {
 
 	public ConcaveLens(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

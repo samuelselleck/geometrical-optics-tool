@@ -11,6 +11,7 @@ public class RectangleLens extends Lens {
 	
 	public RectangleLens(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 	
 	@Override

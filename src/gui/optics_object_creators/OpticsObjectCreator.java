@@ -6,7 +6,8 @@ import gui.Main;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -38,7 +39,16 @@ public abstract class OpticsObjectCreator extends VBox {
 		for(String p : OpticsObject.REQUIRED_PROPERTIES) {
 			addProperty(p);
 		}
-		
+		properties.get("Rotation").addListener((s, o, n) -> {
+			double newValue = n.doubleValue();
+			while(newValue < 0) {
+				newValue += 360;
+			}
+			while(newValue >= 360) {
+				newValue -= 360;
+			}
+			properties.get("Rotation").set(newValue);
+		});
 		top = new VBox();
 		VBox.setVgrow(top, Priority.ALWAYS);
 		top.setAlignment(Pos.TOP_LEFT);
@@ -46,25 +56,29 @@ public abstract class OpticsObjectCreator extends VBox {
 		HBox bot = new HBox();
 		Label xLabel = new Label("x:");
 		TextField xPos = new TextField();
-		bindStringToDouble(xPos.textProperty(), properties.get("X"));
+		xPos.setStyle("-fx-control-inner-background: black");
+		bindTextFieldToDouble(xPos, properties.get("X"));
 		Label yLabel = new Label("y:");
 		TextField yPos = new TextField();
-		bindStringToDouble(yPos.textProperty(), properties.get("Y"));
+		yPos.setStyle("-fx-control-inner-background: black");
+		bindTextFieldToDouble(yPos, properties.get("Y"));
 		Label rLabel = new Label("r:");
 		TextField rotation = new TextField();
-		bindStringToDouble(rotation.textProperty(), properties.get("Rotation"));
+		rotation.setStyle("-fx-control-inner-background: black");
+		bindTextFieldToDouble(rotation, properties.get("Rotation"));
 		
 		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
 		this.getChildren().addAll(top, bot);
 		
 	}
 	
-	private void bindStringToDouble(StringProperty s, DoubleProperty d) {
-		s.addListener((l, o, n) -> {
-			d.set(Double.parseDouble(s.get().replace(",", ".")));
-		});
+	private void bindTextFieldToDouble(TextField t, DoubleProperty d) {
+		EventHandler<ActionEvent> setDouble = a -> {
+			d.set(Double.parseDouble(t.getText().replace(",", ".")));
+		};
+		t.setOnAction(setDouble);
 		d.addListener((l, o, n) -> {
-			s.set(String.format("%.2f", d.get()));
+			t.setText(String.format("%.2f", d.get()));
 		});
 	}
 
@@ -73,8 +87,7 @@ public abstract class OpticsObjectCreator extends VBox {
 	
 	public void bind(OpticsObject obj) {
 		
-		 unbind();
-		 
+		 unbind();	 
 		 for(Map.Entry<String, DoubleProperty> property : obj.getProperties().entrySet()) {
 			
 			if (properties.containsKey(property.getKey())) {
@@ -85,7 +98,7 @@ public abstract class OpticsObjectCreator extends VBox {
 				creatorProperty.set(objVal.get());
 				
 				objVal.removeListener(updated);
-			    creatorProperty.bindBidirectional(objVal);
+			    objVal.bindBidirectional(creatorProperty);
 				objVal.addListener(updated);
 				
 				
@@ -209,8 +222,9 @@ public abstract class OpticsObjectCreator extends VBox {
 	}
 
 	protected Map<String, DoubleProperty> getInitializationProperties(Vector2d origin) {
-		properties.get("X").set(origin.x);
-		properties.get("Y").set(origin.y);
+		unbind();
+		properties.get("X").set(origin.x/Main.DPCM);
+		properties.get("Y").set(origin.y/Main.DPCM);
 		properties.get("Rotation").set(1);
 		properties.get("Rotation").set(0);
 		return properties;

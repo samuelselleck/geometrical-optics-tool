@@ -14,6 +14,7 @@ public abstract class Gitter extends Material {
 
 	public Gitter(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

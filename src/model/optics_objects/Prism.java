@@ -11,6 +11,7 @@ public class Prism extends Lens {
 	
 	public Prism(Map<String, DoubleProperty> properties) {
 		super(properties);
+		update();
 	}
 
 	@Override

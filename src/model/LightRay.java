@@ -38,8 +38,8 @@ public class LightRay implements Serializable {
 	}
 
 	public void rotate(double angle) {
-		offset.rotate(angle);
-		ray.rotate(angle);
+		offset.rotateDegrees(angle);
+		ray.rotateDegrees(angle);
 	}
 
 }
