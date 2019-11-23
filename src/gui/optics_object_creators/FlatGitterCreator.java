@@ -8,6 +8,7 @@ import util.Vector2d;
 public class FlatGitterCreator extends OpticsObjectCreator {
 
 	public FlatGitterCreator() {
+		addSlider("Grating Constant", 1000, 5000, 3000);
 		addSlider("Diameter", 2, Main.getIntProperty("maxobjectsizecm"), 4);
 	}
 

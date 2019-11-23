@@ -20,13 +20,19 @@ public abstract class Gitter extends Material {
 	@Override
 	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
 		
+		double d = get("Grating Constant");
 		double sign = ray.crossSign(surface);
 		Vector2d normalOut = surface.copy().normalize().rotate(-sign*Math.PI/2);
+		double angleIn = Math.abs(ray.angleTo(normalOut));
 		List<Vector2d> scattered = new ArrayList<>();
-		double step = Math.PI/10;
-		for(int i = -3; i <= 3; i++) {
-			scattered.add(normalOut.copy().rotate(i*step));
+		int n = 1;
+		while(n*wavelength/d < 1) {
+			double angleOut = Math.asin(n*wavelength/d - Math.sin(angleIn));
+			scattered.add(normalOut.copy().rotate(angleOut));
+			scattered.add(normalOut.copy().rotate(-angleOut));
+		    n++;
 		}
+		
 		return scattered;
 	}
 	
