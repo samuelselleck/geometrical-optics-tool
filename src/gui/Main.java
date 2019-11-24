@@ -76,7 +76,7 @@ public class Main extends Application {
 		splitPane.getItems().add(canvasView.getCanvas());
 		splitPane.getItems().add(opticsBox);
 		SplitPane.setResizableWithParent(opticsBox, false);
-		splitPane.setDividerPositions(0.7);
+		splitPane.setDividerPositions(0.72);
 		
 		BorderPane root = new BorderPane();
 		

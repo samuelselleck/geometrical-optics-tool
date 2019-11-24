@@ -1,6 +1,5 @@
 package model.optics_objects;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public abstract class Wall extends Material {
 
 	@Override
 	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
-		return new ArrayList<>();
+		return null;
 	}
 	
 	@Override

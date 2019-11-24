@@ -48,7 +48,7 @@ public abstract class Lens extends Material {
 	private double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
-		double currRefrac = MATERIALS.get((int)get("Material Index"))
+		double currRefrac = getLensMaterial()
 				.refraction(wavelength, get("Refraction Multiplier"));
 		
 		double invrefrac = 1/currRefrac;
@@ -75,7 +75,7 @@ public abstract class Lens extends Material {
 	public void draw(GraphicsContext gc, boolean selected) {
 		
 		Stop[] stops;
-		LensMaterial lm = MATERIALS.get((int)get("Material Index"));
+		LensMaterial lm = getLensMaterial();
 		
 		if(selected) {
 			stops = new Stop[] { new Stop(0, lm.color(0.45)), new Stop(1, lm.color(0.8))};	        
@@ -91,5 +91,14 @@ public abstract class Lens extends Material {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.fill();
+	}
+	
+	private LensMaterial getLensMaterial() {
+		int index = (int)get("Material Index");
+		if(index < MATERIALS.size()) {
+			return MATERIALS.get(index);
+		} else {
+			return MATERIALS.get(0);
+		}
 	}
 }

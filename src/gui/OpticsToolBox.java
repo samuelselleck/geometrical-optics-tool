@@ -39,7 +39,7 @@ public class OpticsToolBox extends ToolBar {
 			val /= 2;
 			if(val < 0.10) val = 1;
 			opticsEnvironment.setRotationFactor(val);
-			rotationFactorButton.setText("Rotation factor: " + val );
+			rotationFactorButton.setText("Rotation factor: " + val);
 		});
 		
 		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);

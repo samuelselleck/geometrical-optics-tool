@@ -26,38 +26,39 @@ public class LightPathNode implements Iterable<LightPathNode> {
 			return;
 		}
 		
-		if(dirs.size() != 0) {
+		if(dirs != null) {
+			
 			nexts = new ArrayList<>();
-		}
-		for(Vector2d dir : dirs) {
-			
-			RayIntersectionData closestHitData = new RayIntersectionData();
-			
-			List<MaterialDistanceTuple> approximateDistances = getDistanceList(materials, origin, dir);
-			
-			for(int i = 0; i < approximateDistances.size(); i++) {
-				MaterialDistanceTuple current = approximateDistances.get(i);
-				RayIntersectionData data = calculateIntersection(current.material, origin, dir);
-				if(data == null) continue;
+			for(Vector2d dir : dirs) {
 				
-				if(data.distance < closestHitData.distance) {
-					closestHitData = data;
-				}
-				if(i + 1 < approximateDistances.size()) {
-					if(closestHitData.distance < approximateDistances.get(i + 1).distance) {
-						break;
+				RayIntersectionData closestHitData = new RayIntersectionData();
+				
+				List<MaterialDistanceTuple> approximateDistances = getDistanceList(materials, origin, dir);
+				
+				for(int i = 0; i < approximateDistances.size(); i++) {
+					MaterialDistanceTuple current = approximateDistances.get(i);
+					RayIntersectionData data = calculateIntersection(current.material, origin, dir);
+					if(data == null) continue;
+					
+					if(data.distance < closestHitData.distance) {
+						closestHitData = data;
+					}
+					if(i + 1 < approximateDistances.size()) {
+						if(closestHitData.distance < approximateDistances.get(i + 1).distance) {
+							break;
+						}
 					}
 				}
+				LightPathNode newNode;
+				if(closestHitData.distance != Double.MAX_VALUE) {
+					newNode = new LightPathNode(closestHitData.position);
+					List<Vector2d> newDirs = closestHitData.calculateScatterDirections(wavelength);
+					newNode.develop(newDirs, materials, wavelength, iterr + 1);
+				} else {
+					newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
+				}
+				nexts.add(newNode);
 			}
-			LightPathNode newNode;
-			if(closestHitData.distance != Double.MAX_VALUE) {
-				newNode = new LightPathNode(closestHitData.position);
-				List<Vector2d> newDirs = closestHitData.calculateScatterDirections(wavelength);
-				newNode.develop(newDirs, materials, wavelength, iterr + 1);
-			} else {
-				newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
-			}
-			nexts.add(newNode);
 		}
 	}
 	

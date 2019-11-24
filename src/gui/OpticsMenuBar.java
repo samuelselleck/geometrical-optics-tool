@@ -94,8 +94,8 @@ public class OpticsMenuBar extends MenuBar {
 		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
 		
 		addLensMaterial.setOnAction(e -> {
-			@SuppressWarnings("unused")
 			AddMaterialWindow addMWin = new AddMaterialWindow();
+			addMWin.show();
 		});
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
 		window.getItems().addAll(resetView, grid);

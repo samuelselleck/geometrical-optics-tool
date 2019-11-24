@@ -34,23 +34,24 @@ public abstract class LensCreator extends OpticsObjectCreator {
 		addElement(materialsBox);
 		
 		addSlider("Refraction Multiplier", 1, 1000, 500);
-		getProperty("Refraction Multiplier").addListener((s, o, n) -> update());
+		getProperty("Refraction Multiplier").addListener(e -> updateGraph());
 		
 		getProperty("Material Index").addListener((s, o, n) -> {
-			update();
+			updateGraph();
 			materialsBox.getSelectionModel().select(n.intValue());
 		});
 		
 		materialsBox.getSelectionModel().select(0);
 		
-		update();
+		updateGraph();
 	}
 	
-	private void update() {
+	private void updateGraph() {
 		List<Point2D> func = new ArrayList<>();
 		for(double x = Main.getIntProperty("minwavelength"); x <= Main.getIntProperty("maxwavelength"); x++) {
 			
-			double y = Lens.MATERIALS.get((int)get("Material Index"))
+			int index = (int)get("Material Index");
+			double y = Lens.MATERIALS.get(index < Lens.MATERIALS.size() ? index : 0)
 					.refraction(x, get("Refraction Multiplier"));
 			func.add(new Point2D(x, y));
 		}

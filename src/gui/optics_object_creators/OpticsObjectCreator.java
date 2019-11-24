@@ -77,7 +77,12 @@ public abstract class OpticsObjectCreator extends VBox {
 			d.set(Double.parseDouble(t.getText().replace(",", ".")));
 		};
 		t.setOnAction(setDouble);
-		d.addListener((l, o, n) -> {
+		t.focusedProperty().addListener((s, o, n) -> {
+			if(!n) {
+				setDouble.handle(null);
+			}
+		});
+		d.addListener(e -> {
 			t.setText(String.format("%.2f", d.get()));
 		});
 	}

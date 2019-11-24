@@ -1,6 +1,5 @@
 package gui;
 
-import javafx.beans.binding.DoubleExpression;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
@@ -71,7 +70,6 @@ public class OpticsCanvas {
 		grid = false;
 	}
 	
-	//TODO Do this in a better way for color mode
 	public void redraw() {
 		
 		drawBackground();
@@ -159,10 +157,5 @@ public class OpticsCanvas {
 
 	public void setOpticsModel(OpticsModel model) {
 		this.model = model;
-	}
-
-	public void bind(DoubleExpression widthBinding, DoubleExpression heightBinding) {
-		canvas.widthProperty().bind(widthBinding);
-		canvas.heightProperty().bind(heightBinding);
 	}
 }

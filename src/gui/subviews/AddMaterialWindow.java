@@ -5,11 +5,13 @@ import java.util.stream.Stream;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.LensMaterial;
 import model.optics_objects.Lens;
@@ -32,15 +34,9 @@ public class AddMaterialWindow extends Stage{
 		TextField nameField = new TextField();
 		nameField.setPrefWidth(1.5*pwidth);
 		
-		Label colorLabel = new Label("Color (rgb):");
-		TextField rField = new TextField("0");
-		rField.setPrefWidth(pwidth);
-		TextField gField = new TextField("0");
-		gField.setPrefWidth(pwidth);
-		TextField bField = new TextField("0");
-		bField.setPrefWidth(pwidth);
+		ColorPicker colorPicker = new ColorPicker();
 		
-		nameColorBox.getChildren().addAll(nameLabel, nameField, colorLabel, rField, gField, bField);
+		nameColorBox.getChildren().addAll(nameLabel, nameField, colorPicker);
 		Insets insets = new Insets(5);
 		nameColorBox.getChildren().forEach(e -> {
 			HBox.setMargin(e, insets);
@@ -66,12 +62,10 @@ public class AddMaterialWindow extends Stage{
 		HBox addBox = new HBox();
 		Button addMaterialButton = new Button("Add Material");
 		addMaterialButton.setOnAction(e -> {
+			Color c = colorPicker.getValue();
 			LensMaterial newLensMaterial = new LensMaterial(
 					nameField.getText(),
-					new double[] { 
-							Integer.parseInt(rField.getText())/255.0,
-							Integer.parseInt(gField.getText())/255.0,
-							Integer.parseInt(bField.getText())/255.0},
+					new double[] { c.getRed(), c.getGreen(), c.getBlue()},
 					Stream.of(coeffFields)
 					.mapToDouble(t -> 
 					Double.parseDouble(t.getText().replace(',', '.')))
@@ -79,6 +73,7 @@ public class AddMaterialWindow extends Stage{
 			
 			
 			Lens.MATERIALS.add(newLensMaterial);
+			this.close();
 		});
 		
 		addBox.getChildren().add(addMaterialButton);
@@ -90,6 +85,5 @@ public class AddMaterialWindow extends Stage{
 		Scene scene = new Scene(root);
 		this.setScene(scene);
 		this.setTitle("Add Material");
-		this.show();
 	}
 }

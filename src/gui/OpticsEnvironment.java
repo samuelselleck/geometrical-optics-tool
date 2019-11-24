@@ -218,9 +218,9 @@ public class OpticsEnvironment {
 	}
 
 	public void setOpticsModel(OpticsModel model) {
+		deselect();
 		this.model = model;
 		connect(model, view);
-		deselect();
 		redraw();
 	}
 	

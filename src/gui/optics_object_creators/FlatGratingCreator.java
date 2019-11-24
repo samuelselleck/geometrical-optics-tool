@@ -5,10 +5,10 @@ import model.optics_objects.FlatGitter;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
-public class FlatGitterCreator extends OpticsObjectCreator {
+public class FlatGratingCreator extends OpticsObjectCreator {
 
-	public FlatGitterCreator() {
-		addSlider("Grating Constant", 1000, 5000, 3000);
+	public FlatGratingCreator() {
+		addSlider("Grating Constant", 800, 5000, 3000);
 		addSlider("Diameter", 2, Main.getIntProperty("maxobjectsizecm"), 4);
 	}
 
