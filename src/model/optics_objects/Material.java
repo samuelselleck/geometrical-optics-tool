@@ -41,7 +41,7 @@ public abstract class Material extends OpticsObject {
 		}
 	}
 	
-	public void createBounds() {
+	protected void createBounds() {
 		botRig = Vector2d.zero();
 		topLef = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
 		for (int i = 0; i < points.size(); i++) {

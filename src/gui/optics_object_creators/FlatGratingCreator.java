@@ -1,7 +1,7 @@
 package gui.optics_object_creators;
 
 import gui.Main;
-import model.optics_objects.FlatGitter;
+import model.optics_objects.FlatGrating;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
@@ -14,12 +14,12 @@ public class FlatGratingCreator extends OpticsObjectCreator {
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		return new FlatGitter(getInitializationProperties(origin));
+		return new FlatGrating(getInitializationProperties(origin));
 	}
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof FlatGitter;
+		return obj instanceof FlatGrating;
 	}
 
 }

@@ -4,7 +4,7 @@ TODO------------------------------------------------------------------
 
 5) Inkludera ett korrekt v�gl�ngdsberoende (och l�gg till n�gra riktiga material)
 
-6) Testa att g�ra ett gitter (beh�ver inte konservera energi)
+6) Testa att g�ra ett Grating (beh�ver inte konservera energi)
 
 7) M�jligg�r f�r plan-konvexa linser
 

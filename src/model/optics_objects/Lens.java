@@ -16,6 +16,7 @@ import util.Vector2d;
 
 public abstract class Lens extends Material {
 	private static final long serialVersionUID = 1L;
+	
 	public static ObservableList<LensMaterial> MATERIALS = FXCollections.observableArrayList();
 	
 	static {
@@ -27,6 +28,8 @@ public abstract class Lens extends Material {
 				new double[] {1, 0.2, 0.5},
 				1.43134930, 0.65054713, 5.3414021, 5.2799261e-3, 1.42382647e-2, 325.017834));
 	}
+	
+	LinearGradient fillGradient, fillGradientSelected;
 	
 	public Lens(Map<String, DoubleProperty> properties) {
 		super(properties);
@@ -66,6 +69,16 @@ public abstract class Lens extends Material {
 	}
 	
 	@Override
+	public void init() {
+		super.init();
+		LensMaterial lm = getLensMaterial();
+
+	    Stop[] stopsSelected = new Stop[] { new Stop(0, lm.color(0.45)), new Stop(1, lm.color(0.8))};
+	    fillGradientSelected = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stopsSelected);
+	    Stop[] stops = new Stop[] { new Stop(0, lm.color(0.25)), new Stop(1, lm.color(0.6))};
+	    fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
+	}
+	@Override
 	public void createBounds() {
 		points.add(points.get(0).copy()); //Close loop
 		super.createBounds();
@@ -74,17 +87,7 @@ public abstract class Lens extends Material {
 	@Override
 	public void draw(GraphicsContext gc, boolean selected) {
 		
-		Stop[] stops;
-		LensMaterial lm = getLensMaterial();
-		
-		if(selected) {
-			stops = new Stop[] { new Stop(0, lm.color(0.45)), new Stop(1, lm.color(0.8))};	        
-		} else {
-			stops = new Stop[] { new Stop(0, lm.color(0.25)), new Stop(1, lm.color(0.6))};
-		}
-		LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-		gc.setFill(fillGradient);
-		
+		gc.setFill(selected ? fillGradientSelected : fillGradient);
 		gc.beginPath();
 		for (int i = 0; i < getPointCount(); i++) {
 			Vector2d p = getPoint(i);

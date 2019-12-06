@@ -6,10 +6,10 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
-public class FlatGitter extends Gitter {
+public class FlatGrating extends Grating {
 	private static final long serialVersionUID = 1L;
 
-	public FlatGitter(Map<String, DoubleProperty> properties) {
+	public FlatGrating(Map<String, DoubleProperty> properties) {
 		super(properties);
 		update();
 	}

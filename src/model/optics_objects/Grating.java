@@ -9,10 +9,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import util.Vector2d;
 
-public abstract class Gitter extends Material {
+public abstract class Grating extends Material {
 	private static final long serialVersionUID = 1L;
 
-	public Gitter(Map<String, DoubleProperty> properties) {
+	public Grating(Map<String, DoubleProperty> properties) {
 		super(properties);
 		update();
 	}
