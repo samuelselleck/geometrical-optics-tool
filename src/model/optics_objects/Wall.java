@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
 public abstract class Wall extends Apparatus {
@@ -20,7 +21,7 @@ public abstract class Wall extends Apparatus {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+	public List<RayIntensityTuple> getScatteredLight(Vector2d ray, Vector2d surface, double intensity, int wavelength) {
 		return null;
 	}
 	

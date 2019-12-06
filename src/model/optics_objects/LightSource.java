@@ -71,14 +71,13 @@ public abstract class LightSource extends OpticsObject {
 		for(Map.Entry<Integer, List<LightPathNode>> entry : paths.entrySet()) {
 			
 			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
-			gc.setStroke(new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 0.7));
+			Color color = new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 1);
 			
 			gc.beginPath();
 			for(LightPathNode path : entry.getValue()) {
 				gc.moveTo(path.getOrigin().x, path.getOrigin().y);
-				path.strokeWith(gc);
-			}	
-			gc.stroke();
+				path.stroke(gc, color);
+			}
 		}
 		
 		if(selected) {

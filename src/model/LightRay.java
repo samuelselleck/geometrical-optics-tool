@@ -25,7 +25,7 @@ public class LightRay implements Serializable {
 	}
 	
 	public LightPathNode calculatePath(List<Apparatus> apparatuses, int wavelength) {
-		LightPathNode rootNode = new LightPathNode(getPos());
+		LightPathNode rootNode = new LightPathNode(getPos(), 1);
 		rootNode.develop(ray, apparatuses, wavelength);
 		return rootNode;
 	}

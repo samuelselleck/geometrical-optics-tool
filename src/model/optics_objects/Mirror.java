@@ -7,6 +7,7 @@ import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
 public abstract class Mirror extends Apparatus {
@@ -18,13 +19,13 @@ public abstract class Mirror extends Apparatus {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+	public List<RayIntensityTuple> getScatteredLight(Vector2d ray, Vector2d surface, double intensity, int wavelength) {
 		
 		double angle = ray.angleTo(surface);
 		Vector2d newRay = ray.copy().rotate(-2*angle);
 		
-		List<Vector2d> scattered = new ArrayList<>();
-		scattered.add(newRay);
+		List<RayIntensityTuple> scattered = new ArrayList<>();
+		scattered.add(new RayIntensityTuple(newRay, intensity));
 		return scattered;
 	}
 	

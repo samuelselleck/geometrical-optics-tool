@@ -14,7 +14,7 @@ maxobjectsizecm=15
 
 Performance callibration:
 opticsobjectresolution=500
-maxraybounce=10
+maxraybounce=50
 
 Admin:
 admin=false

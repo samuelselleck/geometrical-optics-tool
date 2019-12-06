@@ -12,6 +12,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import model.LensMaterial;
+import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
 public abstract class Lens extends Apparatus {
@@ -36,15 +37,16 @@ public abstract class Lens extends Apparatus {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
-		List<Vector2d> scattered = new ArrayList<>();
+	public List<RayIntensityTuple> getScatteredLight(Vector2d ray, Vector2d surface, double intensity, int wavelength) {
+		List<RayIntensityTuple> scattered = new ArrayList<>();
 		double cross = surface.crossSign(ray);
 		//convert the line to a normal:
 		Vector2d normal = surface.copy().rotate(cross*Math.PI / 2).normalize();
 		double angleIn = ray.angleTo(normal);
 		double angleOut = getAngle(angleIn, wavelength, cross > 0);
 		normal.rotate(angleOut);
-		scattered.add(normal);
+		RayIntensityTuple scatteredRay = new RayIntensityTuple(normal, intensity*0.9);
+		scattered.add(scatteredRay);
 		return scattered;
 	}
 	

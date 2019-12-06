@@ -4,40 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import model.optics_objects.Apparatus;
 import util.Vector2d;
 
 public class LightPathNode {
 	private Vector2d origin;
+	private double intensity;
 	private List<LightPathNode> nexts;
 	
-	public LightPathNode(Vector2d origin) {
+	public LightPathNode(Vector2d origin, double intensity) {
 		this.origin = origin;
+		this.intensity = intensity;
 	}
 	
 	public void develop(Vector2d dir, List<Apparatus> apparatuses, int wavelength) {
-		List<Vector2d> dirs = new ArrayList<>();
-		dirs.add(dir);
+		List<RayIntensityTuple> dirs = new ArrayList<>();
+		RayIntensityTuple root = new RayIntensityTuple(dir, 1);
+		dirs.add(root);
 		develop(dirs, apparatuses, wavelength, 0);
 	}
 	
-	private void develop(List<Vector2d> dirs, List<Apparatus> apparatuses, int wavelength, int iterr) {
+	private void develop(List<RayIntensityTuple> incomingScatteredLight, List<Apparatus> apparatuses, int wavelength, int iterr) {
+		
 		if(iterr > Main.getIntProperty("maxraybounce")) {
 			return;
 		}
 		
-		if(dirs != null) {
+		if(incomingScatteredLight != null) {
 			
 			nexts = new ArrayList<>();
-			for(Vector2d dir : dirs) {
+			for(RayIntensityTuple rit : incomingScatteredLight) {
 				
 				RayIntersectionData closestHitData = new RayIntersectionData();
 				
-				List<ApparatusDistanceTuple> approximateDistances = getDistanceList(apparatuses, origin, dir);
+				List<ApparatusDistanceTuple> approximateDistances = getDistanceList(apparatuses, origin, rit.ray);
 				
 				for(int i = 0; i < approximateDistances.size(); i++) {
 					ApparatusDistanceTuple current = approximateDistances.get(i);
-					RayIntersectionData data = calculateIntersection(current.apparatus, origin, dir);
+					RayIntersectionData data = calculateIntersection(current.apparatus, origin, rit.ray);
 					if(data == null) continue;
 					
 					if(data.distance < closestHitData.distance) {
@@ -51,26 +56,26 @@ public class LightPathNode {
 				}
 				LightPathNode newNode;
 				if(closestHitData.distance != Double.MAX_VALUE) {
-					newNode = new LightPathNode(closestHitData.position);
-					List<Vector2d> newDirs = closestHitData.calculateScatterDirections(wavelength);
-					newNode.develop(newDirs, apparatuses, wavelength, iterr + 1);
+					newNode = new LightPathNode(closestHitData.position, rit.intensity);
+					List<RayIntensityTuple> scatteredLight = closestHitData.calculateScatteredLight(wavelength, rit.intensity);
+					newNode.develop(scatteredLight, apparatuses, wavelength, iterr + 1);
 				} else {
-					newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
+					newNode = new LightPathNode(rit.ray.copy().mult(10000).add(origin), rit.intensity);
 				}
 				nexts.add(newNode);
 			}
 		}
 	}
 	
-	private RayIntersectionData calculateIntersection(Apparatus apparatus, Vector2d origin, Vector2d dir) {
+	private RayIntersectionData calculateIntersection(Apparatus apparatus, Vector2d origin, Vector2d ray) {
 		RayIntersectionData data = new RayIntersectionData();
-		data.ray = dir;
-	    dir.normalize();
+		data.ray = ray;
+	    data.ray.normalize();
 	    
 		for (int i = 0; i < apparatus.getPointCount() - 1; i++) {
 			Vector2d lineStartTemp = apparatus.getPoint(i);
 			Vector2d lineVecTemp = apparatus.getSegment(i);
-			Vector2d res = Vector2d.getIntersectionParameters(origin, dir, lineStartTemp, lineVecTemp);
+			Vector2d res = Vector2d.getIntersectionParameters(origin, ray, lineStartTemp, lineVecTemp);
 
 			if (res.x >= 0 && res.x <= 1) {
 				if (res.y > 1e-9 && res.y < data.distance) {
@@ -84,7 +89,7 @@ public class LightPathNode {
 			return null;
 		}
 		data.apparatus = apparatus;
-		data.position = dir.copy().mult(data.distance).add(origin);
+		data.position = ray.copy().mult(data.distance).add(origin);
 		return data;
 	}
 	
@@ -153,7 +158,7 @@ public class LightPathNode {
 	}
 	
 	private class ApparatusDistanceTuple {
-		Apparatus apparatus;
+		private Apparatus apparatus;
 		double distance;
 		
 		public ApparatusDistanceTuple(Apparatus apparatus, double distance) {
@@ -168,9 +173,20 @@ public class LightPathNode {
 		private Vector2d surface, ray;
 		private Vector2d position;
 		
-		public List<Vector2d> calculateScatterDirections(int wavelength) {
-			List<Vector2d> scatterDirections = apparatus.getScatteredLight(ray, surface, wavelength);
+		public List<RayIntensityTuple> calculateScatteredLight(int wavelength, double intensity) {
+			
+			List<RayIntensityTuple> scatterDirections = apparatus.getScatteredLight(ray, surface, intensity, wavelength);
 			return scatterDirections;
+		}
+	}
+	
+	public static class RayIntensityTuple {
+		public Vector2d ray;
+		public double intensity;
+		
+		public RayIntensityTuple(Vector2d ray, double intensity) {
+			this.ray = ray;
+			this.intensity = intensity;
 		}
 	}
 
@@ -178,13 +194,18 @@ public class LightPathNode {
 		return origin;
 	}
 
-	public void strokeWith(GraphicsContext gc) {
+	public void stroke(GraphicsContext gc, Color color) {
 		gc.lineTo(origin.x, origin.y);
+		Color strokeColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), intensity);
+		gc.setStroke(strokeColor);
+		gc.stroke();
+		
 		if(nexts == null) return;
 		
 		for(LightPathNode p : nexts) {
-			p.strokeWith(gc);
+			gc.beginPath();
 			gc.moveTo(origin.x, origin.y);
+			p.stroke(gc, color);		
 		}
 	}
 }

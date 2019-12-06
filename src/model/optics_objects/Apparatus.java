@@ -6,6 +6,7 @@ import java.util.Map;
 
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
+import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
 public abstract class Apparatus extends OpticsObject {
@@ -111,5 +112,6 @@ public abstract class Apparatus extends OpticsObject {
 		return points.size();
 	}
 
-	public abstract List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength);
+	public abstract List<RayIntensityTuple> getScatteredLight(Vector2d ray, Vector2d surface, double intensity, int wavelength);
+	
 }
