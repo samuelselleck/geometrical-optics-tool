@@ -74,6 +74,8 @@ public class OpticsCanvas {
 		
 		drawBackground();
 		
+		gc.setGlobalBlendMode(BlendMode.SCREEN);
+		
 		for(LightSource s : model.getLights()) {
 			s.calculateRayPaths(model.getApparatuses());
 			s.draw(gc, selected == s);

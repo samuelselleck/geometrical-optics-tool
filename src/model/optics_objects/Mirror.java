@@ -1,12 +1,13 @@
 package model.optics_objects;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
@@ -32,7 +33,7 @@ public abstract class Mirror extends Apparatus {
 	@Override
 	public void draw(GraphicsContext gc, boolean selected) {
 		
-		gc.setStroke(new Color(0.7, 0.7, 0.7, 1));
+		gc.setStroke(new javafx.scene.paint.Color(0.7, 0.7, 0.7, 1));
 		if(selected) {
 			gc.setLineWidth(3);
 		} else {
@@ -44,5 +45,16 @@ public abstract class Mirror extends Apparatus {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.stroke();
+	}
+	
+	@Override
+	public void draw(Graphics2D g, boolean selected) {
+		g.setColor(Color.LIGHT_GRAY);
+		Vector2d p2 = getPoint(0);
+		for(int i = 1; i < getPointCount(); i++) {
+			Vector2d p1 = p2;
+			p2 = getPoint(i);
+			g.drawLine((int)p1.x, (int)p1.y, (int)p2.x, (int)p2.y);
+		}
 	}
 }

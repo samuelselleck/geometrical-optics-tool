@@ -1,5 +1,6 @@
 package model.optics_objects;
 
+import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public abstract class OpticsObject implements Serializable {
 	protected abstract void update();
 	
 	public abstract void draw(GraphicsContext gc, boolean selected);
+	public abstract void draw(Graphics2D g, boolean selected);
 	
 	public final Map<String, DoubleProperty> getProperties() {
 		return properties;

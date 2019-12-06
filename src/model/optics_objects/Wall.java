@@ -1,5 +1,6 @@
 package model.optics_objects;
 
+import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Map;
 
@@ -48,5 +49,10 @@ public abstract class Wall extends Apparatus {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.fill();
+	}
+	
+	@Override
+	public void draw(Graphics2D g, boolean selected) {
+		
 	}
 }

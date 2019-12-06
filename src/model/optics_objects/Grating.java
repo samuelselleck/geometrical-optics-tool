@@ -1,5 +1,6 @@
 package model.optics_objects;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,11 @@ public abstract class Grating extends Apparatus {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.stroke();
+	}
+	
+	@Override
+	public void draw(Graphics2D g, boolean selected) {
+		
 	}
 
 }

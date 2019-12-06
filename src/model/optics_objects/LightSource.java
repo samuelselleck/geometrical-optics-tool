@@ -1,5 +1,6 @@
 package model.optics_objects;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +92,12 @@ public abstract class LightSource extends OpticsObject {
 		for(LightRay l : light) {
 			l.rotate(angle);
 		}
+	}
+	
+	@Override
+	public void draw(Graphics2D g, boolean selected) {
+		g.setColor(java.awt.Color.RED);
+		g.fillOval((int)get("X"), (int)get("Y"), 100, 100);
 	}
 	
 	@Override

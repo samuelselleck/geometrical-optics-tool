@@ -1,5 +1,6 @@
 package model.optics_objects;
 
+import java.awt.Graphics2D;
 import java.util.Map;
 
 import gui.Main;
