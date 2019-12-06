@@ -14,7 +14,7 @@ import javafx.scene.paint.Stop;
 import model.LensMaterial;
 import util.Vector2d;
 
-public abstract class Lens extends Material {
+public abstract class Lens extends Apparatus {
 	private static final long serialVersionUID = 1L;
 	
 	public static ObservableList<LensMaterial> MATERIALS = FXCollections.observableArrayList();

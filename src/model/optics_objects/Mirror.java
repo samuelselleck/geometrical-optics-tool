@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import util.Vector2d;
 
-public abstract class Mirror extends Material {
+public abstract class Mirror extends Apparatus {
 	
 	private static final long serialVersionUID = 1L;
 	

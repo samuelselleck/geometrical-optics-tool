@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.optics_objects.LightSource;
-import model.optics_objects.Material;
+import model.optics_objects.Apparatus;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
@@ -13,7 +13,7 @@ public class OpticsModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<Material> materials;
+	private List<Apparatus> apparatuses;
 	private List<LightSource> lights;
 
 	public OpticsModel() {
@@ -21,7 +21,7 @@ public class OpticsModel implements Serializable {
 	}
 	
 	public void init() {
-		materials = new ArrayList<>();
+		apparatuses = new ArrayList<>();
 		lights = new ArrayList<>();
 	}
 	
@@ -31,7 +31,7 @@ public class OpticsModel implements Serializable {
 		Vector2d pos = new Vector2d(x, y);
 		
 		List<OpticsObject> objList = new ArrayList<>();
-		objList.addAll(materials);
+		objList.addAll(apparatuses);
 		objList.addAll(lights);
 		
 		double closestSq = Double.MAX_VALUE;
@@ -50,23 +50,23 @@ public class OpticsModel implements Serializable {
 	public void addOpticsObject(OpticsObject newOpticsObject) {
 		if(newOpticsObject == null) return;
 		
-		if(newOpticsObject instanceof Material) {
-			materials.add((Material)newOpticsObject);
+		if(newOpticsObject instanceof Apparatus) {
+			apparatuses.add((Apparatus)newOpticsObject);
 		} else {
 			lights.add((LightSource)newOpticsObject);
 		}
 	}
 
 	public void remove(OpticsObject obj) {
-		if(obj instanceof Material) {
-			materials.remove(obj);
+		if(obj instanceof Apparatus) {
+			apparatuses.remove(obj);
 		} else {
 			lights.remove(obj);
 		}
 	}
 
-	public List<Material> getMaterials() {
-		return materials;
+	public List<Apparatus> getApparatuses() {
+		return apparatuses;
 	}
 
 	public List<LightSource> getLights() {
@@ -75,14 +75,14 @@ public class OpticsModel implements Serializable {
 	
 	public void clear() {
 		clearLights();
-		clearMaterials();
+		clearApparatuses();
 	}
 
 	public void clearLights() {
 		lights.clear();
 	}
 
-	public void clearMaterials() {
-		materials.clear();
+	public void clearApparatuses() {
+		apparatuses.clear();
 	}
 }

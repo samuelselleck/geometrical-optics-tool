@@ -25,7 +25,7 @@ public abstract class LightSource extends OpticsObject {
 		super(properties);
 	}
 
-	public void calculateRayPaths(List<Material> materials) {
+	public void calculateRayPaths(List<Apparatus> apparatuses) {
 		
 		if(paths == null) {
 			paths = new TreeMap<>();
@@ -58,7 +58,7 @@ public abstract class LightSource extends OpticsObject {
 		wavelengths.stream().forEach(w -> {	
 			List<LightPathNode> pathsAtWavelength = new ArrayList<>();
 			light.stream().forEach(l -> {
-				LightPathNode path = l.calculatePath(materials, w);
+				LightPathNode path = l.calculatePath(apparatuses, w);
 				pathsAtWavelength.add(path);
 			});
 			paths.put(w, pathsAtWavelength);

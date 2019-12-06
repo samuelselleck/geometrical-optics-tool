@@ -11,7 +11,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import util.Vector2d;
 
-public abstract class Wall extends Material {
+public abstract class Wall extends Apparatus {
 
 	public Wall(Map<String, DoubleProperty> properties) {
 		super(properties);

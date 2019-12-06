@@ -23,7 +23,7 @@ public class OpticsToolBox extends ToolBar {
 		Button clearMaterialsButton = new Button("Clear Objects");
 		clearMaterialsButton.setPrefHeight(buttonHeight);
 		clearMaterialsButton.setOnAction(e -> {
-			opticsEnvironment.clearMaterials();
+			opticsEnvironment.clearApparatuses();
 		});
 		Button clearButton = new Button("Clear All");
 		clearButton.setPrefHeight(buttonHeight);

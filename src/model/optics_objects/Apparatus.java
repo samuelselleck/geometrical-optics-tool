@@ -8,13 +8,13 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import util.Vector2d;
 
-public abstract class Material extends OpticsObject {
+public abstract class Apparatus extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	private transient Vector2d botRig, topLef;
 	protected transient List<Vector2d> points = new ArrayList<>();
 	protected transient List<Vector2d> segments = new ArrayList<>();
 
-	public Material(Map<String, DoubleProperty> properties) {
+	public Apparatus(Map<String, DoubleProperty> properties) {
 		super(properties);
 	}
 

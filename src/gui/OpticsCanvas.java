@@ -8,7 +8,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
 import model.OpticsModel;
 import model.optics_objects.LightSource;
-import model.optics_objects.Material;
+import model.optics_objects.Apparatus;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
@@ -77,14 +77,14 @@ public class OpticsCanvas {
 		gc.setGlobalBlendMode(BlendMode.SCREEN);
 		
 		for(LightSource s : model.getLights()) {
-			s.calculateRayPaths(model.getMaterials());
+			s.calculateRayPaths(model.getApparatuses());
 			s.draw(gc, selected == s);
 		}
 		
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 		
-		for(Material m : model.getMaterials()) {
-			m.draw(gc, selected == m);	
+		for(Apparatus a : model.getApparatuses()) {
+			a.draw(gc, selected == a);	
 		}
 	}
 	

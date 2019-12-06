@@ -1,15 +1,13 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import gui.Main;
 import javafx.scene.canvas.GraphicsContext;
-import model.optics_objects.Material;
+import model.optics_objects.Apparatus;
 import util.Vector2d;
 
-public class LightPathNode implements Iterable<LightPathNode> {
+public class LightPathNode {
 	private Vector2d origin;
 	private List<LightPathNode> nexts;
 	
@@ -17,11 +15,13 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		this.origin = origin;
 	}
 	
-	public void develop(List<Vector2d> dirs, List<Material> materials, int wavelength) {
-		develop(dirs, materials, wavelength, 0);
+	public void develop(Vector2d dir, List<Apparatus> apparatuses, int wavelength) {
+		List<Vector2d> dirs = new ArrayList<>();
+		dirs.add(dir);
+		develop(dirs, apparatuses, wavelength, 0);
 	}
 	
-	private void develop(List<Vector2d> dirs, List<Material> materials, int wavelength, int iterr) {
+	private void develop(List<Vector2d> dirs, List<Apparatus> apparatuses, int wavelength, int iterr) {
 		if(iterr > Main.getIntProperty("maxraybounce")) {
 			return;
 		}
@@ -33,11 +33,11 @@ public class LightPathNode implements Iterable<LightPathNode> {
 				
 				RayIntersectionData closestHitData = new RayIntersectionData();
 				
-				List<MaterialDistanceTuple> approximateDistances = getDistanceList(materials, origin, dir);
+				List<ApparatusDistanceTuple> approximateDistances = getDistanceList(apparatuses, origin, dir);
 				
 				for(int i = 0; i < approximateDistances.size(); i++) {
-					MaterialDistanceTuple current = approximateDistances.get(i);
-					RayIntersectionData data = calculateIntersection(current.material, origin, dir);
+					ApparatusDistanceTuple current = approximateDistances.get(i);
+					RayIntersectionData data = calculateIntersection(current.apparatus, origin, dir);
 					if(data == null) continue;
 					
 					if(data.distance < closestHitData.distance) {
@@ -53,7 +53,7 @@ public class LightPathNode implements Iterable<LightPathNode> {
 				if(closestHitData.distance != Double.MAX_VALUE) {
 					newNode = new LightPathNode(closestHitData.position);
 					List<Vector2d> newDirs = closestHitData.calculateScatterDirections(wavelength);
-					newNode.develop(newDirs, materials, wavelength, iterr + 1);
+					newNode.develop(newDirs, apparatuses, wavelength, iterr + 1);
 				} else {
 					newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
 				}
@@ -62,14 +62,14 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		}
 	}
 	
-	private RayIntersectionData calculateIntersection(Material material, Vector2d origin, Vector2d dir) {
+	private RayIntersectionData calculateIntersection(Apparatus apparatus, Vector2d origin, Vector2d dir) {
 		RayIntersectionData data = new RayIntersectionData();
 		data.ray = dir;
 	    dir.normalize();
 	    
-		for (int i = 0; i < material.getPointCount() - 1; i++) {
-			Vector2d lineStartTemp = material.getPoint(i);
-			Vector2d lineVecTemp = material.getSegment(i);
+		for (int i = 0; i < apparatus.getPointCount() - 1; i++) {
+			Vector2d lineStartTemp = apparatus.getPoint(i);
+			Vector2d lineVecTemp = apparatus.getSegment(i);
 			Vector2d res = Vector2d.getIntersectionParameters(origin, dir, lineStartTemp, lineVecTemp);
 
 			if (res.x >= 0 && res.x <= 1) {
@@ -83,60 +83,56 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		if (data.distance == Double.MAX_VALUE) {
 			return null;
 		}
-		data.material = material;
+		data.apparatus = apparatus;
 		data.position = dir.copy().mult(data.distance).add(origin);
 		return data;
 	}
 	
-	private List<MaterialDistanceTuple> getDistanceList(List<Material> materials, Vector2d origin, Vector2d dir) {
-		List<MaterialDistanceTuple> distanceList = new ArrayList<>();
+	private List<ApparatusDistanceTuple> getDistanceList(List<Apparatus> apparatuses, Vector2d origin, Vector2d dir) {
+		List<ApparatusDistanceTuple> distanceList = new ArrayList<>();
 		
-		for (Material m : materials) {
-			Vector2d botRight = m.getBottomRightBound();
-			Vector2d topLeft = m.getTopLeftBound();
+		for (Apparatus a : apparatuses) {
 			
+			Vector2d botRight = a.getBottomRightBound();
+			Vector2d topLeft = a.getTopLeftBound();
+					
+			boolean[] sides = new boolean[] {
+					topLeft.x >= origin.x, //Origin to the left
+					topLeft.y >= origin.y, //Origin over
+					origin.x >= botRight.x, //Origin To the right
+					origin.y >= botRight.y, //Origin under
+			};
 			
-			boolean left = topLeft.x >= origin.x;
-			boolean right = origin.x >= botRight.x;
-			boolean top = topLeft.y >= origin.y;
-			boolean bot = origin.y >= botRight.y;
+			if(!(sides[0] || sides[1] || sides[2] || sides[3])) {
+				distanceList.add(new ApparatusDistanceTuple(a, 0));
+			}
 			
-			double dist;
-			if(left) {
-				dist = getDistance(origin, dir, topLeft,
-					new Vector2d(0, botRight.y - topLeft.y));
-				if(dist > 0) {
-					distanceList.add(new MaterialDistanceTuple(m, dist));
-					continue;
+			Vector2d[] intersectionPositions = new Vector2d[] {
+					topLeft,
+					topLeft,
+					botRight, 
+					botRight,
+			};
+			
+			double width = botRight.x - topLeft.x;
+			double height = botRight.y - topLeft.y;
+			Vector2d[] intersectionSegments = new Vector2d[] {
+					new Vector2d(0, height),
+					new Vector2d(width, 0),
+					new Vector2d(0, -height),
+					new Vector2d(-width, 0)
+			};
+
+			for(int i = 0; i < 4; i++) {
+				if(sides[i]) {
+					 double dist = getDistance(origin, dir, 
+							 intersectionPositions[i], intersectionSegments[i]);
+					if(dist > 0) {
+						distanceList.add(new ApparatusDistanceTuple(a, dist));
+						break;
+					}
 				}
-			}
-			if(top) {
-				 dist = getDistance(origin, dir, topLeft,
-							new Vector2d(botRight.x - topLeft.x, 0));
-				if(dist > 0) {
-					distanceList.add(new MaterialDistanceTuple(m, dist));
-					continue;
-				}
-			}
-			if(right) {
-				 dist = getDistance(origin, dir, botRight,
-							new Vector2d(0, topLeft.y - botRight.y));
-				if(dist > 0) {
-					distanceList.add(new MaterialDistanceTuple(m, dist));
-					continue;
-				}
-			}
-			if(bot) {
-				 dist = getDistance(origin, dir, botRight,
-							new Vector2d(topLeft.x - botRight.x, 0));
-				if(dist > 0) {
-					distanceList.add(new MaterialDistanceTuple(m, dist));
-					continue;
-				}
-			}
-			if(!(left || top || right || bot)) {
-				distanceList.add(new MaterialDistanceTuple(m, 0));
-			}
+			}		
 		}
 		
 		distanceList.sort((e1, e2) -> {
@@ -156,35 +152,30 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		return -1;
 	}
 	
-	private class MaterialDistanceTuple {
-		Material material;
+	private class ApparatusDistanceTuple {
+		Apparatus apparatus;
 		double distance;
 		
-		public MaterialDistanceTuple(Material material, double distance) {
-			this.material = material;
+		public ApparatusDistanceTuple(Apparatus apparatus, double distance) {
+			this.apparatus = apparatus;
 			this.distance = distance;
 		}
 	}
 	
 	private class RayIntersectionData {
-		private Material material;
+		private Apparatus apparatus;
 		private double distance = Double.MAX_VALUE;
 		private Vector2d surface, ray;
 		private Vector2d position;
 		
 		public List<Vector2d> calculateScatterDirections(int wavelength) {
-			List<Vector2d> scatterDirections = material.getScatteredLight(ray, surface, wavelength);
+			List<Vector2d> scatterDirections = apparatus.getScatteredLight(ray, surface, wavelength);
 			return scatterDirections;
 		}
 	}
 
 	public Vector2d getOrigin() {
 		return origin;
-	}
-
-	@Override
-	public Iterator<LightPathNode> iterator() {
-		return nexts.iterator();
 	}
 
 	public void strokeWith(GraphicsContext gc) {

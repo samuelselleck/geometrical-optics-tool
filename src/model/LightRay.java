@@ -2,10 +2,9 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import model.optics_objects.Material;
+import model.optics_objects.Apparatus;
 import util.Vector2d;
 
 public class LightRay implements Serializable {
@@ -25,12 +24,10 @@ public class LightRay implements Serializable {
 		this(origin, Vector2d.zero(), ray);
 	}
 	
-	public LightPathNode calculatePath(List<Material> materials, int wavelength) {
-		LightPathNode node = new LightPathNode(getPos());
-		List<Vector2d> dirs = new ArrayList<>();
-		dirs.add(ray);
-		node.develop(dirs, materials, wavelength);
-		return node;
+	public LightPathNode calculatePath(List<Apparatus> apparatuses, int wavelength) {
+		LightPathNode rootNode = new LightPathNode(getPos());
+		rootNode.develop(ray, apparatuses, wavelength);
+		return rootNode;
 	}
 
 	private Vector2d getPos() {

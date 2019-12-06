@@ -214,9 +214,9 @@ public class OpticsEnvironment {
 		redraw();
 	}
 
-	public void clearMaterials() {
+	public void clearApparatuses() {
 		deselect();
-		model.clearMaterials();
+		model.clearApparatuses();
 		redraw();
 	}
 	
