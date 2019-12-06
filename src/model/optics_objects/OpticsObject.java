@@ -70,7 +70,7 @@ public abstract class OpticsObject implements Serializable {
 		properties.get("Rotation").set(angle + get("Rotation"));
 	}
 	
-	protected void init() {
+	protected void init() {		
 		rotateOp(get("Rotation"));
 	}
 	

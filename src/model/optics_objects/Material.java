@@ -12,6 +12,7 @@ public abstract class Material extends OpticsObject {
 	private static final long serialVersionUID = 1L;
 	private transient Vector2d botRig, topLef;
 	protected transient List<Vector2d> points = new ArrayList<>();
+	protected transient List<Vector2d> segments = new ArrayList<>();
 
 	public Material(Map<String, DoubleProperty> properties) {
 		super(properties);
@@ -20,21 +21,29 @@ public abstract class Material extends OpticsObject {
 	@Override
 	protected void init() {
 		super.init();
+		Vector2d origin = getOrigin();
+		points.stream().forEach(p -> p.add(origin));
+		for(int i = 0; i < points.size(); i++) {
+			Vector2d segment = points.get((i + 1) % points.size()).copy().sub(points.get(i));
+			segments.add(segment);
+		}
 		createBounds();
 	}
 	
 	@Override
 	protected void clear() {
-		if(points == null) {
+		if(points == null || segments == null) {
 			points = new ArrayList<>();
+			segments = new ArrayList<>();
 		} else {
 			points.clear();
+			segments.clear();
 		}
 	}
 	
 	public void createBounds() {
 		botRig = Vector2d.zero();
-		topLef = Vector2d.zero();
+		topLef = new Vector2d(Double.MAX_VALUE, Double.MAX_VALUE);
 		for (int i = 0; i < points.size(); i++) {
 			Vector2d p1 = points.get(i);
 			if (p1.x < topLef.x)
@@ -56,15 +65,14 @@ public abstract class Material extends OpticsObject {
 		for(Vector2d p : points) {
 			p.rotateDegrees(angle);
 		}
-		this.createBounds();
 	}
 	
 	public Vector2d getBottomRightBound() {
-		return getOrigin().add(botRig);
+		return botRig;
 	}
 
 	public Vector2d getTopLeftBound() {
-		return getOrigin().add(topLef);
+		return topLef;
 	}
 	
 	@Override
@@ -92,11 +100,11 @@ public abstract class Material extends OpticsObject {
 	}
 	
 	public Vector2d getPoint(int index) {
-		return getOrigin().add(points.get(index % points.size()));
+		return points.get(index % points.size());
 	}
 	
 	public Vector2d getSegment(int index) {
-		return points.get((index + 1) % points.size()).copy().sub(points.get(index));
+		return segments.get(index % segments.size());
 	}
 
 	public int getPointCount() {
