@@ -62,17 +62,19 @@ public class AddMaterialWindow extends Stage{
 		HBox addBox = new HBox();
 		Button addMaterialButton = new Button("Add Material");
 		addMaterialButton.setOnAction(e -> {
-			Color c = colorPicker.getValue();
-			LensMaterial newLensMaterial = new LensMaterial(
-					nameField.getText(),
-					new double[] { c.getRed(), c.getGreen(), c.getBlue()},
-					Stream.of(coeffFields)
-					.mapToDouble(t -> 
-					Double.parseDouble(t.getText().replace(',', '.')))
-					.toArray());
-			
-			
-			Lens.MATERIALS.add(newLensMaterial);
+			if(nameField.getText().length() > 0) {
+				Color c = colorPicker.getValue();
+				LensMaterial newLensMaterial = new LensMaterial(
+						nameField.getText(),
+						new double[] { c.getRed(), c.getGreen(), c.getBlue()},
+						Stream.of(coeffFields)
+						.mapToDouble(t -> 
+						Double.parseDouble(t.getText().replace(',', '.')))
+						.toArray());
+				
+				
+				Lens.MATERIALS.add(newLensMaterial);
+			}
 			this.close();
 		});
 		

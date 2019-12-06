@@ -91,6 +91,10 @@ public class OpticsMenuBar extends MenuBar {
 		
 		Menu options = new Menu("Options");
 		
+		CheckMenuItem snapToGrid = new CheckMenuItem("Snap Objects to Grid");
+		snapToGrid.setOnAction(e -> {
+			opticsEnvironment.setSnapToGrid(snapToGrid.isSelected());
+		});
 		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
 		
 		addLensMaterial.setOnAction(e -> {
@@ -99,7 +103,7 @@ public class OpticsMenuBar extends MenuBar {
 		});
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
 		window.getItems().addAll(resetView, grid);
-		options.getItems().addAll(addLensMaterial);
+		options.getItems().addAll(snapToGrid, addLensMaterial);
 		this.getMenus().addAll(file, window, options);
 	}
 }

@@ -53,7 +53,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		VBox.setVgrow(top, Priority.ALWAYS);
 		top.setAlignment(Pos.TOP_LEFT);
 		
-		HBox bot = new HBox();
+		HBox positionRotation = new HBox();
 		Label xLabel = new Label("x:");
 		TextField xPos = new TextField();
 		xPos.setStyle("-fx-control-inner-background: black");
@@ -67,8 +67,9 @@ public abstract class OpticsObjectCreator extends VBox {
 		rotation.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(rotation, properties.get("Rotation"));
 		
-		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
-		this.getChildren().addAll(top, bot);
+		positionRotation.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
+		
+		this.getChildren().addAll(top, positionRotation);
 		
 	}
 	
@@ -102,11 +103,9 @@ public abstract class OpticsObjectCreator extends VBox {
 				
 				creatorProperty.set(objVal.get());
 				
-				objVal.removeListener(updated);
-			    objVal.bindBidirectional(creatorProperty);
+			    creatorProperty.bindBidirectional(objVal);
 				objVal.addListener(updated);
-				
-				
+								
 			} else {
 				
 				System.out.println("ERROR: could not find creator property to bind to: " + 
@@ -129,11 +128,8 @@ public abstract class OpticsObjectCreator extends VBox {
 					
 					creatorProperty.set(objVal.get());
 					
-				    objVal.unbindBidirectional(creatorProperty);
-				} else {
-					
-					System.out.println("ERROR: could not find creator property to unbind from: " + 
-					property.getKey());
+					objVal.removeListener(updated);
+				    creatorProperty.unbindBidirectional(objVal);
 				}
 			 }
 		}

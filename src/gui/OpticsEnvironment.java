@@ -33,6 +33,7 @@ public class OpticsEnvironment {
 	private boolean rotating;
 	private Vector2d lastPos;
 	private double rotationFactor;
+	private boolean snapToGrid;
 
 	public OpticsEnvironment(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
 		
@@ -59,6 +60,7 @@ public class OpticsEnvironment {
 		selected = null;
 		this.dragged = false;
 		this.rotating = false;
+		snapToGrid = false;
 		redraw();	
 	}
 
@@ -104,7 +106,7 @@ public class OpticsEnvironment {
 			} else {
 				dragged = true;
 				if (draging != null) {
-					draging.setOrigin(currPos.x + offset.x, currPos.y + offset.y);
+					setDragingOrigin(currPos.x + offset.x, currPos.y + offset.y);
 				} else if (rotating) {
 					if(lastPos != null)
 					rotate(selected, lastPos, currPos);
@@ -149,7 +151,7 @@ public class OpticsEnvironment {
 				selected = null;
 				view.deselect();
 			} else {
-				draging.setOrigin(pos.x + offset.x, pos.y + offset.y);
+				setDragingOrigin(pos.x + offset.x, pos.y + offset.y);
 			}	
 			draging = null;
 		} else if (!dragged) {
@@ -157,6 +159,10 @@ public class OpticsEnvironment {
 			if(atMouse != null) {
 				select(atMouse);
 			} else if (inBounds && opticsObjectCreator != null) {
+				if(snapToGrid) {
+					pos.x = Math.round(pos.x / Main.DPCM) * Main.DPCM;
+					pos.y = Math.round(pos.y / Main.DPCM) * Main.DPCM;
+				}
 				OpticsObject newObj = opticsObjectCreator.getOpticsObject(new Vector2d(pos.x, pos.y));
 				model.addOpticsObject(newObj);
 				select(newObj);
@@ -166,6 +172,15 @@ public class OpticsEnvironment {
 		dragged = false;
 		lastPos = null;
 		redraw();
+	}
+	
+	
+	private void setDragingOrigin(double x, double y) {
+		if(snapToGrid) {
+			x = Math.round(x / Main.DPCM) * Main.DPCM;
+			y = Math.round(y / Main.DPCM) * Main.DPCM;
+		}
+		draging.setOrigin(x, y);
 	}
 	
 	private void select(OpticsObject obj) {
@@ -213,6 +228,11 @@ public class OpticsEnvironment {
 		this.rotationFactor = fac;
 	}
 
+	
+	public void setSnapToGrid(boolean val) {
+		this.snapToGrid = val;
+	}
+	
 	public OpticsModel getOpticsModel() {
 		return model;
 	}
