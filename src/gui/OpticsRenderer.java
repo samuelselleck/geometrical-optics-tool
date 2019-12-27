@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import model.OpticsModel;
 import model.optics_objects.Apparatus;
 import model.optics_objects.LightSource;
+import util.LightComposite;
 
 public class OpticsRenderer {
 	int width, height;
@@ -21,12 +22,13 @@ public class OpticsRenderer {
 		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);		
 		g = image.createGraphics();
 		g.setBackground(Color.BLACK);
+		LightComposite lightComposite = new LightComposite();
+		g.setComposite(lightComposite);
 	}
 	
 	public BufferedImage getRender() {
-		Graphics2D g = image.createGraphics();
-		g.clearRect(0, 0, width, height);
 		
+		g.clearRect(0, 0, width, height);
 		for(Apparatus a : model.getApparatuses()) {
 			a.draw(g, false);
 		}

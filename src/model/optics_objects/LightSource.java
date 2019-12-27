@@ -74,8 +74,8 @@ public abstract class LightSource extends OpticsObject {
 			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
 			Color color = new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 1);
 			
-			gc.beginPath();
 			for(LightPathNode path : entry.getValue()) {
+				gc.beginPath();
 				gc.moveTo(path.getOrigin().x, path.getOrigin().y);
 				path.stroke(gc, color);
 			}
@@ -97,7 +97,29 @@ public abstract class LightSource extends OpticsObject {
 	@Override
 	public void draw(Graphics2D g, boolean selected) {
 		g.setColor(java.awt.Color.RED);
-		g.fillOval((int)get("X"), (int)get("Y"), 100, 100);
+		
+		for(Map.Entry<Integer, List<LightPathNode>> entry : paths.entrySet()) {
+			
+			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
+			java.awt.Color color = new java.awt.Color(rgb[0], rgb[1], rgb[2], 255);
+			
+			for(LightPathNode path : entry.getValue()) {
+				Vector2d curr = getOrigin();
+				int currX = (int)Math.round(curr.x);
+				int currY = (int)Math.round(curr.y);
+				path.stroke(g, color, currX, currY);
+			}
+		}
+		
+		if(selected) {
+			java.awt.Color c = new java.awt.Color(255, 255, 255, 90);
+			g.setColor(c);
+			Vector2d origin = getOrigin();
+			int x = (int)Math.round(origin.x - Main.DPCM);
+			int y = (int)Math.round(origin.y - Main.DPCM);
+			int w = (int)Math.round(2*Main.DPCM);
+			g.fillOval(x, y, w, w);
+		}
 	}
 	
 	@Override

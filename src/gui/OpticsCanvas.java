@@ -1,8 +1,13 @@
 package gui;
 
+import java.awt.image.BufferedImage;
+
+import javafx.beans.InvalidationListener;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
@@ -16,6 +21,7 @@ public class OpticsCanvas {
 	private OpticsModel model;
 	private GraphicsContext gc;
 	private Canvas canvas;
+	private OpticsRenderer renderer;
 	private double scale, xTranslation, yTranslation;
 	private boolean grid;
 	
@@ -56,8 +62,12 @@ public class OpticsCanvas {
 		    }
 		};
 		
-		canvas.widthProperty().addListener(e -> redraw());
-		canvas.heightProperty().addListener(e -> redraw());
+		InvalidationListener sizeChange = e -> {
+			renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
+			redraw();
+		};
+		canvas.widthProperty().addListener(sizeChange);
+		canvas.heightProperty().addListener(sizeChange);
 		
 		this.gc = canvas.getGraphicsContext2D();
 		
@@ -70,22 +80,45 @@ public class OpticsCanvas {
 		grid = false;
 	}
 	
-	public void redraw() {
-		
+	
+	public void redrawOld() {
+	  
 		drawBackground();
-		
-		gc.setGlobalBlendMode(BlendMode.SCREEN);
-		
+		  
+		//gc.setGlobalBlendMode(BlendMode.SCREEN);
+		  
 		for(LightSource s : model.getLights()) {
-			s.calculateRayPaths(model.getApparatuses());
+			s.calculateRayPaths(model.getApparatuses()); 
 			s.draw(gc, selected == s);
 		}
 		
 		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-		
+		  
 		for(Apparatus a : model.getApparatuses()) {
-			a.draw(gc, selected == a);	
+			a.draw(gc, selected == a);
+		} 
+	}
+	 
+	
+	public void redraw() {
+		redrawNew();
+	}
+	
+	private void calculateRayPaths() {
+		for(LightSource s : model.getLights()) {
+			s.calculateRayPaths(model.getApparatuses());
 		}
+	}
+	
+	public void redrawNew() {
+		calculateRayPaths();
+		
+		if(renderer == null) {
+			renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
+		}
+		BufferedImage img = renderer.getRender();
+		Image fximg = SwingFXUtils.toFXImage(img, null);
+		gc.drawImage(fximg, 0, 0);
 	}
 	
 	private void drawBackground() {
@@ -156,6 +189,7 @@ public class OpticsCanvas {
 	}
 
 	public void setOpticsModel(OpticsModel model) {
+		renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
 		this.model = model;
 	}
 }

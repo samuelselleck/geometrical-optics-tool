@@ -50,6 +50,10 @@ public class LensMaterial {
 		return new Color(color[0], color[1], color[2], alpha);
 	}
 	
+	public java.awt.Color colorNew(double alpha) {
+		return new java.awt.Color((float)color[0], (float)color[1], (float)color[2], (float)alpha);
+	}
+	
 	public String toString() {
 		return getName();
 	}

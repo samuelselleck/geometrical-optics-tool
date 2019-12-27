@@ -1,6 +1,8 @@
 package model.optics_objects;
 
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public abstract class Lens extends Apparatus {
 				1.43134930, 0.65054713, 5.3414021, 5.2799261e-3, 1.42382647e-2, 325.017834));
 	}
 	
-	LinearGradient fillGradient, fillGradientSelected;
+	private transient LinearGradient fillGradient, fillGradientSelected;
 	
 	public Lens(Map<String, DoubleProperty> properties) {
 		super(properties);
@@ -102,6 +104,21 @@ public abstract class Lens extends Apparatus {
 	@Override
 	public void draw(Graphics2D g, boolean selected) {
 		
+		int[] xPoints = new int[points.size()];
+		int[] yPoints = new int[points.size()];
+		
+		for(int i = 0; i < points.size(); i++) {
+			xPoints[i] = (int)Math.round(points.get(i).x);
+			yPoints[i] = (int)Math.round(points.get(i).y);
+		}
+		
+		LensMaterial lm = getLensMaterial();
+		Vector2d start = points.get(points.size()/2);
+		Vector2d finish = points.get(0);
+		GradientPaint fillGradient = new GradientPaint((float)start.x, (float)start.y, lm.colorNew(0.5),
+													   (float)finish.x, (float)finish.y, lm.colorNew(1));
+		g.setPaint(fillGradient);
+		g.fillPolygon(xPoints, yPoints, points.size());
 	}
 	
 	private LensMaterial getLensMaterial() {

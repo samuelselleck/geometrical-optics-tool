@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import gui.Main;
@@ -206,6 +207,21 @@ public class LightPathNode {
 			gc.beginPath();
 			gc.moveTo(origin.x, origin.y);
 			p.stroke(gc, color);		
+		}
+	}
+	
+	public void stroke(Graphics2D g, java.awt.Color color, int lastX, int lastY) {
+		int currX = (int)Math.round(origin.x);
+		int currY = (int)Math.round(origin.y);		
+		g.drawLine(lastX, lastY, currX, currY);
+		
+		if(nexts == null) return;
+		
+		int intensity = (int)Math.round(this.intensity*255);
+		java.awt.Color strokeColor = new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue(), intensity);
+		for(LightPathNode p : nexts) {
+			g.setColor(strokeColor);
+			p.stroke(g, color, currX, currY);		
 		}
 	}
 }

@@ -91,7 +91,6 @@ public abstract class OpticsObject implements Serializable {
 			propertiesSave.put(p.getKey(), p.getValue().get());
 		}
 		out.writeObject(propertiesSave);
-		out.defaultWriteObject();
 	}
 	
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -101,7 +100,6 @@ public abstract class OpticsObject implements Serializable {
 		for(Map.Entry<String, Double> p : propertiesLoad.entrySet()) {
 			addProperty(p.getKey(), p.getValue());
 		}
-		in.defaultReadObject();
 		update();
 	}
 }
