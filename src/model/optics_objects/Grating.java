@@ -42,23 +42,6 @@ public abstract class Grating extends Apparatus {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
-		
-		gc.setStroke(new Color(0.5, 0.5, 0.7, 1));
-		if(selected) {
-			gc.setLineWidth(5);
-		} else {
-			gc.setLineWidth(4);
-		}
-		gc.beginPath();
-		for (int i = 0; i < getPointCount(); i++) {
-			Vector2d p = getPoint(i);
-			gc.lineTo(p.x, p.y);
-		}
-		gc.stroke();
-	}
-	
-	@Override
 	public void draw(Graphics2D g, boolean selected) {
 		
 	}

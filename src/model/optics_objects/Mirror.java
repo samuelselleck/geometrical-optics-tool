@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.scene.canvas.GraphicsContext;
 import model.LightPathNode.RayIntensityTuple;
 import util.Vector2d;
 
@@ -28,23 +27,6 @@ public abstract class Mirror extends Apparatus {
 		List<RayIntensityTuple> scattered = new ArrayList<>();
 		scattered.add(new RayIntensityTuple(newRay, intensity));
 		return scattered;
-	}
-	
-	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
-		
-		gc.setStroke(new javafx.scene.paint.Color(0.7, 0.7, 0.7, 1));
-		if(selected) {
-			gc.setLineWidth(3);
-		} else {
-			gc.setLineWidth(2);
-		}
-		gc.beginPath();
-		for (int i = 0; i < getPointCount(); i++) {
-			Vector2d p = getPoint(i);
-			gc.lineTo(p.x, p.y);
-		}
-		gc.stroke();
 	}
 	
 	@Override

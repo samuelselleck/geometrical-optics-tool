@@ -8,8 +8,6 @@ import java.util.TreeMap;
 
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import model.LightPathNode;
 import model.LightRay;
 import util.Utils;
@@ -64,27 +62,6 @@ public abstract class LightSource extends OpticsObject {
 			});
 			paths.put(w, pathsAtWavelength);
 		});
-	}
-
-	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
-		
-		for(Map.Entry<Integer, List<LightPathNode>> entry : paths.entrySet()) {
-			
-			int[] rgb = Utils.waveLengthToRGB(entry.getKey());	
-			Color color = new Color(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0, 1);
-			
-			for(LightPathNode path : entry.getValue()) {
-				gc.beginPath();
-				gc.moveTo(path.getOrigin().x, path.getOrigin().y);
-				path.stroke(gc, color);
-			}
-		}
-		
-		if(selected) {
-			gc.setFill(new Color(1, 1, 1, 0.3));
-			gc.fillOval(getOrigin().x - Main.DPCM, getOrigin().y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
-		}
 	}
 	
 	@Override

@@ -1,34 +1,33 @@
 package gui;
 
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.Color;
 
-import javafx.beans.InvalidationListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.StrokeLineJoin;
 import model.OpticsModel;
 import model.optics_objects.LightSource;
 import model.optics_objects.Apparatus;
 import model.optics_objects.OpticsObject;
+import util.LightComposite;
 import util.Vector2d;
 
 public class OpticsCanvas {
 	private OpticsModel model;
-	private GraphicsContext gc;
 	private Canvas canvas;
-	private OpticsRenderer renderer;
+	BufferedImage screenImage;
+	AffineTransform defaultTransform;
+	Graphics2D g;
 	private double scale, xTranslation, yTranslation;
 	private boolean grid;
 	
 	private OpticsObject selected;
 	
 	public OpticsCanvas() {
-		
+		//still need to add back grid and correct translate/scale
 		this.canvas = new Canvas(10, 10) {
 			@Override
 		    public boolean isResizable() {
@@ -59,88 +58,52 @@ public class OpticsCanvas {
 		    public void resize(double width, double height) {
 		        this.setWidth(width);
 		        this.setHeight(height);
+		        onSizeChange(width, height);
+		        redraw();
 		    }
 		};
-		
-		InvalidationListener sizeChange = e -> {
-			renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
-			redraw();
-		};
-		canvas.widthProperty().addListener(sizeChange);
-		canvas.heightProperty().addListener(sizeChange);
-		
-		this.gc = canvas.getGraphicsContext2D();
-		
-		gc.setLineJoin(StrokeLineJoin.ROUND);
-		gc.save();
 		this.scale = 1;
 		this.xTranslation = 0;
 		this.yTranslation = 0;
 		selected = null;
 		grid = false;
+		onSizeChange(10, 10);
 	}
-	
-	
-	public void redrawOld() {
-	  
-		drawBackground();
-		  
-		gc.setGlobalBlendMode(BlendMode.SCREEN);
-		  
-		for(LightSource s : model.getLights()) {
-			s.calculateRayPaths(model.getApparatuses()); 
-			s.draw(gc, selected == s);
-		}
-		
-		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-		  
-		for(Apparatus a : model.getApparatuses()) {
-			a.draw(gc, selected == a);
-		} 
-	}
-	 
-	
-	public void redraw() {
-		redrawOld();
-	}
-	
+
 	private void calculateRayPaths() {
 		for(LightSource s : model.getLights()) {
 			s.calculateRayPaths(model.getApparatuses());
 		}
 	}
 	
-	public void redrawNew() {
+	private void onSizeChange(double width, double height) {
+		screenImage = new BufferedImage((int)Math.ceil(width), (int)Math.ceil(height),
+				BufferedImage.TYPE_INT_ARGB);
+		g = screenImage.createGraphics();
+		defaultTransform = g.getTransform();
+		g.setComposite(new LightComposite());
+	}
+	
+	public void redraw() {
 		calculateRayPaths();
 		
-		if(renderer == null) {
-			renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
+		drawBackground();
+		
+		for(Apparatus a : model.getApparatuses()) {
+			a.draw(g, selected == a);
 		}
-		BufferedImage img = renderer.getRender();
-		Image fximg = SwingFXUtils.toFXImage(img, null);
-		gc.drawImage(fximg, 0, 0);
+		
+		for(LightSource s : model.getLights()) {
+			s.draw(g,  selected == s);
+		}
+		
+		Image fximg = SwingFXUtils.toFXImage(screenImage, null);
+		canvas.getGraphicsContext2D().drawImage(fximg, 0, 0);
 	}
 	
 	private void drawBackground() {
-		
-		gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-		gc.setFill(Paint.valueOf("BLACK"));
-		Vector2d p1 = getTablePos(0, 0);
-		Vector2d p2 = getTablePos(canvas.getWidth(), canvas.getHeight());
-		gc.fillRect(p1.x, p1.y, p2.x - p1.x, p2.y - p1.y);
-		gc.setLineWidth(1);
-		
-		double gridSize = Main.DPCM;
-		
-		gc.setStroke(new Color(1, 1, 1, 0.3));
-		if(grid) {
-			for(int i = 0; i < (canvas.getWidth()/gridSize + 2)/scale; i++) {
-				double xStart = p1.x + (xTranslation/scale)%gridSize - gridSize;
-				double yStart = p1.y + (yTranslation/scale)%gridSize - gridSize;
-				gc.strokeLine(xStart + i*gridSize, yStart, xStart + i*gridSize, yStart + canvas.getHeight()/scale + 2*gridSize);
-				gc.strokeLine(xStart, yStart + i*gridSize, xStart + canvas.getWidth()/scale + 2*gridSize, yStart + i*gridSize);
-			}
-		}
+		g.setColor(Color.BLACK);
+		g.clearRect(0, 0, screenImage.getWidth(), screenImage.getHeight());
 	}
 	
 	public void select(OpticsObject obj) {
@@ -154,7 +117,7 @@ public class OpticsCanvas {
 	public void translate(double x, double y) {
 		xTranslation += x;
 		yTranslation += y;
-		gc.translate(x/scale, y/scale);
+		g.translate(x/scale, y/scale);
 	}
 	
 	public void scale(double factor, double x, double y) {
@@ -163,13 +126,12 @@ public class OpticsCanvas {
 		scale = Math.max(scale, 0.5);
 		scale = Math.min(scale, 2);
 		
-		gc.scale(scale/old, scale/old);
+		g.scale(scale/old, scale/old);
 		translate(-x*(scale - old), -y*(scale - old));
 	}
 	
 	public void resetView() {
-		gc.restore();
-		gc.save();
+		g.setTransform(defaultTransform);
 		xTranslation = 0;
 		yTranslation = 0;
 		scale = 1;
@@ -189,7 +151,6 @@ public class OpticsCanvas {
 	}
 
 	public void setOpticsModel(OpticsModel model) {
-		renderer = new OpticsRenderer(model, (int)Math.ceil(canvas.getWidth()), (int)Math.ceil(canvas.getHeight()));
 		this.model = model;
 	}
 }

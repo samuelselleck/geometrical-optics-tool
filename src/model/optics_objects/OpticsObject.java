@@ -11,7 +11,6 @@ import java.util.TreeMap;
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.canvas.GraphicsContext;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
@@ -52,7 +51,6 @@ public abstract class OpticsObject implements Serializable {
 	protected abstract void clear();
 	protected abstract void update();
 	
-	public abstract void draw(GraphicsContext gc, boolean selected);
 	public abstract void draw(Graphics2D g, boolean selected);
 	
 	public final Map<String, DoubleProperty> getProperties() {

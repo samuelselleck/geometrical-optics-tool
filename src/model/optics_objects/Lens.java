@@ -90,18 +90,6 @@ public abstract class Lens extends Apparatus {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
-		
-		gc.setFill(selected ? fillGradientSelected : fillGradient);
-		gc.beginPath();
-		for (int i = 0; i < getPointCount(); i++) {
-			Vector2d p = getPoint(i);
-			gc.lineTo(p.x, p.y);
-		}
-		gc.fill();
-	}
-	
-	@Override
 	public void draw(Graphics2D g, boolean selected) {
 		
 		int[] xPoints = new int[points.size()];
