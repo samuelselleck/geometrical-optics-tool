@@ -50,12 +50,9 @@ public class LightComposite implements Composite {
                     b1 = b1 * a1 / 255;
                     // mix the two pixels
                     final int ta = a2 * (255 - a1);
-                    r2 = r1 + (r2 * ta / (255*255));
-                    g2 = g1 + (g2 * ta / (255*255));
-                    b2 = b1 + (b2 * ta / (255*255));
-                    r2 = Math.max(r1, r2);
-                    g2 = Math.max(g1, g2);
-                    b2 = Math.max(b1, b2);
+                    r2 = Math.min(r1 + r2, 255);
+                    g2 = Math.min(g1 + g2, 255);
+                    b2 = Math.min(b1 + b2, 255);
                     
                     a2 = a1 + (ta / 255);
                     rgb2 = (a2 << 24) | (r2 << 16) | (g2 << 8) | b2; 
