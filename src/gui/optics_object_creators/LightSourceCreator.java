@@ -22,19 +22,9 @@ public abstract class LightSourceCreator extends OpticsObjectCreator {
 		Slider bandwidth = addSlider("Bandwidth", 0, max - min, 0);
 		
 		wavelength.valueProperty().addListener(e -> {
-			double distToEdge = Math.min(
-					wavelength.getValue() - min,
-					max -  wavelength.getValue());
-			bandwidth.setValue(Math.min(bandwidth.getValue(), distToEdge*2));
 			setData(wavelength.getValue(), bandwidth.getValue());
 		});
 		bandwidth.valueProperty().addListener(e -> {
-			double dist = bandwidth.getValue()/2;
-			if(wavelength.getValue() - min < dist) {
-				wavelength.setValue(min + dist);
-			} else if (max - wavelength.getValue() < dist){
-				wavelength.setValue(max - dist);
-			}
 			setData(wavelength.getValue(), bandwidth.getValue());
 		});
 		
