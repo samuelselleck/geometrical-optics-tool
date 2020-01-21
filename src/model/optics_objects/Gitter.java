@@ -23,11 +23,12 @@ public abstract class Gitter extends Material {
 		double d = get("Grating Constant");
 		double sign = ray.crossSign(surface);
 		Vector2d normalOut = surface.copy().normalize().rotate(-sign*Math.PI/2);
-		double angleIn = Math.abs(ray.angleTo(normalOut));
+		double angleIn = ray.angleTo(normalOut);
 		List<Vector2d> scattered = new ArrayList<>();
 		int n = 1;
+		scattered.add(normalOut.copy().rotate(angleIn));
 		while(n*wavelength/d < 1) {
-			double angleOut = Math.asin(n*wavelength/d - Math.sin(angleIn));
+			double angleOut = Math.asin(n*wavelength/d - Math.sin(Math.abs(angleIn)));
 			scattered.add(normalOut.copy().rotate(angleOut));
 			scattered.add(normalOut.copy().rotate(-angleOut));
 		    n++;

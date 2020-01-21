@@ -70,6 +70,7 @@ public class OpticsEnvironment {
 			if(!e.getButton().equals(MouseButton.MIDDLE)) {
 				release(e.getX(), e.getY());
 			}
+			lastPos = null;
 		});
 		canvas.setOnTouchReleased(e -> {
 			release(e.getTouchPoint().getX(), e.getTouchPoint().getY());
@@ -98,8 +99,9 @@ public class OpticsEnvironment {
 			Vector2d currPos  = view.getTablePos(e.getX(), e.getY());
 			
 			if(e.getButton().equals(MouseButton.MIDDLE)) {
-				if(lastPos != null)
-				view.translate(e.getX() - lastPos.x, e.getY() - lastPos.y);
+				if(lastPos != null) {
+					view.translate(e.getX() - lastPos.x, e.getY() - lastPos.y);
+				}
 				lastPos = new Vector2d(e.getX(), e.getY());
 			} else {
 				dragged = true;
@@ -114,10 +116,6 @@ public class OpticsEnvironment {
 			redraw();
 		});
 		
-		canvas.setOnTouchMoved(e -> {
-			e.consume();
-		});
-		
 		canvas.setOnRotate(e -> {
 			if(draging != null) {
 				draging.rotate(e.getAngle()/180.0*Math.PI*rotationFactor);
@@ -126,9 +124,16 @@ public class OpticsEnvironment {
 		});
 		
 		canvas.setOnScroll(e -> {
+			if(e.getTouchCount() == 0) {
+				Vector2d p = view.getTablePos(e.getX(), e.getY());
+				view.scale(e.getDeltaY()/400, p.x, p.y);
+				redraw();
+			}
+		});
+		
+		canvas.setOnZoom(e -> {
 			Vector2d p = view.getTablePos(e.getX(), e.getY());
-			view.scale(e.getDeltaY()/400, p.x, p.y);
-			redraw();
+			view.scale(e.getZoomFactor(), p.x, p.y);
 		});
 	}
 	
