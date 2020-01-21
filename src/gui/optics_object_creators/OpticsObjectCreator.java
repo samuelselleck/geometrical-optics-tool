@@ -55,18 +55,20 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		HBox bot = new HBox();
 		Label xLabel = new Label("x:");
+		xLabel.setMinWidth(15);
 		TextField xPos = new TextField();
 		xPos.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(xPos, properties.get("X"));
 		Label yLabel = new Label("y:");
+		yLabel.setMinWidth(15);
 		TextField yPos = new TextField();
 		yPos.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(yPos, properties.get("Y"));
 		Label rLabel = new Label("r:");
+		rLabel.setMinWidth(15);
 		TextField rotation = new TextField();
 		rotation.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(rotation, properties.get("Rotation"));
-		
 		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
 		this.getChildren().addAll(top, bot);
 		
