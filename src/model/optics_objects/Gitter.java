@@ -25,13 +25,12 @@ public abstract class Gitter extends Material {
 		Vector2d normalOut = surface.copy().normalize().rotate(-sign*Math.PI/2);
 		double angleIn = ray.angleTo(normalOut);
 		List<Vector2d> scattered = new ArrayList<>();
-		int n = 1;
-		scattered.add(normalOut.copy().rotate(angleIn));
-		while(n*wavelength/d < 1) {
-			double angleOut = Math.asin(n*wavelength/d - Math.sin(Math.abs(angleIn)));
-			scattered.add(normalOut.copy().rotate(angleOut));
-			scattered.add(normalOut.copy().rotate(-angleOut));
-		    n++;
+		for(int n = -100; n < 100; n++) {
+			double term = Math.sin(angleIn) - n*wavelength/d;
+			if(term > -1 && term < 1) {
+				double angleOut = Math.asin(term);
+				scattered.add(normalOut.copy().rotate(angleOut));
+			}
 		}
 		
 		return scattered;
@@ -41,11 +40,7 @@ public abstract class Gitter extends Material {
 	public void draw(GraphicsContext gc, boolean selected) {
 		
 		gc.setStroke(new Color(0.5, 0.5, 0.7, 1));
-		if(selected) {
-			gc.setLineWidth(5);
-		} else {
-			gc.setLineWidth(4);
-		}
+		gc.setLineWidth(selected ?  4 : 3);
 		gc.beginPath();
 		for (int i = 0; i < getPointCount(); i++) {
 			Vector2d p = getPoint(i);
