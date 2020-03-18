@@ -19,7 +19,7 @@ public class RectangleLensCreator extends LensCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof RectangleLens;
+		return obj.getClass().equals(RectangleLens.class);
 	}
 
 }

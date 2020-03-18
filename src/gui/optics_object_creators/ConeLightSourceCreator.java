@@ -19,6 +19,6 @@ public class ConeLightSourceCreator extends LightSourceCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof ConeLightSource;
+		return obj.getClass().equals(ConeLightSource.class);
 	}
 }

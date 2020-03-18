@@ -19,7 +19,7 @@ public class FlatGitterCreator extends OpticsObjectCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof FlatGitter;
+		return obj.getClass().equals(FlatGitter.class);
 	}
 
 }

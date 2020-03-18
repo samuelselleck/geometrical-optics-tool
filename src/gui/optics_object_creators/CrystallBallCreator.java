@@ -18,6 +18,6 @@ public class CrystallBallCreator extends LensCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof CrystalBall;
+		return obj.getClass().equals(CrystalBall.class);
 	}
 }

@@ -22,6 +22,8 @@ public abstract class OpticsObject implements Serializable {
 		REQUIRED_PROPERTIES.add("X");
 		REQUIRED_PROPERTIES.add("Y");
 		REQUIRED_PROPERTIES.add("Rotation");
+		REQUIRED_PROPERTIES.add("FixedPosition");
+		REQUIRED_PROPERTIES.add("FixedRotation");
 	}
 	
 	public OpticsObject(Map<String, DoubleProperty> properties) {
@@ -67,7 +69,9 @@ public abstract class OpticsObject implements Serializable {
 	public abstract boolean withinTouchHitBox(Vector2d pos);
 	
 	public void rotate(double angle) {
-		properties.get("Rotation").set(angle + get("Rotation"));
+		if(properties.get("FixedRotation").isEqualTo(0).get()) {
+			properties.get("Rotation").set(angle + get("Rotation"));
+		}
 	}
 	
 	protected void init() {
@@ -79,8 +83,10 @@ public abstract class OpticsObject implements Serializable {
 	}
 	
 	public void setOrigin(double x, double y) {
-		properties.get("X").set(x/Main.DPCM);
-		properties.get("Y").set(y/Main.DPCM);
+		if(properties.get("FixedPosition").isEqualTo(0).get()) {
+			properties.get("X").set(x/Main.DPCM);
+			properties.get("Y").set(y/Main.DPCM);
+		}
 	}
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {

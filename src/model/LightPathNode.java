@@ -37,7 +37,7 @@ public class LightPathNode implements Iterable<LightPathNode> {
 			
 			for(int i = 0; i < approximateDistances.size(); i++) {
 				MaterialDistanceTuple current = approximateDistances.get(i);
-				RayIntersectionData data = calculateIntersection(current.material, origin, dir);
+				RayIntersectionData data = current.material.calculateIntersection(origin, dir);
 				if(data == null) continue;
 				
 				if(data.distance < closestHitData.distance) {
@@ -52,39 +52,13 @@ public class LightPathNode implements Iterable<LightPathNode> {
 			LightPathNode newNode;
 			if(closestHitData.distance != Double.MAX_VALUE) {
 				newNode = new LightPathNode(closestHitData.position);
-				List<Vector2d> newDirs = closestHitData.calculateScatterDirections(wavelength);
+				List<Vector2d> newDirs = closestHitData.getScatteredLight(wavelength);
 				newNode.develop(newDirs, materials, wavelength, iterr + 1);
 			} else {
 				newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
 			}
 			nexts.add(newNode);
 		}
-	}
-	
-	private RayIntersectionData calculateIntersection(Material material, Vector2d origin, Vector2d dir) {
-		RayIntersectionData data = new RayIntersectionData();
-		data.ray = dir;
-	    dir.normalize();
-	    
-		for (int i = 0; i < material.getPointCount() - 1; i++) {
-			Vector2d lineStartTemp = material.getPoint(i);
-			Vector2d lineVecTemp = material.getSegment(i);
-			Vector2d res = Vector2d.getIntersectionParameters(origin, dir, lineStartTemp, lineVecTemp);
-
-			if (res.x >= 0 && res.x <= 1) {
-				if (res.y > 1e-9 && res.y < data.distance) {
-					data.distance = res.y;
-					data.surface = lineVecTemp;
-				}
-			}
-		}
-		// If an intersection was found:
-		if (data.distance == Double.MAX_VALUE) {
-			return null;
-		}
-		data.material = material;
-		data.position = dir.copy().mult(data.distance).add(origin);
-		return data;
 	}
 	
 	private List<MaterialDistanceTuple> getDistanceList(List<Material> materials, Vector2d origin, Vector2d dir) {
@@ -162,18 +136,6 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		public MaterialDistanceTuple(Material material, double distance) {
 			this.material = material;
 			this.distance = distance;
-		}
-	}
-	
-	private class RayIntersectionData {
-		private Material material;
-		private double distance = Double.MAX_VALUE;
-		private Vector2d surface, ray;
-		private Vector2d position;
-		
-		public List<Vector2d> calculateScatterDirections(int wavelength) {
-			List<Vector2d> scatterDirections = material.getScatteredLight(ray, surface, wavelength);
-			return scatterDirections;
 		}
 	}
 

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public abstract class Material extends OpticsObject {
@@ -103,5 +104,33 @@ public abstract class Material extends OpticsObject {
 		return points.size();
 	}
 
+	public RayIntersectionData calculateIntersection(Vector2d origin, Vector2d dir) {
+		RayIntersectionData data = new RayIntersectionData();
+		data.ray = dir;
+	    dir.normalize();
+	    
+		for (int i = 0; i < this.getPointCount() - 1; i++) {
+			Vector2d lineStartTemp = this.getPoint(i);
+			Vector2d lineVecTemp = this.getSegment(i);
+			Vector2d res = Vector2d.getIntersectionParameters(origin, dir, lineStartTemp, lineVecTemp);
+
+			if (res.x >= 0 && res.x <= 1) {
+				if (res.y > 1e-9 && res.y < data.distance) {
+					data.distance = res.y;
+					data.surface = lineVecTemp;
+				}
+			}
+		}
+		// If an intersection was found:
+		if (data.distance == Double.MAX_VALUE) {
+			return null;
+		}
+		data.material = this;
+		data.position = dir.copy().mult(data.distance).add(origin);
+		return data;
+	}
+	
 	public abstract List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength);
+
+	public void onHit(Vector2d position, Vector2d surface) { };
 }

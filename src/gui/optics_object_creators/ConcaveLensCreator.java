@@ -30,6 +30,6 @@ public class ConcaveLensCreator extends LensCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof ConcaveLens;
+		return obj.getClass().equals(ConcaveLens.class);
 	}
 }

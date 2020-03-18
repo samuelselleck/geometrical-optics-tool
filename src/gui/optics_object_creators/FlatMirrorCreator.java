@@ -18,7 +18,7 @@ public class FlatMirrorCreator extends OpticsObjectCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof FlatMirror;
+		return obj.getClass().equals(FlatMirror.class);
 	}
 
 }

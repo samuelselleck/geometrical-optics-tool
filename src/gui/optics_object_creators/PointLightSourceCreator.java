@@ -17,6 +17,6 @@ public class PointLightSourceCreator extends LightSourceCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof PointLightSource;
+		return obj.getClass().equals(PointLightSource.class);
 	}
 }

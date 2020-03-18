@@ -19,7 +19,7 @@ public class BeamLightSourceCreator extends LightSourceCreator {
 
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof BeamLightSource;
+		return obj.getClass().equals(BeamLightSource.class);
 	}
 
 }

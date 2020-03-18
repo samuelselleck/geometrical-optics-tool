@@ -1,5 +1,6 @@
 package gui.optics_tabs;
 
+import gui.optics_object_creators.DetectorWallCreator;
 import gui.optics_object_creators.FlatGitterCreator;
 import gui.optics_object_creators.OpticsObjectCreator;
 
@@ -10,5 +11,7 @@ public class OtherTab extends OpticsTab {
 		
 		OpticsObjectCreator git = new FlatGitterCreator();
 		super.addTab("Gitter", git);
+		OpticsObjectCreator detector = new DetectorWallCreator();
+		super.addTab("Detector", detector);
 	}
 }

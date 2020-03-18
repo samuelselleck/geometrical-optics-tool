@@ -19,6 +19,6 @@ public class RoundedMirrorCreator extends OpticsObjectCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof RoundedMirror;
+		return obj.getClass().equals(RoundedMirror.class);
 	}
 }

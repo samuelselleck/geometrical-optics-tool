@@ -19,7 +19,7 @@ public class RectangleWallCreator extends OpticsObjectCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof RectangleWall;
+		return obj.getClass().equals(RectangleWall.class);
 	}
 
 }

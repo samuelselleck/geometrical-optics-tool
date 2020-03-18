@@ -1,6 +1,9 @@
 package gui;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import gui.subviews.AddMaterialWindow;
 import javafx.scene.control.CheckMenuItem;
@@ -11,6 +14,8 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import model.OpticsModel;
+import model.optics_objects.OpticsObject;
 import util.OpticsIO;
 
 public class OpticsMenuBar extends MenuBar {
@@ -92,14 +97,41 @@ public class OpticsMenuBar extends MenuBar {
 		Menu options = new Menu("Options");
 		
 		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
-		
 		addLensMaterial.setOnAction(e -> {
 			@SuppressWarnings("unused")
 			AddMaterialWindow addMWin = new AddMaterialWindow();
 		});
+		
+		MenuItem lockObjects = new MenuItem("Lock all Objects");
+		lockObjects.setOnAction(e -> {
+			OpticsModel model = opticsEnvironment.getOpticsModel();
+			setObjectsLocked(model, true);
+		});
+		
+		MenuItem unlockObjects = new MenuItem("Unlock all Objects");
+		unlockObjects.setOnAction(e -> {
+			OpticsModel model = opticsEnvironment.getOpticsModel();
+			setObjectsLocked(model, false);
+		});
+		
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
 		window.getItems().addAll(resetView, grid);
 		options.getItems().addAll(addLensMaterial);
+		if(Main.isActive("admin")) {
+			options.getItems().addAll(lockObjects, unlockObjects);
+		}
 		this.getMenus().addAll(file, window, options);
+	}
+	
+	private void setObjectsLocked(OpticsModel model, boolean val) {
+		List<OpticsObject> objects = Stream.concat(
+				model.getMaterials().stream(),
+				model.getLights().stream())
+                .collect(Collectors.toList());
+		
+		objects.forEach(o -> {
+				o.getProperties().get("FixedPosition").set(val ? 1 : 0);
+				o.getProperties().get("FixedRotation").set(val ? 1 : 0);
+			});
 	}
 }

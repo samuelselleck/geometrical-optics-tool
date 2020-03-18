@@ -2,7 +2,7 @@ Screen properties:
 width=1200
 height=700
 
-LightProperties:
+Light Properties:
 minwavelength=400
 maxwavelength=700
 defaultwavelength=700
@@ -13,8 +13,8 @@ propertytextfields=true
 maxobjectsizecm=15
 
 Performance callibration:
-opticsobjectresolution=500
+opticsobjectresolution=300
 maxraybounce=10
 
 Admin:
-admin=false
+admin=true

@@ -13,13 +13,12 @@ import javafx.scene.paint.Stop;
 import util.Vector2d;
 
 public abstract class Wall extends Material {
+	private static final long serialVersionUID = 1L;
 
 	public Wall(Map<String, DoubleProperty> properties) {
 		super(properties);
 	}
-
-	private static final long serialVersionUID = 1L;
-
+	
 	@Override
 	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
 		return new ArrayList<>();

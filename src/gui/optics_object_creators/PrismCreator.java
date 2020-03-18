@@ -19,6 +19,6 @@ public class PrismCreator extends LensCreator {
 	
 	@Override
 	public boolean editsOpticsObject(OpticsObject obj) {
-		return obj instanceof Prism;
+		return obj.getClass().equals(Prism.class);
 	}
 }
