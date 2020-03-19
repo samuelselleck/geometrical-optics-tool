@@ -3,9 +3,7 @@ package gui;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import gui.optics_object_creators.OpticsObjectCreator;
 import gui.optics_tabs.OpticsCreatorsBox;
 import javafx.embed.swing.SwingFXUtils;
