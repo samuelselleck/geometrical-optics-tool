@@ -173,7 +173,7 @@ public class OpticsEnvironment {
 	}
 	
 	private void select(OpticsObject obj) {
-		if(obj.getProperties().get("NoFocus").isEqualTo(0).get()) {
+		if(!obj.getBool("NoFocus")) {
 			selected = obj;
 			opticsBox.setEditing(obj);
 			view.select(obj);

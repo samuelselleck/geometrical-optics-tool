@@ -58,6 +58,8 @@ public class OpticsModel implements Serializable {
 	}
 
 	public void remove(OpticsObject obj) {
+		if(obj.isProp()) return;
+		
 		if(obj instanceof Material) {
 			materials.remove(obj);
 		} else {
@@ -79,10 +81,10 @@ public class OpticsModel implements Serializable {
 	}
 
 	public void clearLights() {
-		lights.clear();
+		lights.removeIf(l -> !l.isProp());
 	}
 
 	public void clearMaterials() {
-		materials.clear();
+		materials.removeIf(m -> !m.isProp());
 	}
 }

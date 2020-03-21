@@ -36,7 +36,7 @@ public class OpticsCreatorsBox extends TabPane {
 	public void setEditing(OpticsObject obj) {
 		unbindAll();
 		
-		if(obj.getProperties().get("FixedProperties").isEqualTo(1).get()) {
+		if(obj.getBool("FixedProperties")) {
 			return;
 		}
 		

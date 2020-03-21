@@ -48,8 +48,16 @@ public abstract class OpticsObject implements Serializable {
 		properties.put(name, property);	
 	}
 	
-	protected final double get(String name) {
-		return properties.get(name).get();
+	public final double get(String name) {
+		if(properties.containsKey(name)) {
+			return properties.get(name).get();
+		} else {
+			throw new IllegalArgumentException("The optics Object did not contain the property: " + name);
+		}
+	}
+	
+	public final boolean getBool(String name) {
+		return properties.get(name).isEqualTo(1).get();
 	}
 	
 	protected abstract void clear();
@@ -71,7 +79,7 @@ public abstract class OpticsObject implements Serializable {
 	public abstract boolean withinTouchHitBox(Vector2d pos);
 	
 	public void rotate(double angle) {
-		if(properties.get("FixedRotation").isEqualTo(0).get()) {
+		if(!getBool("FixedRotation")) {
 			properties.get("Rotation").set(angle + get("Rotation"));
 		}
 	}
@@ -85,7 +93,7 @@ public abstract class OpticsObject implements Serializable {
 	}
 	
 	public void setOrigin(double x, double y) {
-		if(properties.get("FixedPosition").isEqualTo(0).get()) {
+		if(!getBool("FixedPosition")) {
 			properties.get("X").set(x/Main.DPCM);
 			properties.get("Y").set(y/Main.DPCM);
 		}
@@ -109,5 +117,9 @@ public abstract class OpticsObject implements Serializable {
 		}
 		in.defaultReadObject();
 		update();
+	}
+	
+	public boolean isProp() {
+		return getBool("FixedPosition") || getBool("FixedRotation") || getBool("FixedProperties") || getBool("NoFocus");
 	}
 }
