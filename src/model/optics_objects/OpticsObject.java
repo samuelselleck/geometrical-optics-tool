@@ -24,6 +24,8 @@ public abstract class OpticsObject implements Serializable {
 		REQUIRED_PROPERTIES.add("Rotation");
 		REQUIRED_PROPERTIES.add("FixedPosition");
 		REQUIRED_PROPERTIES.add("FixedRotation");
+		REQUIRED_PROPERTIES.add("FixedProperties");
+		REQUIRED_PROPERTIES.add("NoFocus");
 	}
 	
 	public OpticsObject(Map<String, DoubleProperty> properties) {

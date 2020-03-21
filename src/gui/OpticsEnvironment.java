@@ -157,6 +157,7 @@ public class OpticsEnvironment {
 			draging = null;
 		} else if (!dragged) {
 			OpticsObject atMouse = model.getOpticsObjectAt(pos.x, pos.y);
+			
 			if(atMouse != null) {
 				select(atMouse);
 			} else if (inBounds && opticsObjectCreator != null) {
@@ -172,12 +173,14 @@ public class OpticsEnvironment {
 	}
 	
 	private void select(OpticsObject obj) {
-		selected = obj;
-		opticsBox.setEditing(obj);
-		view.select(obj);
+		if(obj.getProperties().get("NoFocus").isEqualTo(0).get()) {
+			selected = obj;
+			opticsBox.setEditing(obj);
+			view.select(obj);
+		}
 	}
 	
-	private void deselect() {
+	public void deselect() {
 		selected = null;
 		view.deselect();
 	}
@@ -225,6 +228,10 @@ public class OpticsEnvironment {
 		connect(model, view);
 		deselect();
 		redraw();
+	}
+	
+	public OpticsCreatorsBox getOpticsCreatorBox() {
+		return opticsBox;
 	}
 	
 	public void saveScreenshotTo(File saveFile) {

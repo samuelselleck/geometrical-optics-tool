@@ -104,14 +104,12 @@ public class OpticsMenuBar extends MenuBar {
 		
 		MenuItem lockObjects = new MenuItem("Lock all Objects");
 		lockObjects.setOnAction(e -> {
-			OpticsModel model = opticsEnvironment.getOpticsModel();
-			setObjectsLocked(model, true);
+			setObjectsLocked(opticsEnvironment, true);
 		});
 		
 		MenuItem unlockObjects = new MenuItem("Unlock all Objects");
 		unlockObjects.setOnAction(e -> {
-			OpticsModel model = opticsEnvironment.getOpticsModel();
-			setObjectsLocked(model, false);
+			setObjectsLocked(opticsEnvironment, false);
 		});
 		
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
@@ -123,15 +121,24 @@ public class OpticsMenuBar extends MenuBar {
 		this.getMenus().addAll(file, window, options);
 	}
 	
-	private void setObjectsLocked(OpticsModel model, boolean val) {
+	private void setObjectsLocked(OpticsEnvironment opticsEnvironment, boolean val) {
+		
+		OpticsModel model = opticsEnvironment.getOpticsModel();
 		List<OpticsObject> objects = Stream.concat(
 				model.getMaterials().stream(),
 				model.getLights().stream())
                 .collect(Collectors.toList());
 		
+		if(val) {
+			opticsEnvironment.getOpticsCreatorBox().unbindAll();
+			opticsEnvironment.deselect();
+		}
+		
 		objects.forEach(o -> {
 				o.getProperties().get("FixedPosition").set(val ? 1 : 0);
 				o.getProperties().get("FixedRotation").set(val ? 1 : 0);
+				o.getProperties().get("FixedProperties").set(val ? 1 : 0);
+				o.getProperties().get("NoFocus").set(val ? 1 : 0);
 			});
 	}
 }

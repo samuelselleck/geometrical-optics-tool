@@ -35,6 +35,11 @@ public class OpticsCreatorsBox extends TabPane {
 
 	public void setEditing(OpticsObject obj) {
 		unbindAll();
+		
+		if(obj.getProperties().get("FixedProperties").isEqualTo(1).get()) {
+			return;
+		}
+		
 		for(Tab tab : this.getTabs()) {
 			Tab focus = ((OpticsTab)tab).setEditing(obj);
 			if(focus != null) {

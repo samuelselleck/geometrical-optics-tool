@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import gui.Main;
@@ -9,7 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 import model.optics_objects.Material;
 import util.Vector2d;
 
-public class LightPathNode implements Iterable<LightPathNode> {
+public class LightPathNode {
+	
 	private Vector2d origin;
 	private List<LightPathNode> nexts;
 	
@@ -128,24 +128,9 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		}	
 		return -1;
 	}
-	
-	private class MaterialDistanceTuple {
-		Material material;
-		double distance;
-		
-		public MaterialDistanceTuple(Material material, double distance) {
-			this.material = material;
-			this.distance = distance;
-		}
-	}
 
 	public Vector2d getOrigin() {
 		return origin;
-	}
-
-	@Override
-	public Iterator<LightPathNode> iterator() {
-		return nexts.iterator();
 	}
 
 	public void strokeWith(GraphicsContext gc) {
@@ -155,6 +140,16 @@ public class LightPathNode implements Iterable<LightPathNode> {
 		for(LightPathNode p : nexts) {
 			p.strokeWith(gc);
 			gc.moveTo(origin.x, origin.y);
+		}
+	}
+	
+	private static class MaterialDistanceTuple {
+		Material material;
+		double distance;
+		
+		public MaterialDistanceTuple(Material material, double distance) {
+			this.material = material;
+			this.distance = distance;
 		}
 	}
 }
