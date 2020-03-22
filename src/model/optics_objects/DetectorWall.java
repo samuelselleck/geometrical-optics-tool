@@ -7,6 +7,7 @@ import java.util.OptionalDouble;
 
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -28,11 +29,13 @@ public class DetectorWall extends RectangleWall {
 	
 	@Override
 	public void onHit(Vector2d position, Vector2d surface) {
-		Vector2d offset = surface.copy().normalize()
-				.rotateDegrees(90)
-				.mult(get("Width")*Main.DPCM/2);
-		
-		detectorPoints.add(offset.add(position));
+		if(surface.equals(super.getSegment(1)) || surface.equals(getSegment(3))) {
+			Vector2d offset = surface.copy().normalize()
+					.rotateDegrees(90)
+					.mult(get("Width")*Main.DPCM/2);
+			
+			detectorPoints.add(offset.add(position));
+		}
 	}
 	
 	@Override
@@ -73,15 +76,16 @@ public class DetectorWall extends RectangleWall {
 					return p.dist(zero)/Main.DPCM;
 					}).average();
 		
-		label = average.isPresent() ? String.format("(%.2f)", average.getAsDouble()) : "";
+		label = average.isPresent() ? String.format("%.2f", average.getAsDouble()) : "";
 		
 		
-		Vector2d labelPos = new Vector2d(get("Width")*Main.DPCM + 20, 0).rotateDegrees(get("Rotation")).add(getOrigin());
+		Vector2d labelPos = new Vector2d(0, get("Height")*Main.DPCM/2 + 20).rotateDegrees(get("Rotation")).add(getOrigin());
 		gc.setFill(Paint.valueOf("white"));
 		gc.fillText(label, labelPos.x, labelPos.y);
 		Vector2d p1 = getOrigin().add(points.get(2));
 		Vector2d p2 = getOrigin().add(points.get(3));
 		gc.setTextAlign(TextAlignment.CENTER);
+		gc.setTextBaseline(VPos.CENTER);
 		gc.setStroke(Paint.valueOf("gray"));
 		gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
 		

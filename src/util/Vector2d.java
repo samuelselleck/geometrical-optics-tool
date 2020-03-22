@@ -150,4 +150,14 @@ public class Vector2d implements Serializable {
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}
+	
+	public boolean equals(Object other) {
+		if(other instanceof Vector2d) {
+			if(((Vector2d) other).x == this.x && ((Vector2d) other).y == this.y) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
