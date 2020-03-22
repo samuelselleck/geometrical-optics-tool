@@ -65,6 +65,11 @@ public class DetectorWall extends RectangleWall {
 		}
 		gc.fill();
 		
+		Vector2d p1 = getOrigin().add(points.get(2));
+		Vector2d p2 = getOrigin().add(points.get(3));
+		gc.setStroke(Paint.valueOf("gray"));
+		gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+		
 		gc.setFill(Color.rgb(255, 0, 0, 0.2));
 		for(Vector2d p : detectorPoints) {
 			gc.fillOval(p.x - 3, p.y - 3, 6, 6);
@@ -81,13 +86,10 @@ public class DetectorWall extends RectangleWall {
 		
 		Vector2d labelPos = new Vector2d(0, get("Height")*Main.DPCM/2 + 20).rotateDegrees(get("Rotation")).add(getOrigin());
 		gc.setFill(Paint.valueOf("white"));
-		gc.fillText(label, labelPos.x, labelPos.y);
-		Vector2d p1 = getOrigin().add(points.get(2));
-		Vector2d p2 = getOrigin().add(points.get(3));
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setTextBaseline(VPos.CENTER);
-		gc.setStroke(Paint.valueOf("gray"));
-		gc.strokeLine(p1.x, p1.y, p2.x, p2.y);
+		gc.fillText(label, labelPos.x, labelPos.y);
+		
 		
 		detectorPoints.clear();
 	}

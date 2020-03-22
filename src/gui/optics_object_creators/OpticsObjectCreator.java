@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gui.Main;
+import gui.subviews.Knob;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -70,6 +71,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		rotation.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(rotation, properties.get("Rotation"));
 		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
+		Knob knob = new Knob(100);
 		this.getChildren().addAll(top, bot);
 		
 	}
