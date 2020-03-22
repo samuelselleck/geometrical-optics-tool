@@ -127,6 +127,10 @@ public class Vector2d implements Serializable {
 		params.setTo(s, t);
 		return params;
 	}
+	
+	public static Vector2d midPoint(Vector2d p1, Vector2d p2) {
+		return p2.copy().sub(p1).div(2).add(p1);
+	}
 
 	public static Vector2d zero() {
 		return new Vector2d(0, 0);

@@ -17,8 +17,7 @@ import util.Vector2d;
 public abstract class LightSource extends OpticsObject {
 	
 	private static final long serialVersionUID = 1L;
-	private List<LightRay> light = new ArrayList<>();
-	
+	private transient List<LightRay> light = new ArrayList<>();
 	private transient Map<Integer, List<LightPathNode>> paths;
 	
 	public LightSource(Map<String, DoubleProperty> properties) {

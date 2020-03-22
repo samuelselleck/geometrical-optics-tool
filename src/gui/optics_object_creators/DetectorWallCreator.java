@@ -10,7 +10,7 @@ public class DetectorWallCreator extends OpticsObjectCreator {
 	
 	public DetectorWallCreator() {
 		addSlider("Height", 0.2, Main.getIntProperty("maxobjectsizecm"), 8);
-		addProperty("Width", new SimpleDoubleProperty(0.5));
+		addProperty("Width", new SimpleDoubleProperty(0.3));
 	}
 
 	@Override
