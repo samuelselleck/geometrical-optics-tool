@@ -50,6 +50,7 @@ public class LensMaterial {
 		return new Color(color[0], color[1], color[2], alpha);
 	}
 	
+	@Override
 	public String toString() {
 		return getName();
 	}

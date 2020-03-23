@@ -151,6 +151,7 @@ public class Vector2d implements Serializable {
 		return "(" + x + ", " + y + ")";
 	}
 	
+	@Override
 	public boolean equals(Object other) {
 		if(other instanceof Vector2d) {
 			if(((Vector2d) other).x == this.x && ((Vector2d) other).y == this.y) {
