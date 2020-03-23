@@ -2,8 +2,8 @@ package gui.optics_object_creators;
 import java.util.Map;
 import java.util.TreeMap;
 
+import controls.Knob;
 import gui.Main;
-import gui.subviews.Knob;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -55,25 +55,35 @@ public abstract class OpticsObjectCreator extends VBox {
 		top.setAlignment(Pos.TOP_LEFT);
 		
 		HBox bot = new HBox();
-		Label xLabel = new Label("x:");
-		xLabel.setMinWidth(15);
-		TextField xPos = new TextField();
-		xPos.setStyle("-fx-control-inner-background: black");
-		bindTextFieldToDouble(xPos, properties.get("X"));
-		Label yLabel = new Label("y:");
-		yLabel.setMinWidth(15);
-		TextField yPos = new TextField();
-		yPos.setStyle("-fx-control-inner-background: black");
-		bindTextFieldToDouble(yPos, properties.get("Y"));
-		Label rLabel = new Label("r:");
-		rLabel.setMinWidth(15);
-		TextField rotation = new TextField();
-		rotation.setStyle("-fx-control-inner-background: black");
-		bindTextFieldToDouble(rotation, properties.get("Rotation"));
-		bot.getChildren().addAll(xLabel, xPos, yLabel, yPos, rLabel, rotation);
-		Knob knob = new Knob(100);
+		bot.getChildren().addAll(
+				getPropertyControlBox("x:", properties.get("X")),
+				getPropertyControlBox("y:", properties.get("Y")),
+				getPropertyControlBox("r:", properties.get("Rotation")));
 		this.getChildren().addAll(top, bot);
+		this.setMinWidth(200);
 		
+	}
+	
+	private VBox getPropertyControlBox(String name, DoubleProperty property) {
+		
+		Label label = new Label(name);
+		label.setMinWidth(15);
+		TextField field = new TextField();
+		field.setStyle("-fx-control-inner-background: black");
+		bindTextFieldToDouble(field, property);
+		HBox pBox = new HBox();
+		pBox.getChildren().addAll(label, field);
+		HBox kBox = new HBox();
+		Knob knob = new Knob();
+		kBox.getChildren().add(knob);
+		kBox.setPadding(new Insets(0, 0, 50, 0));
+		kBox.setMaxWidth(80);
+		knob.valueProperty().bindBidirectional(property);
+		VBox v = new VBox();
+		HBox.setHgrow(knob, Priority.ALWAYS);
+		v.setAlignment(Pos.CENTER);
+		v.getChildren().addAll(pBox, kBox);
+		return v;
 	}
 	
 	private void bindTextFieldToDouble(TextField t, DoubleProperty d) {
