@@ -11,10 +11,12 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static double ROT_ORIGIN_RADIUS = 10;
 	public static final List<String> REQUIRED_PROPERTIES = new ArrayList<>();
 	private transient Map<String, DoubleProperty> properties = new TreeMap<>();
 	
@@ -22,6 +24,8 @@ public abstract class OpticsObject implements Serializable {
 		REQUIRED_PROPERTIES.add("X");
 		REQUIRED_PROPERTIES.add("Y");
 		REQUIRED_PROPERTIES.add("Rotation");
+		REQUIRED_PROPERTIES.add("RotationX");
+		REQUIRED_PROPERTIES.add("RotationY");
 		REQUIRED_PROPERTIES.add("FixedPosition");
 		REQUIRED_PROPERTIES.add("FixedRotation");
 		REQUIRED_PROPERTIES.add("FixedProperties");
@@ -63,7 +67,16 @@ public abstract class OpticsObject implements Serializable {
 	protected abstract void clear();
 	protected abstract void update();
 	
-	public abstract void draw(GraphicsContext gc, boolean selected);
+	public void draw(GraphicsContext gc, boolean selected) {
+		if(selected) {
+			gc.setStroke(Paint.valueOf("white"));	
+			Vector2d pos = getRotationOrigin();
+			double ror = ROT_ORIGIN_RADIUS;
+			gc.strokeOval(pos.x - ror, pos.y - ror, ror*2, ror*2);
+		}
+		
+		System.out.println(get("RotationX"));
+	}
 	
 	public final Map<String, DoubleProperty> getProperties() {
 		return properties;
@@ -78,9 +91,22 @@ public abstract class OpticsObject implements Serializable {
 	protected abstract void rotateOp(double angle);
 	public abstract boolean withinTouchHitBox(Vector2d pos);
 	
+	public final boolean withinRotationPoint(Vector2d pos) {
+		if(getBool("FixedRotation")) return false;
+		
+		return getRotationOrigin().distSquared(pos) <= ROT_ORIGIN_RADIUS*ROT_ORIGIN_RADIUS*4;
+	}
+	
 	public void rotate(double angle) {
 		if(!getBool("FixedRotation")) {
 			properties.get("Rotation").set(angle + get("Rotation"));
+			Vector2d rotOrg = getOrigin().sub(getRotationOrigin()).rotateDegrees(angle);
+			Vector2d newPos = getRotationOrigin().add(rotOrg);
+			setOrigin(newPos.x, newPos.y);
+			Vector2d rot = new Vector2d(get("RotationX"), get("RotationY"));
+			rot.rotateDegrees(angle);
+			properties.get("RotationX").set(rot.x);
+			properties.get("RotationY").set(rot.y);
 		}
 	}
 	
@@ -99,6 +125,17 @@ public abstract class OpticsObject implements Serializable {
 		}
 	}
 
+	public Vector2d getRotationOrigin() {
+		return new Vector2d(get("RotationX")*Main.DPCM, get("RotationY")*Main.DPCM).add(getOrigin());
+	}
+	
+	public void setRotationOrigin(double x, double y) {
+		if(!getBool("FixedRotation")) {
+			properties.get("RotationX").set(x/Main.DPCM - get("X"));
+			properties.get("RotationY").set(y/Main.DPCM - get("Y"));
+		}
+	}
+	
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		Map<String, Double> propertiesSave = new TreeMap<>();
 		for(Map.Entry<String, DoubleProperty> p : properties.entrySet()) {

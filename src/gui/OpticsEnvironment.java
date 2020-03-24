@@ -29,6 +29,7 @@ public class OpticsEnvironment {
 	private OpticsObject selected;
 	private boolean dragged;
 	private boolean rotating;
+	private boolean movingRotationPoint;
 	private Vector2d lastPos;
 	private double rotationFactor;
 
@@ -57,6 +58,7 @@ public class OpticsEnvironment {
 		selected = null;
 		this.dragged = false;
 		this.rotating = false;
+		this.movingRotationPoint = false;
 		redraw();	
 	}
 
@@ -79,14 +81,19 @@ public class OpticsEnvironment {
 			if(!e.getButton().equals(MouseButton.MIDDLE)) {
 				Vector2d pos = view.getTablePos(e.getX(), e.getY());
 				draging = model.getOpticsObjectAt(pos.x, pos.y);
+				if(selected != null) {
+					if(selected.withinRotationPoint(pos)) {
+						movingRotationPoint = true;
+					}
+				}
 				if(draging == null) {
-					if(selected != null) {
+					if(selected != null && !movingRotationPoint) {
 						rotating = true;
 					}
 				} else {
 					select(draging);
-					offset = new Vector2d(pos.x, pos.y).sub(draging.getOrigin()).neg();
 				}
+				offset = new Vector2d(pos.x, pos.y).sub(draging.getOrigin()).neg();
 				lastPos = pos;
 			} else {
 				lastPos = new Vector2d(e.getX(), e.getY());
@@ -103,7 +110,9 @@ public class OpticsEnvironment {
 				lastPos = new Vector2d(e.getX(), e.getY());
 			} else {
 				dragged = true;
-				if (draging != null) {
+				if(movingRotationPoint) {
+					selected.setRotationOrigin(currPos.x, currPos.y);
+				} else if (draging != null) {
 					draging.setOrigin(currPos.x + offset.x, currPos.y + offset.y);
 				} else if (rotating) {
 					if(lastPos != null)
@@ -151,7 +160,7 @@ public class OpticsEnvironment {
 				model.remove(draging);
 				selected = null;
 				view.deselect();
-			} else {
+			} else if(!movingRotationPoint) {
 				draging.setOrigin(pos.x + offset.x, pos.y + offset.y);
 			}	
 			draging = null;
@@ -169,6 +178,7 @@ public class OpticsEnvironment {
 		rotating = false;
 		dragged = false;
 		lastPos = null;
+		movingRotationPoint = false;
 		redraw();
 	}
 	
@@ -186,8 +196,8 @@ public class OpticsEnvironment {
 	}
 	
 	private void rotate(OpticsObject obj, Vector2d pFrom, Vector2d pTo) {
-		Vector2d before = obj.getOrigin().copy().sub(pFrom);
-		Vector2d after = obj.getOrigin().copy().sub(pTo);
+		Vector2d before = obj.getRotationOrigin().sub(pFrom);
+		Vector2d after = obj.getRotationOrigin().sub(pTo);
 		double angle = after.angleToInDegrees(before);
 		if(Double.isFinite(angle))
 		obj.rotate(angle*rotationFactor);

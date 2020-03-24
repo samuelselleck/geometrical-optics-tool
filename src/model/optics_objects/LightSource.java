@@ -84,6 +84,8 @@ public abstract class LightSource extends OpticsObject {
 			gc.setFill(new Color(1, 1, 1, 0.3));
 			gc.fillOval(getOrigin().x - Main.DPCM, getOrigin().y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
 		}
+		
+		super.draw(gc, selected);
 	}
 	
 	@Override

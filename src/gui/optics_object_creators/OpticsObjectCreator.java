@@ -56,15 +56,15 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		HBox bot = new HBox();
 		bot.getChildren().addAll(
-				getPropertyControlBox("x:", properties.get("X")),
-				getPropertyControlBox("y:", properties.get("Y")),
-				getPropertyControlBox("r:", properties.get("Rotation")));
+				getPropertyControlBox("x:", 1.0/360, properties.get("X")),
+				getPropertyControlBox("y:", 1.0/360, properties.get("Y")),
+				getPropertyControlBox("r:", 7.2/360, properties.get("Rotation")));
 		this.getChildren().addAll(top, bot);
 		this.setMinWidth(200);
 		
 	}
 	
-	private VBox getPropertyControlBox(String name, DoubleProperty property) {
+	private VBox getPropertyControlBox(String name, double factor, DoubleProperty property) {
 		
 		Label label = new Label(name);
 		label.setMinWidth(15);
@@ -75,6 +75,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		pBox.getChildren().addAll(label, field);
 		HBox kBox = new HBox();
 		Knob knob = new Knob();
+		knob.factorProperty().set(factor);
 		kBox.getChildren().add(knob);
 		kBox.setPadding(new Insets(0, 0, 50, 0));
 		kBox.setMaxWidth(80);
@@ -241,6 +242,8 @@ public abstract class OpticsObjectCreator extends VBox {
 		properties.get("Y").set(origin.y/Main.DPCM);
 		properties.get("Rotation").set(1);
 		properties.get("Rotation").set(0);
+		properties.get("RotationX").set(0);
+		properties.get("RotationY").set(0);
 		return properties;
 	}
 }

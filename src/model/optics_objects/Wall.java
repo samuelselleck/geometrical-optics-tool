@@ -47,5 +47,7 @@ public abstract class Wall extends Material {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.fill();
+		
+		super.draw(gc, selected);
 	}
 }

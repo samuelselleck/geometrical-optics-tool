@@ -91,5 +91,7 @@ public abstract class Lens extends Material {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.fill();
+		
+		super.draw(gc, selected);
 	}
 }

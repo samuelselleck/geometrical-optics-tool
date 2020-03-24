@@ -43,5 +43,7 @@ public abstract class Mirror extends Material {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.stroke();
+		
+		super.draw(gc, selected);
 	}
 }

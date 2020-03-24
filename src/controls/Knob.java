@@ -52,4 +52,8 @@ public class Knob extends ResizableCanvas {
 	public DoubleProperty valueProperty() {
 		return value;
 	}
+	
+	public DoubleProperty factorProperty() {
+		return factor;
+	}
 }
