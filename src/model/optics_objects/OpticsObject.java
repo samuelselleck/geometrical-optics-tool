@@ -16,7 +16,7 @@ import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static double ROT_ORIGIN_RADIUS = 10;
+	private static double ROT_ORIGIN_RADIUS = 5;
 	public static final List<String> REQUIRED_PROPERTIES = new ArrayList<>();
 	private transient Map<String, DoubleProperty> properties = new TreeMap<>();
 	
@@ -44,6 +44,18 @@ public abstract class OpticsObject implements Serializable {
 			double val = entry.getValue().get();
 			addProperty(entry.getKey(), val);
 		}
+		
+		this.properties.get("Rotation").addListener((s, o, n) -> {
+			double angle = n.doubleValue() - o.doubleValue();
+			Vector2d rotOrg = getOrigin().sub(getRotationOrigin()).rotateDegrees(angle);
+			Vector2d newPos = getRotationOrigin().add(rotOrg);
+			setOrigin(newPos.x, newPos.y);
+			
+			Vector2d rot = new Vector2d(get("RotationX"), get("RotationY"));
+			rot.rotateDegrees(angle);
+			properties.get("RotationX").set(rot.x);
+			properties.get("RotationY").set(rot.y);
+		});
 	}
 
 	protected final void addProperty(String name, double value) {
@@ -70,12 +82,11 @@ public abstract class OpticsObject implements Serializable {
 	public void draw(GraphicsContext gc, boolean selected) {
 		if(selected) {
 			gc.setStroke(Paint.valueOf("white"));	
+			gc.setLineWidth(2);
 			Vector2d pos = getRotationOrigin();
 			double ror = ROT_ORIGIN_RADIUS;
 			gc.strokeOval(pos.x - ror, pos.y - ror, ror*2, ror*2);
 		}
-		
-		System.out.println(get("RotationX"));
 	}
 	
 	public final Map<String, DoubleProperty> getProperties() {
@@ -100,13 +111,6 @@ public abstract class OpticsObject implements Serializable {
 	public void rotate(double angle) {
 		if(!getBool("FixedRotation")) {
 			properties.get("Rotation").set(angle + get("Rotation"));
-			Vector2d rotOrg = getOrigin().sub(getRotationOrigin()).rotateDegrees(angle);
-			Vector2d newPos = getRotationOrigin().add(rotOrg);
-			setOrigin(newPos.x, newPos.y);
-			Vector2d rot = new Vector2d(get("RotationX"), get("RotationY"));
-			rot.rotateDegrees(angle);
-			properties.get("RotationX").set(rot.x);
-			properties.get("RotationY").set(rot.y);
 		}
 	}
 	

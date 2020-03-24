@@ -92,5 +92,7 @@ public class DetectorWall extends RectangleWall {
 		
 		
 		detectorPoints.clear();
+		
+		super.draw(gc, selected);
 	}
 }

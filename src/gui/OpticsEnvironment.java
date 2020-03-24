@@ -92,8 +92,8 @@ public class OpticsEnvironment {
 					}
 				} else {
 					select(draging);
+					offset = new Vector2d(pos.x, pos.y).sub(draging.getOrigin()).neg();
 				}
-				offset = new Vector2d(pos.x, pos.y).sub(draging.getOrigin()).neg();
 				lastPos = pos;
 			} else {
 				lastPos = new Vector2d(e.getX(), e.getY());

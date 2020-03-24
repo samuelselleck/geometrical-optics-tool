@@ -68,7 +68,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		Label label = new Label(name);
 		label.setMinWidth(15);
-		TextField field = new TextField();
+		TextField field = new TextField("0.00");
 		field.setStyle("-fx-control-inner-background: black");
 		bindTextFieldToDouble(field, property);
 		HBox pBox = new HBox();

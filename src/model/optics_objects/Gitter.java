@@ -47,6 +47,8 @@ public abstract class Gitter extends Material {
 			gc.lineTo(p.x, p.y);
 		}
 		gc.stroke();
+		
+		super.draw(gc, selected);
 	}
 
 }
