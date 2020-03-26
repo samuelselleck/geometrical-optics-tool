@@ -98,8 +98,8 @@ public class OpticsMenuBar extends MenuBar {
 		
 		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
 		addLensMaterial.setOnAction(e -> {
-			@SuppressWarnings("unused")
 			AddMaterialWindow addMWin = new AddMaterialWindow();
+			addMWin.show();
 		});
 		
 		MenuItem lockObjects = new MenuItem("Lock all Objects");
