@@ -11,6 +11,8 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import model.OpticsModel;
 import model.optics_objects.OpticsObject;
@@ -142,6 +144,15 @@ public class OpticsEnvironment {
 			Vector2d p = view.getTablePos(e.getX(), e.getY());
 			view.scale(e.getZoomFactor(), p.x, p.y);
 		});
+	}
+	
+	public void onKeyReleased(KeyEvent e) {
+		if (e.getCode() == KeyCode.DELETE && selected != null) {
+			model.remove(selected);
+			selected = null;
+			view.deselect();
+			redraw();
+		}
 	}
 	
 	private void release(double x, double y) {

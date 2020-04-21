@@ -49,7 +49,7 @@ public abstract class Lens extends Material {
 		double angleOut;
 		
 		double currRefrac = MATERIALS.get((int)get("Material Index"))
-				.refraction(wavelength, get("Refraction Multiplier"));
+				.refractionSellmeier(wavelength);
 		
 		double invrefrac = 1/currRefrac;
 		if (into) {

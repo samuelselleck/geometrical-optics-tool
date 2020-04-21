@@ -27,7 +27,7 @@ public class ApplicationMain extends Application {
 		OpticsEnvironment opticsEnvironment = new OpticsEnvironment(model, canvasView, opticsBox);
 
 		OpticsToolBox toolBox = new OpticsToolBox(opticsEnvironment);
-		
+		canvasView.bindXYLabel(toolBox.getXYLabel());
 		OpticsMenuBar menuBar = new OpticsMenuBar(opticsEnvironment, stage);
 		
 		SplitPane splitPane = new SplitPane();
@@ -49,6 +49,7 @@ public class ApplicationMain extends Application {
 		root.setBottom(toolBox);
 
 		Scene scene = new Scene(root, width, height);
+		scene.setOnKeyReleased(opticsEnvironment::onKeyReleased);
 		stage.setTitle("Geometrical Optics Tool");
 		stage.setScene(scene);
 		stage.show();

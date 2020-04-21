@@ -17,14 +17,19 @@ public class RoundedMirror extends Mirror {
 	@Override
 	protected void update() {
 		super.clear();
-		int resolution = Main.getIntProperty("opticsobjectresolution");
+		int quarterResolution = Main.getIntProperty("opticsobjectresolution")/4;
+		double d = get("Diameter")*Main.DPCM;
+		double r1 = get("Radius")*Main.DPCM;
 		
-		for(int i = 0; i <= resolution; i++) {
-			double x = (2.0*i/resolution - 1);
-			double y = x*x;
-			points.add(new Vector2d(
-					x*get("Diameter")*Main.DPCM/2,
-					get("Depth")*Main.DPCM*(y - 1.0/2)));
+		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
+		double leftStep = leftAngle / quarterResolution;
+		double leftDist = Math.sqrt(r1 * r1 - d * d / 4);
+
+		Vector2d pos = new Vector2d(-leftDist, 0);
+		Vector2d vec = new Vector2d(r1, 0).rotate(-leftAngle);
+		points.add(pos.copy().add(vec));
+		for (int i = 0; i < quarterResolution * 2; i++) {
+			points.add(pos.copy().add(vec.rotate(leftStep)));
 		}
 		super.init();
 	}

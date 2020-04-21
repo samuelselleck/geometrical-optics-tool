@@ -18,6 +18,7 @@ public class GraphElement extends LineChart<Number, Number> {
 		this.setLegendVisible(false);
 		this.getYAxis().setTickLabelsVisible(false);
 		this.getYAxis().setVisible(false);
+		((NumberAxis)this.getYAxis()).setForceZeroInRange(false);
 		this.setCreateSymbols(false);
 		this.setAnimated(false);
 		this.setPadding(new Insets(0, 15, 0, 0));

@@ -11,8 +11,8 @@ public class ConvexLensCreator extends LensCreator {
 		double max = Main.getIntProperty("maxobjectsizecm");
 		
 		addSlider("Diameter", 2, max, 4);
-		addSlider("Radius 1", 1, 100, 10);
-		addSlider("Radius 2", 1, 100, 10);
+		addSlider("Radius 1", 1, 20, 10);
+		addSlider("Radius 2", 1, 20, 10);
 	}
 
 	@Override

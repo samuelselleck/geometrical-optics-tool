@@ -1,13 +1,20 @@
 package gui;
 
+import java.util.Locale;
+
 import controls.ResizableCanvas;
 import javafx.beans.binding.DoubleExpression;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
+import javafx.scene.text.Font;
 import model.OpticsModel;
 import model.optics_objects.LightSource;
 import model.optics_objects.Material;
@@ -114,6 +121,18 @@ public class OpticsCanvas {
 		scale = 1;
 	}
 	
+	public void bindXYLabel(Label label) {
+		canvas.setOnMouseMoved(e -> {
+			Vector2d pos  = getTablePos(e.getX(), e.getY());
+			String text = String.format("x = %.2f   y = %.2f     ", pos.x/Main.DPCM, pos.y/Main.DPCM);
+			label.setText(text);
+			label.setFont(new Font(10));
+		});
+		canvas.setOnMouseExited(e -> {
+			label.setText("");
+		});
+	}
+	
 	public Vector2d getTablePos(double screenX, double screenY) {
 		return new Vector2d((-xTranslation + screenX)/scale,
 				(-yTranslation + screenY)/scale);
@@ -129,10 +148,5 @@ public class OpticsCanvas {
 
 	public void setOpticsModel(OpticsModel model) {
 		this.model = model;
-	}
-
-	public void bind(DoubleExpression widthBinding, DoubleExpression heightBinding) {
-		canvas.widthProperty().bind(widthBinding);
-		canvas.heightProperty().bind(heightBinding);
 	}
 }

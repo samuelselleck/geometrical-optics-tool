@@ -5,6 +5,7 @@ import gui.optics_object_creators.ConvexLensCreator;
 import gui.optics_object_creators.CrystallBallCreator;
 import gui.optics_object_creators.OpticsObjectCreator;
 import gui.optics_object_creators.OptimalConvexLensCreator;
+import gui.optics_object_creators.PlanoConvexLensCreator;
 import gui.optics_object_creators.PrismCreator;
 import gui.optics_object_creators.RectangleLensCreator;
 
@@ -21,6 +22,8 @@ public class LensTab extends OpticsTab {
 		super.addTab("Convex", lensVex);
 		OpticsObjectCreator optVex = new OptimalConvexLensCreator();
 		super.addTab("Optimal Convex", optVex);
+		OpticsObjectCreator planVex = new PlanoConvexLensCreator();
+		super.addTab("Plano-Convex", planVex);
 		OpticsObjectCreator lensAve = new ConcaveLensCreator();
 		super.addTab("Concave", lensAve);
 		OpticsObjectCreator rect = new RectangleLensCreator();

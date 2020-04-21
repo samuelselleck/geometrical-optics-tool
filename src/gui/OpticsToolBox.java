@@ -1,14 +1,18 @@
 package gui;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class OpticsToolBox extends ToolBar {
 
+	private Label xyCoords = new Label();
+	
 	public OpticsToolBox(OpticsEnvironment opticsEnvironment) {
 		HBox.setHgrow(this, Priority.ALWAYS);
 		VBox.setVgrow(this, Priority.ALWAYS);
@@ -42,6 +46,14 @@ public class OpticsToolBox extends ToolBar {
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
 		
+		Pane spacing = new Pane();
+		HBox.setHgrow(spacing, Priority.ALWAYS);
+		this.getItems().addAll(xyCoords, spacing);
 		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);
+		
+	}
+	
+	public Label getXYLabel() {
+		return xyCoords;
 	}
 }

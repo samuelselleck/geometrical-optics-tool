@@ -9,7 +9,7 @@ public class RoundedMirrorCreator extends OpticsObjectCreator {
 	
 	public RoundedMirrorCreator() {
 		addSlider("Diameter", 2, Main.getIntProperty("maxobjectsizecm"), 4);
-		addSlider("Depth", 0.5, Main.getIntProperty("maxobjectsizecm"), 1);
+		addSlider("Radius", 1, 20, 5);
 	}
 
 	@Override

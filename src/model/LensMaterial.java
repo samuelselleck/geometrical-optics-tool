@@ -1,6 +1,5 @@
 package model;
 
-import gui.Main;
 import javafx.scene.paint.Color;
 
 public class LensMaterial {
@@ -32,18 +31,15 @@ public class LensMaterial {
 		return name;
 	}
 	
-	private double refraction(double wavelength) {
-		double w = wavelength;
-		return Math.sqrt(1 + 
+	public double refractionSellmeier(double wavelength) {
+		//nano to micro
+		double w = wavelength*1e-3;
+		double n = Math.sqrt(1 + 
 				b1*w*w/(w*w - c1) +
 				b2*w*w/(w*w - c2) +
-				b3*w*w/(w*w - c3));		
-	}
-	
-	public double refraction(double wavelength, double offsetMultiplier) {
-		double minRefrac = refraction(Main.getIntProperty("minwavelength"));
-		double refrac = minRefrac + offsetMultiplier*(refraction(wavelength) - minRefrac);
-		return refrac;
+				b3*w*w/(w*w - c3));	
+		return n;
+		
 	}
 	
 	public Color color(double alpha) {
