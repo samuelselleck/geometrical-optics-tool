@@ -17,4 +17,4 @@ opticsobjectresolution=300
 maxraybounce=10
 
 Admin:
-admin=true
+admin=false

@@ -1,16 +1,10 @@
 package gui;
 
-import java.util.Locale;
-
 import controls.ResizableCanvas;
-import javafx.beans.binding.DoubleExpression;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
