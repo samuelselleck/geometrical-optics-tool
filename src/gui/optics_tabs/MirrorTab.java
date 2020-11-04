@@ -13,7 +13,7 @@ public class MirrorTab extends OpticsTab {
 		OpticsObjectCreator flat = new FlatMirrorCreator();
 		super.addTab("Flat", flat);
 		OpticsObjectCreator rounded = new RoundedMirrorCreator();
-		super.addTab("Rounded", rounded);
+		super.addTab("Spherical", rounded);
 		OpticsObjectCreator parabolic = new ParabolicMirrorCreator();
 		super.addTab("Parabolic", parabolic);
 	}
