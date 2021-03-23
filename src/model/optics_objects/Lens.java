@@ -26,6 +26,9 @@ public abstract class Lens extends Material {
 		MATERIALS.add(new LensMaterial("Saphire",
 				new double[] {1, 0.2, 0.5},
 				1.43134930, 0.65054713, 5.3414021, 5.2799261e-3, 1.42382647e-2, 325.017834));
+		MATERIALS.add(new LensMaterial("Constant (n = 1.5)",
+				new double[] {1, 1, 1},
+				1.5*1.5 - 1, 0, 0, 0, 0, 0));
 	}
 	
 	public Lens(Map<String, DoubleProperty> properties) {
@@ -48,8 +51,7 @@ public abstract class Lens extends Material {
 	private double getAngle(double angleIn, double wavelength, boolean into) {
 		double angleOut;
 		
-		double currRefrac = MATERIALS.get((int)get("Material Index"))
-				.refractionSellmeier(wavelength);
+		double currRefrac = getRefraction(wavelength);
 		
 		double invrefrac = 1/currRefrac;
 		if (into) {
@@ -63,6 +65,11 @@ public abstract class Lens extends Material {
 			angleOut = Math.PI - angleIn;
 		}
 		return angleOut;
+	}
+	
+	protected double getRefraction(double wavelength) {
+		return MATERIALS.get((int)get("Material Index"))
+		.refractionSellmeier(wavelength);
 	}
 	
 	@Override

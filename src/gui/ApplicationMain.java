@@ -53,5 +53,6 @@ public class ApplicationMain extends Application {
 		stage.setTitle("Geometrical Optics Tool");
 		stage.setScene(scene);
 		stage.show();
+		com.install4j.api.launcher.SplashScreen.hide();
 	}
 }
