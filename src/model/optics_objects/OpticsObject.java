@@ -81,7 +81,7 @@ public abstract class OpticsObject implements Serializable {
 	
 	public void draw(GraphicsContext gc, boolean selected) {
 		if(selected) {
-			gc.setStroke(Paint.valueOf("white"));	
+			gc.setStroke(Paint.valueOf("lightgray"));	
 			gc.setLineWidth(2);
 			Vector2d pos = getRotationOrigin();
 			double ror = ROT_ORIGIN_RADIUS;

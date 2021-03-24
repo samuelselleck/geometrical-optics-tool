@@ -34,6 +34,7 @@ public class OpticsEnvironment {
 	private boolean movingRotationPoint;
 	private Vector2d lastPos;
 	private double rotationFactor;
+	private boolean movableRotationPoint;
 
 	public OpticsEnvironment(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
 		
@@ -61,6 +62,7 @@ public class OpticsEnvironment {
 		this.dragged = false;
 		this.rotating = false;
 		this.movingRotationPoint = false;
+		this.movableRotationPoint = false;
 		redraw();	
 	}
 
@@ -84,7 +86,7 @@ public class OpticsEnvironment {
 				Vector2d pos = view.getTablePos(e.getX(), e.getY());
 				draging = model.getOpticsObjectAt(pos.x, pos.y);
 				if(selected != null) {
-					if(selected.withinRotationPoint(pos)) {
+					if(selected.withinRotationPoint(pos) && movableRotationPoint) {
 						movingRotationPoint = true;
 					}
 				}
@@ -269,5 +271,9 @@ public class OpticsEnvironment {
 
 	public OpticsCanvas getView() {
 		return view;
+	}
+
+	public void setMovableRotationPoint(boolean b) {
+		this.movableRotationPoint = b;
 	}
 }

@@ -112,9 +112,14 @@ public class OpticsMenuBar extends MenuBar {
 			setObjectsLocked(opticsEnvironment, false);
 		});
 		
+		CheckMenuItem lockedRotationCenter = new CheckMenuItem("Free Rotation Center");
+		lockedRotationCenter.setOnAction(e -> {
+			opticsEnvironment.setMovableRotationPoint(lockedRotationCenter.isSelected());
+		});
+		
 		file.getItems().addAll(open, save, saveImage, new SeparatorMenuItem(), exit);
 		window.getItems().addAll(resetView, grid);
-		options.getItems().addAll(addLensMaterial);
+		options.getItems().addAll(addLensMaterial, lockedRotationCenter);
 		if(Main.isActive("admin")) {
 			options.getItems().addAll(lockObjects, unlockObjects);
 		}
