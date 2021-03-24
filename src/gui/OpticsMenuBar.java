@@ -112,7 +112,7 @@ public class OpticsMenuBar extends MenuBar {
 			setObjectsLocked(opticsEnvironment, false);
 		});
 		
-		CheckMenuItem lockedRotationCenter = new CheckMenuItem("Free Rotation Center");
+		CheckMenuItem lockedRotationCenter = new CheckMenuItem("Editable Rotation Center");
 		lockedRotationCenter.setOnAction(e -> {
 			opticsEnvironment.setMovableRotationPoint(lockedRotationCenter.isSelected());
 		});

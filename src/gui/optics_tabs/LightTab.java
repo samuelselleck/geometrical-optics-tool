@@ -10,13 +10,16 @@ public class LightTab extends OpticsTab {
 	public LightTab() {
 		super();
 		this.setText("Lights");
-		OpticsObjectCreator pointLightSource = new PointLightSourceCreator();
-		super.addTab("Point", pointLightSource);
+		
+		OpticsObjectCreator beamLightSource = new BeamLightSourceCreator();
+		super.addTab("Beam", beamLightSource);
 		
 		OpticsObjectCreator coneLightSource = new ConeLightSourceCreator();
 		super.addTab("Cone", coneLightSource);
+		
+		OpticsObjectCreator pointLightSource = new PointLightSourceCreator();
+		super.addTab("Point", pointLightSource);
 		 
-		OpticsObjectCreator beamLightSource = new BeamLightSourceCreator();
-		super.addTab("Beam", beamLightSource);
+		
 	}
 }
