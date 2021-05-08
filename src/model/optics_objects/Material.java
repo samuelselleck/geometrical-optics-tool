@@ -117,7 +117,7 @@ public abstract class Material extends OpticsObject {
 			if (res.x >= 0 && res.x <= 1) {
 				if (res.y > 1e-9 && res.y < data.distance) {
 					data.distance = res.y;
-					data.surface = lineVecTemp;
+					data.surfaceId = i;
 				}
 			}
 		}
@@ -130,7 +130,7 @@ public abstract class Material extends OpticsObject {
 		return data;
 	}
 	
-	public abstract List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength);
+	public abstract List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength);
 
-	public void onHit(Vector2d position, Vector2d surface) { };
+	public void onHit(Vector2d position, int surfaceId) { };
 }

@@ -15,6 +15,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.TextAlignment;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public class DetectorWall extends Material {
@@ -29,7 +30,7 @@ public class DetectorWall extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
 		return new ArrayList<>();
 	}
 	
@@ -40,8 +41,9 @@ public class DetectorWall extends Material {
 	}
 	
 	@Override
-	public void onHit(Vector2d position, Vector2d surface) {
-		if(surface.equals(super.getSegment(0))) {
+	public void onHit(Vector2d position, int surfaceId) {
+		if(surfaceId == 0) {
+			Vector2d surface = this.getSegment(0);
 			Vector2d offset = surface.copy().normalize()
 					.rotateDegrees(-90)
 					.mult(get("Width")*Main.DPCM/2);

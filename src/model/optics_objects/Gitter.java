@@ -7,6 +7,7 @@ import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public abstract class Gitter extends Material {
@@ -18,12 +19,12 @@ public abstract class Gitter extends Material {
 	}
 
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
-		
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+		Vector2d surface = this.getSegment(data.surfaceId);
 		double d = get("Grating Constant");
-		double sign = ray.crossSign(surface);
+		double sign = data.ray.crossSign(surface);
 		Vector2d normalOut = surface.copy().normalize().rotate(-sign*Math.PI/2);
-		double angleIn = ray.angleTo(normalOut);
+		double angleIn = data.ray.angleTo(normalOut);
 		List<Vector2d> scattered = new ArrayList<>();
 		for(int n = -100; n < 100; n++) {
 			double term = Math.sin(angleIn) - n*wavelength/d;

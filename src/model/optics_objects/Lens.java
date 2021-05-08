@@ -12,6 +12,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import model.LensMaterial;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public abstract class Lens extends Material {
@@ -36,12 +37,13 @@ public abstract class Lens extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+		Vector2d surface = this.getSegment(data.surfaceId);
 		List<Vector2d> scattered = new ArrayList<>();
-		double cross = surface.crossSign(ray);
+		double cross = surface.crossSign(data.ray);
 		//convert the line to a normal:
-		Vector2d normal = surface.copy().rotate(cross*Math.PI / 2).normalize();
-		double angleIn = ray.angleTo(normal);
+		Vector2d normal = surface.rotate(cross*Math.PI / 2).normalize();
+		double angleIn = data.ray.angleTo(normal);
 		double angleOut = getAngle(angleIn, wavelength, cross > 0);
 		normal.rotate(angleOut);
 		scattered.add(normal);

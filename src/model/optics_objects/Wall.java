@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public abstract class Wall extends Material {
@@ -20,7 +21,7 @@ public abstract class Wall extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
 		return new ArrayList<>();
 	}
 	

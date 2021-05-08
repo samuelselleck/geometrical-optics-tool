@@ -7,6 +7,7 @@ import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.RayIntersectionData;
 import util.Vector2d;
 
 public abstract class Mirror extends Material {
@@ -18,10 +19,10 @@ public abstract class Mirror extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(Vector2d ray, Vector2d surface, int wavelength) {
-		
-		double angle = ray.angleTo(surface);
-		Vector2d newRay = ray.copy().rotate(-2*angle);
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+		Vector2d surface = this.getSegment(data.surfaceId);
+		double angle = data.ray.angleTo(surface);
+		Vector2d newRay = data.ray.copy().rotate(-2*angle);
 		
 		List<Vector2d> scattered = new ArrayList<>();
 		scattered.add(newRay);
