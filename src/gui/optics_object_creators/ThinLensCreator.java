@@ -9,7 +9,7 @@ public class ThinLensCreator extends OpticsObjectCreator {
 
 	public ThinLensCreator() {
 		addSlider("Diameter", 2, Main.getIntProperty("maxobjectsizecm"), 4);
-		addSlider("Focal Length", 2, Main.getIntProperty("maxobjectsizecm"), 4);
+		addSlider("Focal Length", -Main.getIntProperty("maxobjectsizecm"), Main.getIntProperty("maxobjectsizecm"), 4);
 	}
 
 	@Override

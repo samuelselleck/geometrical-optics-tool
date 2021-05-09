@@ -28,24 +28,24 @@ public class ThinLens extends Material {
 		Vector2d normal = surface.rotate(cross*Math.PI / 2).normalize();
 		double angleIn = data.ray.angleTo(normal);
 		Vector2d orig = this.getOrigin();
-		double side = orig.crossSign(data.position);
-		double dist = orig.sub(data.position).length()*side;
-		double angleOut = getAngle(angleIn, dist, cross);
+		Vector2d distVec = orig.sub(data.position);
+		double dist = distVec.length()*distVec.crossSign(data.ray);
+		double angleOut = getAngle(angleIn, dist);
 		normal.rotate(angleOut);
 		scattered.add(normal);
 		return scattered;
 	}
 	
-	private double getAngle(double angleIn, double y, double cross) {
+	private double getAngle(double angleIn, double y) {
 		double f = this.get("Focal Length")*Main.DPCM;
-		double out = Math.atan(Math.tan(angleIn) - cross*y/f);
+		double out = Math.atan(Math.tan(angleIn) - y/f);
 		return out;
 	}
 	
 	@Override
 	protected void update() {
 		super.clear();
-		Vector2d unit = new Vector2d(1, 0).mult(get("Diameter")*Main.DPCM / 2);
+		Vector2d unit = new Vector2d(0, 1).mult(get("Diameter")*Main.DPCM / 2);
 		points.add(unit);
 		points.add(unit.copy().mult(-1));
 		super.init();
