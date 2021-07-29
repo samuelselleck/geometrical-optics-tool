@@ -3,6 +3,7 @@ package gui.optics_tabs;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.OpticsEnvironment;
 import gui.optics_object_creators.OpticsObjectCreator;
 import javafx.beans.InvalidationListener;
 import javafx.scene.control.Tab;
@@ -13,10 +14,10 @@ public class OpticsCreatorsBox extends TabPane {
 	
 	OpticsObject editing;
 	
-	public OpticsCreatorsBox() {
+	public OpticsCreatorsBox(OpticsEnvironment environment) {
 		
 		List<OpticsTab> tabs = new ArrayList<>();
-		tabs.add(new LensTab());
+		tabs.add(new LensTab(environment));
 		tabs.add(new LightTab());
 		tabs.add(new MirrorTab());
 		tabs.add(new WallTab());

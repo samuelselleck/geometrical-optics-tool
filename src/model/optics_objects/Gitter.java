@@ -7,6 +7,7 @@ import java.util.Map;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.ModelMetadata;
 import model.RayIntersectionData;
 import util.Vector2d;
 
@@ -19,7 +20,7 @@ public abstract class Gitter extends Material {
 	}
 
 	@Override
-	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, ModelMetadata metadata, int wavelength) {
 		Vector2d surface = this.getSegment(data.surfaceId);
 		double d = get("Grating Constant");
 		double sign = data.ray.crossSign(surface);
@@ -38,7 +39,7 @@ public abstract class Gitter extends Material {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
+	public void draw(GraphicsContext gc, ModelMetadata metadata, boolean selected) {
 		
 		gc.setStroke(new Color(0.5, 0.5, 0.7, 1));
 		gc.setLineWidth(selected ?  4 : 3);
@@ -49,7 +50,7 @@ public abstract class Gitter extends Material {
 		}
 		gc.stroke();
 		
-		super.draw(gc, selected);
+		super.draw(gc, metadata, selected);
 	}
 
 }

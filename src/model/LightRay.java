@@ -25,11 +25,11 @@ public class LightRay implements Serializable {
 		this(origin, Vector2d.zero(), ray);
 	}
 	
-	public LightPathNode calculatePath(List<Material> materials, int wavelength) {
+	public LightPathNode calculatePath(List<Material> materials, ModelMetadata metadata, int wavelength) {
 		LightPathNode node = new LightPathNode(getPos());
 		List<Vector2d> dirs = new ArrayList<>();
 		dirs.add(ray);
-		node.develop(dirs, materials, wavelength);
+		node.develop(dirs, materials, metadata, wavelength);
 		return node;
 	}
 

@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import gui.optics_object_creators.OpticsObjectCreator;
 import gui.optics_tabs.OpticsCreatorsBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -14,6 +16,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import model.LensMaterial;
 import model.OpticsModel;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
@@ -24,6 +27,7 @@ public class OpticsEnvironment {
 	private OpticsModel model;
 	private OpticsCanvas view;
 	private OpticsCreatorsBox opticsBox;
+	public ObservableList<LensMaterial> modelLensMaterials;
 	
 	private OpticsObjectCreator opticsObjectCreator;
 	private OpticsObject draging;
@@ -36,24 +40,13 @@ public class OpticsEnvironment {
 	private double rotationFactor;
 	private boolean movableRotationPoint;
 
-	public OpticsEnvironment(OpticsModel model, OpticsCanvas view, OpticsCreatorsBox opticsBox) {
+	public OpticsEnvironment(OpticsModel model, OpticsCanvas view) {
 		
 		this.model = model;
+		this.modelLensMaterials = FXCollections.observableArrayList(model.getMetadata().getLensMaterials());
 		this.view = view;
-		this.opticsBox = opticsBox;
 		
 		connect(model, view);
-		
-		EventHandler<Event> creation = e -> {
-			opticsObjectCreator = opticsBox.getCurrentOpticsObjectCreator();
-		};
-		
-		opticsBox.onUpdated(e -> {
-			view.redraw();
-		});
-		
-		view.getCanvas().setOnTouchPressed(creation);
-		view.getCanvas().setOnMousePressed(creation);
 		
 		rotationFactor = 1;
 		draging = null;
@@ -64,6 +57,20 @@ public class OpticsEnvironment {
 		this.movingRotationPoint = false;
 		this.movableRotationPoint = false;
 		redraw();	
+	}
+	
+	public void connectOpticsBox(OpticsCreatorsBox opticsBox) {
+		this.opticsBox = opticsBox;
+		EventHandler<Event> creation = e -> {
+			opticsObjectCreator = opticsBox.getCurrentOpticsObjectCreator();
+		};
+		
+		opticsBox.onUpdated(e -> {
+			view.redraw();
+		});
+		
+		view.getCanvas().setOnTouchPressed(creation);
+		view.getCanvas().setOnMousePressed(creation);
 	}
 
 	private void connect(OpticsModel model, OpticsCanvas view) {
@@ -275,5 +282,9 @@ public class OpticsEnvironment {
 
 	public void setMovableRotationPoint(boolean b) {
 		this.movableRotationPoint = b;
+	}
+
+	public ObservableList<LensMaterial> getLensMaterials() {
+		return modelLensMaterials;
 	}
 }

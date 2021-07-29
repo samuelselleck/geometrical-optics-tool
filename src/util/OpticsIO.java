@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import gui.OpticsEnvironment;
+import javafx.collections.FXCollections;
 import model.OpticsModel;
 
 public class OpticsIO {
@@ -37,7 +38,11 @@ public class OpticsIO {
 		try {
 			FileInputStream fileIn =  new FileInputStream(file);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			opticsEnvironment.setOpticsModel((OpticsModel)in.readObject());
+			OpticsModel model = (OpticsModel)in.readObject();
+			opticsEnvironment.setOpticsModel(model);
+			int len = opticsEnvironment.modelLensMaterials.size();
+			opticsEnvironment.modelLensMaterials.addAll(model.getMetadata().getLensMaterials());
+			opticsEnvironment.modelLensMaterials.remove(0, len);
 			in.close();
 			fileIn.close();
 			

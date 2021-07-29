@@ -13,9 +13,12 @@ public class OpticsModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	//Optics Objects
 	private List<Material> materials;
 	private List<LightSource> lights;
-
+	
+	private ModelMetadata metadata;
+	
 	public OpticsModel() {
 		init();
 	}
@@ -23,6 +26,7 @@ public class OpticsModel implements Serializable {
 	public void init() {
 		materials = new ArrayList<>();
 		lights = new ArrayList<>();
+		metadata = new ModelMetadata();
 	}
 	
 	public OpticsObject getOpticsObjectAt(double x, double y) {
@@ -86,5 +90,9 @@ public class OpticsModel implements Serializable {
 
 	public void clearMaterials() {
 		materials.removeIf(m -> !m.isProp());
+	}
+
+	public ModelMetadata getMetadata() {
+		return metadata;
 	}
 }

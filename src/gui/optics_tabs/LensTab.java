@@ -1,5 +1,6 @@
 package gui.optics_tabs;
 
+import gui.OpticsEnvironment;
 import gui.optics_object_creators.ConcaveLensCreator;
 import gui.optics_object_creators.ConvexLensCreator;
 import gui.optics_object_creators.CrystallBallCreator;
@@ -12,24 +13,24 @@ import gui.optics_object_creators.ThinLensCreator;
 
 public class LensTab extends OpticsTab {
 
-	public LensTab() {
+	public LensTab(OpticsEnvironment environment) {
 		this.setText("Lenses");
 		
-		OpticsObjectCreator ball = new CrystallBallCreator();
+		OpticsObjectCreator ball = new CrystallBallCreator(environment);
 		super.addTab("Ball", ball);
-		OpticsObjectCreator prism = new PrismCreator();
+		OpticsObjectCreator prism = new PrismCreator(environment);
 		super.addTab("Prism", prism);
-		OpticsObjectCreator lensVex = new ConvexLensCreator();
+		OpticsObjectCreator lensVex = new ConvexLensCreator(environment);
 		super.addTab("Convex", lensVex);
-		OpticsObjectCreator optVex = new OptimalConvexLensCreator();
+		OpticsObjectCreator optVex = new OptimalConvexLensCreator(environment);
 		super.addTab("Optimal Convex", optVex);
-		OpticsObjectCreator planVex = new PlanoConvexLensCreator();
+		OpticsObjectCreator planVex = new PlanoConvexLensCreator(environment);
 		super.addTab("Plano-Convex", planVex);
-		OpticsObjectCreator lensAve = new ConcaveLensCreator();
+		OpticsObjectCreator lensAve = new ConcaveLensCreator(environment);
 		super.addTab("Concave", lensAve);
 		OpticsObjectCreator thin = new ThinLensCreator();
 		super.addTab("Thin", thin);
-		OpticsObjectCreator rect = new RectangleLensCreator();
+		OpticsObjectCreator rect = new RectangleLensCreator(environment);
 		super.addTab("Rectangle", rect);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import gui.Main;
 import javafx.beans.property.DoubleProperty;
+import model.ModelMetadata;
 import model.RayIntersectionData;
 import util.Vector2d;
 
@@ -130,7 +131,7 @@ public abstract class Material extends OpticsObject {
 		return data;
 	}
 	
-	public abstract List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength);
+	public abstract List<Vector2d> getScatteredLight(RayIntersectionData data, ModelMetadata metadata, int wavelength);
 
 	public void onHit(Vector2d position, int surfaceId) { };
 }

@@ -8,6 +8,7 @@ import gui.Main;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import model.ModelMetadata;
 import model.RayIntersectionData;
 import util.Vector2d;
 
@@ -20,7 +21,7 @@ public class ThinLens extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, ModelMetadata metadata, int wavelength) {
 		Vector2d surface = this.getSegment(data.surfaceId);
 		List<Vector2d> scattered = new ArrayList<>();
 		double cross = surface.crossSign(data.ray);
@@ -52,7 +53,7 @@ public class ThinLens extends Material {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
+	public void draw(GraphicsContext gc, ModelMetadata metadata, boolean selected) {
 		
 		gc.setStroke(new Color(0.7, 0.7, 0.7, 1));
 		if(selected) {
@@ -67,6 +68,6 @@ public class ThinLens extends Material {
 		}
 		gc.stroke();
 		
-		super.draw(gc, selected);
+		super.draw(gc, metadata, selected);
 	}
 }

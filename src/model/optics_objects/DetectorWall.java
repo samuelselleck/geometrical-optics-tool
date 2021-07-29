@@ -15,6 +15,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Paint;
 import javafx.scene.paint.Stop;
 import javafx.scene.text.TextAlignment;
+import model.ModelMetadata;
 import model.RayIntersectionData;
 import util.Vector2d;
 
@@ -30,7 +31,7 @@ public class DetectorWall extends Material {
 	}
 	
 	@Override
-	public List<Vector2d> getScatteredLight(RayIntersectionData data, int wavelength) {
+	public List<Vector2d> getScatteredLight(RayIntersectionData data, ModelMetadata metadata, int wavelength) {
 		return new ArrayList<>();
 	}
 	
@@ -75,7 +76,7 @@ public class DetectorWall extends Material {
 	}
 	
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
+	public void draw(GraphicsContext gc, ModelMetadata metadata, boolean selected) {
 		if(selected) {
 			Stop[] stops = new Stop[] { new Stop(0, new Color(0.1, 0.1, 0.1, 1)), new Stop(1, new Color(0.2, 0.2, 0.2, 1))};
 	        LinearGradient fillGradient = new LinearGradient(0, 0.5, 1, 0, true, CycleMethod.NO_CYCLE, stops);
@@ -124,6 +125,6 @@ public class DetectorWall extends Material {
 		
 		detectorPoints.clear();
 		
-		super.draw(gc, selected);
+		super.draw(gc, metadata, selected);
 	}
 }

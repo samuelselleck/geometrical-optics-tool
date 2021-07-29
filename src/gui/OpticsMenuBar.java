@@ -98,7 +98,7 @@ public class OpticsMenuBar extends MenuBar {
 		
 		MenuItem addLensMaterial = new MenuItem("Add Lens Material...");
 		addLensMaterial.setOnAction(e -> {
-			AddMaterialWindow addMWin = new AddMaterialWindow();
+			AddMaterialWindow addMWin = new AddMaterialWindow(opticsEnvironment);
 			addMWin.show();
 		});
 		

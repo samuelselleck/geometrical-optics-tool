@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.LightPathNode;
 import model.LightRay;
+import model.ModelMetadata;
 import util.Utils;
 import util.Vector2d;
 
@@ -24,7 +25,7 @@ public abstract class LightSource extends OpticsObject {
 		super(properties);
 	}
 
-	public void calculateRayPaths(List<Material> materials) {
+	public void calculateRayPaths(List<Material> materials, ModelMetadata metadata) {
 		
 		if(paths == null) {
 			paths = new TreeMap<>();
@@ -57,7 +58,7 @@ public abstract class LightSource extends OpticsObject {
 		wavelengths.stream().forEach(w -> {	
 			List<LightPathNode> pathsAtWavelength = new ArrayList<>();
 			light.stream().forEach(l -> {
-				LightPathNode path = l.calculatePath(materials, w);
+				LightPathNode path = l.calculatePath(materials, metadata, w);
 				pathsAtWavelength.add(path);
 			});
 			paths.put(w, pathsAtWavelength);
@@ -65,7 +66,7 @@ public abstract class LightSource extends OpticsObject {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc, boolean selected) {
+	public void draw(GraphicsContext gc, ModelMetadata metadata, boolean selected) {
 		
 		for(Map.Entry<Integer, List<LightPathNode>> entry : paths.entrySet()) {
 			
@@ -85,7 +86,7 @@ public abstract class LightSource extends OpticsObject {
 			gc.fillOval(getOrigin().x - Main.DPCM, getOrigin().y - Main.DPCM, 2*Main.DPCM, 2*Main.DPCM);
 		}
 		
-		super.draw(gc, selected);
+		super.draw(gc, metadata, selected);
 	}
 	
 	@Override

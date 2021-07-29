@@ -42,11 +42,9 @@ public class OptimalConvexLens extends Lens {
 		super.init();
 	}
 	
-	
 	public double xVal(double y) {
 		
-		double n = MATERIALS.get((int)get("Material Index"))
-				.refractionSellmeier(get("Wavelength Optimum"));
+		double n = 1.5;//MATERIALS.get((int)get("Material Index")).refractionSellmeier(get("Wavelength Optimum"));
 		
 		double focal = get("Focal Length")*Main.DPCM*2;
 		double L = (Math.hypot(get("Diameter")*Main.DPCM/2, focal));

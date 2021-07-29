@@ -1,13 +1,15 @@
 package gui.optics_object_creators;
 
 import gui.Main;
+import gui.OpticsEnvironment;
 import model.optics_objects.ConvexLens;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class ConvexLensCreator extends LensCreator {
 
-	public ConvexLensCreator() {
+	public ConvexLensCreator(OpticsEnvironment environment) {
+		super(environment);
 		double max = Main.getIntProperty("maxobjectsizecm");
 		
 		addSlider("Diameter", 2, max, 4);

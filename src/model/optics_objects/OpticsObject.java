@@ -12,6 +12,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
+import model.ModelMetadata;
 import util.Vector2d;
 
 public abstract class OpticsObject implements Serializable {
@@ -79,7 +80,7 @@ public abstract class OpticsObject implements Serializable {
 	protected abstract void clear();
 	protected abstract void update();
 	
-	public void draw(GraphicsContext gc, boolean selected) {
+	public void draw(GraphicsContext gc, ModelMetadata metadata, boolean selected) {
 		if(selected) {
 			gc.setStroke(Paint.valueOf("lightgray"));	
 			gc.setLineWidth(2);

@@ -17,11 +17,11 @@ public class LightPathNode {
 		this.origin = origin;
 	}
 	
-	public void develop(List<Vector2d> dirs, List<Material> materials, int wavelength) {
-		develop(dirs, materials, wavelength, 0);
+	public void develop(List<Vector2d> dirs, List<Material> materials, ModelMetadata metadata, int wavelength) {
+		develop(dirs, materials, metadata, wavelength, 0);
 	}
 	
-	private void develop(List<Vector2d> dirs, List<Material> materials, int wavelength, int iterr) {
+	private void develop(List<Vector2d> dirs, List<Material> materials, ModelMetadata metadata, int wavelength, int iterr) {
 		if(iterr > Main.getIntProperty("maxraybounce")) {
 			return;
 		}
@@ -52,8 +52,8 @@ public class LightPathNode {
 			LightPathNode newNode;
 			if(closestHitData.distance != Double.MAX_VALUE) {
 				newNode = new LightPathNode(closestHitData.position);
-				List<Vector2d> newDirs = closestHitData.getScatteredLight(wavelength);
-				newNode.develop(newDirs, materials, wavelength, iterr + 1);
+				List<Vector2d> newDirs = closestHitData.getScatteredLight(metadata, wavelength);
+				newNode.develop(newDirs, materials, metadata, wavelength, iterr + 1);
 			} else {
 				newNode = new LightPathNode(dir.copy().mult(10000).add(origin));
 			}

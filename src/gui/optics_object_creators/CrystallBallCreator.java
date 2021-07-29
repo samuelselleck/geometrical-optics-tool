@@ -1,13 +1,15 @@
 package gui.optics_object_creators;
 
 import gui.Main;
+import gui.OpticsEnvironment;
 import model.optics_objects.CrystalBall;
 import model.optics_objects.OpticsObject;
 import util.Vector2d;
 
 public class CrystallBallCreator extends LensCreator {
 	
-	public CrystallBallCreator() {
+	public CrystallBallCreator(OpticsEnvironment environment) {
+		super(environment);
 		addSlider("Radius", 1, Main.getIntProperty("maxobjectsizecm")/2, 2);
 	}
 

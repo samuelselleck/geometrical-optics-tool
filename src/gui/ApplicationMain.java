@@ -22,9 +22,9 @@ public class ApplicationMain extends Application {
 		OpticsModel model = new OpticsModel();
 
 		OpticsCanvas canvasView = new OpticsCanvas();
-		OpticsCreatorsBox opticsBox = new OpticsCreatorsBox();
-
-		OpticsEnvironment opticsEnvironment = new OpticsEnvironment(model, canvasView, opticsBox);
+		OpticsEnvironment opticsEnvironment = new OpticsEnvironment(model, canvasView);
+		OpticsCreatorsBox opticsBox = new OpticsCreatorsBox(opticsEnvironment);
+		opticsEnvironment.connectOpticsBox(opticsBox);
 
 		OpticsToolBox toolBox = new OpticsToolBox(opticsEnvironment);
 		canvasView.bindXYLabel(toolBox.getXYLabel());

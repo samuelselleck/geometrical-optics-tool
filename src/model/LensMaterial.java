@@ -1,9 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 import javafx.scene.paint.Color;
 
-public class LensMaterial {
-	
+public class LensMaterial implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private String name;
 	
 	private double b1, b2, b3, c1, c2, c3;

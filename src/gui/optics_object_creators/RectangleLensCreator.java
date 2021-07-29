@@ -1,13 +1,15 @@
 package gui.optics_object_creators;
 
 import gui.Main;
+import gui.OpticsEnvironment;
 import model.optics_objects.OpticsObject;
 import model.optics_objects.RectangleLens;
 import util.Vector2d;
 
 public class RectangleLensCreator extends LensCreator {
 
-	public RectangleLensCreator() {
+	public RectangleLensCreator(OpticsEnvironment environment) {
+		super(environment);
 		addSlider("Width", 0.2, Main.getIntProperty("maxobjectsizecm"), 1);
 		addSlider("Height", 0.2, Main.getIntProperty("maxobjectsizecm"), 4);
 	}

@@ -2,6 +2,7 @@ package gui.subviews;
 
 import java.util.stream.Stream;
 
+import gui.OpticsEnvironment;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,11 +15,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.LensMaterial;
-import model.optics_objects.Lens;
+
 
 public class AddMaterialWindow extends Stage{
 	
-	public AddMaterialWindow() {
+	public AddMaterialWindow(OpticsEnvironment environment) {
 		BorderPane root = new BorderPane();
 		
 		root.setStyle(
@@ -75,8 +76,8 @@ public class AddMaterialWindow extends Stage{
 						Double.parseDouble(t.getText().replace(',', '.')))
 						.toArray());
 				
-				
-				Lens.MATERIALS.add(newLensMaterial);
+				environment.getOpticsModel().getMetadata().addLensMaterial(newLensMaterial);
+				environment.modelLensMaterials.add(newLensMaterial);
 			}
 			this.close();
 		});

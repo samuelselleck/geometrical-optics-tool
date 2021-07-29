@@ -12,9 +12,9 @@ public class RayIntersectionData {
 	public int surfaceId;
 	public Vector2d position;
 	
-	public List<Vector2d> getScatteredLight(int wavelength) {
+	public List<Vector2d> getScatteredLight(ModelMetadata metadata, int wavelength) {
 		material.onHit(position, surfaceId);
-		List<Vector2d> scatterDirections = material.getScatteredLight(this, wavelength);
+		List<Vector2d> scatterDirections = material.getScatteredLight(this, metadata, wavelength);
 		return scatterDirections;
 	}
 }
