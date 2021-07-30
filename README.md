@@ -1,12 +1,12 @@
 # Open Optics Module
 
-Optics software created at Lund University, for questions contact sellecksamuel@gmail.com
+Open source optics software created for Lund University, for questions contact sellecksamuel@gmail.com
 
 ![](open_optics_module_screenshot.png)
 
 ### Download
 
-The latest build of Open Optics Module can be found at https://openopticsmodule.com/download.html.
+The latest build of Open Optics Module can be found at https://openopticsmodule.com/download.
 ### About
 
 Open Optics Module was developed from a need for simpler and more intuitive software for explaining simple geometrical optics in the course Waves and Optics at Lund University. The project has since developed into a number of branches, all of wich can be found at https://openopticsmodule.com.
