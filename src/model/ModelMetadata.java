@@ -9,7 +9,7 @@ public class ModelMetadata implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private List<LensMaterial> refractionMaterials;
-	private int ambientMaterialID;
+	private int ambientMaterialID = 3;
 	
 	public ModelMetadata() {
 		refractionMaterials = new ArrayList<>();
@@ -43,6 +43,14 @@ public class ModelMetadata implements Serializable {
 
 	public List<LensMaterial> getLensMaterials() {
 		return refractionMaterials;
+	}
+
+	public void setAmbient(int id) {
+		ambientMaterialID = id;
+	}
+
+	public double getAmbient(double wavelength) {
+		return getLensMaterial(ambientMaterialID).refractionSellmeier(wavelength);
 	}
 
 }

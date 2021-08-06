@@ -1,6 +1,7 @@
 package gui.optics_tabs;
 
 import gui.OpticsEnvironment;
+import gui.optics_object_creators.AngledPrismCreator;
 import gui.optics_object_creators.ConcaveLensCreator;
 import gui.optics_object_creators.ConvexLensCreator;
 import gui.optics_object_creators.CrystallBallCreator;
@@ -32,5 +33,7 @@ public class LensTab extends OpticsTab {
 		super.addTab("Thin", thin);
 		OpticsObjectCreator rect = new RectangleLensCreator(environment);
 		super.addTab("Rectangle", rect);
+		OpticsObjectCreator aprism = new AngledPrismCreator(environment);
+		super.addTab("Angled Prism", aprism);
 	}
 }

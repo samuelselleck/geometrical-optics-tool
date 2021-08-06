@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
@@ -40,13 +38,14 @@ public abstract class Lens extends Material {
 	private double getAngle(double angleIn, ModelMetadata metadata, double wavelength, boolean into) {
 		double angleOut;
 		
-		double currRefrac = getRefraction(metadata, wavelength);
+		double currRefrac = getRefraction(metadata, wavelength)/metadata.getAmbient(wavelength);
 		
 		double invrefrac = 1/currRefrac;
-		if (into) {
+		
+		if (into && Math.abs(invrefrac * Math.sin(angleIn)) <= 1) {
 			// Från luft till lens:
 			angleOut = Math.asin(invrefrac * Math.sin(angleIn));
-		} else if (Math.abs(angleIn) <= Math.asin(invrefrac)) {
+		} else if (!into && Math.abs(currRefrac*Math.sin(angleIn)) <= 1) {
 			// Från lens till luft:
 			angleOut = Math.asin(currRefrac * Math.sin(angleIn));
 		} else {

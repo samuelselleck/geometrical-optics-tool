@@ -19,7 +19,8 @@ public class PlanoConvexLens extends Lens {
 		super.clear();
 		int quarterResolution = Main.getIntProperty("opticsobjectresolution")/4;
 		double d = get("Diameter")*Main.DPCM;
-		double r1 = get("Radius")*Main.DPCM;
+		double n = get("Refractive Optimum");
+		double r1 = (n - 1)*get("Focal Length")*Main.DPCM;
 		
 		double leftAngle = Math.acos(1 - d * d / (2 * r1 * r1)) / 2;
 		double leftStep = leftAngle / quarterResolution;

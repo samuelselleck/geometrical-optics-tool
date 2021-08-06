@@ -13,18 +13,13 @@ public class PlanoConvexLensCreator extends LensCreator {
 		double max = Main.getIntProperty("maxobjectsizecm");
 		
 		addSlider("Diameter", 2, max, 4);
-		addSlider("Radius", 1, 20, 10);
+		addSlider("Refractive Optimum", 1, 3, 2);
+		addSlider("Focal Length", 1, 10, 3);
 	}
 
 	@Override
 	public OpticsObject getOpticsObject(Vector2d origin) {
-		double d = get("Diameter");
-		double r = get("Radius");
-		if(r*2 >= d) {
-			return new PlanoConvexLens(getInitializationProperties(origin));
-		} else {
-			return null;
-		}
+		return new PlanoConvexLens(getInitializationProperties(origin));
 	}
 	
 	@Override

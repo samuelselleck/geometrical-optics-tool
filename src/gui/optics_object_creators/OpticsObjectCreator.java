@@ -165,7 +165,7 @@ public abstract class OpticsObjectCreator extends VBox {
 		
 		newSlider.setShowTickLabels(true);
 		newSlider.setShowTickMarks(true);
-		newSlider.setMajorTickUnit(Math.round(max - min)/4);
+		newSlider.setMajorTickUnit(Math.round(max - min)/4.0);
 
 		sliders.put(name, newSlider);
 		

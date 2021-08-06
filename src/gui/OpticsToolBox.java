@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
@@ -8,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import model.LensMaterial;
 
 public class OpticsToolBox extends ToolBar {
 
@@ -46,10 +48,18 @@ public class OpticsToolBox extends ToolBar {
 			rotationFactorButton.setText("Rotation factor: " + val );
 		});
 		
+		ComboBox<LensMaterial> ambientMaterialBox = new ComboBox<LensMaterial>(opticsEnvironment.getLensMaterials());
+		ambientMaterialBox.setOnAction(e -> {
+			opticsEnvironment.getOpticsModel().getMetadata().setAmbient(ambientMaterialBox.getSelectionModel().getSelectedIndex());
+			opticsEnvironment.getView().redraw();
+		});
+		
+		ambientMaterialBox.getSelectionModel().select(3);
+		
 		Pane spacing = new Pane();
 		HBox.setHgrow(spacing, Priority.ALWAYS);
 		this.getItems().addAll(xyCoords, spacing);
-		this.getItems().addAll(clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);
+		this.getItems().addAll(new Label("Ambient:"), ambientMaterialBox, clearButton, clearLightsButton, clearMaterialsButton, new Separator(), rotationFactorButton);
 		
 	}
 	

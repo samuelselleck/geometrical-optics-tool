@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import gui.OpticsEnvironment;
-import javafx.collections.FXCollections;
 import model.OpticsModel;
 
 public class OpticsIO {

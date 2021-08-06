@@ -13,10 +13,7 @@ public class OptimalConvexLensCreator extends LensCreator {
 		double max = Main.getIntProperty("maxobjectsizecm");
 		
 		addSlider("Diameter", 2, max, 4);
-		addSlider("Wavelength Optimum", 
-				Main.getIntProperty("minwavelength"),
-				Main.getIntProperty("maxwavelength"),
-				Main.getIntProperty("defaultwavelength"));
+		addSlider("Refractive Optimum", 1, 3, 2);
 		addSlider("Focal Length", 5, 15, 10);
 	}
 

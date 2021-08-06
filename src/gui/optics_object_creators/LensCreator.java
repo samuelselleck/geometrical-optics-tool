@@ -8,7 +8,6 @@ import gui.OpticsEnvironment;
 import javafx.geometry.Point2D;
 import javafx.scene.control.ComboBox;
 import model.LensMaterial;
-import model.optics_objects.Lens;
 
 public abstract class LensCreator extends OpticsObjectCreator {
 	
